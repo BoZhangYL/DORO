@@ -22,11 +22,12 @@ public class VP4 extends VP2 {
     }
     public void openAppliction(String AppName) throws InterruptedException {//打开应用
         switchToApplistPage();
+        scrollToBegin(STEP_NORMAL);
         while(!getObjectByIdText(LAUNCH3_APP, AppName).exists()){
             scrollByVerticalForward(STEP_NORMAL);
         }
         try {
-            getObjectByIdText(LAUNCH3_APP, AppName).click();
+            getObjectByIdText(LAUNCH3_APP, AppName).clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -35,7 +36,7 @@ public class VP4 extends VP2 {
     //Home page, menu page, applist page
     public void switchToHomePage(){//回到主界面
         try {
-            pressKey("home/back");
+            pressKey("home/back/back");
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -74,9 +75,24 @@ public class VP4 extends VP2 {
             e.printStackTrace();
         }
     }
+    public static void scrollToBegin(int steps) {//滑动到开始位置
+        initDevice();
+        try {
+            UiScrollable scr = new UiScrollable(new UiSelector().scrollable(true));
+            scr.setAsVerticalList();
+            scr.scrollToBeginning(steps);
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
     public static UiObject getObjectByIdText(String ResourceID, String text) {
         //得到指定ResourceID、Text的对应object
         initDevice();
         return gDevice.findObject(new UiSelector().resourceId(ResourceID).text(text));
+    }
+    public static UiObject getObjectByPackage(String Package) {
+        //得到指定package的对应object
+        initDevice();
+        return gDevice.findObject(new UiSelector().packageName(Package));
     }
 }
