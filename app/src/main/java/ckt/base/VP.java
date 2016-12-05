@@ -150,5 +150,4 @@ public class VP {
         Spoon.save(instrument.getContext(), logAbsPath);
         Logger.getLogger("LOGGER").info("spoon save log file " + logAbsPath);
     }
-    // boolean Result = ImageLib.sameAs("/mnt/sdcard/other_word.jpg", "/mnt/sdcard/origin.jpg");
 }
