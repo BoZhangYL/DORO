@@ -8,10 +8,10 @@ import android.support.test.uiautomator.UiSelector;
  */
 
 public class VP4 extends VP2 {
-    public static final int STEP_NORMAL= 10;
+    public static final int STEP_NORMAL= 10;//步长
     public static final String HOME_SHADOW_BUTTON=
-            "com.doro.apps.launcher3:id/content_shadow_bottom";
-    public static final String LAUNCH3_APP= "com.doro.apps.launcher3:id/icon";
+            "com.doro.apps.launcher3:id/content_shadow_bottom";//Home界面向下箭头按钮
+    public static final String LAUNCH3_APP= "com.doro.apps.launcher3:id/icon";//应用列表
     public VP4(){
     }
     public void initDoro(){//wt
@@ -20,15 +20,20 @@ public class VP4 extends VP2 {
     public void unlock(){//wt
 
     }
-    public void openAppliction(String AppName) throws InterruptedException {//zb
+    public void openAppliction(String AppName) throws InterruptedException {//打开应用
         switchToApplistPage();
         while(!getObjectByIdText(LAUNCH3_APP, AppName).exists()){
             scrollByVerticalForward(STEP_NORMAL);
         }
+        try {
+            getObjectByIdText(LAUNCH3_APP, AppName).click();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     //Home page, menu page, applist page
-    public void switchToHomePage(){//zb
+    public void switchToHomePage(){//回到主界面
         try {
             pressKey("home/back");
         } catch (UiObjectNotFoundException e) {
@@ -38,18 +43,18 @@ public class VP4 extends VP2 {
             scrollByVerticalBackward(STEP_NORMAL);
         }
     }
-    public void switchToMenuPage(){//zb
+    public void switchToMenuPage(){//回到快捷应用图标界面
         switchToHomePage();
         scrollByVerticalForward(STEP_NORMAL);
     }
-    public void switchToApplistPage(){//zb
+    public void switchToApplistPage(){//进入应用列表
         switchToMenuPage();
         scrollByVerticalForward(STEP_NORMAL);
     }
     public void iWantTo(){//dlj
 
     }
-    public static void scrollByVerticalBackward(int steps) {
+    public static void scrollByVerticalBackward(int steps) {//垂直向下滑动
         initDevice();
         try {
             UiScrollable scr = new UiScrollable(new UiSelector().scrollable(true));
@@ -59,7 +64,7 @@ public class VP4 extends VP2 {
             e.printStackTrace();
         }
     }
-    public static void scrollByVerticalForward(int steps) {
+    public static void scrollByVerticalForward(int steps) {//垂直向上滑动
         initDevice();
         try {
             UiScrollable scr = new UiScrollable(new UiSelector().scrollable(true));
@@ -70,6 +75,7 @@ public class VP4 extends VP2 {
         }
     }
     public static UiObject getObjectByIdText(String ResourceID, String text) {
+        //得到指定ResourceID、Text的对应object
         initDevice();
         return gDevice.findObject(new UiSelector().resourceId(ResourceID).text(text));
     }
