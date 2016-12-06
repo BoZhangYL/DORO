@@ -14,12 +14,24 @@ public class VP4 extends VP2 {
     public static final String LAUNCH3_APP= "com.doro.apps.launcher3:id/icon";//应用列表
     public VP4(){
     }
-    public void initDoro(){//wt
+    private static UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+    public static UiDevice initDoro() {//初始化
+        if (mDevice != null) {
+            return mDevice;
+        } else {
+            mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+            return mDevice;
 
+        }
     }
-    public void unlock(){//wt
-
-    }
+    public void unLock() throws UiObjectNotFoundException,RemoteException {//解锁
+            mDevice.wakeUp();
+            UiObject UnlockBTN=getUiObjectByDes("Unlock");
+            Rect z = UnlockBTN.getBounds();
+            int centerX = z.centerX();
+            int centerY = z.centerY();
+            mDevice.swipe(centerX, centerY, centerX, 0, 10);
+        }
     public void openAppliction(String AppName) throws InterruptedException {//打开应用
         switchToApplistPage();
         scrollToBegin(STEP_NORMAL);
