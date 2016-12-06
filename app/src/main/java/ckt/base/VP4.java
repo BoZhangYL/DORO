@@ -93,12 +93,22 @@ public class VP4 extends VP2 {
             e.printStackTrace();
         }
     }
-    public static void scrollToBegin(int steps) {//滑动到开始位置
+    public static void scrollToBegin(int steps) {//滑动到当前页面开始位置
         initDevice();
         try {
             UiScrollable scr = new UiScrollable(new UiSelector().scrollable(true));
             scr.setAsVerticalList();
             scr.scrollToBeginning(steps);
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void scrollToEnd(int steps) {//滑动到当前页面结束位置
+        initDevice();
+        try {
+            UiScrollable scr = new UiScrollable(new UiSelector().scrollable(true));
+            scr.setAsVerticalList();
+            scr.scrollToEnd(50,steps);
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
