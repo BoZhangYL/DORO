@@ -5,5 +5,5 @@ package doro.testcase;
  */
 
 public class AlarmCase {
-    .........
+    .......
 }
