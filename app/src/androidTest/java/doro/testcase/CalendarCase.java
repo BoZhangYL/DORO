@@ -1,8 +1,38 @@
 package doro.testcase;
 
-/**
- * Created by admin on 2016/12/2.
- */
+import android.support.test.runner.AndroidJUnit4;
+import com.squareup.spoon.Spoon;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import ckt.base.VP4;
+import doro.action.CalendarAction;
 
-public class CalendarCase {
+/**
+ * Created by bo.zhang on 2016/12/02   .
+ */
+@RunWith(AndroidJUnit4.class)
+public class CalendarCase extends VP4 {
+
+    @Test
+    public void launchCalendar() {//打开Calendar应用
+
+        try {
+            openAppliction("Calen\u200Bdar");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void createEventBefore5(){//创建提前5分钟提醒事件
+        try {
+            openAppliction("Calen\u200Bdar");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        CalendarAction newCalendar =new CalendarAction();
+        newCalendar.setCalednarTitle("my new Calendar");
+        newCalendar.setCalednarLocation("Home");
+        newCalendar.addEvent();
+    }
 }
