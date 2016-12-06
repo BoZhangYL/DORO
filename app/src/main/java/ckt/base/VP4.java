@@ -31,10 +31,12 @@ public class VP4 extends VP2 {
     public void unLock() throws UiObjectNotFoundException,RemoteException {//解锁
             mDevice.wakeUp();
             UiObject UnlockBTN=getUiObjectByDes("Unlock");
-            Rect z = UnlockBTN.getBounds();
-            int centerX = z.centerX();
-            int centerY = z.centerY();
-            mDevice.swipe(centerX, centerY, centerX, 0, 10);
+            if (UnlockBTN!=null) {
+                Rect z = UnlockBTN.getBounds();
+                int centerX = z.centerX();
+                int centerY = z.centerY();
+                mDevice.swipe(centerX, centerY, centerX, 0, 10);
+            }
         }
     public void openAppliction(String AppName) throws InterruptedException {//打开应用
         switchToApplistPage();
