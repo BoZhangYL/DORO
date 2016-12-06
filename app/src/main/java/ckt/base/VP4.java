@@ -1,4 +1,8 @@
 package ckt.base;
+import android.graphics.Rect;
+import android.os.RemoteException;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiScrollable;
