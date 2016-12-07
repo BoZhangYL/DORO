@@ -31,10 +31,12 @@ public class VP4 extends VP2 {
     public void unLock() throws UiObjectNotFoundException,RemoteException {//解锁
             mDevice.wakeUp();
             UiObject UnlockBTN=getUiObjectByDes("Unlock");
-            Rect z = UnlockBTN.getBounds();
-            int centerX = z.centerX();
-            int centerY = z.centerY();
-            mDevice.swipe(centerX, centerY, centerX, 0, 10);
+            if (UnlockBTN!=null) {
+                Rect z = UnlockBTN.getBounds();
+                int centerX = z.centerX();
+                int centerY = z.centerY();
+                mDevice.swipe(centerX, centerY, centerX, 0, 10);
+            }
         }
     public void openAppliction(String AppName) throws InterruptedException {//打开应用
         switchToApplistPage();
@@ -91,12 +93,22 @@ public class VP4 extends VP2 {
             e.printStackTrace();
         }
     }
-    public static void scrollToBegin(int steps) {//滑动到开始位置
+    public static void scrollToBegin(int steps) {//滑动到当前页面开始位置
         initDevice();
         try {
             UiScrollable scr = new UiScrollable(new UiSelector().scrollable(true));
             scr.setAsVerticalList();
             scr.scrollToBeginning(steps);
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void scrollToEnd(int steps) {//滑动到当前页面结束位置
+        initDevice();
+        try {
+            UiScrollable scr = new UiScrollable(new UiSelector().scrollable(true));
+            scr.setAsVerticalList();
+            scr.scrollToEnd(50,steps);
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
