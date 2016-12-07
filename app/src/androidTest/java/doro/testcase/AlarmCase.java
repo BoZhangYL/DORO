@@ -14,6 +14,6 @@ public class AlarmCase {
     public void testA(){
         initDevice();
         gDevice.pressHome();
-        11112222
+        1111222233
     }
 }
