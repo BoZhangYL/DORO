@@ -7,4 +7,5 @@ import ckt.base.VP4;
  */
 
 public class AlarmAction extends VP4 {
+
 }
