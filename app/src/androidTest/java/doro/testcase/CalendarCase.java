@@ -15,21 +15,12 @@ public class CalendarCase extends VP4 {
 
     @Test
     public void launchCalendar() {//打开Calendar应用
-
-        try {
             openAppliction("Calen\u200Bdar");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     @Test
     public void createEventBefore5(){//创建提前5分钟提醒事件
-        try {
-            openAppliction("Calen\u200Bdar");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        openAppliction("Calen\u200Bdar");
         CalendarAction newCalendar =new CalendarAction();
         newCalendar.setCalednarTitle("my new Calendar");
         newCalendar.setCalednarLocation("Home");
