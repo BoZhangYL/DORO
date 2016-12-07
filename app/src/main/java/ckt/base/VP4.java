@@ -38,7 +38,7 @@ public class VP4 extends VP2 {
                 mDevice.swipe(centerX, centerY, centerX, 0, 10);
             }
         }
-    public void openAppliction(String AppName) throws InterruptedException {//打开应用
+    public void openAppliction(String AppName){//打开应用
         switchToApplistPage();
         scrollToBegin(STEP_NORMAL);
         while(!getObjectByIdText(LAUNCH3_APP, AppName).exists()){
