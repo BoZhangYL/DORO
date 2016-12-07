@@ -9,6 +9,6 @@ import org.junit.Test;
 public class AlarmCase {
     @Test
     public void testA(){
-        111
+
     }
 }
