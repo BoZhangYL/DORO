@@ -20,6 +20,9 @@ public class AlarmAction extends VP4 {
             e.printStackTrace();
         }
     }
+    /*
+    * 添加一个指定时间的闹钟,注意时间格式是String类型
+    * */
     public void addTimeAlarm(String hours,String mins){
         try{
             getObjectByTextContains("Add alarm").click();
