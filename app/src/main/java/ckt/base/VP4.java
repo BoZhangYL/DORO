@@ -12,7 +12,7 @@ import android.support.test.uiautomator.UiSelector;
  */
 
 public class VP4 extends VP2 {
-    public static final int STEP_NORMAL= 10;//步长
+    public static final int STEP_NORMAL= 20;//步长
     public static final String HOME_SHADOW_BUTTON=
             "com.doro.apps.launcher3:id/content_shadow_bottom";//Home界面向下箭头按钮
     public static final String LAUNCH3_APP= "com.doro.apps.launcher3:id/icon";//应用列表
