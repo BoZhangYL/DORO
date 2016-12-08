@@ -123,4 +123,20 @@ public class VP4 extends VP2 {
         initDevice();
         return gDevice.findObject(new UiSelector().packageName(Package));
     }
+    public static void scrollLeft(UiObject object, int steps) {//向左滑动
+        initDevice();
+        try {
+            object.swipeLeft(steps);
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void scrollRight(UiObject object, int steps) {//向右滑动
+        initDevice();
+        try {
+            object.swipeRight(steps);
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }
