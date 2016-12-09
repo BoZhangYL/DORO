@@ -2,8 +2,14 @@ package doro.action;
 
 import ckt.base.VP4;
 
+import static doro.page.AlarmPage.ALARM_CLICK_CONFIRM_TEXT;
+import static doro.page.AlarmPage.ALARM_CLICK_NEXT_TEXT;
+import static doro.page.AlarmPage.ALARM_CLICK_SAVE_TEXT;
+import static doro.page.AlarmPage.ALARM_FREQUENCY_FIELD_ID;
+import static doro.page.AlarmPage.ALARM_ID_TEXT_ID;
+
 /**
- * Created by user on 2016/12/07   .
+ * Created by Lingjiang.Du on 2016/12/07.
  */
 
 public class AlarmAction extends VP4 {
@@ -38,82 +44,60 @@ public class AlarmAction extends VP4 {
             e.printStackTrace();
         }
     }
-    /*
-    * 添加一个指定重复天数的闹钟，范围0~7.0代表不重复，1代表周一，2代表周一，二，....7代表每天。
-    * */
-    public void addRepeatAlarm(int i){
+    private void chooseWeek(String week){ //选择周几
         try{
-            getObjectByTextContains("Add alarm").click();
-            Thread.sleep(2000);
-            switch(i){
-                case 0:getObjectByTextContains("Next").click();
-                    break;
-                case 1:
-                    getObjectById("com.doro.apps.alarm:id/frequency_field").click();
-                    getObjectByTextContains("Monday").click();
-                    getObjectByTextContains("Confirm").click();
-                    getObjectByTextContains("Next").click();
-                    break;
-                case 2:
-                    getObjectById("com.doro.apps.alarm:id/frequency_field").click();
-                    getObjectByTextContains("Monday").click();
-                    getObjectByTextContains("Tuesday").click();
-                    getObjectByTextContains("Confirm").click();
-                    getObjectByTextContains("Next").click();
-                    break;
-                case 3:
-                    getObjectById("com.doro.apps.alarm:id/frequency_field").click();
-                    getObjectByTextContains("Monday").click();
-                    getObjectByTextContains("Tuesday").click();
-                    getObjectByTextContains("Wednesday").click();
-                    getObjectByTextContains("Confirm").click();
-                    getObjectByTextContains("Next").click();
-                    break;
-                case 4:
-                    getObjectById("com.doro.apps.alarm:id/frequency_field").click();
-                    getObjectByTextContains("Monday").click();
-                    getObjectByTextContains("Tuesday").click();
-                    getObjectByTextContains("Wednesday").click();
-                    getObjectByTextContains("Thursday").click();
-                    getObjectByTextContains("Confirm").click();
-                    getObjectByTextContains("Next").click();
-                    break;
-                case 5:
-                    getObjectById("com.doro.apps.alarm:id/frequency_field").click();
-                    getObjectByTextContains("Monday").click();
-                    getObjectByTextContains("Tuesday").click();
-                    getObjectByTextContains("Wednesday").click();
-                    getObjectByTextContains("Thursday").click();
-                    getObjectByTextContains("Friday").click();
-                    getObjectByTextContains("Confirm").click();
-                    getObjectByTextContains("Next").click();
-                    break;
-                case 6:
-                    getObjectById("com.doro.apps.alarm:id/frequency_field").click();
-                    getObjectByTextContains("Monday").click();
-                    getObjectByTextContains("Tuesday").click();
-                    getObjectByTextContains("Wednesday").click();
-                    getObjectByTextContains("Thursday").click();
-                    getObjectByTextContains("Friday").click();
-                    getObjectByTextContains("Saturday").click();
-                    getObjectByTextContains("Confirm").click();
-                    getObjectByTextContains("Next").click();
-                    break;
-                default:
-                    getObjectById("com.doro.apps.alarm:id/frequency_field").click();
-                    getObjectByTextContains("Monday").click();
-                    getObjectByTextContains("Tuesday").click();
-                    getObjectByTextContains("Wednesday").click();
-                    getObjectByTextContains("Thursday").click();
-                    getObjectByTextContains("Friday").click();
-                    getObjectByTextContains("Saturday").click();
+            getObjectByIdText(ALARM_ID_TEXT_ID,week).click();
+            Thread.sleep(500);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    /*
+   * 选择手机在周几响铃。
+   * */
+    public void repeatAlarmSetting(String once,String monday,String tuesday,String wednesday,
+                                String thursday, String friday,String saturday,String sunday){
+        try{
+            if(once!=null){
+                Thread.sleep(1000);
+            }else{
+                getObjectById(ALARM_FREQUENCY_FIELD_ID).clickAndWaitForNewWindow();
+                if(monday!=null){
+                    chooseWeek(monday);
+                }
+                if(tuesday!=null){
+                    chooseWeek(tuesday);
+                }
+                if(wednesday!=null){
+                    chooseWeek(wednesday);
+                }
+                if(thursday!=null){
+                    chooseWeek(thursday);
+                }
+                if(friday!=null){
+                    chooseWeek(friday);
+                }
+                if(saturday!=null){
+                    chooseWeek(saturday);
+                }
+                if(sunday!=null){
                     scrollToEnd(10);
-                    getObjectByTextContains("Sunday").click();
-                    getObjectByTextContains("Confirm").click();
-                    getObjectByTextContains("Next").click();
-                    break;
+                    chooseWeek(sunday);
+                }
             }
-            getObjectByTextContains("Save").click();
+            getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
+        }catch(Exception e){e.printStackTrace();}
+    }
+    /*
+    * 增加一个指定周几响闹的闹钟
+    * */
+    public void addRepeatAlarm(String once,String monday,String tuesday,String wednesday,
+                                String thursday, String friday,String saturday,String sunday){
+        try{
+            getObjectByTextContains("Add alarm").clickAndWaitForNewWindow();
+            repeatAlarmSetting(once,monday,tuesday,wednesday,thursday,friday,saturday,sunday);
+            getObjectByTextContains(ALARM_CLICK_NEXT_TEXT).clickAndWaitForNewWindow();
+            getObjectByTextContains(ALARM_CLICK_SAVE_TEXT).clickAndWaitForNewWindow();
             Thread.sleep(6000);
             gDevice.pressBack();
         }catch(Exception e){e.printStackTrace();}
