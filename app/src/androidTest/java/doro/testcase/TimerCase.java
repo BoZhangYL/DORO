@@ -21,13 +21,12 @@ import doro.action.TimerAction;
 @RunWith(AndroidJUnit4.class)
 public class TimerCase extends VP4{
     @Test
-    public void launchTimer() throws RemoteException,UiObjectNotFoundException{//打开Timer应用
+    public void launchTimer(){//打开Timer应用
         unLock();
         openAppliction("Timer");
     }
-
     @Test
-    public void setTimerto30s() throws RemoteException,UiObjectNotFoundException {//设置30s的Timer
+    public void setTimerto30s(){//设置30s的Timer
         openAppliction("Timer");
         TimerAction newTimer=new TimerAction();
         newTimer.SetTimerNumber(30);
