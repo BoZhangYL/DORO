@@ -6,5 +6,9 @@
     {
         "merged": "E:\\git\\DORO\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\ic_launcher.png",
         "source": "E:\\git\\DORO\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\auto\\DORO\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\ic_launcher.png",
+        "source": "D:\\auto\\DORO\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
     }
 ]
