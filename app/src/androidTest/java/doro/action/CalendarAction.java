@@ -29,13 +29,13 @@ public class CalendarAction extends VP4 {
     private void initCalendarDevice(){
         initDevice();
     }
-   public void CalendarAction(){
+   CalendarAction(){
 
     }
-    public boolean CalendarAction(String CalednarTitle, String CalednarLocation,String CalendarRecurrence,
-                   String CalendarReminder, String CalendarBefore, String CalendarStartDate,
-                   String CalendarEndDate, String CalendarStartTime, String CalendarEndTime,
-                   String CalendarAllDayEvent){
+    public CalendarAction(String CalednarTitle, String CalednarLocation,
+                          String CalendarStartDate, String CalendarEndDate, String CalendarAllDayEvent,
+                          String CalendarStartTime, String CalendarEndTime, String CalendarRecurrence,
+                          String CalendarReminder, String CalendarBefore){
         setCalednarTitle(CalednarTitle);
         setCalednarLocation(CalednarLocation);
         setCalendarRecurrence(CalendarRecurrence);
@@ -46,7 +46,6 @@ public class CalendarAction extends VP4 {
         setCalendarStartsTime(CalendarStartTime);
         setCalendarEndsTime(CalendarEndTime);
         setCalendarAllDayEvent(CalendarAllDayEvent);
-        return true;
     }
     private void ClickAddEventButton(){//点击Add event按钮
         scrollToEnd(STEP_NORMAL);
