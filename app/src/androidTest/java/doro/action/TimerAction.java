@@ -12,7 +12,7 @@ import ckt.base.VP4;
  */
 
 public class TimerAction extends VP4 {
-    public void SetTimerNumber(int TimerNumber) throws RemoteException{//输入数字
+    public void SetTimerNumber(int TimerNumber){//输入数字
         initDoro();
         String Number=TimerNumber+"";
         int i;
@@ -27,22 +27,25 @@ public class TimerAction extends VP4 {
           }
         }
     }
-    public void ClickTimerButton(String ButtonName) throws RemoteException,UiObjectNotFoundException {//按键Start/Stop/Pause/Reset/Set
-        initDoro();
-        if (ButtonName.equals("Reset")) {
-            UiObject TimerButton = mDevice.findObject(new UiSelector().resourceId("com.doro.apps.timer:id/left_button"));
-            TimerButton.click();
-        } else {
-            if (ButtonName.equals("Set")) {
-                UiObject TimerButton = mDevice.findObject(new UiSelector().resourceId("com.doro.apps.timer:id/right_button"));
+    public void ClickTimerButton(String ButtonName){//按键Start/Stop/Pause/Reset/Set
+        try {
+            initDoro();
+            if (ButtonName.equals("Reset")) {
+                UiObject TimerButton = mDevice.findObject(new UiSelector().resourceId("com.doro.apps.timer:id/left_button"));
                 TimerButton.click();
             } else {
-                UiObject TimerButton = mDevice.findObject(new UiSelector().resourceId("com.doro.apps.timer:id/fab").text(ButtonName));
-                TimerButton.click();
+                if (ButtonName.equals("Set")) {
+                    UiObject TimerButton = mDevice.findObject(new UiSelector().resourceId("com.doro.apps.timer:id/right_button"));
+                    TimerButton.click();
+                } else {
+                    UiObject TimerButton = mDevice.findObject(new UiSelector().resourceId("com.doro.apps.timer:id/fab").text(ButtonName));
+                    TimerButton.click();
+                }
             }
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
         }
     }
-
     public void DeleteNumber(){//按五次删除键
         int a;
         for(a=0;a<=4;a++){
