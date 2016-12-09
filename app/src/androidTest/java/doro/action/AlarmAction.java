@@ -55,12 +55,9 @@ public class AlarmAction extends VP4 {
     /*
    * 选择手机在周几响铃。
    * */
-    public void repeatAlarmSetting(String once,String monday,String tuesday,String wednesday,
+    public void repeatAlarmSetting(String monday,String tuesday,String wednesday,
                                 String thursday, String friday,String saturday,String sunday){
         try{
-            if(once!=null){
-                Thread.sleep(1000);
-            }else{
                 getObjectById(ALARM_FREQUENCY_FIELD_ID).clickAndWaitForNewWindow();
                 if(monday!=null){
                     chooseWeek(monday);
@@ -84,18 +81,17 @@ public class AlarmAction extends VP4 {
                     scrollToEnd(10);
                     chooseWeek(sunday);
                 }
-            }
             getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
         }catch(Exception e){e.printStackTrace();}
     }
     /*
     * 增加一个指定周几响闹的闹钟
     * */
-    public void addRepeatAlarm(String once,String monday,String tuesday,String wednesday,
+    public void addRepeatAlarm(String monday,String tuesday,String wednesday,
                                 String thursday, String friday,String saturday,String sunday){
         try{
             getObjectByTextContains("Add alarm").clickAndWaitForNewWindow();
-            repeatAlarmSetting(once,monday,tuesday,wednesday,thursday,friday,saturday,sunday);
+            repeatAlarmSetting(monday,tuesday,wednesday,thursday,friday,saturday,sunday);
             getObjectByTextContains(ALARM_CLICK_NEXT_TEXT).clickAndWaitForNewWindow();
             getObjectByTextContains(ALARM_CLICK_SAVE_TEXT).clickAndWaitForNewWindow();
             Thread.sleep(6000);
