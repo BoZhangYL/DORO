@@ -12,7 +12,7 @@ import android.support.test.uiautomator.UiSelector;
  */
 
 public class VP4 extends VP2 {
-    public static final int STEP_NORMAL= 10;//步长
+    public static final int STEP_NORMAL= 20;//步长
     public static final String HOME_SHADOW_BUTTON=
             "com.doro.apps.launcher3:id/content_shadow_bottom";//Home界面向下箭头按钮
     public static final String LAUNCH3_APP= "com.doro.apps.launcher3:id/icon";//应用列表
@@ -112,6 +112,22 @@ public class VP4 extends VP2 {
             UiScrollable scr = new UiScrollable(new UiSelector().scrollable(true));
             scr.setAsVerticalList();
             scr.scrollToEnd(50,steps);
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void scrollLeft(UiObject object, int steps) {//向左滑动
+        initDevice();
+        try {
+            object.swipeLeft(steps);
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void scrollRight(UiObject object, int steps) {//向右滑动
+        initDevice();
+        try {
+            object.swipeRight(steps);
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
