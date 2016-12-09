@@ -16,28 +16,31 @@ public class VP4 extends VP2 {
     public static final String HOME_SHADOW_BUTTON=
             "com.doro.apps.launcher3:id/content_shadow_bottom";//Home界面向下箭头按钮
     public static final String LAUNCH3_APP= "com.doro.apps.launcher3:id/icon";//应用列表
-    public VP4(){
-    }
-    private static UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-    public static UiDevice initDoro() {//初始化
-        if (mDevice != null) {
-            return mDevice;
-        } else {
-            mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-            return mDevice;
+    public VP4(){}
 
-        }
-    }
-    public void unLock() throws UiObjectNotFoundException,RemoteException {//解锁
-            mDevice.wakeUp();
-            UiObject UnlockBTN=getUiObjectByDes("Unlock");
-            if (UnlockBTN!=null) {
-                Rect z = UnlockBTN.getBounds();
-                int centerX = z.centerX();
-                int centerY = z.centerY();
-                mDevice.swipe(centerX, centerY, centerX, 0, 10);
+    public static UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        public static UiDevice initDoro() {//初始化
+            if (mDevice != null) {
+                return mDevice;
+            } else {
+                mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+                return mDevice;
+
             }
         }
+    public void unLock() {//解锁
+            try {
+                mDevice.wakeUp();
+                UiObject UnlockBTN = getUiObjectByDes("Unlock");
+                if (UnlockBTN != null) {
+                    Rect z = UnlockBTN.getBounds();
+                    int centerX = z.centerX();
+                    int centerY = z.centerY();
+                    mDevice.swipe(centerX, centerY, centerX, 0, 10);
+                }
+
+            } catch (Exception e){e.printStackTrace();}
+    }
     public void openAppliction(String AppName){//打开应用
         switchToApplistPage();
         scrollToBegin(STEP_NORMAL);
