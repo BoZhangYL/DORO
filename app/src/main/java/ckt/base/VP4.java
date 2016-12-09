@@ -12,32 +12,35 @@ import android.support.test.uiautomator.UiSelector;
  */
 
 public class VP4 extends VP2 {
-    public static final int STEP_NORMAL= 20;//步长
+    public static final int STEP_NORMAL= 10;//步长
     public static final String HOME_SHADOW_BUTTON=
             "com.doro.apps.launcher3:id/content_shadow_bottom";//Home界面向下箭头按钮
     public static final String LAUNCH3_APP= "com.doro.apps.launcher3:id/icon";//应用列表
-    public VP4(){
-    }
-    private static UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-    public static UiDevice initDoro() {//初始化
-        if (mDevice != null) {
-            return mDevice;
-        } else {
-            mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-            return mDevice;
+    public VP4(){}
 
-        }
-    }
-    public void unLock() throws UiObjectNotFoundException,RemoteException {//解锁
-            mDevice.wakeUp();
-            UiObject UnlockBTN=getUiObjectByDes("Unlock");
-            if (UnlockBTN!=null) {
-                Rect z = UnlockBTN.getBounds();
-                int centerX = z.centerX();
-                int centerY = z.centerY();
-                mDevice.swipe(centerX, centerY, centerX, 0, 10);
+    public static UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        public static UiDevice initDoro() {//初始化
+            if (mDevice != null) {
+                return mDevice;
+            } else {
+                mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+                return mDevice;
+
             }
         }
+    public void unLock() {//解锁
+            try {
+                mDevice.wakeUp();
+                UiObject UnlockBTN = getUiObjectByDes("Unlock");
+                if (UnlockBTN != null) {
+                    Rect z = UnlockBTN.getBounds();
+                    int centerX = z.centerX();
+                    int centerY = z.centerY();
+                    mDevice.swipe(centerX, centerY, centerX, 0, 10);
+                }
+
+            } catch (Exception e){e.printStackTrace();}
+    }
     public void openAppliction(String AppName){//打开应用
         switchToApplistPage();
         scrollToBegin(STEP_NORMAL);
@@ -123,19 +126,19 @@ public class VP4 extends VP2 {
         initDevice();
         return gDevice.findObject(new UiSelector().packageName(Package));
     }
-    public static void scrollLeft(UiObject object, int steps) {//向左滑动
-        initDevice();
-        try {
-            object.swipeLeft(steps);
-        } catch (UiObjectNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-    public static void scrollRight(UiObject object, int steps) {//向右滑动
-        initDevice();
-        try {
-            object.swipeRight(steps);
-        } catch (UiObjectNotFoundException e) {
+    public void specialTime(String hours,String mins){//得到指定的时间
+        //String sHours = String.valueOf(hours);
+        // String dMins = String.valueOf(mins);
+        try{
+            while(!getObjectByIdText("com.doro.apps.alarm:id/hour_edit",hours).exists()){
+                getObjectById("com.doro.apps.alarm:id/hour_increase").click();
+            }
+            if(getObjectByIdText("com.doro.apps.alarm:id/hour_edit",hours).exists()){
+                while(!getObjectByIdText("com.doro.apps.alarm:id/minute_edit",mins).exists()){
+                    getObjectById("com.doro.apps.alarm:id/minute_decrease").click();
+                }
+            }
+        }catch (Exception e){
             e.printStackTrace();
         }
     }
