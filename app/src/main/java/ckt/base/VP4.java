@@ -142,4 +142,12 @@ public class VP4 extends VP2 {
             e.printStackTrace();
         }
     }
+    public static UiObject getUiObjectByClassText(String TragetClass,String TragetObject) {
+        initDevice();
+        return gDevice.findObject(new UiSelector().className(TragetClass).text(TragetObject));
+    }
+    public static UiObject getUiObjectByClassID(String TragetClass,String ResourceID) {
+        initDevice();
+        return gDevice.findObject(new UiSelector().className(TragetClass).resourceId(ResourceID));
+    }
 }
