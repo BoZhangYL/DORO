@@ -1,7 +1,10 @@
 package doro.action;
 
+import android.support.test.uiautomator.UiSelector;
+
 import ckt.base.VP4;
 
+import static doro.page.AlarmPage.ALARM_ACTIVATE_VIBRATION;
 import static doro.page.AlarmPage.ALARM_CLICK_ADD_ALARM_TEXT;
 import static doro.page.AlarmPage.ALARM_CLICK_CONFIRM_TEXT;
 import static doro.page.AlarmPage.ALARM_CLICK_NEXT_TEXT;
@@ -11,6 +14,7 @@ import static doro.page.AlarmPage.ALARM_HOUR_DECREASE_ID;
 import static doro.page.AlarmPage.ALARM_HOUR_EDIT_ID;
 import static doro.page.AlarmPage.ALARM_HOUR_INCREASE_ID;
 import static doro.page.AlarmPage.ALARM_ID_TEXT_ID;
+import static doro.page.AlarmPage.ALARM_MELODY_FIELD_ID;
 import static doro.page.AlarmPage.ALARM_MINUTE_DECREASE_ID;
 import static doro.page.AlarmPage.ALARM_MINUTE_EDIT_ID;
 import static doro.page.AlarmPage.ALARM_MINUTE_INCREASE_ID;
@@ -28,54 +32,6 @@ public class AlarmAction extends VP4 {
                 getObjectByTextContains("Alarm").clickAndWaitForNewWindow();
             }
         }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-    public void specialTime(String time){//得到指定的时间
-        String[] hourMinTime = time.split(":");
-        try{
-            String hour =getObjectById(ALARM_HOUR_EDIT_ID).getText();
-            int h = Integer.valueOf(hour);
-            String min =getObjectById(ALARM_MINUTE_EDIT_ID).getText();
-            int m = Integer.valueOf(min);
-            int countH =h-Integer.valueOf(hourMinTime[0]);
-            int countM =m-Integer.valueOf(hourMinTime[1]);
-            if(countH<0){
-                for(int i=0;i<countH;i++){
-                    getObjectById(ALARM_HOUR_INCREASE_ID).click();
-                }
-            }else{
-                for(int j=0;j<countH;j++) {
-                    getObjectById(ALARM_HOUR_DECREASE_ID).click();
-                }
-            }
-            if(countM<0){
-                for(int i=0;i<countM;i++){
-                    getObjectById(ALARM_MINUTE_INCREASE_ID).click();
-                }
-            }else{
-                for(int j=0;j<countM;j++){
-                    getObjectById(ALARM_MINUTE_DECREASE_ID).click();
-                }
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-    /*
-    * 增加一个指定时间的闹钟
-    * */
-    public void addTimeAlarm(String time ){
-        try{
-            getObjectByTextContains(ALARM_CLICK_ADD_ALARM_TEXT).clickAndWaitForNewWindow();
-            getObjectById(ALARM_TIME_FIELD_ID).clickAndWaitForNewWindow();
-            specialTime(time);
-            getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
-            getObjectByTextContains(ALARM_CLICK_NEXT_TEXT).clickAndWaitForNewWindow();
-            getObjectByTextContains(ALARM_CLICK_SAVE_TEXT).clickAndWaitForNewWindow();
-            Thread.sleep(6000);
-            gDevice.pressBack();
-        }catch (Exception e){
             e.printStackTrace();
         }
     }
@@ -116,11 +72,87 @@ public class AlarmAction extends VP4 {
             getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
         }catch(Exception e){e.printStackTrace();}
     }
+    public void specialTime(String time){//得到指定的时间
+        String[] hourMinTime = time.split(":");
+        try{
+            String hour =getObjectById(ALARM_HOUR_EDIT_ID).getText();
+            int h = Integer.valueOf(hour);
+            String min =getObjectById(ALARM_MINUTE_EDIT_ID).getText();
+            int m = Integer.valueOf(min);
+            int countH =h-Integer.valueOf(hourMinTime[0]);
+            int countM =m-Integer.valueOf(hourMinTime[1]);
+            if(countH<0){
+                for(int i=0;i<countH;i++){
+                    getObjectById(ALARM_HOUR_INCREASE_ID).click();
+                }
+            }else{
+                for(int j=0;j<countH;j++) {
+                    getObjectById(ALARM_HOUR_DECREASE_ID).click();
+                }
+            }
+            if(countM<0){
+                for(int i=0;i<countM;i++){
+                    getObjectById(ALARM_MINUTE_INCREASE_ID).click();
+                }
+            }else{
+                for(int j=0;j<countM;j++){
+                    getObjectById(ALARM_MINUTE_DECREASE_ID).click();
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void setRingtone(String tone,boolean vibrate){ //更改闹钟铃声以及选择是否震动
+        try{
+            getObjectById(ALARM_MELODY_FIELD_ID).clickAndWaitForNewWindow();
+            scrollToBegin(15);
+            while(!getObjectByIdText(ALARM_ID_TEXT_ID,tone).exists()){
+                scrollByVerticalForward(15);
+            }
+            getObjectByIdText(ALARM_ID_TEXT_ID,tone).click();
+            Thread.sleep(10000);
+            getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
+            if(vibrate){
+                if(mDevice.findObject(new UiSelector().checkable(true)).exists()){
+                    Thread.sleep(500);
+                }else{
+                    getObjectById(ALARM_ACTIVATE_VIBRATION).click();
+                }
+            }else{
+                if(mDevice.findObject(new UiSelector().checkable(true)).exists()){
+                    getObjectById(ALARM_ACTIVATE_VIBRATION).click();
+                }else{
+                    Thread.sleep(500);
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    * 增加一个指定时间的闹钟
+    * */
+    public void addTimeAlarm(String time ){
+        try{
+            getObjectByTextContains(ALARM_CLICK_ADD_ALARM_TEXT).clickAndWaitForNewWindow();
+            getObjectById(ALARM_TIME_FIELD_ID).clickAndWaitForNewWindow();
+            specialTime(time);
+            getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
+            getObjectByTextContains(ALARM_CLICK_NEXT_TEXT).clickAndWaitForNewWindow();
+            getObjectByTextContains(ALARM_CLICK_SAVE_TEXT).clickAndWaitForNewWindow();
+            Thread.sleep(6000);
+            gDevice.pressBack();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     /*
     * 增加一个指定周几响闹的闹钟
     * */
     public void addRepeatAlarm(String monday,String tuesday,String wednesday,
-                                String thursday, String friday,String saturday,String sunday){
+                               String thursday, String friday,String saturday,String sunday){
         try{
             getObjectByTextContains(ALARM_CLICK_ADD_ALARM_TEXT).clickAndWaitForNewWindow();
             repeatAlarmSetting(monday,tuesday,wednesday,thursday,friday,saturday,sunday);
