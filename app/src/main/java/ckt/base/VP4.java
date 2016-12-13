@@ -29,13 +29,13 @@ public class VP4 extends VP2 {
         }
     public void unLock() {//解锁
             try {
-                mDevice.wakeUp();
+                gDevice.wakeUp();
                 UiObject UnlockBTN = getUiObjectByDes("Unlock");
                 if (UnlockBTN != null) {
                     Rect z = UnlockBTN.getBounds();
                     int centerX = z.centerX();
                     int centerY = z.centerY();
-                    mDevice.swipe(centerX, centerY, centerX, 0, 10);
+                    gDevice.swipe(centerX, centerY, centerX, 0, 10);
                 }
 
             } catch (Exception e){e.printStackTrace();}
@@ -140,5 +140,15 @@ public class VP4 extends VP2 {
         //得到指定package的对应object
         initDevice();
         return gDevice.findObject(new UiSelector().packageName(Package));
+    }
+    public static UiObject getUiObjectByClassText(String TragetClass,String TragetObject) {
+        //得到指定Class、Text的对应object
+        initDevice();
+        return gDevice.findObject(new UiSelector().className(TragetClass).text(TragetObject));
+    }
+    public static UiObject getUiObjectByClassID(String TragetClass,String ResourceID) {
+        //得到指定Class、ResourceID的对应object
+        initDevice();
+        return gDevice.findObject(new UiSelector().className(TragetClass).resourceId(ResourceID));
     }
 }
