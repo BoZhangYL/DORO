@@ -89,6 +89,7 @@ public class CalculatorAction extends VP4 {
                 newCalculator.InputCalculatorNumber(numberB);//输入第二个数字
                 newCalculator.InputEquesSign();//输入等号计算结果
             }
+
         }catch(Exception e){
             e.printStackTrace();
         }
