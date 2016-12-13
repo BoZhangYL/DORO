@@ -1,6 +1,5 @@
 package ckt.base;
 import android.graphics.Rect;
-import android.os.RemoteException;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
@@ -125,22 +124,6 @@ public class VP4 extends VP2 {
         //得到指定package的对应object
         initDevice();
         return gDevice.findObject(new UiSelector().packageName(Package));
-    }
-    public void specialTime(String hours,String mins){//得到指定的时间
-        //String sHours = String.valueOf(hours);
-        // String dMins = String.valueOf(mins);
-        try{
-            while(!getObjectByIdText("com.doro.apps.alarm:id/hour_edit",hours).exists()){
-                getObjectById("com.doro.apps.alarm:id/hour_increase").click();
-            }
-            if(getObjectByIdText("com.doro.apps.alarm:id/hour_edit",hours).exists()){
-                while(!getObjectByIdText("com.doro.apps.alarm:id/minute_edit",mins).exists()){
-                    getObjectById("com.doro.apps.alarm:id/minute_decrease").click();
-                }
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
     }
     public static UiObject getUiObjectByClassText(String TragetClass,String TragetObject) {
         initDevice();
