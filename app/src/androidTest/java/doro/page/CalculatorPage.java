@@ -22,5 +22,4 @@ public class CalculatorPage {
     public static final String CALCULATOR_DELETEBUTTON_ID="com.doro.apps.calculator:id/button_delete";
     //小数点的ResourceID
     public static final String CALCULATOR_DOTBUTTON_ID= "com.doro.apps.calculator:id/button_dot";
-
 }
