@@ -6,9 +6,14 @@ import ckt.base.VP4;
 
 import static doro.page.AlarmPage.ALARM_ACTIVATE_VIBRATION;
 import static doro.page.AlarmPage.ALARM_CLICK_ADD_ALARM_TEXT;
+import static doro.page.AlarmPage.ALARM_CLICK_CANCEL_TEXT;
 import static doro.page.AlarmPage.ALARM_CLICK_CONFIRM_TEXT;
+import static doro.page.AlarmPage.ALARM_CLICK_DELETEALARM_TEXT;
+import static doro.page.AlarmPage.ALARM_CLICK_IWANTTO_TEXT;
 import static doro.page.AlarmPage.ALARM_CLICK_NEXT_TEXT;
+import static doro.page.AlarmPage.ALARM_CLICK_OK_TEXT;
 import static doro.page.AlarmPage.ALARM_CLICK_SAVE_TEXT;
+import static doro.page.AlarmPage.ALARM_CLICK_SELECTALL_TEXT;
 import static doro.page.AlarmPage.ALARM_FREQUENCY_FIELD_ID;
 import static doro.page.AlarmPage.ALARM_HOUR_DECREASE_ID;
 import static doro.page.AlarmPage.ALARM_HOUR_EDIT_ID;
@@ -18,6 +23,7 @@ import static doro.page.AlarmPage.ALARM_MELODY_FIELD_ID;
 import static doro.page.AlarmPage.ALARM_MINUTE_DECREASE_ID;
 import static doro.page.AlarmPage.ALARM_MINUTE_EDIT_ID;
 import static doro.page.AlarmPage.ALARM_MINUTE_INCREASE_ID;
+import static doro.page.AlarmPage.ALARM_RELATIVELAYOUT_CLASS;
 import static doro.page.AlarmPage.ALARM_TIME_FIELD_ID;
 
 /**
@@ -162,4 +168,41 @@ public class AlarmAction extends VP4 {
             gDevice.pressBack();
         }catch(Exception e){e.printStackTrace();}
     }
+
+    public void deleteAllAlarm(){ //删除所有闹钟操作
+        try{
+            if(!getObjectByTextContains(ALARM_CLICK_IWANTTO_TEXT).exists()){
+                System.out.println("没有闹钟可以删除");
+            }else{
+                getObjectByTextContains(ALARM_CLICK_IWANTTO_TEXT).clickAndWaitForNewWindow();
+                getObjectByTextContains(ALARM_CLICK_DELETEALARM_TEXT).click();
+                getObjectByTextContains(ALARM_CLICK_SELECTALL_TEXT).click();
+                getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
+                getObjectByTextContains(ALARM_CLICK_CANCEL_TEXT).clickAndWaitForNewWindow();
+                getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
+                getObjectByTextContains(ALARM_CLICK_OK_TEXT).clickAndWaitForNewWindow();
+
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void deleteOneAlarm(){ //删除第一闹钟操作
+        try{
+            if(!getObjectByTextContains(ALARM_CLICK_IWANTTO_TEXT).exists()){
+                System.out.println("没有闹钟可以删除");
+            }else{
+                getObjectByTextContains(ALARM_CLICK_IWANTTO_TEXT).clickAndWaitForNewWindow();
+                getObjectByTextContains(ALARM_CLICK_DELETEALARM_TEXT).click();
+                mDevice.findObject(new UiSelector().className(ALARM_RELATIVELAYOUT_CLASS).index(1)).click();
+                getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
+                getObjectByTextContains(ALARM_CLICK_CANCEL_TEXT).clickAndWaitForNewWindow();
+                getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
+                getObjectByTextContains(ALARM_CLICK_OK_TEXT).clickAndWaitForNewWindow();
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }
+
