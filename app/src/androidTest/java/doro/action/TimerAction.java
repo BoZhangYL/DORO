@@ -48,7 +48,7 @@ public class TimerAction extends VP4 {
     public void DeleteNumber(){//按五次删除键
         int a;
         for(a=0;a<=4;a++){
-            UiObject DeleteButton=getUiObjectByClassID(Timer_Class,Delete_ID);
+            UiObject DeleteButton=getUiObjectByClassID(Deletet_Class,Delete_ID);
             try {
                 DeleteButton.click();
             }catch (UiObjectNotFoundException e){
