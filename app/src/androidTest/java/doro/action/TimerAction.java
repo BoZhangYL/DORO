@@ -12,7 +12,7 @@ import static doro.page.TimerPage.*;
 
 public class TimerAction extends VP4 {
     public void SetTimerNumber(int TimerNumber){//输入数字
-        initDoro();
+        initDevice();
         String Number=TimerNumber+"";
         int i;
         int j=Number.length();
@@ -28,7 +28,7 @@ public class TimerAction extends VP4 {
     }
     public void ClickTimerButton(String ButtonName){//按键Start/Stop/Pause/Reset/Set
         try {
-            initDoro();
+            initDevice();
             if (ButtonName.equals(Reset_Text)) {
                 UiObject TimerButton =getObjectById(Reset_ID);
                 TimerButton.click();
