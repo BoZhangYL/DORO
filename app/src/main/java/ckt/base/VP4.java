@@ -11,7 +11,7 @@ import android.support.test.uiautomator.UiSelector;
  */
 
 public class VP4 extends VP2 {
-    public static final int STEP_NORMAL= 10;//步长
+    public static final int STEP_NORMAL= 20;//步长
     public static final String HOME_SHADOW_BUTTON=
             "com.doro.apps.launcher3:id/content_shadow_bottom";//Home界面向下箭头按钮
     public static final String LAUNCH3_APP= "com.doro.apps.launcher3:id/icon";//应用列表
@@ -29,13 +29,13 @@ public class VP4 extends VP2 {
         }
     public void unLock() {//解锁
             try {
-                mDevice.wakeUp();
+                gDevice.wakeUp();
                 UiObject UnlockBTN = getUiObjectByDes("Unlock");
                 if (UnlockBTN != null) {
                     Rect z = UnlockBTN.getBounds();
                     int centerX = z.centerX();
                     int centerY = z.centerY();
-                    mDevice.swipe(centerX, centerY, centerX, 0, 10);
+                    gDevice.swipe(centerX, centerY, centerX, 0, 10);
                 }
 
             } catch (Exception e){e.printStackTrace();}
@@ -115,6 +115,22 @@ public class VP4 extends VP2 {
             e.printStackTrace();
         }
     }
+    public static void scrollLeft(UiObject object, int steps) {//向左滑动
+        initDevice();
+        try {
+            object.swipeLeft(steps);
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void scrollRight(UiObject object, int steps) {//向右滑动
+        initDevice();
+        try {
+            object.swipeRight(steps);
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
     public static UiObject getObjectByIdText(String ResourceID, String text) {
         //得到指定ResourceID、Text的对应object
         initDevice();
@@ -126,10 +142,12 @@ public class VP4 extends VP2 {
         return gDevice.findObject(new UiSelector().packageName(Package));
     }
     public static UiObject getUiObjectByClassText(String TragetClass,String TragetObject) {
+        //得到指定Class、Text的对应object
         initDevice();
         return gDevice.findObject(new UiSelector().className(TragetClass).text(TragetObject));
     }
     public static UiObject getUiObjectByClassID(String TragetClass,String ResourceID) {
+        //得到指定Class、ResourceID的对应object
         initDevice();
         return gDevice.findObject(new UiSelector().className(TragetClass).resourceId(ResourceID));
     }
