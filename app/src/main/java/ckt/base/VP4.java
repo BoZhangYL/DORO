@@ -1,5 +1,6 @@
 package ckt.base;
 import android.graphics.Rect;
+import android.os.RemoteException;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
@@ -56,6 +57,7 @@ public class VP4 extends VP2 {
     //Home page, menu page, applist page
     public void switchToHomePage(){//回到主界面
         try {
+            initRent();
             pressKey("home/back/back");
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
@@ -150,5 +152,18 @@ public class VP4 extends VP2 {
         //得到指定Class、ResourceID的对应object
         initDevice();
         return gDevice.findObject(new UiSelector().className(TragetClass).resourceId(ResourceID));
+    }
+    public void initRent(){//清除recent
+        try {
+            initDevice();
+            pressKey("menu");
+            while (getObjectById("com.android.systemui:id/task_view_thumbnail").exists()) {
+                scrollLeft(getObjectById("com.android.systemui:id/task_view_thumbnail"),
+                        5);
+            }
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 }
