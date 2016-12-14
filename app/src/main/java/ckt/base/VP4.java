@@ -28,18 +28,24 @@ public class VP4 extends VP2 {
 
             }
         }
-    public void unLock() {//解锁
+    public static void unLock() {//解锁
+        try {
+            initDevice();
+            gDevice.wakeUp();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        UiObject UnlockBTN = getUiObjectByDes("Unlock");
+        while(UnlockBTN.exists()) {
             try {
-                gDevice.wakeUp();
-                UiObject UnlockBTN = getUiObjectByDes("Unlock");
-                if (UnlockBTN != null) {
-                    Rect z = UnlockBTN.getBounds();
-                    int centerX = z.centerX();
-                    int centerY = z.centerY();
-                    gDevice.swipe(centerX, centerY, centerX, 0, 10);
-                }
-
-            } catch (Exception e){e.printStackTrace();}
+                Rect  z = UnlockBTN.getBounds();
+                int centerX = z.centerX();
+                int centerY = z.centerY();
+                gDevice.swipe(centerX, centerY, centerX, 0, 10);
+            } catch (UiObjectNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
     public void openAppliction(String AppName){//打开应用
         switchToApplistPage();
