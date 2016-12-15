@@ -1,25 +1,16 @@
 package doro.testcase;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.provider.Settings;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import ckt.base.VP3;
 import ckt.base.VP4;
 import doro.action.CalendarAction;
-
 import static ckt.base.VP3.takeScreen;
 import static doro.page.CalednarPage.*;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 
 /**
@@ -29,6 +20,7 @@ import static org.junit.Assert.fail;
 public class CalendarCase extends VP4{
     @BeforeClass
     public static void initCalendar(){
+        initDevice();
         unLock();
     }
 
@@ -42,7 +34,7 @@ public class CalendarCase extends VP4{
     }
 
     @Test
-    public void createEventBeforeCase2() throws UiObjectNotFoundException {
+    public void createCalendarEventBeforeCase2() throws UiObjectNotFoundException {
         //D8040-1244:提前5分钟提醒 [Reminder at 5 minutes in advance]
 
         openAppliction("Calen\u200Bdar");
@@ -61,7 +53,10 @@ public class CalendarCase extends VP4{
         String newpath = takeScreen("calendar");
         CalendarAction newCalendar =new CalendarAction();
         boolean existGreenPoint = newCalendar.
-                isCalendarGreenPoint(getObjectByIdText(CALENDAR_DAY_LABEL,"14"),newpath);
+                isCalendarGreenPoint(getObjectByIdText(CALENDAR_DAY_LABEL,
+                        String.valueOf(newCalendar.getCurrentDay())), newpath);
         Assert.assertTrue("checkCalendarGreenPointsCase3",existGreenPoint);
     }
+
+
 }
