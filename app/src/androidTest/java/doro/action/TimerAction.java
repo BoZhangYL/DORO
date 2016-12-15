@@ -2,7 +2,6 @@ package doro.action;
 
 
 import android.support.test.uiautomator.UiObject;
-import android.support.test.uiautomator.UiObjectNotFoundException;
 import ckt.base.VP4;
 import static doro.page.TimerPage.*;
 
@@ -13,18 +12,23 @@ import static doro.page.TimerPage.*;
 public class TimerAction extends VP4 {
     public void SetTimerNumber(int TimerNumber){//输入数字
         initDevice();
+        try {
+            UiObject SetButton=getObjectById(Set_ID);
+        if (SetButton.exists()) {
+            SetButton.click();
+        }
         String Number=TimerNumber+"";
         int i;
         int j=Number.length();
         for (i=0;i<j;i++) {
             String Number1 = Number.charAt(i) + "";
             UiObject NamberButton=getUiObjectByClassText(Timer_Class,Number1);
-          try {
-              NamberButton.click();
-          }catch (UiObjectNotFoundException e){
+              NamberButton.click(); }
+            ClickTimerButton(Start_Text);
+        }
+          catch (Exception e){
               e.printStackTrace();
           }
-        }
     }
     public void ClickTimerButton(String ButtonName){//按键Start/Stop/Pause/Reset/Set
         try {
@@ -41,7 +45,7 @@ public class TimerAction extends VP4 {
                     TimerButton.click();
                 }
             }
-        } catch (UiObjectNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -51,7 +55,7 @@ public class TimerAction extends VP4 {
             UiObject DeleteButton=getUiObjectByClassID(Deletet_Class,Delete_ID);
             try {
                 DeleteButton.click();
-            }catch (UiObjectNotFoundException e){
+            }catch (Exception e){
                 e.printStackTrace();
             }
         }
