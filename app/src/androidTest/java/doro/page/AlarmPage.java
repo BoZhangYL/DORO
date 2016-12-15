@@ -19,11 +19,13 @@ public class AlarmPage {
     //小时与分钟数字的recource-id
     public static final String ALARM_HOUR_EDIT_ID ="com.doro.apps.alarm:id/hour_edit";
     public static final String ALARM_MINUTE_EDIT_ID ="com.doro.apps.alarm:id/minute_edit";
-    //小时与分钟的上下按键的recource-id
+    //小时与分钟,时间格式的上下按键的recource-id
     public static final String ALARM_HOUR_INCREASE_ID ="com.doro.apps.alarm:id/hour_increase";
     public static final String ALARM_HOUR_DECREASE_ID ="com.doro.apps.alarm:id/hour_decrease";
     public static final String ALARM_MINUTE_INCREASE_ID ="com.doro.apps.alarm:id/minute_increase";
     public static final String ALARM_MINUTE_DECREASE_ID ="com.doro.apps.alarm:id/minute_decrease";
+    public static final String ALARM_FORMAT_INCREASE_ID ="com.doro.apps.alarm:id/format_increase";
+    public static final String ALARM_FORMAT_DECREASE_ID ="com.doro.apps.alarm:id/format_decrease";
 
     //选择闹钟铃声的recource-id
     public static final String ALARM_MELODY_FIELD_ID="com.doro.apps.alarm:id/melody_field";
