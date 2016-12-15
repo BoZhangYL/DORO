@@ -37,7 +37,6 @@ public class CalculatorCase extends VP4{
         }catch (Exception e){
             e.printStackTrace();
         }
-
     }
 }
 
