@@ -132,7 +132,6 @@ public class SettingAction extends VP4 {
            // gDevice.findObject(new UiSelector().description("25")).click();
             Thread.sleep(1000);
             getUiObjectByText(SETTINGS_SET_DATE_OK_TEXT).clickAndWaitForNewWindow();
-
         }catch(Exception e){
             e.printStackTrace();
         }
