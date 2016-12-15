@@ -3,6 +3,7 @@ package doro.action;
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.support.test.uiautomator.UiObject;
@@ -390,9 +391,9 @@ public class CalendarAction extends VP4 {
                 for (int j = PixelGreenPointY-10; j < PixelGreenPointY+10; j++) {
                     int x = i, y = j;
                     if ((Math.abs(x - PixelGreenPointX) < 8) && (Math.abs(y - PixelGreenPointY) < 8)) {
-
+                        //Green Constant Value: -16711936 (0xff00ff00)
                         int k = mBitmap.getPixel(x, y);
-                        if (-16504269 != k) {
+                        if (k> (Color.GREEN*0.98) || k <(Color.GREEN*1.12)) {
                             return false;
                         }
                     }
