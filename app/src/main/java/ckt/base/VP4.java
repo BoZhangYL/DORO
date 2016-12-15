@@ -28,18 +28,24 @@ public class VP4 extends VP2 {
 
             }
         }
-    public void unLock() {//解锁
+    public static void unLock() {//解锁
+        try {
+            initDevice();
+            gDevice.wakeUp();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        UiObject UnlockBTN = getUiObjectByDes("Unlock");
+        while(UnlockBTN.exists()) {
             try {
-                mDevice.wakeUp();
-                UiObject UnlockBTN = getUiObjectByDes("Unlock");
-                if (UnlockBTN != null) {
-                    Rect z = UnlockBTN.getBounds();
-                    int centerX = z.centerX();
-                    int centerY = z.centerY();
-                    mDevice.swipe(centerX, centerY, centerX, 0, 10);
-                }
-
-            } catch (Exception e){e.printStackTrace();}
+                Rect  z = UnlockBTN.getBounds();
+                int centerX = z.centerX();
+                int centerY = z.centerY();
+                gDevice.swipe(centerX, centerY, centerX, 0, 10);
+            } catch (UiObjectNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
     public void openAppliction(String AppName){//打开应用
         switchToApplistPage();
@@ -57,6 +63,7 @@ public class VP4 extends VP2 {
     //Home page, menu page, applist page
     public void switchToHomePage(){//回到主界面
         try {
+            initRent();
             pressKey("home/back/back");
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
@@ -142,20 +149,27 @@ public class VP4 extends VP2 {
         initDevice();
         return gDevice.findObject(new UiSelector().packageName(Package));
     }
-    public void specialTime(String hours,String mins){//得到指定的时间
-        //String sHours = String.valueOf(hours);
-        // String dMins = String.valueOf(mins);
-        try{
-            while(!getObjectByIdText("com.doro.apps.alarm:id/hour_edit",hours).exists()){
-                getObjectById("com.doro.apps.alarm:id/hour_increase").click();
+    public static UiObject getUiObjectByClassText(String TragetClass,String TragetObject) {
+        //得到指定Class、Text的对应object
+        initDevice();
+        return gDevice.findObject(new UiSelector().className(TragetClass).text(TragetObject));
+    }
+    public static UiObject getUiObjectByClassID(String TragetClass,String ResourceID) {
+        //得到指定Class、ResourceID的对应object
+        initDevice();
+        return gDevice.findObject(new UiSelector().className(TragetClass).resourceId(ResourceID));
+    }
+    public void initRent(){//清除recent
+        try {
+            initDevice();
+            pressKey("menu");
+            while (getObjectById("com.android.systemui:id/task_view_thumbnail").exists()) {
+                scrollLeft(getObjectById("com.android.systemui:id/task_view_thumbnail"),
+                        5);
             }
-            if(getObjectByIdText("com.doro.apps.alarm:id/hour_edit",hours).exists()){
-                while(!getObjectByIdText("com.doro.apps.alarm:id/minute_edit",mins).exists()){
-                    getObjectById("com.doro.apps.alarm:id/minute_decrease").click();
-                }
-            }
-        }catch (Exception e){
+        } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
+
     }
 }

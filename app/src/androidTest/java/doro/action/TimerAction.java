@@ -1,11 +1,9 @@
 package doro.action;
 
-import android.os.RemoteException;
-import android.support.test.uiautomator.UiObject;
-import android.support.test.uiautomator.UiObjectNotFoundException;
-import android.support.test.uiautomator.UiSelector;
 
+import android.support.test.uiautomator.UiObject;
 import ckt.base.VP4;
+import static doro.page.TimerPage.*;
 
 /**
  * Created by admin on 2016/12/8.
@@ -13,49 +11,54 @@ import ckt.base.VP4;
 
 public class TimerAction extends VP4 {
     public void SetTimerNumber(int TimerNumber){//输入数字
-        initDoro();
+        initDevice();
+        try {
+            UiObject SetButton=getObjectById(Set_ID);
+        if (SetButton.exists()) {
+            SetButton.click();
+        }
         String Number=TimerNumber+"";
         int i;
         int j=Number.length();
         for (i=0;i<j;i++) {
             String Number1 = Number.charAt(i) + "";
-        UiObject NamberButton=mDevice.findObject(new UiSelector().className("android.widget.Button").text(Number1));
-          try {
-              NamberButton.click();
-          }catch (UiObjectNotFoundException e){
+            UiObject NamberButton=getUiObjectByClassText(Timer_Class,Number1);
+              NamberButton.click(); }
+            ClickTimerButton(Start_Text);
+            Thread.sleep(TimerNumber*1000+1000);
+        }
+          catch (Exception e){
               e.printStackTrace();
           }
-        }
     }
     public void ClickTimerButton(String ButtonName){//按键Start/Stop/Pause/Reset/Set
         try {
-            initDoro();
-            if (ButtonName.equals("Reset")) {
-                UiObject TimerButton = mDevice.findObject(new UiSelector().resourceId("com.doro.apps.timer:id/left_button"));
+            initDevice();
+            if (ButtonName.equals(Reset_Text)) {
+                UiObject TimerButton =getObjectById(Reset_ID);
                 TimerButton.click();
             } else {
-                if (ButtonName.equals("Set")) {
-                    UiObject TimerButton = mDevice.findObject(new UiSelector().resourceId("com.doro.apps.timer:id/right_button"));
+                if (ButtonName.equals(Set_Text)) {
+                    UiObject TimerButton =getObjectById(Set_ID);
                     TimerButton.click();
                 } else {
-                    UiObject TimerButton = mDevice.findObject(new UiSelector().resourceId("com.doro.apps.timer:id/fab").text(ButtonName));
+                    UiObject TimerButton =getObjectByIdText(Other_Button_ID,ButtonName);
                     TimerButton.click();
                 }
             }
-        } catch (UiObjectNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
     public void DeleteNumber(){//按五次删除键
         int a;
         for(a=0;a<=4;a++){
-            UiObject DeleteButton=mDevice.findObject(new UiSelector().className("android.widget.ImageButton").resourceId("com.doro.apps.timer:id/delete"));
+            UiObject DeleteButton=getUiObjectByClassID(Deletet_Class,Delete_ID);
             try {
                 DeleteButton.click();
-            }catch (UiObjectNotFoundException e){
+            }catch (Exception e){
                 e.printStackTrace();
             }
-
         }
     }
 }

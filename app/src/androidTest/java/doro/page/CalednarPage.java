@@ -154,6 +154,7 @@ public class CalednarPage {
     public static final String CALENDAR_BEFORE_VALUE_2_DAYS ="2 days";
     //Before的值
 
+    public static final String CALENDAR_DAY_LABEL = "com.doro.apps.calendar:id/label";
 
 
 
