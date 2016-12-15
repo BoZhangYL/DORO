@@ -25,6 +25,7 @@ public class TimerAction extends VP4 {
             UiObject NamberButton=getUiObjectByClassText(Timer_Class,Number1);
               NamberButton.click(); }
             ClickTimerButton(Start_Text);
+            Thread.sleep(TimerNumber*1000+1000);
         }
           catch (Exception e){
               e.printStackTrace();

@@ -17,7 +17,7 @@ import doro.action.TimerAction;
  */
 @RunWith(AndroidJUnit4.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class TimerCase extends VP4{
+public class  TimerCase extends VP4{
     @BeforeClass
     public static void initTimer(){
         unLock();
@@ -40,7 +40,6 @@ public class TimerCase extends VP4{
         TimerAction newTimer=new TimerAction();
         newTimer.SetTimerNumber(30);
         try{
-        Thread.sleep(30*1000+1000);
         Assert.assertEquals("Case2",Stop_Text,getObjectById(Other_Button_ID).getText());
         newTimer.ClickTimerButton(Stop_Text);
         }
