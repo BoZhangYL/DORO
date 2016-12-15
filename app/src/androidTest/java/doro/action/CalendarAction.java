@@ -1,19 +1,17 @@
 package doro.action;
 
+import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.icu.util.Calendar;
+import android.os.Build;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
 import android.util.Log;
-
 import ckt.base.VP4;
-
-import static ckt.base.VP3.takeCutCompareScreen;
-import static ckt.base.VP3.takeCutScreen;
 import static doro.page.CalednarPage.*;
-import static java.lang.Integer.getInteger;
-import static java.lang.Integer.parseInt;
+
 
 
 /**
@@ -392,8 +390,9 @@ public class CalendarAction extends VP4 {
                 for (int j = PixelGreenPointY-10; j < PixelGreenPointY+10; j++) {
                     int x = i, y = j;
                     if ((Math.abs(x - PixelGreenPointX) < 8) && (Math.abs(y - PixelGreenPointY) < 8)) {
+
                         int k = mBitmap.getPixel(x, y);
-                        if (-16434874 != k) {
+                        if (-16504269 != k) {
                             return false;
                         }
                     }
@@ -405,5 +404,23 @@ public class CalendarAction extends VP4 {
         return true;
     }
 
+    @TargetApi(Build.VERSION_CODES.N)
+    public int  getCurrentDay(){
+        Calendar c = Calendar.getInstance();
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        return day;
+    }
+    @TargetApi(Build.VERSION_CODES.N)
+    public int getCurrentYear(){
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        return year;
+    }
+    @TargetApi(Build.VERSION_CODES.N)
+    public int getCurrentMonth(){
+        Calendar c = Calendar.getInstance();
+        int  month = c.get(Calendar.MONTH);
+        return month;
+    }
 
 }
