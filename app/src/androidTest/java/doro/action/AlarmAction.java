@@ -14,6 +14,8 @@ import static doro.page.AlarmPage.ALARM_CLICK_NEXT_TEXT;
 import static doro.page.AlarmPage.ALARM_CLICK_OK_TEXT;
 import static doro.page.AlarmPage.ALARM_CLICK_SAVE_TEXT;
 import static doro.page.AlarmPage.ALARM_CLICK_SELECTALL_TEXT;
+import static doro.page.AlarmPage.ALARM_FORMAT_DECREASE_ID;
+import static doro.page.AlarmPage.ALARM_FORMAT_INCREASE_ID;
 import static doro.page.AlarmPage.ALARM_FREQUENCY_FIELD_ID;
 import static doro.page.AlarmPage.ALARM_HOUR_DECREASE_ID;
 import static doro.page.AlarmPage.ALARM_HOUR_EDIT_ID;
@@ -78,7 +80,7 @@ public class AlarmAction extends VP4 {
             getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
         }catch(Exception e){e.printStackTrace();}
     }
-    public void specialTime(String time){//得到指定的时间
+    private void specialTime(String time){//得到指定的时间
         String[] hourMinTime = time.split(":");
         try{
             String hour =getObjectById(ALARM_HOUR_EDIT_ID).getText();
@@ -105,6 +107,36 @@ public class AlarmAction extends VP4 {
                     getObjectById(ALARM_MINUTE_DECREASE_ID).click();
                 }
             }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void specialTime12(String time,String timeFormat){//得到指定的时间,12小时制
+        try{
+            specialTime(time);
+            if(timeFormat.equals("AM")){
+                if(getObjectByTextContains("PM").exists()){
+                    getObjectById(ALARM_FORMAT_INCREASE_ID).click();
+                }else{
+                    Thread.sleep(100);
+                }
+            }
+            if(timeFormat.equals("PM")){
+                if(getObjectByTextContains("AM").exists()){
+                    getObjectById(ALARM_FORMAT_DECREASE_ID).click();
+                }else{
+                    Thread.sleep(100);
+                }
+            }
+            getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void specialTime24(String time){//得到指定的时间，24小时制
+        try{
+            specialTime(time);
+            getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -144,8 +176,8 @@ public class AlarmAction extends VP4 {
         try{
             getObjectByTextContains(ALARM_CLICK_ADD_ALARM_TEXT).clickAndWaitForNewWindow();
             getObjectById(ALARM_TIME_FIELD_ID).clickAndWaitForNewWindow();
-            specialTime(time);
-            getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
+            //specialTime24(time);
+            specialTime12(time,"AM");
             getObjectByTextContains(ALARM_CLICK_NEXT_TEXT).clickAndWaitForNewWindow();
             getObjectByTextContains(ALARM_CLICK_SAVE_TEXT).clickAndWaitForNewWindow();
             Thread.sleep(6000);
