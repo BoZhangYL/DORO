@@ -159,6 +159,21 @@ public class VP4 extends VP2 {
         initDevice();
         return gDevice.findObject(new UiSelector().className(TragetClass).resourceId(ResourceID));
     }
+    public static UiObject getObjectByDesc(String TragetObject) {
+        //得到指定Content-desc的对应object
+        initDevice();
+        return gDevice.findObject(new UiSelector().description(TragetObject));
+    }
+    public static UiObject getObjectByClass(String TragetObject){
+        //得到指定Class的对应object
+        initDevice();
+        return gDevice.findObject(new UiSelector().className(TragetObject));
+    }
+    public static UiObject getObjectByClassDesc(String ClassObject,String DescObject) {
+        //得到指定Class，Content-desc的对应object
+        initDevice();
+        return gDevice.findObject(new UiSelector().className(ClassObject).description(DescObject));
+    }
     public void initRent(){//清除recent
         try {
             initDevice();
@@ -170,6 +185,5 @@ public class VP4 extends VP2 {
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 }
