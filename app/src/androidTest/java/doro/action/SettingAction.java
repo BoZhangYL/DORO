@@ -1,11 +1,12 @@
 package doro.action;
 
-import android.support.test.uiautomator.UiSelector;
-
 import ckt.base.VP4;
 import doro.page.SettingPage;
 
 import static doro.page.SettingPage.SETTINGS_AUTOMATIC_DATETIME_TEXT;
+import static doro.page.SettingPage.SETTINGS_AUTO_TIME_ZONE_TEXT;
+import static doro.page.SettingPage.SETTINGS_CHOOSE_12HOUR_FORMAT_TEXT;
+import static doro.page.SettingPage.SETTINGS_CHOOSE_24HOUR_FORMAT_TEXT;
 import static doro.page.SettingPage.SETTINGS_DATE_HEADER_DATE_ID;
 import static doro.page.SettingPage.SETTINGS_DATE_HEADER_YEAR_ID;
 import static doro.page.SettingPage.SETTINGS_DATE_MONTH_NEXT_ID;
@@ -15,17 +16,19 @@ import static doro.page.SettingPage.SETTINGS_DATE_YEAR_TEXT1_ID;
 import static doro.page.SettingPage.SETTINGS_GPS_PROVIDED_TEXT;
 import static doro.page.SettingPage.SETTINGS_NETWORK_PROVIDED_TIME_TEXT;
 import static doro.page.SettingPage.SETTINGS_OFF_TEXT;
+import static doro.page.SettingPage.SETTINGS_SELECT_TIME_ZONE_TEXT;
 import static doro.page.SettingPage.SETTINGS_SET_DATE_OK_TEXT;
 import static doro.page.SettingPage.SETTINGS_SET_DATE_TEXT;
+import static doro.page.SettingPage.SETTINGS_SET_TIME_TEXT;
 import static doro.page.SettingPage.SETTINGS_TIME_HOURS_ID;
 import static doro.page.SettingPage.SETTINGS_TIME_MINUTES_ID;
+import static doro.page.SettingPage.SETTINGS_USE_24HOUR_FORMAT_TEXT;
 import static doro.page.SettingPage.SETTING_DATE_DAY_VIEW_CLASS;
 import static doro.page.SettingPage.SETTING_HOUR_TOUCHHELPER_CLASS;
-import static doro.page.SettingPage.SETTING_SET_TIME_TEXT;
 import static java.lang.Integer.parseInt;
 
 /**
- * Created by user on 2016/12/1.
+ * Created by lingjiang.du on 2016/12/1.
  */
 public class SettingAction extends VP4 {
     public static void openBluetooth() {
@@ -41,9 +44,7 @@ public class SettingAction extends VP4 {
                 scrollByVerticalForward(15);
             }
             getObjectByTextContains(SETTINGS_DATE_TIME_TEXT).clickAndWaitForNewWindow();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) {e.printStackTrace();}
     }
 
     public void whatProvidedTime(int style) {
@@ -78,9 +79,7 @@ public class SettingAction extends VP4 {
                         break;
                     }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) {e.printStackTrace();}
     }
     public void setDate(String date){ //年-月-日 格式：YYYY-MM-DD
         try{
@@ -113,27 +112,70 @@ public class SettingAction extends VP4 {
                 Thread.sleep(1000);
                 getUiObjectByText(SETTINGS_SET_DATE_OK_TEXT).clickAndWaitForNewWindow();
             }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+        }catch(Exception e){e.printStackTrace();}
     }
-    public void setTime(String time){ //时间格式：hh:mm
+    private void setTime(String time){ //设置时间
         try{
-            getUiObjectByText(SETTING_SET_TIME_TEXT).clickAndWaitForNewWindow();
+            getUiObjectByText(SETTINGS_SET_TIME_TEXT).clickAndWaitForNewWindow();
             String[] times =time.split(":");
             int hour = Integer.valueOf(times[0]);
             String sHour = String.valueOf(hour);
             getObjectById(SETTINGS_TIME_HOURS_ID).click();
-            Thread.sleep(1000);
-            gDevice.findObject(new UiSelector().className(SETTING_HOUR_TOUCHHELPER_CLASS).description(sHour)).click();
-            Thread.sleep(1000);
+            getObjectByClassDesc(SETTING_HOUR_TOUCHHELPER_CLASS,sHour).click();
             getObjectById(SETTINGS_TIME_MINUTES_ID).click();
-            Thread.sleep(1000);
-           // gDevice.findObject(new UiSelector().description("25")).click();
-            Thread.sleep(1000);
+            int iTimes = Integer.valueOf(times[1]);
+            String sTime = String.valueOf(iTimes/5*5);
+            getObjectByDesc(sTime).click();
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void setTime12(String time,String timeFormat){//时间格式：hh:mm,12小时制
+        try{
+            setTime(time);
+            getUiObjectByText(timeFormat).click();
             getUiObjectByText(SETTINGS_SET_DATE_OK_TEXT).clickAndWaitForNewWindow();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void setTime24(String time){ //时间格式：hh:mm,24小时制
+        try{
+            setTime(time);
+            getUiObjectByText(SETTINGS_SET_DATE_OK_TEXT).clickAndWaitForNewWindow();
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void useNetworkTimeZone(boolean yesOrNo){ //选择是否使用网络提供的时区.true:是；
+        try{
+            if(yesOrNo){
+                if(getUiObjectByText(SETTINGS_SELECT_TIME_ZONE_TEXT).isEnabled()){
+                    getUiObjectByText(SETTINGS_AUTO_TIME_ZONE_TEXT).click();
+                }
+            }else{
+                if(!getUiObjectByText(SETTINGS_SELECT_TIME_ZONE_TEXT).isEnabled()){
+                    getUiObjectByText(SETTINGS_AUTO_TIME_ZONE_TEXT).click();
+                }
+            }
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void selectTimeZone(String cityName){ //手动选择时区
+        try{
+            useNetworkTimeZone(false);
+            getUiObjectByText(SETTINGS_SELECT_TIME_ZONE_TEXT).clickAndWaitForNewWindow();
+            scrollToBegin(1);
+            while(!getUiObjectByText(cityName).exists()){
+                scrollByVerticalForward(35);
+            }
+            getUiObjectByText(cityName).clickAndWaitForNewWindow();
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void Use24HourFormat(boolean yesOrNo){
+        try{
+            if(yesOrNo){
+                if(getUiObjectByText(SETTINGS_CHOOSE_12HOUR_FORMAT_TEXT).exists()){
+                    getUiObjectByText(SETTINGS_USE_24HOUR_FORMAT_TEXT).click();
+                }
+            }else{
+                if(getUiObjectByText(SETTINGS_CHOOSE_24HOUR_FORMAT_TEXT).exists()){
+                    getUiObjectByText(SETTINGS_USE_24HOUR_FORMAT_TEXT).click();
+                }
+            }
+        }catch(Exception e){e.printStackTrace();}
     }
 }
