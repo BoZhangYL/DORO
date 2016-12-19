@@ -14,12 +14,23 @@ public class SettingPage {
     public static final String SETTINGS_NETWORK_PROVIDED_TIME_TEXT ="Use network-provided time";
     public static final String SETTINGS_GPS_PROVIDED_TEXT ="Use GPS-provided time";
     public static final String SETTINGS_OFF_TEXT ="off";
+    //Date&Time中"Automatic time zone"的Text
+    public static final String SETTINGS_AUTO_TIME_ZONE_TEXT ="Automatic time zone";
     //Date&Time中日期设置的Text
     public static final String SETTINGS_SET_DATE_TEXT ="Set date";
     //“Set date”与“Set time”中的"OK"的Text
     public static final String SETTINGS_SET_DATE_OK_TEXT ="OK";
     //Date&Time中时间设置的Text
-    public static final String SETTING_SET_TIME_TEXT ="Set time";
+    public static final String SETTINGS_SET_TIME_TEXT ="Set time";
+    //Date&Time中"Select time zone"的Text
+    public static final String SETTINGS_SELECT_TIME_ZONE_TEXT ="Select time zone";
+    //Date&Time中"Use 24-hour format"的Text
+    public static final String SETTINGS_USE_24HOUR_FORMAT_TEXT ="Use 24-hour format";
+    //使用12小时制度
+    public static final String SETTINGS_CHOOSE_12HOUR_FORMAT_TEXT ="1:00 pm";
+    //使用24小时制度
+    public static final String SETTINGS_CHOOSE_24HOUR_FORMAT_TEXT ="13:00";
+
 
     //日期设置中“year”的ID
     public static final String SETTINGS_DATE_HEADER_YEAR_ID ="android:id/date_picker_header_year";
