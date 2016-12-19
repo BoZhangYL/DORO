@@ -17,12 +17,13 @@ import static doro.page.CameraPage.*;
 
 public class CameraAction extends VP4{
 
-    public void launchCameraByShortcut(){
-        UiObject CameraShortcut = gDevice.findObject(new UiSelector().
-                resourceId(HOME_GROUP_VIEW).index(1).index(1));
-        switchToHomePage();
+    public static void launchCameraByShortcut(){
+       // switchToHomePage();
+        // getUiObjectByIdIndexIndex(HOME_GROUP_VIEW,1,0).clickAndWaitForNewWindow();
         try {
-            CameraShortcut.clickAndWaitForNewWindow();
+            gDevice.pressHome();
+            gDevice.findObject(new UiSelector().resourceId("com.doro.apps.launcher3:id/this_is_da_boss_layout").index(2).index(1)).
+                    clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
