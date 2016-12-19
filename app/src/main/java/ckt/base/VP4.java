@@ -174,6 +174,17 @@ public class VP4 extends VP2 {
         initDevice();
         return gDevice.findObject(new UiSelector().className(ClassObject).description(DescObject));
     }
+    public static UiObject getObjectByEnabled(boolean openClose){
+        //得到指定Enabled的对应object
+        initDevice();
+        return gDevice.findObject(new UiSelector().enabled(openClose));
+    }
+    public static UiObject getObjectByTextEnabled(String TragetObject, boolean openClose){
+        //得到指定,Text,Enabled的对应object
+        initDevice();
+        return gDevice.findObject(new UiSelector().text(TragetObject).enabled(openClose));
+    }
+
     public void initRent(){//清除recent
         try {
             initDevice();
