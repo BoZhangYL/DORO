@@ -2,15 +2,17 @@ package doro.testcase;
 
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiObjectNotFoundException;
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import ckt.base.VP4;
-import doro.action.CalendarAction;
-import static ckt.base.VP3.takeScreen;
+import static doro.action.CalendarAction.checkCalendarGreenPoint;
+import static doro.action.CalendarAction.checkCreateBeforCalendar;
+import static doro.action.CalendarAction.checkOpenCalendarResult;
+import static doro.action.CalendarAction.createNewCalendar;
+import static doro.action.CalendarAction.setCalendar;
+import static doro.action.CalendarAction.setCalendarBefore;
 import static doro.page.CalednarPage.*;
-import static org.junit.Assert.assertEquals;
 
 
 /**
@@ -20,43 +22,36 @@ import static org.junit.Assert.assertEquals;
 public class CalendarCase extends VP4{
     @BeforeClass
     public static void initCalendar(){
-        initDevice();
-        unLock();
+        unLock();//解锁
     }
 
     @Test
-    public void launchCalendarCase1() {
+    public void openCalendarFromAppList() {
         //D8040-1228:进入日历查看日历 [View calender enter calender applictaion]
 
-        openAppliction("Calen\u200Bdar");
-        assertEquals("launchCalendarCase1",
-                CALENDAR_PACKAGE,gDevice.getCurrentPackageName());
+        openAppliction("Calen\u200Bdar");//打开日历应用
+        checkOpenCalendarResult();//检查打开是否正常
     }
 
     @Test
-    public void createCalendarEventBeforeCase2() throws UiObjectNotFoundException {
+    public void CreateBeforeFiveMinEvent() throws UiObjectNotFoundException {
         //D8040-1244:提前5分钟提醒 [Reminder at 5 minutes in advance]
 
-        openAppliction("Calen\u200Bdar");
-        CalendarAction newCalendar =new CalendarAction("my new Calendar","Home",null,null,
-                null,null,null,null,null,CALENDAR_BEFORE_VALUE_5_MINUTES);
-        newCalendar.addEvent();
-        assertEquals("Calendar title","my new Calendar",
-                getObjectById(CALENDAR_EVENT_TITLE_ID).getText());
-        assertEquals("createEventBeforeCase2","Home",
-                getObjectById(CALENDAR_LOCATION_ID).getText());
+        openAppliction("Calen\u200Bdar");//打开日历应用
+        setCalendarBefore(CALENDAR_BEFORE_VALUE_5_MINUTES);//设置提醒提前5分钟开始
+        createNewCalendar();//添加新的calendar
+        checkCreateBeforCalendar();//检查添加是否成功
     }
     @Test
-    public void checkCalendarGreenPointsCase3(){
+    public void checkCalendarGreenPoints(){
         // D8040-1252:添加事件后日期上方有绿点 [The date icon top displays the green points after add event]
-        openAppliction("Calen\u200Bdar");
-        String newpath = takeScreen("calendar");
-        CalendarAction newCalendar =new CalendarAction();
-        boolean existGreenPoint = newCalendar.
-                isCalendarGreenPoint(getObjectByIdText(CALENDAR_DAY_LABEL,
-                        String.valueOf(newCalendar.getCurrentDay())), newpath);
-        Assert.assertTrue("checkCalendarGreenPointsCase3",existGreenPoint);
-    }
 
+        openAppliction("Calen\u200Bdar");//打开日历应用
+        setCalendar("CheckGreenPoint","office",null,null,CALENDAR_ALL_DAY_DISABLE,
+                null,null, CALENDAR_RECURRENCE_NONE,CALENDAR_REMINDER_TYPE_NOTIFICATION,
+                CALENDAR_BEFORE_VALUE_5_MINUTES);//设置日历数据
+        createNewCalendar();//添加一个新日历
+        checkCalendarGreenPoint();//检查绿点是否存在
+    }
 
 }

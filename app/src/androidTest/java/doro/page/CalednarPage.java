@@ -155,6 +155,7 @@ public class CalednarPage {
     //Before的值
 
     public static final String CALENDAR_DAY_LABEL = "com.doro.apps.calendar:id/label";
+    //日历DAY框
 
 
 

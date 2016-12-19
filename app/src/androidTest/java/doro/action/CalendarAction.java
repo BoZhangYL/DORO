@@ -10,9 +10,14 @@ import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
 import android.util.Log;
-import ckt.base.VP4;
-import static doro.page.CalednarPage.*;
 
+import org.junit.Assert;
+
+import ckt.base.VP4;
+
+import static ckt.base.VP3.takeScreen;
+import static doro.page.CalednarPage.*;
+import static org.hamcrest.Asst.assertEquals;
 
 
 /**
@@ -20,26 +25,22 @@ import static doro.page.CalednarPage.*;
  */
 
 public class CalendarAction extends VP4 {
-    private String CalednarTitle = null;
-    private String CalednarLocation = null;
-    private String CalendarRecurrence = null;
-    private String CalendarReminder = null;
-    private String CalendarBefore = null;
-    private String CalendarStartDate = null;
-    private String CalendarEndDate = null;
-    private String CalendarStartTime = null;
-    private String CalendarEndTime = null;
-    private String CalendarAllDayEvent = null;
+    private static String CalednarTitle = null;
+    private static String CalednarLocation = null;
+    private static String CalendarRecurrence = null;
+    private static String CalendarReminder = null;
+    private static String CalendarBefore = null;
+    private static String CalendarStartDate = null;
+    private static String CalendarEndDate = null;
+    private static String CalendarStartTime = null;
+    private static String CalendarEndTime = null;
+    private static String CalendarAllDayEvent = null;
 
     private void initCalendarDevice() {
         initDevice();
     }
 
-    public CalendarAction() {
-
-    }
-
-    public CalendarAction(String CalednarTitle, String CalednarLocation,
+    public static void setCalendar(String CalednarTitle, String CalednarLocation,
                           String CalendarStartDate, String CalendarEndDate, String CalendarAllDayEvent,
                           String CalendarStartTime, String CalendarEndTime, String CalendarRecurrence,
                           String CalendarReminder, String CalendarBefore) {
@@ -55,7 +56,7 @@ public class CalendarAction extends VP4 {
         setCalendarAllDayEvent(CalendarAllDayEvent);
     }
 
-    private void ClickAddEventButton() {//点击Add event按钮
+    private static void ClickAddEventButton() {//点击Add event按钮
         UiObject Calendar = getObjectByIdText(CALENDAR_ADD_BUTTIN_ID,
                 CALENDAR_ADD_BUTTON_TEXT);
         try {
@@ -69,29 +70,29 @@ public class CalendarAction extends VP4 {
 
     }
 
-    public void setCalednarTitle(String CalednarTitle) {//设置日历标题
-        this.CalednarTitle = CalednarTitle;
+    public static void setCalednarTitle(String CalednarTitles) {//设置日历标题
+        CalednarTitle = CalednarTitles;
     }
 
-    private void getCalednarTitle() {//输入日历标题
+    private static void getCalednarTitle() {//输入日历标题
         UiObject TitleBox = getObjectById(CALENDAR_EVENT_TITLE_ID);
         doroInput(TitleBox, CalednarTitle);
     }
 
-    public void setCalednarLocation(String CalednarLocation) {//设置日历地址
-        this.CalednarLocation = CalednarLocation;
+    public static void setCalednarLocation(String CalednarLocations) {//设置日历地址
+        CalednarLocation = CalednarLocations;
     }
 
-    private void getCalednarLocation() {//输入日历地址
+    private static void getCalednarLocation() {//输入日历地址
         UiObject LocationBox = getObjectById(CALENDAR_LOCATION_ID);
         doroInput(LocationBox, CalednarLocation);
     }
 
-    public void setCalendarStartsDATE(String STartDATE) {//设置开始日期,格式：年/月/日
-        this.CalendarStartDate = STartDATE;
+    public static void setCalendarStartsDATE(String STartDATE) {//设置开始日期,格式：年/月/日
+        CalendarStartDate = STartDATE;
     }
 
-    private void getCalendarStartsDATE() {//输入日期
+    private static void getCalendarStartsDATE() {//输入日期
         String[] datedetail = CalendarStartDate.split("/");
         UiObject StartsDateButton = getObjectById(CALENDAR_EVENT_START_DATE_BUTTON);
         if (datedetail.length == 3) {
@@ -107,11 +108,11 @@ public class CalendarAction extends VP4 {
 
     }
 
-    public void setCalendarEndsDATE(String EndsDate) {//设置结束日期
-        this.CalendarEndDate = EndsDate;
+    public static void setCalendarEndsDATE(String EndsDate) {//设置结束日期
+        CalendarEndDate = EndsDate;
     }
 
-    private void getCalendarEndsDATE() {
+    private static void getCalendarEndsDATE() {
         String[] datedetail = CalendarEndDate.split("/");
         UiObject EndDateButton = getObjectById(CALENDAR_EVENT_END_DATE_BUTTON);
         if (datedetail.length == 3) {
@@ -126,28 +127,28 @@ public class CalendarAction extends VP4 {
         }
     }
 
-    public void setCalendarStartsTime(String CalendarStartTime) {//输入开始时间
-        this.CalendarStartTime = CalendarStartTime;
+    public static void setCalendarStartsTime(String CalendarStartTimes) {//输入开始时间
+        CalendarStartTime = CalendarStartTimes;
     }
 
-    private void getCalendarStartsTime() {//设置开始时间
+    private static void getCalendarStartsTime() {//设置开始时间
         try {
             getObjectById(CALENDAR_EVENT_START_TIME_BUTTON).clickAndWaitForNewWindow();
-            setTime(this.CalendarStartTime);
+            setTime(CalendarStartTime);
             getObjectById(CALENDAR_EDIT_TIME_VIEW_CONFIRM_BUTTON).clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    public void setCalendarEndsTime(String CalendarEndTime) {//输入结束时间
-        this.CalendarEndTime = CalendarEndTime;
+    public static void setCalendarEndsTime(String CalendarEndTimes) {//输入结束时间
+        CalendarEndTime = CalendarEndTimes;
     }
 
-    private void getCalendarEndsTime() {//设置结束时间
+    private static void getCalendarEndsTime() {//设置结束时间
         try {
             getObjectById(CALENDAR_EVENT_END_TIME_BUTTON).clickAndWaitForNewWindow();
-            setTime(this.CalendarEndTime);
+            setTime(CalendarEndTime);
             getObjectById(CALENDAR_EDIT_TIME_VIEW_CONFIRM_BUTTON).clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
@@ -155,11 +156,11 @@ public class CalendarAction extends VP4 {
 
     }
 
-    public void setCalendarAllDayEvent(String AllDayEventState) {//输入全天事件状态
-        this.CalendarAllDayEvent = AllDayEventState;
+    public static void setCalendarAllDayEvent(String AllDayEventStates) {//输入全天事件状态
+        CalendarAllDayEvent = AllDayEventStates;
     }
 
-    private void getCalendarAllDayEvent() {//设置全天事件
+    private static void getCalendarAllDayEvent() {//设置全天事件
         String currentAllDayState;
         try {
             boolean stateALLDAY = getObjectById(CALENDAR_ALL_DAY_EVENT).isChecked();
@@ -176,48 +177,48 @@ public class CalendarAction extends VP4 {
         }
     }
 
-    public void setCalendarRecurrence(String CalendarRecurrence) {//输入重复事件
-        this.CalendarRecurrence = CalendarRecurrence;
+    public static void setCalendarRecurrence(String CalendarRecurrences) {//输入重复事件
+        CalendarRecurrence = CalendarRecurrences;
     }
 
-    private void getCalendarRecurrence() {//设置重复事件
+    private static void getCalendarRecurrence() {//设置重复事件
         try {
             getObjectById(CALENDAR_RECURRENCE_BUTTON).clickAndWaitForNewWindow();
-            getObjectByIdText(CALENDAR_SET_RECURRENCE_BUTTON, this.CalendarRecurrence)
+            getObjectByIdText(CALENDAR_SET_RECURRENCE_BUTTON, CalendarRecurrence)
                     .clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    public void setCalendarReminder(String CalendarReminder) {//输入提醒
-        this.CalendarReminder = CalendarReminder;
+    public static void setCalendarReminder(String CalendarReminders) {//输入提醒
+        CalendarReminder = CalendarReminders;
     }
 
-    private void getCalendarReminder() {//设置提醒
+    private static void getCalendarReminder() {//设置提醒
         try {
             getObjectById(CALENDAR_REMINDER_BUTTON).clickAndWaitForNewWindow();
-            getObjectByIdText(CALENDAR_CHOSE_REMINDER_TYPE, this.CalendarReminder)
+            getObjectByIdText(CALENDAR_CHOSE_REMINDER_TYPE, CalendarReminder)
                     .clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    public void setCalendarBefore(String CalendarBefore) {//输入日历开始好多分钟前提醒
-        this.CalendarBefore = CalendarBefore;
+    public static void setCalendarBefore(String CalendarBefores) {//输入日历开始好多分钟前提醒
+        CalendarBefore = CalendarBefores;
     }
 
-    private void getCalendarBefore() {//设置日历开始好多分钟前提醒
+    private static void getCalendarBefore() {//设置日历开始好多分钟前提醒
         try {
             getObjectById(CALENDAR_BEFORE_BUTTON).clickAndWaitForNewWindow();
-            getObjectByIdText(CALENDAR_SET_BEFOR, this.CalendarBefore).clickAndWaitForNewWindow();
+            getObjectByIdText(CALENDAR_SET_BEFOR, CalendarBefore).clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    public void addEvent() {//
+    public static void createNewCalendar() {//创建一个新的calendar
         UiObject NextButton = getObjectById(CALENDAR_ADD_EVENT_NEXT_BUTTON);
         try {
             ClickAddEventButton();
@@ -234,7 +235,7 @@ public class CalendarAction extends VP4 {
         }
     }
 
-    private void setEventPage() {
+    private static void setEventPage() {//设置新calendar的event界面
         if (CalednarTitle != null) {
             getCalednarTitle();
         }
@@ -243,7 +244,7 @@ public class CalendarAction extends VP4 {
         }
     }
 
-    private void setMomentPage() {
+    private static void setMomentPage() {//设置新calendar的moment界面
         if (CalendarStartDate != null) {
             getCalendarStartsDATE();
         }
@@ -265,7 +266,7 @@ public class CalendarAction extends VP4 {
 
     }
 
-    private void setReminderPage() {
+    private static void setReminderPage() {//设置新calendar的reminder可免
         if (CalendarReminder != null) {
             getCalendarReminder();
         }
@@ -274,7 +275,7 @@ public class CalendarAction extends VP4 {
         }
     }
 
-    public void doroInput(UiObject object, String text) {
+    public static void doroInput(UiObject object, String text) {//输入键盘的操作
         try {
             object.click();
         } catch (UiObjectNotFoundException e) {
@@ -296,7 +297,7 @@ public class CalendarAction extends VP4 {
 
     }
 
-    public void setDate(String date_yyyy_mm_dd) {//设置日期，格式YYYY/MM/DD
+    public static void setDate(String date_yyyy_mm_dd) {//设置日期，格式YYYY/MM/DD
         String[] datedetail = date_yyyy_mm_dd.split("/");
         UiObject SetYearMonthView = gDevice.findObject(new UiSelector().index(0).index(1));
         UiObject Dayview = gDevice.findObject(new UiSelector()
@@ -343,7 +344,7 @@ public class CalendarAction extends VP4 {
 
     }
 
-    public void setTime(String TIME_HH_MM) {//设置时间，格式：HH：MM
+    public static void setTime(String TIME_HH_MM) {//设置时间，格式：HH：MM
         String[] times = TIME_HH_MM.split(":");
         int hours = Integer.valueOf(times[0]);
         int minutes = Integer.valueOf(times[1]);
@@ -376,7 +377,7 @@ public class CalendarAction extends VP4 {
 
     }
 
-    public boolean isCalendarGreenPoint(UiObject CurrentObject, String newpath) {
+    public static boolean isCalendarGreenPoint(UiObject CurrentObject, String newpath) {
         //绿点的位置是对应的日标签框中的坐标：（横坐标：1/2日标签，纵坐标：1/5纵坐标），半径：8像素点
         Bitmap mBitmap = BitmapFactory.decodeFile(newpath);
         UiObject daybox = CurrentObject;
@@ -393,7 +394,7 @@ public class CalendarAction extends VP4 {
                     if ((Math.abs(x - PixelGreenPointX) < 8) && (Math.abs(y - PixelGreenPointY) < 8)) {
                         //Green Constant Value: -16711936 (0xff00ff00)
                         int k = mBitmap.getPixel(x, y);
-                        if (k> (Color.GREEN*0.98) || k <(Color.GREEN*1.12)) {
+                        if (k< (Color.GREEN*0.98) && k >(Color.GREEN*1.12)) {
                             return false;
                         }
                     }
@@ -406,22 +407,45 @@ public class CalendarAction extends VP4 {
     }
 
     @TargetApi(Build.VERSION_CODES.N)
-    public int  getCurrentDay(){
+    public static int  getCurrentDay(){//得到当前日期的日
         Calendar c = Calendar.getInstance();
         int day = c.get(Calendar.DAY_OF_MONTH);
         return day;
     }
     @TargetApi(Build.VERSION_CODES.N)
-    public int getCurrentYear(){
+    public static int getCurrentYear(){//得到当前日期的年
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         return year;
     }
     @TargetApi(Build.VERSION_CODES.N)
-    public int getCurrentMonth(){
+    public static int getCurrentMonth(){//得到当前日期的月
         Calendar c = Calendar.getInstance();
         int  month = c.get(Calendar.MONTH);
         return month;
     }
-
+    public static void checkOpenCalendarResult(){//检查打开calendar结果
+        assertEquals("openCalendarFromAppList",
+                CALENDAR_PACKAGE,gDevice.getCurrentPackageName());
+    }
+    public static void checkCreateBeforCalendar() throws UiObjectNotFoundException {
+        scrollToEnd(STEP_NORMAL);
+        UiObject beforbox = getObjectById("com.doro.apps.calendar:id/event_alarm");
+        Assert.assertEquals("CreateBeforeFiveMinEvent",CALENDAR_BEFORE_VALUE_5_MINUTES,
+                beforbox.getText());
+    }
+    public static void checkCalendarGreenPoint()  {//检查绿点
+        try {
+            UiObject DayBox =getObjectByIdText(CALENDAR_DAY_LABEL, String.valueOf(getCurrentDay()));
+            while(!DayBox.exists()) {
+                pressKey("Back");
+            }
+            DayBox =getObjectByIdText(CALENDAR_DAY_LABEL, String.valueOf(getCurrentDay()));
+            String newpath = takeScreen("calendar");
+            Assert.assertTrue("checkCalendarGreenPointsCase3",isCalendarGreenPoint(DayBox,
+                    newpath));
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }
