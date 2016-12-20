@@ -7,7 +7,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
-import static doro.page.TimerPage.*;
 import doro.action.TimerAction;
 
 
@@ -24,17 +23,17 @@ public class  TimerCase extends TimerAction{
 
     @Test
     public void Case1_launchTimer(){//打开Timer应用
-        openAppliction(Timer_Title_Text);
-        verifyResultByID("Case1_launchTimer",Timer_Title_Text,Title_ID);
+        openTimer();
+        checkLaunchTimerResult();
         waitTime(3);
     }
 
     @Test
     public void Case2_setTimerto30s(){//设置30s的Timer
-        openAppliction(Timer_Title_Text);
+        openTimer();
         startTimer(30);
-        verifyResultByID("Case2_setTimerto30s",Stop_Text,Other_Button_ID);
-        clickTimerButton(Stop_Text);
+        check30sTimerResult();
+        clickStopButton();
     }
 }
 
