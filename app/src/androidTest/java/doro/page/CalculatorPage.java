@@ -1,5 +1,7 @@
 package doro.page;
 
+import static android.R.attr.id;
+
 /**
  * Created by admin on 2016/12/12.
  */
@@ -23,4 +25,5 @@ public class CalculatorPage {
     //小数点的ResourceID
     public static final String CALCULATOR_DOTBUTTON_ID= "com.doro.apps.calculator:id/button_dot";
     public static final String CALCULATOR_IPUTFIELD_ID= "com.doro.apps.calculator:id/result";
+
 }
