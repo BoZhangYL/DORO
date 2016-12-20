@@ -422,7 +422,7 @@ public class CalendarAction extends VP4 {
     public static int getCurrentMonth(){//得到当前日期的月
         Calendar c = Calendar.getInstance();
         int  month = c.get(Calendar.MONTH);
-        return month;
+        return month+1;
     }
     public static void checkOpenCalendarResult(){//检查打开calendar结果
         assertEquals("openCalendarFromAppList",
