@@ -2,6 +2,7 @@ package doro.action;
 
 
 import android.support.test.uiautomator.UiObject;
+import org.junit.Assert;
 import ckt.base.VP4;
 import static doro.page.TimerPage.*;
 
@@ -10,7 +11,7 @@ import static doro.page.TimerPage.*;
  */
 
 public class TimerAction extends VP4 {
-    public void SetTimerNumber(int TimerNumber){//输入数字
+    public void startTimer(int TimerNumber){//输入数字
         initDevice();
         try {
             UiObject SetButton=getObjectById(Set_ID);
@@ -24,14 +25,14 @@ public class TimerAction extends VP4 {
             String Number1 = Number.charAt(i) + "";
             UiObject NamberButton=getUiObjectByClassText(Timer_Class,Number1);
               NamberButton.click(); }
-            ClickTimerButton(Start_Text);
+            clickTimerButton(Start_Text);
             Thread.sleep(TimerNumber*1000+1000);
         }
           catch (Exception e){
               e.printStackTrace();
           }
     }
-    public void ClickTimerButton(String ButtonName){//按键Start/Stop/Pause/Reset/Set
+    public void clickTimerButton(String ButtonName){//按键Start/Stop/Pause/Reset/Set
         try {
             initDevice();
             if (ButtonName.equals(Reset_Text)) {
@@ -50,7 +51,7 @@ public class TimerAction extends VP4 {
             e.printStackTrace();
         }
     }
-    public void DeleteNumber(){//按五次删除键
+    public void deleteNumber(){//按五次删除键
         int a;
         for(a=0;a<=4;a++){
             UiObject DeleteButton=getUiObjectByClassID(Deletet_Class,Delete_ID);
@@ -61,4 +62,12 @@ public class TimerAction extends VP4 {
             }
         }
     }
+    public void verifyResultByID(String Case_Name,String Expected_Text,String Actual_ID){
+        try {
+            Assert.assertEquals(Case_Name, Expected_Text, getObjectById(Actual_ID).getText());
+        }catch (Exception e) {
+        e.printStackTrace();
+        }
+    }
+
 }
