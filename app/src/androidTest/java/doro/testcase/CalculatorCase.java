@@ -24,19 +24,12 @@ import static doro.page.CalculatorPage.CALCULATOR_IPUTFIELD_ID;
  * Created by admin on 2016/12/9.
  */
 public class CalculatorCase extends VP4{
+    CalculatorAction calculatorAction = new CalculatorAction();
     @Test
-    public void setCalculatorto30s()throws RemoteException{
+    public void setCalculatortor()throws RemoteException{
         //unLock();
-        openAppliction("Cal\u200Bcu\u200Blator");//打开计算器
-        new CalculatorAction().CalculatorResult(0.0078,45,"/");
-        try {
-            double A=0.0078/45;
-            String C=getObjectById(CALCULATOR_IPUTFIELD_ID).getText();
-            Double B=Double.parseDouble(C);
-            Assert.assertEquals(A,B,0.11);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+       openAppliction("Cal\u200Bcu\u200Blator");//打开计算器
+        calculatorAction.CalculatorResult(0.0078,45,"/");//进行一次运算
     }
 }
 
