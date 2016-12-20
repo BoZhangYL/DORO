@@ -49,7 +49,6 @@ public class VP4 extends VP2 {
     }
     public void openAppliction(String AppName){//打开应用
         switchToApplistPage();
-        scrollToBegin(STEP_NORMAL);
         while(!getObjectByIdText(LAUNCH3_APP, AppName).exists()){
             scrollByVerticalForward(STEP_NORMAL);
         }
