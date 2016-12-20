@@ -31,5 +31,4 @@ public class TimerPage {
     //Timer界面Title的Text
     public static final String Timer_Title_ID="com.doro.apps.timer:id/header_title";
     //Timer界面Title的resource id
-
 }
