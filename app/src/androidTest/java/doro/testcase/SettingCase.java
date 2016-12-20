@@ -12,4 +12,5 @@ import ckt.base.VP4;
 @RunWith(AndroidJUnit4.class)
 public class SettingCase extends VP4 {
 
+
 }
