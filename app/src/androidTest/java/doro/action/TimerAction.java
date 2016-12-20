@@ -80,6 +80,7 @@ public class TimerAction extends VP4 {
     }
     public void check30sTimerResult(){
         verifyResultByID("Case2_setTimerto30s",Timer_Stop_Text,Timer_Other_Button_ID);
-     }
+
+    }
 }
 
