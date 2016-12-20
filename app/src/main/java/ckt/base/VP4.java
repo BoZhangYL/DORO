@@ -184,7 +184,11 @@ public class VP4 extends VP2 {
         initDevice();
         return gDevice.findObject(new UiSelector().text(TragetObject).enabled(openClose));
     }
-
+    public static UiObject getObjectByText(String Text){
+        //得到指定,Text对应object
+        initDevice();
+        return gDevice.findObject(new UiSelector().text(Text));
+    }
     public void initRent(){//清除recent
         try {
             initDevice();
