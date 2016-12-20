@@ -14,7 +14,7 @@ public class TimerAction extends VP4 {
     public void startTimer(int TimerNumber){//输入数字
         initDevice();
         try {
-            UiObject SetButton=getObjectById(Set_ID);
+            UiObject SetButton=getObjectById(Timer_Set_ID);
         if (SetButton.exists()) {
             SetButton.click();
         }
@@ -25,7 +25,7 @@ public class TimerAction extends VP4 {
             String Number1 = Number.charAt(i) + "";
             UiObject NamberButton=getUiObjectByClassText(Timer_Class,Number1);
               NamberButton.click(); }
-            clickTimerButton(Start_Text);
+            clickTimerButton(Timer_Start_Text);
             Thread.sleep(TimerNumber*1000+1000);
         }
           catch (Exception e){
@@ -35,15 +35,15 @@ public class TimerAction extends VP4 {
     public void clickTimerButton(String ButtonName){//按键Start/Stop/Pause/Reset/Set
         try {
             initDevice();
-            if (ButtonName.equals(Reset_Text)) {
-                UiObject TimerButton =getObjectById(Reset_ID);
+            if (ButtonName.equals(Timer_Reset_Text)) {
+                UiObject TimerButton =getObjectById(Timer_Reset_ID);
                 TimerButton.click();
             } else {
-                if (ButtonName.equals(Set_Text)) {
-                    UiObject TimerButton =getObjectById(Set_ID);
+                if (ButtonName.equals(Timer_Set_Text)) {
+                    UiObject TimerButton =getObjectById(Timer_Set_ID);
                     TimerButton.click();
                 } else {
-                    UiObject TimerButton =getObjectByIdText(Other_Button_ID,ButtonName);
+                    UiObject TimerButton =getObjectByIdText(Timer_Other_Button_ID,ButtonName);
                     TimerButton.click();
                 }
             }
@@ -54,7 +54,7 @@ public class TimerAction extends VP4 {
     public void deleteNumber(){//按五次删除键
         int a;
         for(a=0;a<=4;a++){
-            UiObject DeleteButton=getUiObjectByClassID(Deletet_Class,Delete_ID);
+            UiObject DeleteButton=getUiObjectByClassID(Timer_Deletet_Class,Timer_Delete_ID);
             try {
                 DeleteButton.click();
             }catch (Exception e){
@@ -73,12 +73,12 @@ public class TimerAction extends VP4 {
         openAppliction(Timer_Title_Text);
     }
     public void clickStopButton(){
-        clickTimerButton(Stop_Text);
+        clickTimerButton(Timer_Stop_Text);
     }
     public void checkLaunchTimerResult(){
-        verifyResultByID("Case1_launchTimer",Timer_Title_Text,Title_ID);
+        verifyResultByID("Case1_launchTimer",Timer_Title_Text,Timer_Title_ID);
     }
     public void check30sTimerResult(){
-        verifyResultByID("Case2_setTimerto30s",Stop_Text,Other_Button_ID);
+        verifyResultByID("Case2_setTimerto30s",Timer_Stop_Text,Timer_Other_Button_ID);
     }
 }
