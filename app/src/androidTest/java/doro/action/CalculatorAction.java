@@ -101,7 +101,6 @@ public class CalculatorAction extends VP4 {
                     Assert.assertEquals(numberA*numberB,ActualResult,0.11);//做乘法运动时，断言函数
                 if (operator.equals("/"))
                     Assert.assertEquals(numberA/numberB,ActualResult,0.11);//做除法运动时，断言函数
-
             }
         }catch(Exception e){
             e.printStackTrace();
