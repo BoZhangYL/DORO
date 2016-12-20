@@ -69,5 +69,16 @@ public class TimerAction extends VP4 {
         e.printStackTrace();
         }
     }
-
+    public void openTimer(){
+        openAppliction(Timer_Title_Text);
+    }
+    public void clickStopButton(){
+        clickTimerButton(Stop_Text);
+    }
+    public void checkLaunchTimerResult(){
+        verifyResultByID("Case1_launchTimer",Timer_Title_Text,Title_ID);
+    }
+    public void check30sTimerResult(){
+        verifyResultByID("Case2_setTimerto30s",Stop_Text,Other_Button_ID);
+    }
 }
