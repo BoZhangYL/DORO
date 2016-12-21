@@ -2,5 +2,9 @@
     {
         "merged": "D:\\MyApplication\\DORO\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\ic_launcher.png",
         "source": "D:\\MyApplication\\DORO\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "E:\\androidWork\\DORO\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\ic_launcher.png",
+        "source": "E:\\androidWork\\DORO\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
     }
 ]
