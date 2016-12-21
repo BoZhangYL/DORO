@@ -6,6 +6,8 @@ package doro.page;
 
 public class AlarmPage {
 
+    //Alarm界面的闹钟图标的ID
+    public static final String ALARM_HEADER_ICON_ID ="com.doro.apps.alarm:id/header_icon";
     //ALARM time的recource-id
     public static final String ALARM_TIME_FIELD_ID ="com.doro.apps.alarm:id/time_field";
     //Repeat选项的recource-id
@@ -50,7 +52,18 @@ public class AlarmPage {
     public static final String ALARM_CLICK_NEXT_TEXT ="Next";
     //“Save”按钮的Text
     public static final String ALARM_CLICK_SAVE_TEXT ="Save";
+    //闹钟到来“Snooze”
+    public static final String ALARM_COMING_SNOOZE_TEXT="Snooze";
+    //闹钟到来“Stop”
+    public static final String ALARM_COMING_STOP_TEXT="Stop";
 
     //选择一个闹钟的class
     public static final String ALARM_RELATIVELAYOUT_CLASS ="android.widget.RelativeLayout";
+    //闹钟到来的闹钟图标的class
+    public static final String ALARM_IMAGEVIEW_ICON_CLASS ="android.widget.ImageView";
+    //闹钟个数的class
+    public static final String ALARM_WIDGET_LISTVIEW ="android.widget.ListView";
+
+    //闹钟到来的闹钟图标的Package
+    public static final String AlARM_APPS_ALARM_PACKAGE ="com.doro.apps.alarm";
 }

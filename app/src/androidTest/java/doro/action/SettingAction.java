@@ -81,6 +81,16 @@ public class SettingAction extends VP4 {
             }
         } catch (Exception e) {e.printStackTrace();}
     }
+    public void setNextDay(){//设置成下一天
+        try{
+            getUiObjectByText(SETTINGS_SET_DATE_TEXT).clickAndWaitForNewWindow();
+            String[] month = getObjectById(SETTINGS_DATE_HEADER_DATE_ID).getText().split(" ");
+            int days =Integer.parseInt(month[1])+1;
+            String sDays = String.valueOf(days);
+            getUiObjectByClassText(SETTING_DATE_DAY_VIEW_CLASS,sDays).click();
+            getUiObjectByText(SETTINGS_SET_DATE_OK_TEXT).clickAndWaitForNewWindow();
+        }catch(Exception e){e.printStackTrace();}
+    }
     public void setDate(String date){ //年-月-日 格式：YYYY-MM-DD
         try{
             String[] timeDate =date.split("-");
@@ -94,28 +104,28 @@ public class SettingAction extends VP4 {
                     scrollByVerticalForward(30);
                 }
                 getObjectByIdText(SETTINGS_DATE_YEAR_TEXT1_ID, timeDate[0]).click();
-            }else {
-                String[] month = getObjectById(SETTINGS_DATE_HEADER_DATE_ID).getText().split(" ");
-                while (!month[2].equals("Jan")) {
-                    getObjectById(SETTINGS_DATE_MONTH_PREV_ID).click();
-                    getUiObjectByClassText(SETTING_DATE_DAY_VIEW_CLASS, "1").click();
-                    String[] month1 = getObjectById(SETTINGS_DATE_HEADER_DATE_ID).getText().split(" ");
-                    month[2] = month1[2];
-                }
-                for (int i = 1; i < months; i++) {
-                    getObjectById(SETTINGS_DATE_MONTH_NEXT_ID).click();
-                    Thread.sleep(100);
-                }
-                int days =Integer.parseInt(timeDate[2]);
-                String sDays = String.valueOf(days);
-                getUiObjectByClassText(SETTING_DATE_DAY_VIEW_CLASS,sDays).click();
-                Thread.sleep(1000);
-                getUiObjectByText(SETTINGS_SET_DATE_OK_TEXT).clickAndWaitForNewWindow();
             }
+            String[] month = getObjectById(SETTINGS_DATE_HEADER_DATE_ID).getText().split(" ");
+            while (!month[2].equals("Jan")) {
+                getObjectById(SETTINGS_DATE_MONTH_PREV_ID).click();
+                getUiObjectByClassText(SETTING_DATE_DAY_VIEW_CLASS, "1").click();
+                String[] month1 = getObjectById(SETTINGS_DATE_HEADER_DATE_ID).getText().split(" ");
+                month[2] = month1[2];
+            }
+            for (int i = 1; i < months; i++) {
+                getObjectById(SETTINGS_DATE_MONTH_NEXT_ID).click();
+                Thread.sleep(100);
+            }
+            int days =Integer.parseInt(timeDate[2]);
+            String sDays = String.valueOf(days);
+            getUiObjectByClassText(SETTING_DATE_DAY_VIEW_CLASS,sDays).click();
+            Thread.sleep(1000);
+            getUiObjectByText(SETTINGS_SET_DATE_OK_TEXT).clickAndWaitForNewWindow();
         }catch(Exception e){e.printStackTrace();}
     }
     private void setTime(String time){ //设置时间
         try{
+            whatProvidedTime(0);
             getUiObjectByText(SETTINGS_SET_TIME_TEXT).clickAndWaitForNewWindow();
             String[] times =time.split(":");
             int hour = Integer.valueOf(times[0]);
@@ -165,7 +175,7 @@ public class SettingAction extends VP4 {
             getUiObjectByText(cityName).clickAndWaitForNewWindow();
         }catch(Exception e){e.printStackTrace();}
     }
-    public void Use24HourFormat(boolean yesOrNo){
+    public void Use24HourFormat(boolean yesOrNo){ //是否使用24小时制
         try{
             if(yesOrNo){
                 if(getUiObjectByText(SETTINGS_CHOOSE_12HOUR_FORMAT_TEXT).exists()){
@@ -178,4 +188,44 @@ public class SettingAction extends VP4 {
             }
         }catch(Exception e){e.printStackTrace();}
     }
+    /*
+* 一些基本的关于时间日期的设置
+* */
+    public void setSpecialTime(String time){ //去设置中设置一个时间
+        openAppliction("Settings"); //找到设置应用
+        dateAndTime(); //找到时间设置
+        whatProvidedTime(0);
+        setTime24(time);//设置手机时间
+    }
+    public void setSpecialDate(String date){ //去设置中设置一个日期
+        openAppliction("Settings"); //找到设置应用
+        dateAndTime(); //找到时间设置
+        whatProvidedTime(0);
+        setDate(date);//设置手机日期
+    }
+    public void setDateTime(String date,String time){ //去设置中设置日期与时间
+        openAppliction("Settings"); //找到设置应用
+        dateAndTime(); //找到时间设置
+        whatProvidedTime(0);
+        setDate(date);//设置手机日期
+        setTime24(time);//设置手机时间
+    }
+    public void setNextdayTime(String time){ //去设置中设置下一天的时间
+        openAppliction("Settings"); //找到设置应用
+        dateAndTime(); //找到时间设置
+        whatProvidedTime(0);//使用自定义时间
+        setNextDay();//更改日期为下一天
+        setTime24(time);//设置手机时间为18:21
+    }
+    public void setEverydayTime(String time ,double waitTime){ //去设置中设置一周的时间
+        for(int i=0;i<7;i++){
+            setNextdayTime(time);//设置手机时间
+            phoneWaitTime(waitTime);//手机等待分钟
+            new AlarmAction().checkAlarmComing();//判断闹钟是否到来
+            new AlarmAction().alarmComingStop();//闹钟到来后选择关闭闹钟
+        }
+    }
+
 }
+
+
