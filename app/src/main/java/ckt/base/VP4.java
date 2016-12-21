@@ -7,6 +7,9 @@ import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
+
+import java.io.IOException;
+
 /**
  * Created by admin on 2016/12/2.
  */
@@ -47,7 +50,7 @@ public class VP4 extends VP2 {
             }
         }
     }
-    public void openAppliction(String AppName){//打开应用
+    public static void openAppliction(String AppName){//打开应用
         switchToApplistPage();
         while(!getObjectByIdText(LAUNCH3_APP, AppName).exists()){
             scrollByVerticalForward(STEP_NORMAL);
@@ -193,7 +196,7 @@ public class VP4 extends VP2 {
         initDevice();
         return gDevice.findObject(new UiSelector().className(classObject).packageName(packageObject));
     }
-    public void initRent(){//清除recent
+    public static void initRent(){//清除recent
         try {
             initDevice();
             pressKey("menu");
@@ -209,5 +212,12 @@ public class VP4 extends VP2 {
         try{
             Thread.sleep((long)(mins*60*1000));
         }catch(Exception e){e.printStackTrace();}
+    }
+    public static void longPressKey(int keyCode) {//长按指定的按键
+        try {
+            gDevice.executeShellCommand("input keyevent --longpress " + keyCode + "\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
