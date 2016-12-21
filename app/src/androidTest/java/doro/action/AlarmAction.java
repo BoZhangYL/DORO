@@ -180,7 +180,6 @@ public class AlarmAction extends VP4 {
             gDevice.openQuickSettings();
             Thread.sleep(2000);
             Assert.assertFalse("闹钟不应该到来",getObjectByClassPackage(ALARM_IMAGEVIEW_ICON_CLASS,AlARM_APPS_ALARM_PACKAGE).exists());
-            alarmComingStop();//闹钟到来后选择关闭闹钟
         }catch(Exception e){e.printStackTrace();}
     }
 
