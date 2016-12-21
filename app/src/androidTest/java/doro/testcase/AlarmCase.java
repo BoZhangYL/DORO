@@ -80,10 +80,10 @@ public class AlarmCase extends VP4{
     public void stopOneAlarm(){ //stop 一个闹钟
         openAppliction("Alarm"); //找到闹钟设置应用
         alarmAction.addOneAlarm();//建立一个2分钟后的闹钟
-        phoneWaitTime(2);//等待2分钟
+        phoneWaitTime(2.5);//等待2分钟
         alarmAction.checkAlarmComing();//判断闹钟是否到来
         alarmAction.alarmComingStop();//闹钟到来后选择Snooze闹钟
-        phoneWaitTime(5.2);//等待5.2分钟
+        phoneWaitTime(5.5);//等待5.5分钟
         alarmAction.checkAlarmNotComing();//判断闹钟是否到来
     }
 }
