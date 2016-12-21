@@ -47,7 +47,7 @@ public class VP4 extends VP2 {
             }
         }
     }
-    public void openAppliction(String AppName){//打开应用
+    public static void openAppliction(String AppName){//打开应用
         switchToApplistPage();
         while(!getObjectByIdText(LAUNCH3_APP, AppName).exists()){
             scrollByVerticalForward(STEP_NORMAL);
@@ -60,7 +60,7 @@ public class VP4 extends VP2 {
     }
 
     //Home page, menu page, applist page
-    public void switchToHomePage(){//回到主界面
+    public static void switchToHomePage(){//回到主界面
         try {
             initRent();
             pressKey("home/back/back");
@@ -71,11 +71,11 @@ public class VP4 extends VP2 {
             scrollByVerticalBackward(STEP_NORMAL);
         }
     }
-    public void switchToMenuPage(){//回到快捷应用图标界面
+    public static void switchToMenuPage(){//回到快捷应用图标界面
         switchToHomePage();
         scrollByVerticalForward(STEP_NORMAL);
     }
-    public void switchToApplistPage(){//进入应用列表
+    public static void switchToApplistPage(){//进入应用列表
         switchToMenuPage();
         scrollByVerticalForward(STEP_NORMAL);
     }
@@ -188,7 +188,7 @@ public class VP4 extends VP2 {
         initDevice();
         return gDevice.findObject(new UiSelector().text(Text));
     }
-    public void initRent(){//清除recent
+    public static void initRent(){//清除recent
         try {
             initDevice();
             pressKey("menu");
