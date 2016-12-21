@@ -47,7 +47,7 @@ public class VP4 extends VP2 {
             }
         }
     }
-    public static void openAppliction(String AppName){//打开应用
+    public void openAppliction(String AppName){//打开应用
         switchToApplistPage();
         while(!getObjectByIdText(LAUNCH3_APP, AppName).exists()){
             scrollByVerticalForward(STEP_NORMAL);
@@ -184,11 +184,16 @@ public class VP4 extends VP2 {
         return gDevice.findObject(new UiSelector().text(TragetObject).enabled(openClose));
     }
     public static UiObject getObjectByText(String Text){
-        //得到指定,Text对应object
+        //得到指定Text对应object
         initDevice();
         return gDevice.findObject(new UiSelector().text(Text));
     }
-    public static void initRent(){//清除recent
+    public static UiObject getObjectByClassPackage(String classObject,String packageObject ){
+        //得到指定的class 与package的Object
+        initDevice();
+        return gDevice.findObject(new UiSelector().className(classObject).packageName(packageObject));
+    }
+    public void initRent(){//清除recent
         try {
             initDevice();
             pressKey("menu");
@@ -199,5 +204,10 @@ public class VP4 extends VP2 {
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
+    }
+    public void phoneWaitTime(double mins){
+        try{
+            Thread.sleep((long)(mins*60*1000));
+        }catch(Exception e){e.printStackTrace();}
     }
 }
