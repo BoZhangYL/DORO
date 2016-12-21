@@ -86,10 +86,4 @@ public class AlarmCase extends VP4{
         phoneWaitTime(5.2);//等待5.2分钟
         alarmAction.checkAlarmNotComing();//判断闹钟是否到来
     }
-    @Test
-    public void s(){ //stop 一个闹钟
-        openAppliction("Alarm"); //找到闹钟设置应用
-        phoneWaitTime(2.5);
-    }
-
 }
