@@ -26,7 +26,7 @@ import static doro.page.CalculatorPage.CALCULATOR_IPUTFIELD_ID;
 public class CalculatorCase extends VP4{
     CalculatorAction calculatorAction = new CalculatorAction();
     @Test
-    public void setCalculatortor()throws RemoteException{
+    public void Calculator()throws RemoteException{
         //unLock();
        openAppliction("Cal\u200Bcu\u200Blator");//打开计算器
         calculatorAction.CalculatorResult(0.0078,45,"/");//进行一次运算
