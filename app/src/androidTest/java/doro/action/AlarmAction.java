@@ -2,6 +2,8 @@ package doro.action;
 
 import android.support.test.uiautomator.UiSelector;
 
+import junit.framework.Assert;
+
 import ckt.base.VP4;
 
 import static doro.page.AlarmPage.ALARM_ACTIVATE_VIBRATION;
@@ -14,75 +16,35 @@ import static doro.page.AlarmPage.ALARM_CLICK_NEXT_TEXT;
 import static doro.page.AlarmPage.ALARM_CLICK_OK_TEXT;
 import static doro.page.AlarmPage.ALARM_CLICK_SAVE_TEXT;
 import static doro.page.AlarmPage.ALARM_CLICK_SELECTALL_TEXT;
+import static doro.page.AlarmPage.ALARM_COMING_SNOOZE_TEXT;
+import static doro.page.AlarmPage.ALARM_COMING_STOP_TEXT;
 import static doro.page.AlarmPage.ALARM_FORMAT_DECREASE_ID;
 import static doro.page.AlarmPage.ALARM_FORMAT_INCREASE_ID;
 import static doro.page.AlarmPage.ALARM_FREQUENCY_FIELD_ID;
+import static doro.page.AlarmPage.ALARM_HEADER_ICON_ID;
 import static doro.page.AlarmPage.ALARM_HOUR_DECREASE_ID;
 import static doro.page.AlarmPage.ALARM_HOUR_EDIT_ID;
 import static doro.page.AlarmPage.ALARM_HOUR_INCREASE_ID;
 import static doro.page.AlarmPage.ALARM_ID_TEXT_ID;
+import static doro.page.AlarmPage.ALARM_IMAGEVIEW_ICON_CLASS;
 import static doro.page.AlarmPage.ALARM_MELODY_FIELD_ID;
 import static doro.page.AlarmPage.ALARM_MINUTE_DECREASE_ID;
 import static doro.page.AlarmPage.ALARM_MINUTE_EDIT_ID;
 import static doro.page.AlarmPage.ALARM_MINUTE_INCREASE_ID;
 import static doro.page.AlarmPage.ALARM_RELATIVELAYOUT_CLASS;
 import static doro.page.AlarmPage.ALARM_TIME_FIELD_ID;
+import static doro.page.AlarmPage.ALARM_WIDGET_LISTVIEW;
+import static doro.page.AlarmPage.AlARM_APPS_ALARM_PACKAGE;
 
 /**
  * Created by Lingjiang.Du on 2016/12/07.
  */
 
 public class AlarmAction extends VP4 {
-    public void enterAndExitAlarm(int counts){ //进入与退出闹钟界面，反复执行 counts 次。
-        try{
-            for(int i=0;i<counts;i++){
-                pressKey("back");
-                getObjectByTextContains("Alarm").clickAndWaitForNewWindow();
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-    private void chooseWeek(String week){ //选择周几
-        try{
-            getObjectByIdText(ALARM_ID_TEXT_ID,week).click();
-            Thread.sleep(500);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-    public void repeatAlarmSetting(String monday,String tuesday,String wednesday,
-                                String thursday, String friday,String saturday,String sunday){  //选择手机在周几响铃。
-        try{
-                getObjectById(ALARM_FREQUENCY_FIELD_ID).clickAndWaitForNewWindow();
-                if(monday!=null){
-                    chooseWeek(monday);
-                }
-                if(tuesday!=null){
-                    chooseWeek(tuesday);
-                }
-                if(wednesday!=null){
-                    chooseWeek(wednesday);
-                }
-                if(thursday!=null){
-                    chooseWeek(thursday);
-                }
-                if(friday!=null){
-                    chooseWeek(friday);
-                }
-                if(saturday!=null){
-                    chooseWeek(saturday);
-                }
-                if(sunday!=null){
-                    scrollToEnd(10);
-                    chooseWeek(sunday);
-                }
-            getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
-        }catch(Exception e){e.printStackTrace();}
-    }
     private void specialTime(String time){//得到指定的时间
         String[] hourMinTime = time.split(":");
         try{
+            getObjectById(ALARM_TIME_FIELD_ID).clickAndWaitForNewWindow();
             String hour =getObjectById(ALARM_HOUR_EDIT_ID).getText();
             int h = Integer.valueOf(hour);
             String min =getObjectById(ALARM_MINUTE_EDIT_ID).getText();
@@ -90,7 +52,7 @@ public class AlarmAction extends VP4 {
             int countH =h-Integer.valueOf(hourMinTime[0]);
             int countM =m-Integer.valueOf(hourMinTime[1]);
             if(countH<0){
-                for(int i=0;i<countH;i++){
+                for(int i=0;i<-countH;i++){
                     getObjectById(ALARM_HOUR_INCREASE_ID).click();
                 }
             }else{
@@ -99,7 +61,7 @@ public class AlarmAction extends VP4 {
                 }
             }
             if(countM<0){
-                for(int i=0;i<countM;i++){
+                for(int i=0;i<-countM;i++){
                     getObjectById(ALARM_MINUTE_INCREASE_ID).click();
                 }
             }else{
@@ -107,9 +69,7 @@ public class AlarmAction extends VP4 {
                     getObjectById(ALARM_MINUTE_DECREASE_ID).click();
                 }
             }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        }catch (Exception e){e.printStackTrace();}
     }
     public void specialTime12(String time,String timeFormat){//得到指定的时间,12小时制
         try{
@@ -129,17 +89,49 @@ public class AlarmAction extends VP4 {
                 }
             }
             getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        }catch (Exception e){e.printStackTrace();}
     }
     public void specialTime24(String time){//得到指定的时间，24小时制
         try{
             specialTime(time);
             getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        }catch (Exception e){e.printStackTrace();}
+    }
+    private void chooseWeek(String week){ //选择周几
+        try{
+            getObjectByIdText(ALARM_ID_TEXT_ID,week).click();
+            Thread.sleep(500);
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void repeatAlarmSetting(String monday,String tuesday,String wednesday,
+                                   String thursday, String friday,String saturday,String sunday){
+        //选择手机在周几响铃。
+        try{
+            getObjectById(ALARM_FREQUENCY_FIELD_ID).clickAndWaitForNewWindow();
+            if(monday!=null){
+                chooseWeek(monday);
+            }
+            if(tuesday!=null){
+                chooseWeek(tuesday);
+            }
+            if(wednesday!=null){
+                chooseWeek(wednesday);
+            }
+            if(thursday!=null){
+                chooseWeek(thursday);
+            }
+            if(friday!=null){
+                chooseWeek(friday);
+            }
+            if(saturday!=null){
+                chooseWeek(saturday);
+            }
+            if(sunday!=null){
+                scrollToEnd(10);
+                chooseWeek(sunday);
+            }
+            getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
+        }catch(Exception e){e.printStackTrace();}
     }
     public void setRingtone(String tone,boolean vibrate){ //更改闹钟铃声以及选择是否震动
         try{
@@ -164,33 +156,83 @@ public class AlarmAction extends VP4 {
                     Thread.sleep(500);
                 }
             }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void alarmComingSnooze(){ //选择将闹钟 睡眠
+        try{
+            getUiObjectByText(ALARM_COMING_SNOOZE_TEXT).click();
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void alarmComingStop(){ //选择将闹钟 停止
+        try{
+            getUiObjectByText(ALARM_COMING_STOP_TEXT).click();
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void checkAlarmComing(){ //判断闹钟是否到来，到来了之后，并关闭闹钟
+        try{
+            gDevice.openQuickSettings();
+            Thread.sleep(2000);
+            Assert.assertTrue("闹钟没有到来",getObjectByClassPackage(ALARM_IMAGEVIEW_ICON_CLASS,AlARM_APPS_ALARM_PACKAGE).exists());
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void checkAlarmNotComing(){ //判断闹钟没有到来
+        try{
+            gDevice.openQuickSettings();
+            Thread.sleep(2000);
+            Assert.assertFalse("闹钟不应该到来",getObjectByClassPackage(ALARM_IMAGEVIEW_ICON_CLASS,AlARM_APPS_ALARM_PACKAGE).exists());
+            alarmComingStop();//闹钟到来后选择关闭闹钟
+        }catch(Exception e){e.printStackTrace();}
     }
 
     /*
-    * 增加一个指定时间的闹钟
+    * 关于闹钟的一些常见操作方法
     * */
-    public void addTimeAlarm(String time ){
+    public void enterAndExitAlarm(int counts){ //进入与退出闹钟界面，反复执行 counts 次。
+        try{
+            for(int i=0;i<counts;i++){
+                pressKey("back");
+                Assert.assertFalse("没有退出闹钟界面",getObjectById(ALARM_HEADER_ICON_ID).exists());
+                getObjectByTextContains("Alarm").clickAndWaitForNewWindow();
+                Assert.assertTrue("没有进入闹钟界面",getObjectById(ALARM_HEADER_ICON_ID).exists());
+            }
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void addTimeAlarm12(String time ){//建立一个指定时间的12小时制的闹钟
         try{
             getObjectByTextContains(ALARM_CLICK_ADD_ALARM_TEXT).clickAndWaitForNewWindow();
-            getObjectById(ALARM_TIME_FIELD_ID).clickAndWaitForNewWindow();
-            //specialTime24(time);
             specialTime12(time,"AM");
             getObjectByTextContains(ALARM_CLICK_NEXT_TEXT).clickAndWaitForNewWindow();
             getObjectByTextContains(ALARM_CLICK_SAVE_TEXT).clickAndWaitForNewWindow();
             Thread.sleep(6000);
             gDevice.pressBack();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        }catch (Exception e){e.printStackTrace();}
     }
-    /*
-    * 增加一个指定周几响闹的闹钟
-    * */
+    public void addTimeAlarm24(String time ){ //建立一个指定时间的24小时制的闹钟
+        try{
+            getObjectByTextContains(ALARM_CLICK_ADD_ALARM_TEXT).clickAndWaitForNewWindow();
+            specialTime24(time);
+            getObjectByTextContains(ALARM_CLICK_NEXT_TEXT).clickAndWaitForNewWindow();
+            getObjectByTextContains(ALARM_CLICK_SAVE_TEXT).clickAndWaitForNewWindow();
+            Thread.sleep(6000);
+            gDevice.pressBack();
+        }catch (Exception e){e.printStackTrace();}
+    }
+    public void addOneAlarm(){ //建立一个2分钟后的闹钟
+        try{
+            getObjectByTextContains(ALARM_CLICK_ADD_ALARM_TEXT).clickAndWaitForNewWindow();
+            getObjectById(ALARM_TIME_FIELD_ID).clickAndWaitForNewWindow();
+            getObjectById(ALARM_MINUTE_INCREASE_ID).click();
+            getObjectById(ALARM_MINUTE_INCREASE_ID).click();
+            getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
+            getObjectByTextContains(ALARM_CLICK_NEXT_TEXT).clickAndWaitForNewWindow();
+            getObjectByTextContains(ALARM_CLICK_SAVE_TEXT).clickAndWaitForNewWindow();
+            Thread.sleep(6000);
+            gDevice.pressBack();
+        }catch (Exception e){e.printStackTrace();}
+    }
     public void addRepeatAlarm(String monday,String tuesday,String wednesday,
                                String thursday, String friday,String saturday,String sunday){
+        // 增加一个指定周几响闹的闹钟
         try{
             getObjectByTextContains(ALARM_CLICK_ADD_ALARM_TEXT).clickAndWaitForNewWindow();
             repeatAlarmSetting(monday,tuesday,wednesday,thursday,friday,saturday,sunday);
@@ -200,41 +242,59 @@ public class AlarmAction extends VP4 {
             gDevice.pressBack();
         }catch(Exception e){e.printStackTrace();}
     }
-
+    public void addTimeWeekAlarm(String time,String monday,String tuesday,String wednesday,
+                                 String thursday, String friday,String saturday,String sunday){
+        //增加一个指定时间与星期的闹钟
+        try{
+            getObjectByTextContains(ALARM_CLICK_ADD_ALARM_TEXT).clickAndWaitForNewWindow();
+            specialTime24(time);
+            repeatAlarmSetting(monday,tuesday,wednesday,thursday,friday,saturday,sunday);
+            getObjectByTextContains(ALARM_CLICK_NEXT_TEXT).clickAndWaitForNewWindow();
+            getObjectByTextContains(ALARM_CLICK_SAVE_TEXT).clickAndWaitForNewWindow();
+            Thread.sleep(6000);
+            gDevice.pressBack();
+        }catch(Exception e){e.printStackTrace();}
+    }
     public void deleteAllAlarm(){ //删除所有闹钟操作
         try{
             if(!getObjectByTextContains(ALARM_CLICK_IWANTTO_TEXT).exists()){
-                System.out.println("没有闹钟可以删除");
-            }else{
-                getObjectByTextContains(ALARM_CLICK_IWANTTO_TEXT).clickAndWaitForNewWindow();
-                getObjectByTextContains(ALARM_CLICK_DELETEALARM_TEXT).click();
-                getObjectByTextContains(ALARM_CLICK_SELECTALL_TEXT).click();
-                getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
-                getObjectByTextContains(ALARM_CLICK_CANCEL_TEXT).clickAndWaitForNewWindow();
-                getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
-                getObjectByTextContains(ALARM_CLICK_OK_TEXT).clickAndWaitForNewWindow();
-
+                addTimeAlarm24("20:18");
             }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+            getObjectByTextContains(ALARM_CLICK_IWANTTO_TEXT).clickAndWaitForNewWindow();
+            getObjectByTextContains(ALARM_CLICK_DELETEALARM_TEXT).click();
+            getObjectByTextContains(ALARM_CLICK_SELECTALL_TEXT).click();
+            getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
+            getObjectByTextContains(ALARM_CLICK_CANCEL_TEXT).clickAndWaitForNewWindow();
+            getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
+            getObjectByTextContains(ALARM_CLICK_OK_TEXT).clickAndWaitForNewWindow();
+        }catch(Exception e){e.printStackTrace();}
     }
     public void deleteOneAlarm(){ //删除第一闹钟操作
+
         try{
             if(!getObjectByTextContains(ALARM_CLICK_IWANTTO_TEXT).exists()){
-                System.out.println("没有闹钟可以删除");
-            }else{
-                getObjectByTextContains(ALARM_CLICK_IWANTTO_TEXT).clickAndWaitForNewWindow();
-                getObjectByTextContains(ALARM_CLICK_DELETEALARM_TEXT).click();
-                mDevice.findObject(new UiSelector().className(ALARM_RELATIVELAYOUT_CLASS).index(1)).click();
-                getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
-                getObjectByTextContains(ALARM_CLICK_CANCEL_TEXT).clickAndWaitForNewWindow();
-                getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
-                getObjectByTextContains(ALARM_CLICK_OK_TEXT).clickAndWaitForNewWindow();
+                addTimeAlarm24("20:18");
             }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+            int count1 = getObjectByClass(ALARM_WIDGET_LISTVIEW).getChildCount();
+            getObjectByTextContains(ALARM_CLICK_IWANTTO_TEXT).clickAndWaitForNewWindow();
+            getObjectByTextContains(ALARM_CLICK_DELETEALARM_TEXT).click();
+            mDevice.findObject(new UiSelector().className(ALARM_RELATIVELAYOUT_CLASS).index(1)).click();
+            getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
+            getObjectByTextContains(ALARM_CLICK_CANCEL_TEXT).clickAndWaitForNewWindow();
+            getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
+            getObjectByTextContains(ALARM_CLICK_OK_TEXT).clickAndWaitForNewWindow();
+            if(count1<=2){
+                checkHasAlarm();
+            }else{
+                int count2 = getObjectByClass(ALARM_WIDGET_LISTVIEW).getChildCount();
+                Assert.assertEquals("没有删除一个闹钟",1,count1-count2);
+            }
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void checkHasAlarm(){ //判断闹钟已经到来
+        try{
+            Assert.assertFalse("没有删除所有的闹钟",getObjectByTextContains(ALARM_CLICK_IWANTTO_TEXT).exists());
+        }catch(Exception e){e.printStackTrace();}
     }
 }
 
