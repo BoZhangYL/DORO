@@ -1,6 +1,7 @@
 package doro.testcase;
 
 import android.app.Activity;
+import android.os.Environment;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
@@ -9,6 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.File;
 import java.io.IOException;
 
 import ckt.base.VP4;
@@ -23,14 +25,14 @@ import static org.junit.Assert.assertEquals;
 public class CameraCase extends VP4{
     @BeforeClass
     public static void initCalendar(){
-//        initDevice();
-//        unLock();
-//        setCameraRestoredefaults();
+        initDevice();
+        unLock();
+        setCameraRestoredefaults();
     }
 
     @Test
     public void launchCameraFromAppList(){
-        // D8040-78093:通过主菜单启动
+       //  D8040-78093:通过主菜单启动
 
         openAppliction("Camera");//通过菜单启动相机
         checkLaunchCameraResult();//检查启动相机是否成功

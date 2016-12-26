@@ -3,6 +3,7 @@ package doro.action;
 import android.annotation.TargetApi;
 import android.icu.util.Calendar;
 import android.os.Build;
+import android.os.Environment;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
@@ -49,6 +50,34 @@ public class CameraAction extends VP4{
     private static UiObject SelfTimer =getObjectByText(CAMERASETTINGS_SELT_TIMER);
     private static UiObject VideoQuality = getObjectByText(CAMERASETTINGS_VIDEO_QUALITY);
     private static UiObject StoreLocation = getObjectByText(CAMERASETTINGS_STORELOCATION);
+    private static UiObject VideoDetailOption = getObjectByText(VIDEO_DETAIL);
+    private static UiObject DeleteVideoOption = getObjectByText(DELETE_VIDEOS);
+    private static int PhotosNumber = 0;
+    private static int VideosNumber = 0;
+    private static int getAllPhotoNumbers(){
+        int photonumber=0;
+        File Dcim = new File(Environment.getExternalStorageDirectory()+"/Dcim/Camera/");
+        String allfiles[] = Dcim.list();
+        for(int i=0; i< allfiles.length;i++){
+            String photos[] = allfiles[i].split(".");
+            if(photos[1].equals("jpg")){
+                photonumber++;
+            }
+        }
+        return photonumber;
+    }
+    private static int getAllVideoNumbers(){
+        int videoonumber=0;
+        File Dcim = new File(Environment.getExternalStorageDirectory()+"/Dcim/Camera/");
+        String allfiles[] = Dcim.list();
+        for(int i=0; i< allfiles.length;i++){
+            String videos[] = allfiles[i].split(".");
+            if(videos[1].equals("3gp")){
+                videoonumber++;
+            }
+        }
+        return videoonumber;
+    }
     public static void changeCameraSettings(){//改变相机设置
         try {
             SettingsButton.click();
@@ -88,8 +117,6 @@ public class CameraAction extends VP4{
 
     }
     public static void launchCameraByShortcut(){//通过快捷方式启动相机
-       // switchToHomePage();
-        // getUiObjectByIdIndexIndex(HOME_GROUP_VIEW,1,0).clickAndWaitForNewWindow();
         try {
             gDevice.pressHome();
            gDevice.findObject(new UiSelector().text("Camera").fromParent(new UiSelector().index(0))).clickAndWaitForNewWindow();
@@ -99,7 +126,7 @@ public class CameraAction extends VP4{
     }
 
     public static void switchToFrontCamera(){//切换到前摄像头
-        if(!isFrontCamera()){
+        if(isFrontCamera()){
             try {
                 FrontSwitchButton.click();
             } catch (UiObjectNotFoundException e) {
@@ -108,7 +135,7 @@ public class CameraAction extends VP4{
         }
     }
     public static void switchToBackCamera(){//切换到后摄像头
-        if(isFrontCamera()){
+        if(!isFrontCamera()){
             try {
                 FrontSwitchButton.click();
             } catch (UiObjectNotFoundException e) {
@@ -143,6 +170,7 @@ public class CameraAction extends VP4{
         }
     }
    public static void takePictures(){//拍照
+       PhotosNumber = getAllPhotoNumbers();
        try {
            CaptureButton.click();
            waitTime(2);
@@ -158,12 +186,9 @@ public class CameraAction extends VP4{
         }
     }
     public static void deletePicture(){//删除照片
+        PhotosNumber = getAllPhotoNumbers();
         try {
             switchtoGallery();
-            clickIWantToButton();
-            PictureDetailOption.click();
-            CapturedPictureName = PictureNameOption.getText();
-            pressKey("back");
             clickIWantToButton();
             DeletePictureOption.clickAndWaitForNewWindow();
             OKButton.click();
@@ -173,13 +198,9 @@ public class CameraAction extends VP4{
         }
     }
 
-    public static void deleteVideo(){
+    public static void deleteVideo(){//删除视频
         try {
             switchtoGallery();
-            clickIWantToButton();
-            PictureDetailOption.click();
-            CapturedPictureName = PictureNameOption.getText();
-            pressKey("back");
             clickIWantToButton();
             DeletePictureOption.clickAndWaitForNewWindow();
             OKButton.click();
@@ -189,6 +210,7 @@ public class CameraAction extends VP4{
         }
     }
     public static void recordVideo(int RecordTime){//录制视频
+        VideosNumber =getAllVideoNumbers();
         try {
             RecordButton.click();
             waitTime(RecordTime);
@@ -198,29 +220,20 @@ public class CameraAction extends VP4{
         }
     }
     public static void checkRecordVideoResult(){//检查录制视频结果
-        Assert.assertTrue("MiniBox Update",MiniBox.exists());  //minibox更新
-        String name[] =checkName();//检查照片名称
-        Assert.assertEquals("PictureNameSlice1:IMG", "Name: VID", name[0]);
-        Assert.assertTrue("PictureNameSlice2:DATE", Boolean.valueOf(name[1]));
-        Assert.assertTrue("PictureNameSlice3:Time", Boolean.valueOf(name[2]));
-        try {
-            pressKey("Back");
-            clickCenterScreen();
-            Assert.assertTrue("Play video",PlayVideoView.exists());
-        } catch (UiObjectNotFoundException e) {
-            e.printStackTrace();
-        }
-
+        int BeforeVideoNumber = VideosNumber;
+        int CurrentVideoNumber = getAllVideoNumbers();
+        Assert.assertEquals("checkTakePicturesResult",BeforeVideoNumber+1,CurrentVideoNumber);
     }
-    public static void clickCenterScreen(){//点击屏幕中心
-        gDevice.click(gDevice.getDisplayWidth()/2, gDevice.getDisplayHeight()/2);
+
+    public static void clickCenterScreen(){//点击屏幕
+        gDevice.click(gDevice.getDisplayWidth()/2, gDevice.getDisplayHeight()/10);
     }
     public static void clickIWantToButton(){//点击“I want to”按钮
-        if(!isDisplayIWantToButton()){
-            clickCenterScreen();
-        }
         try {
-            IWantToButton.clickAndWaitForNewWindow();
+            while(!isDisplayIWantToButton()){
+                clickCenterScreen();
+            }
+            IWantToButton.click();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -230,72 +243,28 @@ public class CameraAction extends VP4{
                 CAMERA_PACKAGE_NAME,gDevice.getCurrentPackageName());
     }
     public static void checkTakePicturesResult(){//检查拍照结果
-        Assert.assertTrue("MiniBox Update",MiniBox.exists());  //minibox更新
-        String name[] =checkName();//检查照片名称
-        Assert.assertEquals("PictureNameSlice1:IMG", "Name: IMG", name[0]);
-        Assert.assertTrue("PictureNameSlice2:DATE", Boolean.valueOf(name[1]));
-        Assert.assertTrue("PictureNameSlice3:Time", Boolean.valueOf(name[2]));
-        try {
-            pressKey("Back/Back");
-        } catch (UiObjectNotFoundException e) {
-            e.printStackTrace();
-        }
-        //照片是否是拍摄的照片（名字，照片内容）
-    }
-
-    private static String [] checkName() {//检查照片名字是否正常
-        String[] NameResult = new String[0];
-        try {
-
-            clickIWantToButton();
-            PictureDetailOption.click();
-            String PictureName = PictureNameOption.getText();
-            String[] names = PictureName.split("_");
-            String PictureNameSlice1 = names[0];
-            String PictureNameSlice2 = names[1];
-            String PictureNameSlice3 = names[2];
-            char[] dates = PictureNameSlice2.toCharArray();
-            int year = Integer.valueOf("" + dates[0] + dates[1] + dates[2] + dates[3]);
-            int Month = Integer.valueOf("" + dates[4] + dates[5]);
-            int day = Integer.valueOf("" + dates[6] + dates[7]);
-            char[] times = PictureNameSlice3.toCharArray();
-            int Hours = Integer.valueOf("" + times[0] + times[1]);
-            int Minute = Integer.valueOf("" + times[2] + times[3]);
-            boolean DateRight = false;
-            boolean TimeRight = false;
-            if (year == getCurrentYear()) {
-                if (Month == getCurrentMonth()) {
-                    if (day == getCurrentDay()) {
-                        DateRight = true;
-                    }
-                }
-            }
-            if (Hours == getCurrentHOUR()) {//暂时未考虑59到00
-                if (Minute == getCurrentMinute() || (Minute - 1) == getCurrentMinute()) {
-                    TimeRight = true;
-                }
-            }
-            NameResult = new String[]{PictureNameSlice1, String.valueOf(DateRight),
-                    String.valueOf(TimeRight)};
-        } catch (UiObjectNotFoundException e) {
-            e.printStackTrace();
-        }
-        return NameResult;
+        int BeforePhotoNumber = PhotosNumber;
+        int CurrentPhotoNumber = getAllPhotoNumbers();
+        Assert.assertEquals("checkTakePicturesResult",BeforePhotoNumber+1,CurrentPhotoNumber);
     }
 
     public static  void checkSwitchToGalleryResult(){
         Assert.assertEquals("switchToGalleryFromCamer",GALLERY,gDevice.getCurrentPackageName());
     }
 
-    public static void checkdeleteResult(){
-        File CapturedPicture = new File("/sdcard/dcim/"+CapturedPictureName);
-        Assert.assertTrue("deletePicures", !CapturedPicture.exists());
+    public static void checkdeleteResult(){//检查删除结果
+        int BeforePhotoNumber = PhotosNumber;
+        int CurrentPhotoNumber = getAllPhotoNumbers();
+        int BeforeVideoNumber = VideosNumber;
+        int CurrentVideoNumber = getAllVideoNumbers();
+        boolean checkphotonumbers = (CurrentPhotoNumber == BeforePhotoNumber+1);
+        boolean checkvideonumbers = (CurrentVideoNumber == BeforeVideoNumber+1);
+        Assert.assertTrue("Delete function",(checkphotonumbers || checkvideonumbers));
     }
-
     @TargetApi(Build.VERSION_CODES.N)
     public static int getCurrentHOUR(){//得到当前小时
         Calendar c = Calendar.getInstance();
-        int  hour = c.get(Calendar.HOUR);
+        int  hour = c.get(Calendar.HOUR_OF_DAY);
         return hour;
     }
     @TargetApi(Build.VERSION_CODES.N)

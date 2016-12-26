@@ -45,6 +45,12 @@ public class CameraPage {
     public static final String PICTURE_DETAIL = "Picture details";
     //图片详情选项
 
+    public static final String VIDEO_DETAIL = "Video details";
+    //视频详情
+
+    public static final String DELETE_VIDEOS = "Delete this video";
+    //删除视频选项
+
     public static final String DELETE_PICTURES = "Delete this picture";
     //删除图片选项
 
