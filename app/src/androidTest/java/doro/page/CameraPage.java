@@ -76,6 +76,7 @@ public class CameraPage {
 
     public static final String CAMERA_SETTINGS_TABLE ="android:id/tabs";
     public static final String CAMERASETTINGS_STORELOCATION = "Store location (GPS)";
+    public static final String CAMERASETTINGS_STATE_LOCATION ="Store location (GPS) switch";
     public static final String CAMERASETTINGS_EXPOSURE = "Exposure";
     public static final String CAMERASETTINGS_SCENE_MODE = "Scene mode";
     public static final String CAMERASETTINGS_WHITE_BALANCE ="White balance";
@@ -94,6 +95,11 @@ public class CameraPage {
     public static final String CAMERASETTINGS_PICTURE_QUALITY ="Picture quality";
     public static final String CAMERASETTINGS_ISO ="ISO";
     //相机设置选项
+
+    public static final String CAMERA ="Camera";
+    //相机应用名字
+
+    public static final String RECORDTIME = "com.mediatek.camera:id/recording_time";
 
 
 
