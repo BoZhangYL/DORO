@@ -13,6 +13,11 @@ import doro.action.SettingAction;
  */
 @RunWith(AndroidJUnit4.class)
 public class SettingCase extends VP4 {
-
-
+    @Test
+    public void testa(){
+        openAppliction("Settings"); //找到设置应用
+        new SettingAction().dateAndTime(); //找到时间设置
+        new SettingAction().whatProvidedTime(0);//使用自定义时间
+        new SettingAction().setDate("2013-12-31");
+    }
 }

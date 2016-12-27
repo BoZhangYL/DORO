@@ -24,7 +24,7 @@
         ]
     },
     {
-        "outputFile": "E:\\git\\DORO\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-w820dp-v13\\values-w820dp-v13.xml",
+        "outputFile": "E:\\androidWork\\DORO\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-w820dp-v13\\values-w820dp-v13.xml",
         "map": [
             {
                 "to": {
@@ -35,7 +35,7 @@
                     "endOffset": 108
                 },
                 "from": {
-                    "file": "E:\\git\\DORO\\app\\src\\main\\res\\values-w820dp\\dimens.xml",
+                    "file": "E:\\androidWork\\DORO\\app\\src\\main\\res\\values-w820dp\\dimens.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
