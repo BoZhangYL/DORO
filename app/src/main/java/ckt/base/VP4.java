@@ -220,7 +220,9 @@ public class VP4 extends VP2 {
         UiSelector uiSelector = getSelectorByClass(classChild);
         try{
             uiObject =uiCollection.getChildByInstance(uiSelector,index);
-        } catch(UiObjectNotFoundException e){e.printStackTrace();}
+        } catch(UiObjectNotFoundException e){
+            e.printStackTrace();
+        }
         return uiObject;
     }
     public static void initRent(){//清除recent
