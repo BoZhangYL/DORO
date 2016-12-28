@@ -14,20 +14,31 @@ import static doro.page.FileManagerPage.APPS_ICON_FILEMANAGER_TEXT;
 public class FileManagerCase {
     FileManagerAction fileManageraction = new FileManagerAction();
     @Test
-    public void checkSDCard(){
+    public void checkSDCard(){ //检查是否有SD卡
         openAppliction(APPS_ICON_FILEMANAGER_TEXT); //找到文件管理器应用
         fileManageraction.CheckSDCard();
     }
     @Test
-    public void detailsOfFiles(){
+    public void detailsOfFiles(){ //查看文件的详细情况
         openAppliction(APPS_ICON_FILEMANAGER_TEXT); //找到文件管理器应用
-        fileManageraction.checkDetails("Internal shared storage/ScreenShort/calendar20130901084814.jpg");
+        fileManageraction.checkDetails("Internal shared storage/ScreenShort/Critty - 杏花弦外雨");
     }
     @Test
-    public void copyFolder(){
+    public void copyFolder(){ //复制文件夹
         openAppliction(APPS_ICON_FILEMANAGER_TEXT); //找到文件管理器应用
-        fileManageraction.CheckCopeFolder("Internal shared storage/ScreenShort/calendar20130901084814.jpg",
+        fileManageraction.checkCopeFolder("Internal shared storage/ScreenShort/1455413756654.gif",
                 "Internal shared storage/DCIM");
+    }
+    @Test
+    public void cutFolder(){ //移动文件夹
+        openAppliction(APPS_ICON_FILEMANAGER_TEXT); //找到文件管理器应用
+        fileManageraction.checkCutFolder("Internal shared storage/ScreenShort/1455413796082.gif",
+                "Internal shared storage/DCIM");
+    }
+    @Test
+    public void deleteFolder(){ //删除文件夹，文件
+        openAppliction(APPS_ICON_FILEMANAGER_TEXT); //找到文件管理器应用
+        fileManageraction.checkDeleteFolder("Internal shared storage/ScreenShort/1455413852653.gif");
     }
 
 }

@@ -5,9 +5,12 @@ import junit.framework.Assert;
 import ckt.base.VP4;
 
 import static doro.page.FileManagerPage.FILEMANAGER_COPY_DESC;
+import static doro.page.FileManagerPage.FILEMANAGER_CUT_DESC;
+import static doro.page.FileManagerPage.FILEMANAGER_DELETE_DESC;
 import static doro.page.FileManagerPage.FILEMANAGER_DETAILS_TEXT;
 import static doro.page.FileManagerPage.FILEMANAGER_EDIT_ADAPTER_NAME_ID;
 import static doro.page.FileManagerPage.FILEMANAGER_MORE_OPTIONS_DESC;
+import static doro.page.FileManagerPage.FILEMANAGER_OK_TEXT;
 import static doro.page.FileManagerPage.FILEMANAGER_PASTE_DESC;
 import static doro.page.FileManagerPage.FILEMANAGER_SD_CARD_TEXT;
 import static doro.page.FileManagerPage.FILEMANAGER_SELECT_FILE_TEXT;
@@ -76,7 +79,8 @@ public class FileManagerAction extends VP4 {
             Assert.assertTrue("详细信息得Modified不存在",getObjectByTextContains("Modified").exists());
         }catch(Exception e){e.printStackTrace();}
     }
-    public void CheckCopeFolder(String formFilepath,String toFilepath){
+    public void checkCopeFolder(String formFilepath,String toFilepath){
+        //从一个路径下复制文件到另外一个路径下
         try{
             chooseFile(formFilepath);
             getUiObjectByDes(FILEMANAGER_COPY_DESC).click();
@@ -85,6 +89,29 @@ public class FileManagerAction extends VP4 {
             phoneWaitTime(0.1);
             //String[] pathName =formFilepath.split("/");
            // Assert.assertTrue("没有复制成功",getObjectByTextContains(pathName[pathName.length-1]).exists());
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void checkCutFolder(String formFilepath,String toFilepath){
+        //从一个路径下移动文件到另外一个路径下
+        try{
+            chooseFile(formFilepath);
+            getUiObjectByDes(FILEMANAGER_CUT_DESC).click();
+            findFile(toFilepath);
+            getUiObjectByDes(FILEMANAGER_PASTE_DESC).click();
+            phoneWaitTime(0.1);
+            //String[] pathName =formFilepath.split("/");
+            // Assert.assertTrue("没有移动成功",getObjectByTextContains(pathName[pathName.length-1]).exists());
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void checkDeleteFolder(String filepath){
+        //从一个路径下删除文件
+        try{
+            chooseFile(filepath);
+            getUiObjectByDes(FILEMANAGER_DELETE_DESC).clickAndWaitForNewWindow();
+            getObjectByText(FILEMANAGER_OK_TEXT).clickAndWaitForNewWindow();
+            phoneWaitTime(0.1);
+            //String[] pathName =formFilepath.split("/");
+            // Assert.assertFalse("没有删除成功",getObjectByTextContains(pathName[pathName.length-1]).exists());
         }catch(Exception e){e.printStackTrace();}
     }
 }
