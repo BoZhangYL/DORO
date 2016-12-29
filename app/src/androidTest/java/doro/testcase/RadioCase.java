@@ -22,7 +22,7 @@ public class RadioCase extends RadioAction {
     }
 
     @Test
-    public void Case1_enterRadioWithoutHeadset(){
+    public void Case1_enterRadioWithoutHeadset(){//未插入耳机时进入Radio
         openRadio();
         checkRadioWithoutHeadsetResult();
     }
