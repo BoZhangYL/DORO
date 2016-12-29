@@ -15,6 +15,8 @@ public class FileManagerPage {
     public static final String FILEMANAGER_SELECT_FILE_TEXT="Select file or folder";
     //文件详情
     public static final String FILEMANAGER_DETAILS_TEXT ="Details";
+    //Ok
+    public static final String FILEMANAGER_OK_TEXT ="OK";
 
     //
     public static final String FILEMANAGER_WIDGET_IMAGEBUTTON_TEXT="android.widget.ImageButton";
@@ -34,5 +36,9 @@ public class FileManagerPage {
     public static final String FILEMANAGER_COPY_DESC ="Copy";
     //文件夹中的“Paste”的Description
     public static final String FILEMANAGER_PASTE_DESC ="Paste";
+    //文件夹中的“Cut”的Description
+    public static final String FILEMANAGER_CUT_DESC ="Cut";
+    //文件夹中的“Delete”的Description
+    public static final String FILEMANAGER_DELETE_DESC ="Delete";
 
 }
