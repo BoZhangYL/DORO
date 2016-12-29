@@ -1,13 +1,15 @@
 package ckt.base;
-
 import android.graphics.Rect;
 import android.os.RemoteException;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.uiautomator.UiCollection;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
+
+import java.io.IOException;
 
 /**
  * Created by admin on 2016/12/2.
@@ -49,7 +51,7 @@ public class VP4 extends VP2 {
             }
         }
     }
-    public void openAppliction(String AppName){//打开应用
+    public static void openAppliction(String AppName){//打开应用
         switchToApplistPage();
         while(!getObjectByIdText(LAUNCH3_APP, AppName).exists()){
             scrollByVerticalForward(STEP_NORMAL);
@@ -62,7 +64,7 @@ public class VP4 extends VP2 {
     }
 
     //Home page, menu page, applist page
-    public void switchToHomePage(){//回到主界面
+    public static void switchToHomePage(){//回到主界面
         try {
             initRent();
             pressKey("home/back/back");
@@ -73,11 +75,11 @@ public class VP4 extends VP2 {
             scrollByVerticalBackward(STEP_NORMAL);
         }
     }
-    public void switchToMenuPage(){//回到快捷应用图标界面
+    public static void switchToMenuPage(){//回到快捷应用图标界面
         switchToHomePage();
         scrollByVerticalForward(STEP_NORMAL);
     }
-    public void switchToApplistPage(){//进入应用列表
+    public static void switchToApplistPage(){//进入应用列表
         switchToMenuPage();
         scrollByVerticalForward(STEP_NORMAL);
     }
@@ -191,11 +193,39 @@ public class VP4 extends VP2 {
         return gDevice.findObject(new UiSelector().text(Text));
     }
     public static UiObject getObjectByClassPackage(String classObject,String packageObject ){
-        //得到指定的class 与package的Object
+        //得到指定的class与package的 Object
         initDevice();
         return gDevice.findObject(new UiSelector().className(classObject).packageName(packageObject));
     }
-    public void initRent(){//清除recent
+    public static UiObject getObjectByClassIndex(String classObject,int num ){
+        //得到指定的class与index的 Object
+        initDevice();
+        return gDevice.findObject(new UiSelector().className(classObject).index(num));
+    }
+    public static UiSelector getSelectorByClass(String classSelector){
+        //得到指定的class的 UiSelector
+        initDevice();
+        return (new UiSelector().className(classSelector));
+    }
+    public static UiCollection getCollectionByClass(String classCollection){
+        //得到指定的class的 UiCollection
+        initDevice();
+        return (new UiCollection(getSelectorByClass(classCollection)));
+    }
+    public static UiObject getLinearLayout(int index,String classFather,String classChild){
+        //通过指定的ListView(classFather)和LinearLayout(classChild)的class 得到UiCollection
+        UiObject uiObject =null;
+        initDevice();
+        UiCollection  uiCollection= getCollectionByClass(classFather);
+        UiSelector uiSelector = getSelectorByClass(classChild);
+        try{
+            uiObject =uiCollection.getChildByInstance(uiSelector,index);
+        } catch(UiObjectNotFoundException e){
+            e.printStackTrace();
+        }
+        return uiObject;
+    }
+    public static void initRent(){//清除recent
         try {
             initDevice();
             pressKey("menu");
@@ -211,5 +241,12 @@ public class VP4 extends VP2 {
         try{
             Thread.sleep((long)(mins*60*1000));
         }catch(Exception e){e.printStackTrace();}
+    }
+    public static void longPressKey(int keyCode) {//长按指定的按键
+        try {
+            gDevice.executeShellCommand("input keyevent --longpress " + keyCode + "\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
