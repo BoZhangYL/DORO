@@ -21,7 +21,6 @@ public class GalleryCase extends VP4{
      VP4.unLock();
      GalleryAction.getSomePicturesVideos();
  }
-
     @Test
     public void enterGallery(){
 //        D8040-981:进入gallery [Enter gallery]

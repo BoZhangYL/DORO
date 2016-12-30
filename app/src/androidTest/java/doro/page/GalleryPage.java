@@ -6,7 +6,9 @@ package doro.page;
 
 public class GalleryPage {
     public static final String GALLERY = "Gall\u200Bery";
+
     public static final String GALLERY_PACKAGE ="com.doro.apps.gallery";
+
     public static final String GALLERY_HEADER =
             "com.doro.apps.gallery:id/relativelayoutforheader";
     //图库标题栏,id

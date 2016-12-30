@@ -100,12 +100,12 @@ public class GalleryAction extends VP4{
     * 得到一些图片和视频
     * */
     public static void getSomePicturesVideos(){
-        openAppliction(CameraPage.CAMERA);
-        CameraAction.takePictures();
-        CameraAction.takePictures();
-        CameraAction.takePictures();
-        CameraAction.takePictures();
-        CameraAction.recordVideo(CameraPage.DEFAULT_RECORD_TIMES);
+//        openAppliction(CameraPage.CAMERA);
+//        CameraAction.takePictures();
+//        CameraAction.takePictures();
+//        CameraAction.takePictures();
+//        CameraAction.takePictures();
+//        CameraAction.recordVideo(CameraPage.DEFAULT_RECORD_TIMES);
         openAppliction(GalleryPage.GALLERY);
         getGalleryPctureVideoNumbers();
     }
@@ -244,7 +244,6 @@ public class GalleryAction extends VP4{
    * 得到图库显示的照片数，视频数
    * */
     private static void getGalleryPctureVideoNumbers(){
-        clickIWantToButton();
         changeToMyGalleryDisplay();
         UiObject GraidView = getObjectById(GalleryPage.GALLERY_GRAID_VIEW);
         int ExpectColumns;
@@ -323,7 +322,7 @@ public class GalleryAction extends VP4{
         String name = null;
         try {
             name = gDevice.findObject(new UiSelector().resourceId(GalleryPage.GALLERY_GRAID_VIEW).
-                    index(indexs).index(0).index(1)).getContentDescription();
+                    index(indexs).index(0).index(0).index(1)).getContentDescription();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -336,7 +335,7 @@ public class GalleryAction extends VP4{
     private static boolean isFavourite(int indexs){
         boolean FavouriteState =false;
         FavouriteState = gDevice.findObject(new UiSelector().resourceId(GalleryPage.GALLERY_GRAID_VIEW).
-                index(indexs).index(0).index(2)).exists();
+                index(indexs).index(0).index(0).index(2)).exists();
         return FavouriteState;
     }
 }
