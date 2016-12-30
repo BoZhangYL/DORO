@@ -62,23 +62,23 @@ public class TimerAction extends VP4 {
             }
         }
     }
-    public void verifyResultByID(String Case_Name,String Expected_Text,String Actual_ID){
+    public void verifyResultByID(String Case_Name,String Expected_Text,String Actual_ID){//通过ID判断结果
         try {
             Assert.assertEquals(Case_Name, Expected_Text, getObjectById(Actual_ID).getText());
         }catch (Exception e) {
         e.printStackTrace();
         }
     }
-    public void openTimer(){
+    public void openTimer(){//打开Timer
         openAppliction(Timer_Title_Text);
     }
-    public void clickStopButton(){
+    public void clickStopButton(){//按Stop键
         clickTimerButton(Timer_Stop_Text);
     }
-    public void checkLaunchTimerResult(){
+    public void checkLaunchTimerResult(){//检查进入Timer界面的结果
         verifyResultByID("Case1_launchTimer",Timer_Title_Text,Timer_Title_ID);
     }
-    public void check30sTimerResult(){
+    public void check30sTimerResult(){//检查30s的Timer的结果
         verifyResultByID("Case2_setTimerto30s",Timer_Stop_Text,Timer_Other_Button_ID);
 
     }

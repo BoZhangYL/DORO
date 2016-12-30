@@ -1157,4 +1157,8 @@ public class UiObject {
     public boolean performMultiPointerGesture(PointerCoords[] ...touches) {
         return getInteractionController().performMultiPointerGesture(touches);
     }
+
+    public void clickById(String s) {
+
+    }
 }

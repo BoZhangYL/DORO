@@ -2,6 +2,7 @@ package ckt.base;
 import android.graphics.Rect;
 import android.os.RemoteException;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.uiautomator.UiCollection;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
@@ -192,9 +193,37 @@ public class VP4 extends VP2 {
         return gDevice.findObject(new UiSelector().text(Text));
     }
     public static UiObject getObjectByClassPackage(String classObject,String packageObject ){
-        //得到指定的class 与package的Object
+        //得到指定的class与package的 Object
         initDevice();
         return gDevice.findObject(new UiSelector().className(classObject).packageName(packageObject));
+    }
+    public static UiObject getObjectByClassIndex(String classObject,int num ){
+        //得到指定的class与index的 Object
+        initDevice();
+        return gDevice.findObject(new UiSelector().className(classObject).index(num));
+    }
+    public static UiSelector getSelectorByClass(String classSelector){
+        //得到指定的class的 UiSelector
+        initDevice();
+        return (new UiSelector().className(classSelector));
+    }
+    public static UiCollection getCollectionByClass(String classCollection){
+        //得到指定的class的 UiCollection
+        initDevice();
+        return (new UiCollection(getSelectorByClass(classCollection)));
+    }
+    public static UiObject getLinearLayout(int index,String classFather,String classChild){
+        //通过指定的ListView(classFather)和LinearLayout(classChild)的class 得到UiCollection
+        UiObject uiObject =null;
+        initDevice();
+        UiCollection  uiCollection= getCollectionByClass(classFather);
+        UiSelector uiSelector = getSelectorByClass(classChild);
+        try{
+            uiObject =uiCollection.getChildByInstance(uiSelector,index);
+        } catch(UiObjectNotFoundException e){
+            e.printStackTrace();
+        }
+        return uiObject;
     }
     public static void initRent(){//清除recent
         try {
