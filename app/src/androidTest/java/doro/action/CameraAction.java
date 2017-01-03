@@ -92,7 +92,6 @@ public class CameraAction extends VP4{
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
-        Spoon.screenshot("change location set");
     }
 
     /*检查恢复出厂设置是否成功
@@ -102,7 +101,6 @@ public class CameraAction extends VP4{
             SettingsButton.click();
             Assert.assertEquals("After restore defaults,the GPS state", "OFF",
                     LocationState.getText());
-            Spoon.screenshot("checkRestoredefaults");
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }

@@ -24,14 +24,14 @@ public class MusicCase extends MusicAction{
         unLock();
     }
 
-  /* @Test
-    public void Case1_launchMusic(){
+   @Test
+    public void Case1_launchMusic(){//进入MusicPlayer界面
         openMusic();
         checkLanuchMusicResult();
     }
 
    @Test
-    public void Case2_playMusic(){
+    public void Case2_playMusic(){//播放Music
        mDevice.pressBack();
        playMusic();
        waitTime(5);
@@ -39,25 +39,21 @@ public class MusicCase extends MusicAction{
    }
 
     @Test
-    public void Case3_pauseMusic(){
+        public void Case3_pauseMusic(){//暂停Music
         waitTime(5);
         pauseMusic();
         //不能获取控件，暂无结果
-    }*/
+    }
 
-    /*@Test
+    @Test
     public void Case4_deleteMusic(){
         openMusic();
         deleteMusic();
-
-    }*/
-
-    @Test
-    public void Case5()throws Exception{
-        clickById(Music_Iwantto_ID);
-        UiObject Menu=getObjectById("com.doro.apps.musicplayer:id/menu_left_drawer",1);
-
-
-
+        clickCancel();//删除一首歌曲时取消删除
+        deleteMusic();
+        clickOK();//删除一首歌曲
+        deleteAllMusic();
+        clickOK();//删除所有歌曲
+        checkDeleteAllMusiceResult();
     }
 }
