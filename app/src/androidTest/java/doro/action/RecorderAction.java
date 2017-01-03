@@ -74,6 +74,7 @@ public class RecorderAction extends VP4 {
     }
 
     public void playRecord() {
+
         try {
             getObjectById(RECORD_PLAYBUTTON_ID).click();
             waitTime(3);
