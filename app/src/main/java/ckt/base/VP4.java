@@ -53,8 +53,13 @@ public class VP4 extends VP2 {
     }
     public static void openAppliction(String AppName){//打开应用
         switchToApplistPage();
+        int i=0;
         while(!getObjectByIdText(LAUNCH3_APP, AppName).exists()){
             scrollByVerticalForward(STEP_NORMAL);
+            i++;
+            if(i==20){
+                break;
+            }
         }
         try {
             getObjectByIdText(LAUNCH3_APP, AppName).clickAndWaitForNewWindow();
