@@ -5,4 +5,6 @@ package doro.action;
  */
 
 public class WifiAction {
+
+
 }
