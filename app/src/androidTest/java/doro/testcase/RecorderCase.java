@@ -17,6 +17,7 @@ import ckt.base.VP4;
 import doro.action.RecorderAction;
 
 import static android.R.attr.id;
+import static doro.page.RecorderPage.RECORD_PLAYBUTTON_ID;
 
 /**
  * Creted by admin on 2016/12/20.
@@ -36,7 +37,7 @@ public class RecorderCase extends VP4 {
         RecordAction.pressRecordButon();//按录音键开始录音
         RecordAction.saveRecorder();//按停止键保存录音
         RecordAction.checkRecord();//按列表键查看录音
-        Assert.assertTrue("没有成功保存新录音文件",getObjectById("com.doro.apps.soundrec:id/icon").exists());//断言函数：判断录音是否存在
+        Assert.assertTrue("没有成功保存新录音文件",getObjectById(RECORD_PLAYBUTTON_ID).exists());//断言函数：判断录音是否存在
         }catch (Exception e){
             e.printStackTrace();
         }
