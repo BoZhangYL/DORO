@@ -182,7 +182,6 @@ public class AlarmAction extends VP4 {
             Assert.assertFalse("闹钟不应该到来",getObjectByClassPackage(ALARM_IMAGEVIEW_ICON_CLASS,AlARM_APPS_ALARM_PACKAGE).exists());
         }catch(Exception e){e.printStackTrace();}
     }
-
     /*
     * 关于闹钟的一些常见操作方法
     * */
