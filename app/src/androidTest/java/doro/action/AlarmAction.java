@@ -196,7 +196,7 @@ public class AlarmAction extends VP4 {
             }
         }catch(Exception e){e.printStackTrace();}
     }
-    public void exitAlarm() { //退出闹钟界面。
+    public void exitAlarm() { //退出闹钟界面
         enterAndExitAlarm(1);
         try {
             mDevice.pressHome();
