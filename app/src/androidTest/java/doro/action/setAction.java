@@ -5,4 +5,5 @@ package doro.action;
  */
 
 public class SetAction {
+
 }
