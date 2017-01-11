@@ -91,6 +91,24 @@ public class SettingAction extends VP4 {
             getUiObjectByText(SETTINGS_SET_DATE_OK_TEXT).clickAndWaitForNewWindow();
         }catch(Exception e){e.printStackTrace();}
     }
+    public void setWeek(String specialWeek){ // 设置到指定星期的日期
+        try{
+            getUiObjectByText(SETTINGS_SET_DATE_TEXT).clickAndWaitForNewWindow();
+            String[] weeks =getObjectById(SETTINGS_DATE_HEADER_DATE_ID).getText().split(",");
+            String[] days =getObjectById(SETTINGS_DATE_HEADER_DATE_ID).getText().split(" ");
+            int day =Integer.parseInt(days[1]);
+            while(!specialWeek.contains(weeks[0])){
+                day = day +1;
+                String sDays = String.valueOf(day);
+                getUiObjectByClassText(SETTING_DATE_DAY_VIEW_CLASS, sDays).click();
+                String[] newWeeks =getObjectById(SETTINGS_DATE_HEADER_DATE_ID).getText().split(",");
+                if(specialWeek.contains(newWeeks[0])){
+                    break;
+                }
+            }
+            getUiObjectByText(SETTINGS_SET_DATE_OK_TEXT).clickAndWaitForNewWindow();
+        }catch(Exception e){e.printStackTrace();}
+    }
     public void setDate(String date){ //年-月-日 格式：YYYY-MM-DD
         try{
             String[] timeDate =date.split("-");
@@ -217,6 +235,20 @@ public class SettingAction extends VP4 {
         setNextDay();//更改日期为下一天
         setTime24(time);//设置手机时间为18:21
     }
+    public void setSpecialWeek(String week,String time){ //去设置中特定星期
+        openAppliction("Settings"); //找到设置应用
+        dateAndTime(); //找到时间设置
+        whatProvidedTime(0);//使用自定义时间
+        setWeek(week);//特定星期
+        setTime24(time);//设置手机时间
+    }
+    public void setSpecialWeeks(String time,String week,double waitTime){ //去设置中特定星期(星期，时间，等待时间)
+        setSpecialWeek(week,time);
+        phoneWaitTime(waitTime);//手机等待分钟
+        new AlarmAction().checkAlarmComing();//判断闹钟是否到来
+        new AlarmAction().alarmComingStop();//闹钟到来后选择关闭闹钟
+    }
+
     public void setEverydayTime(String time ,double waitTime){ //去设置中设置一周的时间
         for(int i=0;i<7;i++){
             setNextdayTime(time);//设置手机时间

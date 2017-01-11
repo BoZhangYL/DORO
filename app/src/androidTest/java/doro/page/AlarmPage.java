@@ -34,6 +34,8 @@ public class AlarmPage {
     //选择闹钟铃声是否震动的recource-id
     public static final String ALARM_ACTIVATE_VIBRATION ="com.doro.apps.alarm:id/activate_vibration";
 
+    //"Alarm"的Text
+    public static final String APPS_ICON_ALARM_TEXT ="Alarm";
     //“I want to”按钮的Text
     public static final String ALARM_CLICK_IWANTTO_TEXT ="I want to";
     //“Delete alarm”按钮的Text

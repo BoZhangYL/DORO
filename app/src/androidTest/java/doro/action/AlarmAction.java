@@ -196,6 +196,13 @@ public class AlarmAction extends VP4 {
             }
         }catch(Exception e){e.printStackTrace();}
     }
+    public void exitAlarm() { //退出闹钟界面。
+        enterAndExitAlarm(1);
+        try {
+            mDevice.pressHome();
+            Assert.assertFalse("没有退出闹钟界面",getObjectById(ALARM_HEADER_ICON_ID).exists());
+        } catch (Exception e) {e.printStackTrace();}
+    }
     public void addTimeAlarm12(String time ){//建立一个指定时间的12小时制的闹钟
         try{
             getObjectByTextContains(ALARM_CLICK_ADD_ALARM_TEXT).clickAndWaitForNewWindow();
@@ -269,7 +276,6 @@ public class AlarmAction extends VP4 {
         }catch(Exception e){e.printStackTrace();}
     }
     public void deleteOneAlarm(){ //删除第一闹钟操作
-
         try{
             if(!getObjectByTextContains(ALARM_CLICK_IWANTTO_TEXT).exists()){
                 addTimeAlarm24("20:18");
