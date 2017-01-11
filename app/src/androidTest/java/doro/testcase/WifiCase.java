@@ -18,7 +18,7 @@ public class WifiCase extends VP4{
     public void OpenWifi(){//从菜单进入wifi
         openAppliction("Settings");
         clickByText("Wi‑Fi");
-        Assert.assertTrue("成从菜单进入wifi界面",getObjectById(WIFI_ONANDOFFID).exists());
+        Assert.assertTrue("未能成功从菜单进入wifi界面",getObjectById(WIFI_ONANDOFFID).exists());
     }
     @Test
 
