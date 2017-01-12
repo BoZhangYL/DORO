@@ -54,7 +54,7 @@ public class SetCase {
     @Test
     public void setScreenTimeout(){
         setAction.findSet();
-        setAction.screenTimeout("15 seconds");
-        setAction.checkScreenTimeout(0.25);
+        setAction.screenTimeout("5 minutes");
+        setAction.checkScreenTimeout(5);
     }
 }
