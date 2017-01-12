@@ -28,7 +28,7 @@ public class MenuCase extends VP4{
         for(int i=0;i<20;i++){
             switchToMenuPage();//进入菜单界面
             openAppliction(MenuAction.getRandomName());//随机打开一个应用程序
-            Asst.assertTrue(text_exists(""));
+            Asst.assertTrue(text_exists(MenuAction.getPkgName(MenuAction.getRandomName())));
         }
     }
     @Test
