@@ -47,8 +47,14 @@ public class SetCase {
         setAction.checkVolume(8,SET_RINGTONE_VALUE_ID);
     }
     @Test
-    public void setTextSize(){ //设置文字大小
+    public void setTextSize(){ //设置文字大小,暂时没有判断是否设置成功
         setAction.findSet();
         setAction.textSize(SET_TEXTSIZE_EXTRALARGE_TEXT);
+    }
+    @Test
+    public void setScreenTimeout(){
+        setAction.findSet();
+        setAction.screenTimeout("5 minutes");
+        setAction.checkScreenTimeout(5);
     }
 }

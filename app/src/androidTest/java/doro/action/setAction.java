@@ -8,6 +8,7 @@ import static doro.page.SetPage.SET_ALARM_VALUE_ID;
 import static doro.page.SetPage.SET_AN_AUDIO_OPTION_TEXT;
 import static doro.page.SetPage.SET_CONFIRM_TEXT;
 import static doro.page.SetPage.SET_DISPLAY_OPTION_TEXT;
+import static doro.page.SetPage.SET_GENERAL_OPTION_TEXT;
 import static doro.page.SetPage.SET_ICON_SET_TEXT;
 import static doro.page.SetPage.SET_MEDIA_VALUE_ID;
 import static doro.page.SetPage.SET_MINUS_ALARM_ID;
@@ -18,6 +19,7 @@ import static doro.page.SetPage.SET_PLUS_ALARM_ID;
 import static doro.page.SetPage.SET_PLUS_MEDIA_ID;
 import static doro.page.SetPage.SET_PLUS_RINGTONE_ID;
 import static doro.page.SetPage.SET_RINGTONE_VALUE_ID;
+import static doro.page.SetPage.SET_SCREEN_TIMEOUT_TEXT;
 import static doro.page.SetPage.SET_SUPPORT_RECYCLERVIEW_CLASS;
 import static doro.page.SetPage.SET_TEXT_SIZE_TEXT;
 import static doro.page.SetPage.SET_THE_VOLUME_SETUP_TEXT;
@@ -25,7 +27,7 @@ import static doro.page.SetPage.SET_TONE_SETUP_BTN_ID;
 import static doro.page.SetPage.SET_WIDGET_FRAMELAYOUT_CLASS;
 
 /**
- * Created by user on 2017/01/11   .
+ * Created by user on 2017/01/12   .
  */
 
 public class SetAction extends VP4{
@@ -77,7 +79,16 @@ public class SetAction extends VP4{
             getObjectByText(SET_ICON_SET_TEXT).click();
         }catch(Exception e){e.printStackTrace();}
     }
-
+    public void screenTimeout(String time){ //设置屏幕待机时间
+        findListSubmenu(SET_GENERAL_OPTION_TEXT);
+        findListSubmenu(SET_SCREEN_TIMEOUT_TEXT);
+        try{
+            getObjectById(SET_TONE_SETUP_BTN_ID).clickAndWaitForNewWindow();
+            getObjectByText(time).clickAndWaitForNewWindow();
+            getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
+            getObjectByText(SET_ICON_SET_TEXT).click();
+        }catch(Exception e){e.printStackTrace();}
+    }
     /*
     * Doro设置下的一些基本操作
     * */
@@ -121,5 +132,16 @@ public class SetAction extends VP4{
             int z =Integer.valueOf(y);
             Assert.assertTrue("音量没有调节成功",x==z);
         }catch(Exception e){e.printStackTrace();}
+    }
+    public void checkScreenTimeout(double min){
+        try{
+            mDevice.sleep();
+            Thread.sleep(5);
+            mDevice.wakeUp();
+            unLock();
+            phoneWaitTime(min);
+            Assert.assertFalse("屏幕没有关闭",mDevice.isScreenOn());
+        }catch(Exception e){e.printStackTrace();}
+
     }
 }

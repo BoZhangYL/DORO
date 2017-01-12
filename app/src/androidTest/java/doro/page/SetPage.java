@@ -33,6 +33,11 @@ public class SetPage {
     public static final String SET_AUDIOSETUP_NORMAL_TEXT ="Normal";
     public static final String SET_AUDIOSETUP_HIGH_TEXT ="High";
     public static final String SET_AUDIOSETUP_HACMODE_TEXT ="HAC mode";
+    //set一级菜单下的"an audio option"的Text
+    public static final String SET_GENERAL_OPTION_TEXT ="A general option";
+    //set二级菜单下的"The screen timeout"的Text
+    public static final String SET_SCREEN_TIMEOUT_TEXT ="The screen timeout";
+
 
     //set二级菜单"The volume"菜单下的“Alarms”的"+"ID
     public static final String SET_PLUS_ALARM_ID ="com.doro.settings:id/plus_alarm";
@@ -54,5 +59,6 @@ public class SetPage {
     public static final String SET_RINGTONE_VALUE_ID ="com.doro.settings:id/slider_ringtone_value";
     //set二级菜单"My audio setup for voice calls"菜单下的“Tone setup”的ID
     //set二级菜单"The text size"菜单下的“Select text size”的ID
+    //set二级菜单"The screen timeout"菜单下的“Screen timeout delay”的ID
     public static final String SET_TONE_SETUP_BTN_ID ="com.doro.settings:id/picker_btn";
 }
