@@ -31,7 +31,7 @@ public class MenuAction extends VP4 {
             return MenuPage.PkgNameList[index];
         }
         else {
-            return "This App not exist!";
+            return "Error Name,Please input App Name Again!";
         }
     }
 }

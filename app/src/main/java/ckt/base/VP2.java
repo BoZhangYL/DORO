@@ -910,6 +910,9 @@ public class VP2 extends VP {
     public static boolean text_exists(String text) throws UiObjectNotFoundException {
         return  getUiObjectByText(text).exists();
     }
+    public static boolean pkgName_exists(String text) throws UiObjectNotFoundException {
+        return  getLauncherPackageName().contentEquals(text);
+    }
     /**
      * @param regex
      */
