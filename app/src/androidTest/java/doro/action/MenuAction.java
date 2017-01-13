@@ -25,8 +25,13 @@ public class MenuAction extends VP4 {
         String RandName = MenuPage.AppNameList[Num];
         return RandName;
     }
-    //根据应用程序名得到包名
-    public static String getPkgName(String getRandomName){
-        return "";
+    //根据应用程序的序号得到包名
+    public static String getPkgName(int index) {
+        if (index < MenuPage.AppNameList.length){
+            return MenuPage.PkgNameList[index];
+        }
+        else {
+            return "This App not exist!";
+        }
     }
 }

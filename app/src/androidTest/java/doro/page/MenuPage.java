@@ -7,7 +7,7 @@ package doro.page;
 public class MenuPage {
     public static String AppNameList[] = {
             "Alarm",
-            "Calcular", "Camera", "Chrome", "Code Safe", "Contacts",
+            "Calculator", "Calendar","Camera", "Chrome", "Code Safe", "Contacts",
             "Dock mode", "Doro Connect & Care", "Doro Keyboard ", "Doro Selection", "Downloads", "Drive", "Duo",
             "Email", "Email",
             "File Manager", "FM Radio",
@@ -27,10 +27,10 @@ public class MenuPage {
     public static String PkgNameList[]={
             "com.doro.apps.alarm",
             "com.doro.apps.calculator",
-            "com.mediatek.camera",
             "com.doro.apps.calendar",
+            "com.mediatek.camera",
             "com.android.chrome",
-            "",
+            "Code safe",
             "com.doro.apps.contacts",
             "com.doro.apps.dock",
             "com.doro.cnc.mobile",
@@ -57,20 +57,18 @@ public class MenuPage {
             "com.google.android.apps.photos",
             "com.mediatek.camera",
             "com.google.android.music",
-            "com.google.android.gms",
+           // "com.google.android.gms",
             "com.google.android.play store",
             "com.teamviewer.quicksupport.market",
             "com.doro.apps.soundrec",
             "com.doro.settings",
-            "SIM Tool Kit",
+            "com.android.stk - toolkit",
             "com.doro.apps.timer",
             "com.doro.apps.torch",
             "com.google.android.googlequicksearchbox",
             "com.doro.apps.weather",
             "com.google.android.youtube",
-            "",
-            "",
-            "",
+
     };
     public static final String More = "com.doro.apps.launcher3:id/more_actions";
 }

@@ -5,6 +5,8 @@ import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.BySelector;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 
+import com.squareup.spoon.Spoon;
+
 import org.hamcrest.Asst;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -27,8 +29,12 @@ public class MenuCase extends VP4{
     public void testClickAnyAPPInMenu() throws UiObjectNotFoundException {
         for(int i=0;i<20;i++){
             switchToMenuPage();//进入菜单界面
-            openAppliction(MenuAction.getRandomName());//随机打开一个应用程序
-            Asst.assertTrue(text_exists(MenuAction.getPkgName(MenuAction.getRandomName())));
+            openAppliction(MenuPage.AppNameList[i]);//依次打开菜单中的每一个应用程序
+            Spoon.screenshot(MenuPage.AppNameList[i]);
+
+            Asst.assertFalse("Can't Launch "+MenuPage.AppNameList[i],!text_exists(MenuAction.getPkgName(i)));
+            waitTime(2);
+            continue;
         }
     }
     @Test
