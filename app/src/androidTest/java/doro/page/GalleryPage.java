@@ -54,9 +54,6 @@ public class GalleryPage {
     public static final String SET_NUMBER_OF_COLUMNS = "com.doro.apps.gallery:id/picker_btn";
     //设置每行数量按钮， id
 
-    public static final String CONFIRM_BUTTON = "com.doro.apps.gallery:id/confirm_text";
-    //confirm按钮, id
-
     public static final String SET_DEFAULT_VIEW = "com.doro.apps.gallery:id/picker_btn";
     //设置默认显示界面， id
 
@@ -79,5 +76,26 @@ public class GalleryPage {
     //添加新联系人界面编辑图片按钮，id
 
     public static final int DEFAULT_COLUMNS_NUMBER = 3;
+    //默认每行显示数
+
+    public static final String GRID_IMAGE = "com.doro.apps.gallery:id/image_image";
+    //每张图片的id
+
+    public static final int MAX_PICTURES_NUMBERS =200;
+    //最大图库保存的照片数
+
+    public static final String GALLERY_FAVORITE_ICON ="favorite_icon";
+    //favourite图标
+
+    public static final String CONFIRM_BUTTON = "Confirm";
+    public static final String OK_BUTTON ="OK";
+    public static final String CANCEL_BUTTON = "Cancel";
+
+    public static final String GALLERY_DELETE_CHECK_BOX =
+            "com.doro.apps.gallery:id/checkbox_for_delete";
+    //删除选择框，id
+
+    public static final String DISPLAY_EMPTY = "android:id/empty";
+
 
 }

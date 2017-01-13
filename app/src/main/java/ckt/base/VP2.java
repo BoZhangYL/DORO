@@ -349,8 +349,14 @@ public class VP2 extends VP {
                 new UiSelector().description(ObjectDescription));
         return gbottc;
     }
-
-
+    public static UiObject2 getUiObjectByIdText(String id,String text){
+        initDevice();
+        return  gDevice.wait(Until.findObject(By.res(id).text(text)), 20000);
+    }
+    public static void clickByIdText(String id,String text){
+        initDevice();
+        gDevice.wait(Until.findObject(By.res(id).text(text)), 20000).click();
+    }
     /**
      * Find a UI Element by Resource ID.
      *
@@ -813,6 +819,15 @@ public class VP2 extends VP {
         sb.append(email_suffix[(int)(Math.random()*email_suffix.length)]);
         return sb.toString();
     }
+    public static String getRandomName(int lMin,int lMax) {
+        int length=getNum(lMin,lMax);
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < length; i++) {
+            int number = (int)(Math.random()*base.length());
+            sb.append(base.charAt(number));
+        }
+        return sb.toString();
+    }
     /**
      * 返回手机号码
      */
@@ -831,6 +846,9 @@ public class VP2 extends VP {
      */
     public static void waitUntilFind(String resourceID,int timeout){
         gDevice.wait(Until.findObject(By.res(resourceID)),timeout);
+    }
+    public static void waitUntilFind(String resourceID,String text,int timeout){
+        gDevice.wait(Until.findObject(By.res(resourceID).text(text)),timeout);
     }
     /**
      * Get the Launcher Package Name.
@@ -906,6 +924,13 @@ public class VP2 extends VP {
      */
     public static List<UiObject2> findObjects(String ResourceID){
         return  gDevice.findObjects(By.res(ResourceID));
+    }
+    /**
+     *get objects
+     * @param ResourceID id
+     */
+    public static UiObject2 findObject(String ResourceID){
+        return  gDevice.findObject(By.res(ResourceID));
     }
     /**给定日期字符串
      *  * @param recordTime   00:01:20
