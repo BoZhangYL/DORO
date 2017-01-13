@@ -538,6 +538,18 @@ public class VP2 extends VP {
         }
         return sb.toString();
     }
+    public static void ScrollViewByText(String text){
+        UiScrollable listScrollable = new UiScrollable(new UiSelector().scrollable(true));
+        listScrollable.setMaxSearchSwipes(50);
+        try {
+            if (listScrollable.scrollTextIntoView(text)) {
+                logger.info("FindScrollFindObject-" + text);
+            }
+        } catch (UiObjectNotFoundException e) {
+            // TODO Auto-generated catch block
+            logger.info("NotFindScrollFindObject-" + text);
+        }
+    }
     /**
      * Scroll to Found a UI Element
      * The default orientation is Horizontal
