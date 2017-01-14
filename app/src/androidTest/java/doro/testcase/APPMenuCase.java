@@ -418,7 +418,7 @@ public class APPMenuCase extends VP4{
         for (int i =0;i<APPMenuPage.AppNameList.length;i++) {
             String appToBeLaunched=APPMenuPage.AppNameList[i];
             MainAction.startApp(appToBeLaunched);//启动第一个应用
-            waitTime(5);
+            waitTime(8);
             String Before = ImageLib.TakeScreen("");//第一个应用退出前截图
             waitTime(2);
             MainAction.startApp(APPMenuPage.AppNameList[i+1]);//启动下一个应用
