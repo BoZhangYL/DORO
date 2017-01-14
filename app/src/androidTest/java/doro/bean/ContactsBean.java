@@ -120,8 +120,8 @@ public class ContactsBean {
     private String email_type;
 
     //step1
-    private boolean star;
-    private boolean edit_picture;
+    private boolean star=false;
+    private boolean edit_picture=false;
     private String name;
     private String birthday;
 
