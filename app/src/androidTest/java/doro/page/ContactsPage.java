@@ -90,6 +90,6 @@ public class ContactsPage {
     //birthday id
     public static final String BIRTHDAY_ID="com.doro.apps.contacts:id/birthday";
     //推荐的app列表
-    public static final String RecyclerView="android.support.v7.widget.RecyclerView";
+    public static final String RecyclerView="com.doro.apps.launcher3:id/apps_list_view";
 
 }

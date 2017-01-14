@@ -1,7 +1,6 @@
 package doro.testcase;
 
 import android.support.test.runner.AndroidJUnit4;
-import android.support.test.uiautomator.UiObjectNotFoundException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +8,6 @@ import org.junit.runner.RunWith;
 
 import ckt.base.VP4;
 import doro.action.ContactsAction;
-import doro.action.MainAction;
 import doro.bean.Constant;
 import doro.bean.ContactsBean;
 
@@ -201,12 +199,5 @@ public class ContactsCase extends VP4{
         bean.setIs_play_message(true);
         ContactsAction.addContact(bean);//使用bean添加联系人
         ContactsAction.checkContactsBean(bean);//验证联系人
-    }
-    @Test
-    public void test() throws UiObjectNotFoundException {
-        MainAction.clearAllApp();
-        //启动联系人App
-        MainAction.startApp("Camera");
-
     }
 }
