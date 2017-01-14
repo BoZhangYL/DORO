@@ -4,6 +4,7 @@ package doro.page;
  * Created by qiang.zhang on 2017/1/12.
  */
 public class ContactsPage {
+    public static final String CONTACT_PKG_NAME="com.doro.apps.contacts";
     public static final String CONTACTS="Cont\u200Bacts";
     //i want to
     public static final String I_WANT_TO_BTN_ID="com.doro.apps.contacts:id/action_overflow_menu";
@@ -91,5 +92,23 @@ public class ContactsPage {
     public static final String BIRTHDAY_ID="com.doro.apps.contacts:id/birthday";
     //推荐的app列表
     public static final String RecyclerView="com.doro.apps.launcher3:id/apps_list_view";
+    //联系人姓名id
+    public static final String NAME_LABEL_ID="com.doro.apps.contacts:id/label";
+    //Favourites ICE My number My voicemail
+    public static final String HEADER_CONTACTS_ID="com.doro.apps.contacts:id/header_section_txt";
+    /*i want to*/
+    public static final String IWANTTO_MENU_ID="com.doro.apps.contacts:id/menu_title";
+    //关闭按钮
+    public static final String MENU_CLOSE_ID="com.doro.apps.contacts:id/menu_close";
+    //选择全部联系人
+    public static final String DELETE_SELECT_ALL_CHECKBOX="com.doro.apps.contacts:id/selectallcheckbox";
+    //删除-确认
+    public static final String DELETE_CONTACT_CONFIREM_ID="com.doro.apps.contacts:id/confirm_text";
+    //确认删除？-OK  Cancel
+    public static final String DELETE_CONTACT_CONFIREM_POP_TEXT_ID="com.doro.apps.contacts:id/button_text";
+    //联系人头像
+    public static final String CONTACT_ICON_ID="com.doro.apps.contacts:id/icon";
+    //联系人-item
+    public static final String CONTENT_ITEM="com.doro.apps.contacts:id/list_item_content";
 
 }
