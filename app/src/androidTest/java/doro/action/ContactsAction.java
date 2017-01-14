@@ -3,6 +3,7 @@ package doro.action;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiObjectNotFoundException;
+import android.support.test.uiautomator.UiSelector;
 
 import org.junit.Assert;
 
@@ -32,7 +33,7 @@ public class ContactsAction extends VP4 {
         }
     }
     //click i want to
-    public static void click_I_WantTo_Button(){
+    public static void clickIWantToButton(){
         clickById(ContactsPage.I_WANT_TO_BTN_ID);
     }
     //添加联系人
@@ -297,6 +298,12 @@ public class ContactsAction extends VP4 {
             bean.getNumber_list().add(typeBean);
         }
     }
+    public static void pushNumber(ContactsBean bean,String type){
+        TypeBean typeBean= new TypeBean();
+        typeBean.setNumber(getRandomTel());
+        typeBean.setType(type);
+        bean.getNumber_list().add(typeBean);
+    }
     public static void pushEmail(ContactsBean bean,int size){
         for (int i = 0; i <size ; i++) {
             TypeBean typeBean= new TypeBean();
@@ -352,5 +359,115 @@ public class ContactsAction extends VP4 {
         logger.info("random-"+randomString);
         return randomString;
     }
+    public static void selectWhatToDo(int index){
+        int menuHeight=getObject2ById(ContactsPage.MENU_CLOSE_ID).getVisibleBounds().height();
+        int x=getObject2ById(ContactsPage.MENU_CLOSE_ID).getVisibleBounds().centerX();
+        int displayHeight=gDevice.getDisplayHeight();
+        int itemHeight=(displayHeight-menuHeight)/5;
+        int y=index*itemHeight;
+        gDevice.click(x,y);
+    }
+    public static void  navWantToDelete(){
+        for (int i = 1; i <=5 ; i++) {
+            clickIWantToButton();
+            selectWhatToDo(4);
+            try {
+                if (id_exists(ContactsPage.DELETE_SELECT_ALL_CHECKBOX)){
+                    logger.info("enter delete page");
+                    break;
+                }
+            } catch (UiObjectNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public static void deleteAll(){
+        clickById(ContactsPage.DELETE_SELECT_ALL_CHECKBOX);
+        clickById(ContactsPage.DELETE_CONTACT_CONFIREM_ID);
+        clickByIdText(ContactsPage.DELETE_CONTACT_CONFIREM_POP_TEXT_ID,"OK");
+    }
+    public static void verifyContact(String name,boolean isExpectFind){
+        boolean isActiveFind=ScrollViewByText(name);
+        Assert.assertEquals("verify contact:"+name,isExpectFind,isActiveFind);
+    }
+    public static void deleteContact(String name){
+        logger.info("Now to delete -"+name);
+        ScrollViewByText(name);
+        List<UiObject2> items=findObjects(ContactsPage.CONTENT_ITEM);
+        for (UiObject2 item:items) {
+            if (item.hasObject(By.text(name))){
+                item.click();
+                logger.info("=================================");
+                break;
+            }
+        }
+        //clickByText(name);
+        clickById(ContactsPage.DELETE_CONTACT_CONFIREM_ID);
+        clickByIdText(ContactsPage.DELETE_CONTACT_CONFIREM_POP_TEXT_ID,"OK");
+        //等待删除完成
+        waitUntilFind(ContactsPage.COMMAND_TEXT_VIEW_BTN_ID,20000);
+    }
+    public static String  getTheLastName(){
+        List<UiObject2> names=findObjects(ContactsPage.NAME_LABEL_ID);
+        return names.get(names.size()-1).getText();
+    }
+    public static boolean isFindFavourites(){
+        UiSelector selector=new UiSelector().resourceId(ContactsPage.STARRED_ID);
+        return  scrollIntoView(selector);
+    }
+    public static String isFindNormalName(){
+        scrollToBegin(100);
+        List<UiObject2> icons;
+        boolean isFind=false;
+        String name="";
+        icons=findObjects(ContactsPage.CONTACT_ICON_ID);
+        for (UiObject2 icon:icons) {
+            UiObject2 pp=icon.getParent().getParent().getParent();
+            if (!pp.hasObject(By.res(ContactsPage.STARRED_ID))&&!pp.hasObject(By.textContains("In Case of Emergency (ICE)"))){
+                isFind=true;
+                name=pp.findObject(By.res(ContactsPage.NAME_LABEL_ID)).getText();
+                break;
+            }
+        }
+        for (int i = 0; i <20 ; i++) {
+            if (!isFind){
+                scrollForward(55);
+                icons=findObjects(ContactsPage.CONTACT_ICON_ID);
+                for (UiObject2 icon:icons) {
+                    UiObject2 pp=icon.getParent().getParent().getParent();
+                    if (!pp.hasObject(By.res(ContactsPage.STARRED_ID))&&!pp.hasObject(By.textContains("In Case of Emergency (ICE)"))){
+                        isFind=true;
+                        name=pp.findObject(By.res(ContactsPage.NAME_LABEL_ID)).getText();
+                        break;
+                    }
+                }
+            }
+        }
+        logger.info("Find-Normal-Name-"+name);
+        return  name;
+    }
+    public static String selectFavourites(){
+        String favouritesName="";
+        UiObject2 starObj=findObject(ContactsPage.STARRED_ID) ;
+        UiObject2 nameObj=starObj.getParent().findObject(By.res(ContactsPage.NAME_LABEL_ID));
+        favouritesName=nameObj.getText();
+        return  favouritesName;
+    }
+    /*choose the last name to be delete*/
+    public static String selectAContactToBeDel(){
+        scrollToEnd(50);
+        return  getTheLastName();
+    }
+    /*export form mobile to sd card*/
+    public void exportFromMobileToSdcard(){
+
+    }
+    public void exportFromMobileToSim(){
+
+    }
+/*    public static UiObject2 chooseOneContact(){
+
+    }*/
+
 
 }
