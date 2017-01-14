@@ -1,10 +1,8 @@
 package doro.action;
 
-import android.support.test.uiautomator.Direction;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 
 import ckt.base.VP4;
-import doro.page.ContactsPage;
 import doro.page.ViewPage;
 
 /**
@@ -37,11 +35,13 @@ public class MainAction extends VP4{
             //滑动查找App
             waitUntilFind(ViewPage.APP_LIST_SEARCH,10000);
             clickById(ViewPage.APP_LIST_SEARCH);
-            if (id_exists(ContactsPage.RecyclerView)){
-                getObject2ById(ContactsPage.RecyclerView).swipe(Direction.UP,(float)0.5);
-            }
-            ScrollViewByText(AppName);
-            getObjectByIdText(LAUNCH3_APP, AppName).clickAndWaitForNewWindow();
+            getObject2ById(ViewPage.SEARCH_BOX_INPUT).clear();
+            waitTime(2);
+            getObject2ById(ViewPage.SEARCH_BOX_INPUT).setText(AppName.substring(0,3));
+            waitTime(3);
+            //gDevice.pressBack();
+            waitUntilFind(LAUNCH3_APP,30000);
+            clickByIdText(LAUNCH3_APP,AppName);
             logger.info("current-package is - "+gDevice.getCurrentPackageName());
         }
     }

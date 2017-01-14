@@ -1,5 +1,6 @@
 package doro.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,7 +23,7 @@ public class ContactsBean {
         this.email_list = email_list;
     }
 
-    private List<TypeBean> email_list;
+    private List<TypeBean> email_list= new ArrayList<>();
     //step4
     private String street;
 
@@ -114,7 +115,7 @@ public class ContactsBean {
         this.is_play_message = is_play_message;
     }
     //step2
-    private List<TypeBean> number_list;
+    private List<TypeBean> number_list = new ArrayList<>();
     //step3
     private String email_type;
 

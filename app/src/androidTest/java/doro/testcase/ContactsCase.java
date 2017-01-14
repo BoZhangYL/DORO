@@ -21,6 +21,114 @@ public class ContactsCase extends VP4{
         ContactsAction.launchContacts();
     }
     @Test
+    public void testAddWithNoStar() throws Exception {
+        ContactsBean bean = new ContactsBean();
+        bean.setStar(false); //step1 identity
+        bean.setEdit_picture(true);
+        bean.setName(getRandomName(3,8));
+        bean.setBirthday("20/11/1948");
+        ContactsAction.pushNumber(bean,3);   //step2 numbers
+        ContactsAction.pushEmail(bean,3);//step3 email
+        bean.setStreet(getRandomName(20,30));//step4 details
+        bean.setNote(getRandomName(10,20));
+        bean.setRing_tone(ContactsAction.getRandomType(Constant.RingTone));//step5 Tone
+        bean.setIs_play_ring(true);
+        bean.setMessage_tome(ContactsAction.getRandomType(Constant.MessageTone));
+        bean.setIs_play_message(true);
+        ContactsAction.addContact(bean);//使用bean添加联系人
+        ContactsAction.checkContactsBean(bean);//验证联系人
+    }
+    @Test
+    public void testAddWithNoEditPicture() throws Exception {
+        ContactsBean bean = new ContactsBean();
+        bean.setStar(true); //step1 identity
+        bean.setEdit_picture(false);
+        bean.setName(getRandomName(3,8));
+        bean.setBirthday("20/11/1948");
+        ContactsAction.pushNumber(bean,3);   //step2 numbers
+        ContactsAction.pushEmail(bean,3);//step3 email
+        bean.setStreet(getRandomName(20,30));//step4 details
+        bean.setNote(getRandomName(10,20));
+        bean.setRing_tone(ContactsAction.getRandomType(Constant.RingTone));//step5 Tone
+        bean.setIs_play_ring(true);
+        bean.setMessage_tome(ContactsAction.getRandomType(Constant.MessageTone));
+        bean.setIs_play_message(true);
+        ContactsAction.addContact(bean);//使用bean添加联系人
+        ContactsAction.checkContactsBean(bean);//验证联系人
+    }
+    @Test
+    public void testAddWithNoMessageTone() throws Exception {
+        ContactsBean bean = new ContactsBean();
+        bean.setStar(true); //step1 identity
+        bean.setEdit_picture(true);
+        bean.setName(getRandomName(3,8));
+        bean.setBirthday("20/11/1948");
+        ContactsAction.pushNumber(bean,3);   //step2 numbers
+        ContactsAction.pushEmail(bean,3);//step3 email
+        bean.setStreet(getRandomName(20,30));//step4 details
+        bean.setNote(getRandomName(10,20));
+        bean.setRing_tone(ContactsAction.getRandomType(Constant.RingTone));//step5 Tone
+        bean.setIs_play_ring(true);
+        //bean.setMessage_tome(ContactsAction.getRandomType(Constant.MessageTone));
+        bean.setIs_play_message(true);
+        ContactsAction.addContact(bean);//使用bean添加联系人
+        ContactsAction.checkContactsBean(bean);//验证联系人
+    }
+    @Test
+    public void testAddWithNoRingtone() throws Exception {
+        ContactsBean bean = new ContactsBean();
+        bean.setStar(true); //step1 identity
+        bean.setEdit_picture(true);
+        bean.setName(getRandomName(3,8));
+        bean.setBirthday("20/11/1948");
+        ContactsAction.pushNumber(bean,3);   //step2 numbers
+        ContactsAction.pushEmail(bean,3);//step3 email
+        bean.setStreet(getRandomName(20,30));//step4 details
+        bean.setNote(getRandomName(10,20));
+        //bean.setRing_tone(ContactsAction.getRandomType(Constant.RingTone));//step5 Tone
+        bean.setIs_play_ring(true);
+        bean.setMessage_tome(ContactsAction.getRandomType(Constant.MessageTone));
+        bean.setIs_play_message(true);
+        ContactsAction.addContact(bean);//使用bean添加联系人
+        ContactsAction.checkContactsBean(bean);//验证联系人
+    }
+    @Test
+    public void testAddWithNoNote() throws Exception {
+        ContactsBean bean = new ContactsBean();
+        bean.setStar(true); //step1 identity
+        bean.setEdit_picture(true);
+        bean.setName(getRandomName(3,8));
+        bean.setBirthday("20/11/1948");
+        ContactsAction.pushNumber(bean,3);   //step2 numbers
+        ContactsAction.pushEmail(bean,3);//step3 email
+        bean.setStreet(getRandomName(20,30));//step4 details
+        //bean.setNote(getRandomName(10,20));
+        bean.setRing_tone(ContactsAction.getRandomType(Constant.RingTone));//step5 Tone
+        bean.setIs_play_ring(true);
+        bean.setMessage_tome(ContactsAction.getRandomType(Constant.MessageTone));
+        bean.setIs_play_message(true);
+        ContactsAction.addContact(bean);//使用bean添加联系人
+        ContactsAction.checkContactsBean(bean);//验证联系人
+    }
+    @Test
+    public void testAddWithNoStreet() throws Exception {
+        ContactsBean bean = new ContactsBean();
+        bean.setStar(true); //step1 identity
+        bean.setEdit_picture(true);
+        bean.setName(getRandomName(3,8));
+        bean.setBirthday("20/11/1948");
+        ContactsAction.pushNumber(bean,3);   //step2 numbers
+        ContactsAction.pushEmail(bean,3);//step3 email
+        //bean.setStreet(getRandomName(20,30));//step4 details
+        bean.setNote(getRandomName(10,20));
+        bean.setRing_tone(ContactsAction.getRandomType(Constant.RingTone));//step5 Tone
+        bean.setIs_play_ring(true);
+        bean.setMessage_tome(ContactsAction.getRandomType(Constant.MessageTone));
+        bean.setIs_play_message(true);
+        ContactsAction.addContact(bean);//使用bean添加联系人
+        ContactsAction.checkContactsBean(bean);//验证联系人
+    }
+    @Test
     public void testAddWithNoBirthday() throws Exception {
         ContactsBean bean = new ContactsBean();
         bean.setStar(true); //step1 identity
