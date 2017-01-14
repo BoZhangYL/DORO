@@ -538,17 +538,47 @@ public class VP2 extends VP {
         }
         return sb.toString();
     }
-    public static void ScrollViewByText(String text){
+    /**
+     * scroll to find a UiObject
+     * return is find or not
+     * @param obj
+     * @return boolean
+     */
+    public static boolean scrollIntoView(UiSelector obj){
         UiScrollable listScrollable = new UiScrollable(new UiSelector().scrollable(true));
-        listScrollable.setMaxSearchSwipes(50);
-        try {
-            if (listScrollable.scrollTextIntoView(text)) {
-                logger.info("FindScrollFindObject-" + text);
+        boolean isFind=false;
+        if (listScrollable.exists()){
+            listScrollable.setMaxSearchSwipes(50);
+            try {
+                if (listScrollable.scrollIntoView(obj)) {
+                    logger.info("FindScrollFindObject");
+                    isFind=true;
+                }
+            } catch (UiObjectNotFoundException e) {
+                // TODO Auto-generated catch block
+                logger.info("NotFindScrollFindObject");
+                isFind=  false;
             }
-        } catch (UiObjectNotFoundException e) {
-            // TODO Auto-generated catch block
-            logger.info("NotFindScrollFindObject-" + text);
         }
+        return isFind;
+    }
+    public static boolean ScrollViewByText(String text){
+        UiScrollable listScrollable = new UiScrollable(new UiSelector().scrollable(true));
+        boolean isFind=false;
+        if (listScrollable.exists()){
+            listScrollable.setMaxSearchSwipes(50);
+            try {
+                if (listScrollable.scrollTextIntoView(text)) {
+                    logger.info("FindScrollFindObject-" + text);
+                    isFind=true;
+                }
+            } catch (UiObjectNotFoundException e) {
+                // TODO Auto-generated catch block
+                logger.info("NotFindScrollFindObject-" + text);
+                isFind=  false;
+            }
+        }
+        return isFind;
     }
     /**
      * Scroll to Found a UI Element

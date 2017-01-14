@@ -111,6 +111,34 @@ public class VP4 extends VP2 {
             e.printStackTrace();
         }
     }
+    public static void scrollBackward(int steps) {
+        initDevice();
+        try {
+            UiScrollable scr = new UiScrollable(new UiSelector().scrollable(true));
+            if (scr.exists()){
+                scr.setAsVerticalList();
+                scr.scrollBackward(steps);
+                logger.info("-scrollBackward success-");
+            }
+        } catch (UiObjectNotFoundException e) {
+            logger.info("-scrollBackward Failed-");
+            e.printStackTrace();
+        }
+    }
+    public static void scrollForward(int steps) {
+        initDevice();
+        try {
+            UiScrollable scr = new UiScrollable(new UiSelector().scrollable(true));
+            if (scr.exists()){
+                scr.setAsVerticalList();
+                scr.scrollForward(steps);
+                logger.info("-scrollForward success-");
+            }
+        } catch (UiObjectNotFoundException e) {
+            logger.info("-scrollForward Failed-");
+            e.printStackTrace();
+        }
+    }
     public static void scrollToBegin(int steps) {//滑动到当前页面开始位置
         initDevice();
         try {
@@ -125,8 +153,10 @@ public class VP4 extends VP2 {
         initDevice();
         try {
             UiScrollable scr = new UiScrollable(new UiSelector().scrollable(true));
-            scr.setAsVerticalList();
-            scr.scrollToEnd(50,steps);
+            if (scr.exists()){
+                scr.setAsVerticalList();
+                scr.scrollToEnd(50,steps);
+            }
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }

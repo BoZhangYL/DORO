@@ -20,5 +20,7 @@ public class ViewPage {
     //App list
     public static final String APP_LIST_SEARCH="com.doro.apps.launcher3:id/header_footer_container";
     public static final String SEARCH_BOX_INPUT="com.doro.apps.launcher3:id/search_box_input";
+    //View label
+    public static final String LANUCH_LABEL="com.doro.apps.launcher3:id/label";
 
 }
