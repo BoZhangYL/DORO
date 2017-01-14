@@ -35,4 +35,5 @@ public class EmailAction extends VP4 {
         System.out.println(randomEmail);
         return randomEmail;
     }
+
 }

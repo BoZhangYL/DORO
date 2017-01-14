@@ -36,5 +36,4 @@ public class APPMenuAction extends VP4 {
             return "Error Name,Please input App Name Again!";
         }
     }
-
 }
