@@ -1,9 +1,12 @@
 package doro.action;
 
 import android.graphics.Rect;
+import android.support.test.uiautomator.UiCollection;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
+import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
+import android.view.View;
 
 import org.hamcrest.Asst;
 
@@ -16,10 +19,39 @@ import doro.page.GalleryPage;
  */
 
 public class GalleryAction extends VP4{
+    private static UiCollection GridView = new UiCollection(new UiSelector().
+            resourceId(GalleryPage.GALLERY_GRAID_VIEW));//网格视图
+    private static UiSelector images = new UiSelector().resourceId(GalleryPage.GRID_IMAGE);//图片名
+    private static UiSelector Favourite = new UiSelector().resourceId(GalleryPage.
+            GALLERY_FAVORITE_ICON);//最喜爱图标
+    private static UiSelector DeleteCheckBox = new UiSelector().resourceId(GalleryPage.
+            GALLERY_DELETE_CHECK_BOX);//删除选择框
     private static int ColumnsNumber=GalleryPage.DEFAULT_COLUMNS_NUMBER;//每行显示的照片数
-    private static int GalleryPicturesNumbers = 0;
-    private static int GalleryVideosNumbers = 0;
-    private static int GalleryFavouriteNumber =0;
+    private static int GalleryPicturesNumbers = 0; //图库中的图片数
+    private static int GalleryVideosNumbers = 0; //图库中的视频数
+    private static int GalleryFavouriteNumber ; //图库中当前的最喜爱数
+    private static int AllFavours=0;//图库中所有的favourite数量
+    private static String[] AllCurrentNamess = new String[GalleryPage.MAX_PICTURES_NUMBERS];
+    //当前所有图片视频的名字
+    private static String FirstGridName=null; //图库中favourite数量
+    private static UiScrollable scr = new UiScrollable(new UiSelector().scrollable(true));
+    private static UiSelector DisplayEmpty =new UiSelector().resourceId(GalleryPage.DISPLAY_EMPTY);
+
+    public static void getAllPicturesCount(){
+        launchGalleryFromAppList();
+        AllCurrentNamess = getPictureVideoNmae();
+        AllFavours = GalleryFavouriteNumber;
+        for(int i = 0; i< getAllCurrentNamesCount(AllCurrentNamess); i++){
+            String name[] = AllCurrentNamess[i].split("\\.");
+            if(name[1].equals("jpg") || name[1].equals("png") || name[1].equals("gif") ||
+                    name[1].equals("bmp")){
+                GalleryPicturesNumbers++;
+            }else if(name[1].equals("3gp")||name[1].equals("mp4")){
+                GalleryVideosNumbers++;
+            }
+        }
+    }
+
     /*
     * 从app list打开图库
     * */
@@ -99,7 +131,7 @@ public class GalleryAction extends VP4{
     /*
     * 得到一些图片和视频
     * */
-    public static void getSomePicturesVideos(){
+  /*  public static void getSomePicturesVideos(){
 //        openAppliction(CameraPage.CAMERA);
 //        CameraAction.takePictures();
 //        CameraAction.takePictures();
@@ -109,7 +141,7 @@ public class GalleryAction extends VP4{
         openAppliction(GalleryPage.GALLERY);
         getGalleryPctureVideoNumbers();
     }
-
+*/
     /*
     * 点击I want to按钮
     * */
@@ -123,6 +155,34 @@ public class GalleryAction extends VP4{
     private static void clickDisplayOption(){
         clickAndWaitForNewWindowByText(GalleryPage.GALLERYSETTINGS_DISPLAY);
     }
+    /*
+    * 点击Delete picture（s）点击删除按钮
+    * */
+    private static void clickDeletePictureButton(){
+        clickAndWaitForNewWindowByText(GalleryPage.GALLERYSETTINGS_DELETE_PICTURES);
+    }
+
+    /*
+    * 点击Confirm按钮
+    * */
+    private static void clickConfirmButton(){
+        clickAndWaitForNewWindowByText(GalleryPage.CONFIRM_BUTTON);
+    }
+
+    /*
+    * 点击ok按钮
+    * */
+    private static void clickOKButton(){
+        clickAndWaitForNewWindowByText(GalleryPage.OK_BUTTON);
+    }
+
+    /*
+    * 点击Cancel按钮
+    * */
+    private static void clickCancelButton(){
+        clickAndWaitForNewWindowByText(GalleryPage.CANCEL_BUTTON);
+    }
+
 
     /*
     * 切换到My Gallery显示
@@ -132,6 +192,9 @@ public class GalleryAction extends VP4{
         clickIWantToButton();
         clickDisplayOption();
         clickAndWaitForNewWindowByText(GalleryPage.GALLERYSETTINGS_DISPLAY_MYGALLERY);
+        if(scr.exists()) {
+            scrollToBegin(20);
+        }
     }
 
     /*
@@ -152,7 +215,9 @@ public class GalleryAction extends VP4{
         clickIWantToButton();
         clickDisplayOption();
         clickAndWaitForNewWindowByText(GalleryPage.GALLERYSETTINGS_DISPLAY_ALLPICTURES);
-
+        if(scr.exists()) {
+            scrollToBegin(20);
+        }
     }
 
     /*
@@ -173,6 +238,9 @@ public class GalleryAction extends VP4{
         clickIWantToButton();
         clickDisplayOption();
         clickAndWaitForNewWindowByText(GalleryPage.GALLERYSETTINGS_DISPLAY_ALLVIDEOS);
+        if(scr.exists()) {
+            scrollToBegin(20);
+        }
     }
 
     /*
@@ -182,8 +250,8 @@ public class GalleryAction extends VP4{
         int[] numbers = getCurrentPicturesVideosNum();
         int pictureNumber = numbers[0];
         int VideoNumber = numbers[1];
-        Asst.assertEquals("checkAllVideoDisplay",0, pictureNumber);
-        Asst.assertEquals("checkAllVideoDisplay",GalleryVideosNumbers, VideoNumber);
+        Asst.assertEquals("检查所有图片显示",0, pictureNumber);
+        Asst.assertEquals("检查所有视频显示",GalleryVideosNumbers, VideoNumber);
     }
 
     /*
@@ -193,15 +261,32 @@ public class GalleryAction extends VP4{
         clickIWantToButton();
         clickDisplayOption();
         clickAndWaitForNewWindowByText(GalleryPage.GALLERYSETTINGS_DISPLAY_FAVOURITES);
+        if(scr.exists()) {
+            scrollToBegin(20);
+        }
     }
 
     /*
     * 检查favourite显示
     * */
     public static void checkFavouriteDisplay(){
-        int[] numbers = getCurrentPicturesVideosNum();
-        int FavouriteNumber = numbers[2];
-        Asst.assertEquals("checkFavouriteDisplay",GalleryFavouriteNumber, FavouriteNumber);
+        if(GalleryFavouriteNumber == 0){
+            try {
+                Asst.assertTrue("checkFavouriteDisplay",isDisplayEmpty());
+            } catch (UiObjectNotFoundException e) {
+                e.printStackTrace();
+            }
+        }else {
+            int[] numbers = getCurrentPicturesVideosNum();
+            int Favouritenumbers = numbers[2];
+            Asst.assertEquals("checkFavouriteDisplay", GalleryFavouriteNumber, Favouritenumbers);
+        }
+    }
+    /*
+    * 判断当前页面是否为空
+    * */
+    private static boolean isDisplayEmpty() throws UiObjectNotFoundException {
+        return GridView.getChild(DisplayEmpty).exists();
     }
 
     /*
@@ -237,106 +322,304 @@ public class GalleryAction extends VP4{
             int y0 = rect.bottom;
             int x1 = x0;
             int y1 = rect.top;
-            gDevice.swipe(x0,y0,x1,y1, VP4.STEP_NORMAL);
+        gDevice.swipe(x0,y0,x1,y1, 15);
     }
 
     /*
-   * 得到图库显示的照片数，视频数
-   * */
-    private static void getGalleryPctureVideoNumbers(){
-        changeToMyGalleryDisplay();
-        UiObject GraidView = getObjectById(GalleryPage.GALLERY_GRAID_VIEW);
-        int ExpectColumns;
-        int ActColumns;
-        if(ColumnsNumber ==2){
-            ExpectColumns = 6;
-        }else if(ColumnsNumber ==3){
-            ExpectColumns = 15;
-        }else if(ColumnsNumber ==4){
-            ExpectColumns = 24;
-        }
-        try {
-            do{
-                ActColumns = GraidView.getChildCount();
-            for (int i=0; i<ActColumns; i++){
-                if(isFavourite(i)){
-                    GalleryFavouriteNumber++;
-                }
-                String names =getPictureVideoNmae(i);
-                String[]name = names.split("\\.");
-                if(name[1].equals("jpg") || name[1].equals("png")||name[1].equals("gif")){
-                    GalleryPicturesNumbers++;
-                }else /*if(name[1].equals("3gp") || name[1].equals("mp4") || name[1].equals("mp4"))*/{
-                    GalleryVideosNumbers++;
-                }
-                moveDownOneGraidViewPage(GraidView.getBounds());
-            }
-                }while(ActColumns!=ColumnsNumber);
-        } catch (UiObjectNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /*
-    * 得到当前的图片数，视频数
+    * 得到当前的图片数，视频数,最爱照片数
     * */
     public static int[] getCurrentPicturesVideosNum(){
-        UiObject GraidView = getObjectById(GalleryPage.GALLERY_GRAID_VIEW);
-        int ExpectColumns;
-        int ActColumns;
-        int numbers[] ={0,0,0};
-        if(ColumnsNumber ==2){
-            ExpectColumns = 6;
-        }else if(ColumnsNumber ==3){
-            ExpectColumns = 15;
-        }else if(ColumnsNumber ==4){
-            ExpectColumns = 24;
+        if(scr.exists()) {
+            scrollToBegin(20);
         }
-        try {
-            do{
-                ActColumns = GraidView.getChildCount();
-                for (int i=0; i<ActColumns; i++){
-                    if(isFavourite(i)){
-                        numbers[2]++;
-                    }
-                    String names =getPictureVideoNmae(i);
-                    String[]name = names.split("\\.");
-                    if(name[1].equals("jpg") || name[1].equals("png")||name[1].equals("gif")){
-                        numbers[0]++;
-                    }else{
-                        numbers[1]++;
-                    }
-                    moveDownOneGraidViewPage(GraidView.getBounds());
-                }
-            }while(ActColumns!=ColumnsNumber);
-        } catch (UiObjectNotFoundException e) {
-            e.printStackTrace();
+        int nums[] ={0,0,0};
+        String []  AllCurrentNames = getPictureVideoNmae();
+        nums[2] = GalleryFavouriteNumber;
+        for(int i = 0; i<getAllCurrentNamesCount(AllCurrentNames) ; i++){
+            String name[] = AllCurrentNames[i].split("\\.");
+            if(name[1].equals("jpg") || name[1].equals("png") || name[1].equals("gif") ||
+                    name[1].equals("bmp")){
+                nums[0]++;
+            }else if(name[1].equals("3gp")||name[1].equals("mp4")){
+                nums[1]++;
+            }
         }
-        return numbers;
+        return nums;
     }
-
+    private static int getAllCurrentNamesCount(String[] names){
+        int count = 0;
+        for(int i=0;i<names.length;i++){
+            if(names[i]!=null){
+                count++;
+            }
+        }
+        return count;
+    }
     /*
     * 得到当前网格界面所有照片，视频的名字
     * */
-    private static String getPictureVideoNmae(int indexs){
-        String name = null;
+    private static String[] getPictureVideoNmae(){
+        if(scr.exists()) {
+            scrollToBegin(20);
+        }
+        String [] AllCurrentNames =new String[GalleryPage.MAX_PICTURES_NUMBERS];
+        GalleryFavouriteNumber = 0;
         try {
-            name = gDevice.findObject(new UiSelector().resourceId(GalleryPage.GALLERY_GRAID_VIEW).
-                    index(indexs).index(0).index(0).index(1)).getContentDescription();
+            for(int i=0;i<GridView.getChildCount();i++){
+                AllCurrentNames[i]= GridView.getChildByInstance(images,i).getContentDescription();
+                if(GridView.getChildByInstance(Favourite,i).exists()){
+                    GalleryFavouriteNumber++;
+                }
+            }
+            FirstGridName =AllCurrentNames[0];
+            if(GridView.getChildByInstance(images,0).exists()) {
+                moveDownOneGraidViewPage(GridView.getChildByInstance(images, 0).getBounds());
+            }
+            while(!FirstGridName.equals(GridView.getChildByInstance(images,0).getContentDescription())){
+               int LastGridNumber= GridView.getChildCount() % ColumnsNumber;
+                if(LastGridNumber ==0){
+                    for(int i = getAllCurrentNamesCount(AllCurrentNames), j = 0; j<ColumnsNumber; j++){
+                        AllCurrentNames[i + j] =GridView.getChildByInstance(images,GridView.
+                                getChildCount()-j-1).getContentDescription();
+                        if(GridView.getChildByInstance(Favourite,GridView.
+                                getChildCount()-j-1).exists()){
+                            GalleryFavouriteNumber++;
+                        }
+                    }
+                }else if(LastGridNumber != 0){
+                    for(int i=getAllCurrentNamesCount(AllCurrentNames),j=0;j<LastGridNumber;j++){
+                        AllCurrentNames[i + j] =GridView.getChildByInstance(images,GridView.
+                                getChildCount()-j-1).getContentDescription();
+                        if(GridView.getChildByInstance(Favourite,GridView.
+                                getChildCount()-j-1).exists()){
+                            GalleryFavouriteNumber++;
+                        }
+                    }
+                }
+                FirstGridName =GridView.getChildByInstance(images,0).getContentDescription();
+                moveDownOneGraidViewPage(GridView.getChildByInstance(images,0).getBounds());
+            }
+
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
-        return name;
+    return AllCurrentNames;
     }
 
     /*
-    * 判断是否是favourite
+    * 删除一张随机图片
     * */
+    public static void deleteOneRandomPicture(){
+        int pictures[] =getCurrentPicturesVideosNum();
+        if(scr.exists()) {
+            scrollToBegin(20);
+        }
+        clickIWantToButton();
+        clickDeletePictureButton();
+        selectDeletePictures();
+        clickConfirmButton();
+        clickCancelButton();
+        Asst.assertEquals("取消随机删除一张照片",GalleryPicturesNumbers,
+                pictures[0]);
+        clickConfirmButton();
+        clickOKButton();
+        waitTime(10);
+        GalleryPicturesNumbers--;
+        pictures=getCurrentPicturesVideosNum();
+        Asst.assertEquals("确认随机删除一张照片",GalleryPicturesNumbers,
+                pictures[0]);
+    }
+    /*
+    * 删除一个视频
+    * */
+    public static void deleteOneRandomVideo(){
+        int pictures[] =getCurrentPicturesVideosNum();
+        if(scr.exists()) {
+            scrollToBegin(20);
+        }
+        clickIWantToButton();
+        clickDeletePictureButton();
+        selectDeletePictures();
+        clickConfirmButton();
+        clickCancelButton();
+        Asst.assertEquals("取消随机删除一个视频",GalleryVideosNumbers,
+                pictures[1]);
+        clickConfirmButton();
+        clickOKButton();
+        waitTime(10);
+        GalleryVideosNumbers--;
+        pictures=getCurrentPicturesVideosNum();
+        Asst.assertEquals("确认随机删除一个视频",GalleryVideosNumbers,
+                pictures[1]);
+    }
+
+
+    /*
+    * 删除多张随机照片
+    * */
+    public static void deleteMultiRandomPictures(){
+        int pictures[] =getCurrentPicturesVideosNum();
+        if(scr.exists()) {
+            scrollToBegin(20);
+        }
+        clickIWantToButton();
+        clickDeletePictureButton();
+        int multipictures =selectMltiRandomPictures();
+        clickConfirmButton();
+        clickCancelButton();
+        Asst.assertEquals("取消随机删除多张照片",GalleryPicturesNumbers,
+                pictures[0]);
+        clickConfirmButton();
+        clickOKButton();
+        waitTime(10);
+        GalleryPicturesNumbers-=multipictures;
+        pictures=getCurrentPicturesVideosNum();
+        Asst.assertEquals("确认随机删除多张照片",GalleryPicturesNumbers,
+                pictures[0]);
+    }
+
+
+    /*
+    * 删除多个视频
+    * */
+    public static void delteMultiRandomVideos(){
+        int pictures[] =getCurrentPicturesVideosNum();
+        if(scr.exists()) {
+            scrollToBegin(20);
+        }
+        clickIWantToButton();
+        clickDeletePictureButton();
+        int multipictures =selectMltiRandomPictures();
+        clickConfirmButton();
+        clickCancelButton();
+        Asst.assertEquals("取消随机删除多个视频",GalleryVideosNumbers,
+                pictures[1]);
+        clickConfirmButton();
+        clickOKButton();
+        waitTime(10);
+        GalleryVideosNumbers-=multipictures;
+        pictures=getCurrentPicturesVideosNum();
+        Asst.assertEquals("确认随机删除多个视频",GalleryVideosNumbers,
+                pictures[1]);
+    }
+
+
+    /*
+    * 选择一张随机的照片
+    * */
+    private static int selectDeletePictures(){
+        int instance = getOneRandomPictureNumber();
+        try {
+            while(instance > GridView.getChildCount()){
+                moveDownOneGraidViewPage(GridView.getChildByInstance(images,0).getBounds());
+                instance -=ColumnsNumber;
+            }
+            Asst.assertTrue("DeleteCheckBox not exist",
+                    GridView.getChildByInstance(DeleteCheckBox,instance).exists() );
+            GridView.getChildByInstance(DeleteCheckBox,instance).click();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        return instance;
+    }
+
+    /*
+    * 选择多张不同的照片
+    * */
+    private static int selectMltiRandomPictures(){
+        int instance[] = getMultiRandomPictureNumbers();
+        int selectedpictures=0;
+        for(int i=0;i<instance.length;i++){
+            try {
+                while(instance[i] > GridView.getChildCount()){
+                    moveDownOneGraidViewPage(GridView.getChildByInstance(images,0).getBounds());
+                    instance[i] -=ColumnsNumber;
+                }
+                if(GridView.getChildByInstance(DeleteCheckBox,instance[i]).exists()){
+                    GridView.getChildByInstance(DeleteCheckBox,instance[i]).click();
+                    selectedpictures++;
+                }
+            } catch (UiObjectNotFoundException e) {
+                e.printStackTrace();
+            }
+            if(scr.exists()) {
+                scrollToBegin(20);
+            }
+        }
+        return selectedpictures;
+    }
+
+    /*
+    * 得到一个一张随机的照片
+    * */
+    private static int getOneRandomPictureNumber(){
+        int numbers=0;
+        numbers =(int)( Math.random() * GalleryPicturesNumbers);
+        if(numbers ==0){
+            numbers = 1;
+        }
+        return numbers - 1;
+    }
+
+    /*
+    * 得到多个不一样随机数
+    * */
+    private static int[] getMultiRandomPictureNumbers(){
+        int[] numbers =new int[getOneRandomPictureNumber()];
+        for(int i=0;i<numbers.length;i++){
+            numbers[i] = getOneRandomPictureNumber();
+            for(int j=0;j<i;j++){
+                if(numbers[j]==numbers[i]){
+                    i--;
+                }
+            }
+        }
+        return numbers;
+    }
+/*
+    *//*
+    * 判断是否是favourite
+    * *//*
     private static boolean isFavourite(int indexs){
         boolean FavouriteState =false;
-        FavouriteState = gDevice.findObject(new UiSelector().resourceId(GalleryPage.GALLERY_GRAID_VIEW).
-                index(indexs).index(0).index(0).index(2)).exists();
+        UiCollection GridView = new UiCollection(new UiSelector().resourceId("com.doro.apps.gallery:id/gridview"));
+        UiSelector images = new UiSelector().resourceId("com.doro.apps.gallery:id/favorite_icon");
+        try {
+            FavouriteState = GridView.getChildByInstance(images,indexs).exists();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
         return FavouriteState;
     }
+
+    private static int getFavourCount(){
+        int Favourbumbers;
+        UiCollection GridView = new UiCollection(new UiSelector().resourceId("com.doro.apps.gallery:id/gridview"));
+        UiSelector images = new UiSelector().resourceId("com.doro.apps.gallery:id/favorite_icon");
+        Favourbumbers = GridView.getChildCount(images);
+        return Favourbumbers;
+    }*/
+
+    /* *//*
+   * 得到图库显示的照片数，视频数
+   * *//*
+    private static void getGalleryPctureVideoNumbers(){
+        changeToMyGalleryDisplay();
+        getPictureVideoNmae();
+        AllNames =AllCurrentNames;
+        for(int i = 0; i< getAllCurrentNamesCount(); i++){
+            String name[] = AllNames[i].split("\\.");
+            if(name[1].equals("jpg") || name[1].equals("png") || name[1].equals("gif") ||
+                    name[1].equals("bmp")){
+                GalleryPicturesNumbers++;
+            }else if(name[1].equals("3gp")||name[1].equals("mp4")){
+                GalleryVideosNumbers++;
+            }
+            if(isFavourite(i)){
+                GalleryFavouriteNumber++;
+            }
+        }
+    }*/
+
 }
 

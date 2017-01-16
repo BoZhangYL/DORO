@@ -19,7 +19,8 @@ public class GalleryCase extends VP4{
     public static void initGalleryCase(){
      initDevice();
      VP4.unLock();
-     GalleryAction.getSomePicturesVideos();
+     //GalleryAction.getSomePicturesVideos();
+     GalleryAction.getAllPicturesCount();
  }
     @Test
     public void enterGallery(){
@@ -46,6 +47,7 @@ public class GalleryCase extends VP4{
     @Test
     public void GalleryFilter(){
 //        D8040-1026:图库过滤 [gallery filter]
+        GalleryAction.launchGalleryFromAppList();
         GalleryAction.changeToMyGalleryDisplay();
         GalleryAction.checkMyGalleryDisplay();
         GalleryAction.changeToAllPicturesDisplay();
@@ -55,7 +57,25 @@ public class GalleryCase extends VP4{
         GalleryAction.changeToFavouritesDisplay();
         GalleryAction.checkFavouriteDisplay();
     }
+    @Test
+    public void deletePhotos(){
+//        D8040-1031:删除图片 [Delete picture]
+        GalleryAction.launchGalleryFromAppList();
+        GalleryAction.changeToAllPicturesDisplay();
+        GalleryAction.checkAllPicturesDisplay();
+        GalleryAction.deleteOneRandomPicture();
+        GalleryAction.deleteMultiRandomPictures();
+    }
 
+    @Test
+    public void deleteVideos(){
+//        D8040-1032:删除视频 [Delete video]
+        GalleryAction.launchGalleryFromAppList();
+        GalleryAction.changeToAllVideosDisplay();
+        GalleryAction.checkAllVideoDisplay();
+        GalleryAction.deleteOneRandomVideo();
+        GalleryAction.delteMultiRandomVideos();
+    }
 
      /*
     *
