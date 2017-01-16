@@ -65,7 +65,7 @@ public class GalleryCase extends VP4{
         GalleryAction.changeToAllPicturesDisplay();
         GalleryAction.checkAllPicturesDisplay();
         GalleryAction.deleteOneRandomPicture();
-        GalleryAction.deleteMultiRandomPictures();
+       // GalleryAction.deleteMultiRandomPictures();
     }
 
     @Test
@@ -75,7 +75,7 @@ public class GalleryCase extends VP4{
         GalleryAction.changeToAllVideosDisplay();
         GalleryAction.checkAllVideoDisplay();
         GalleryAction.deleteOneRandomVideo();
-        GalleryAction.delteMultiRandomVideos();
+     //   GalleryAction.delteMultiRandomVideos();
     }
     @Test
     public void deleteFromMyGalleryView(){
@@ -118,6 +118,7 @@ public class GalleryCase extends VP4{
 //        D8040-1053:横屏模式查看 [check in landscape mode]
         GalleryAction.launchGalleryFromAppList();
         GalleryAction.swtchToLandscapeMode();
+        GalleryAction.switchToPortraitMode();
     }
 
     @Test
@@ -144,6 +145,13 @@ public class GalleryCase extends VP4{
         GalleryAction.changeToAllVideosDisplay();
         GalleryAction.clickGingleVideoOption();
         GalleryAction.checkSingleVideoOption();
+    }
+
+    @Test
+    public void playVideo(){
+        GalleryAction.launchGalleryFromAppList();
+        GalleryAction.changeToAllVideosDisplay();
+        GalleryAction.playOneVideo();
     }
      /*
     *
