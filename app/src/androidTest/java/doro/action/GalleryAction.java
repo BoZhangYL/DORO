@@ -38,6 +38,21 @@ public class GalleryAction extends VP4{
     private static UiScrollable scr = new UiScrollable(new UiSelector().scrollable(true));
     private static UiSelector DisplayEmpty =new UiSelector().resourceId(GalleryPage.DISPLAY_EMPTY);
     /*
+    * 播放视频
+    * */
+    public static void playOneVideo(){
+        try {
+            Asst.assertTrue("图库没有一个视频",!(GridView.getChildCount()==0));
+            GridView.getChildByInstance(images,0).clickAndWaitForNewWindow();
+            gDevice.click(gDevice.getDisplayWidth()/2,gDevice.getDisplayHeight()/2);
+            gDevice.click(gDevice.getDisplayWidth()/2,gDevice.getDisplayHeight()/2);
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /*
     * 点击单个视频设置选项
     * */
     public static void clickGingleVideoOption(){
@@ -141,6 +156,17 @@ public class GalleryAction extends VP4{
 //        } catch (UiObjectNotFoundException e) {
 //            e.printStackTrace();
 //        }
+    }
+    /*
+    * 切换到竖屏模式
+    * */
+    public static void switchToPortraitMode(){
+        waitTime(5);
+        try {
+            gDevice.setOrientationNatural();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     /*
