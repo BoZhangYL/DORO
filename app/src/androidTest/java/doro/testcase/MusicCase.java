@@ -26,25 +26,27 @@ public class MusicCase extends MusicAction{
 
    @Test
     public void Case1_launchMusic(){//进入MusicPlayer界面
-        openMusic();
-        checkLanuchMusicResult();
+        openMusic();//进入Music
+        checkLanuchMusicResult();//检查进入结果
     }
 
    @Test
     public void Case2_playMusic(){//播放Music
-       openMusic();
-       checkNoResults();
-       playMusic();
-       //不能获取控件，暂无结果
+       openMusic();//进入Music
+       checkNoResults();//检查是否有歌曲
+       playMusic();//播放歌曲
+       checkPlayMusicResults();//播放音乐界面截图
+       //由于不能获取播放栏的控件，则使用截图来判断是否播放音乐
    }
 
     @Test
         public void Case3_pauseMusic(){//暂停Music
-        openMusic();
-        playMusic();
-        waitTime(5);
-        pauseMusic();
-        //不能获取控件，暂无结果
+        openMusic();//进入Music
+        playMusic();//播放歌曲
+        waitTime(3);
+        pauseMusic();//暂停歌曲
+        checkPauseMusicResults();//暂停界面截图
+        //不能获取播放栏的控件，则通过暂停界面截图与5s后的截图，这两张截图判断是否暂停
     }
 
     @Test
@@ -58,4 +60,5 @@ public class MusicCase extends MusicAction{
         clickOK();//删除所有歌曲
         checkDeleteAllMusiceResult();
     }
+
 }
