@@ -151,7 +151,9 @@ public class ContactsAction extends VP4 {
     public static void setRingTone(String ringtone) throws UiObjectNotFoundException {
         if (ringtone!=null){
             clickById(ContactsPage.NAME_RING_TONE_TEXT_VIEW_ID);
+            waitTime(2);
             ScrollViewByText(ringtone);
+            waitTime(2);
             clickByIdText(ContactsPage.CHOOSE_TYPE_ID,ringtone);
             clickById(ContactsPage.COMMAND_CONFIRM);
         }
@@ -160,6 +162,7 @@ public class ContactsAction extends VP4 {
     public static void setMessageTone(String message_tone) throws Exception {
         if (message_tone!=null){
             clickById(ContactsPage.NAME_MESSAGE_TONE_TEXT_VIEW_ID);
+            waitTime(3);
             ScrollViewByText(message_tone);
             clickByIdText(ContactsPage.CHOOSE_TYPE_ID,message_tone);
             clickById(ContactsPage.COMMAND_CONFIRM);
@@ -239,12 +242,12 @@ public class ContactsAction extends VP4 {
         logger.info("["+type+"]-To check- stop");
         Assert.assertEquals(bean.toString(),true,isFind);
     }
-    public static void checkKeyValue(String key,String value) throws UiObjectNotFoundException {
+    public static void   checkKeyValue(String key,String value) throws UiObjectNotFoundException {
         logger.info(String.format("To check- %s|%s start",key,value));
         ScrollViewByText(value);
-        waitTime(2);
+        waitTime(4);
         ScrollViewByText(key);
-        waitTime(2);
+        waitTime(4);
         UiObject2 keyObj=getUiObjectByIdText(ContactsPage.ITEM_TYPE_ID,key);
         UiObject2 valueObj=keyObj.getParent().findObject(By.res(ContactsPage.ITEM_VALUE_ID));
         String activeValue=valueObj.getText();

@@ -68,7 +68,6 @@ public class APPMenuPage {
             "com.google.android.googlequicksearchbox",
             "com.doro.apps.weather",
             "com.google.android.youtube",
-
     };
     public static final String More = "com.doro.apps.launcher3:id/more_actions";
 }

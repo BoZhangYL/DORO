@@ -80,6 +80,7 @@ public class RecorderAction extends VP4 {
             waitTime(3);
         } catch (Exception e) {
             e.printStackTrace();
+
         }
     }
 }
