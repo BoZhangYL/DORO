@@ -1,12 +1,6 @@
 package doro.testcase;
 
-import android.provider.Settings;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.test.uiautomator.UiCollection;
-import android.support.test.uiautomator.UiObject;
-import android.support.test.uiautomator.UiSelector;
-
-import com.doro.R;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -16,7 +10,7 @@ import org.junit.runner.RunWith;
 import ckt.base.VP4;
 import doro.action.RecorderAction;
 
-import static android.R.attr.id;
+import static doro.page.RecorderPage.RECORDLIST_ID;
 import static doro.page.RecorderPage.RECORD_PLAYBUTTON_ID;
 
 /**
@@ -33,7 +27,9 @@ public class RecorderCase extends VP4 {
     public void addRecoder(){
     try{
         openAppliction("Rec\u200Border");//进入recorder界面
+        if(getObjectById(RECORDLIST_ID).exists()){
         RecordAction.clearRecords();//清除全部录音
+        }
         RecordAction.pressRecordButon();//按录音键开始录音
         RecordAction.saveRecorder();//按停止键保存录音
         RecordAction.checkRecord();//按列表键查看录音
