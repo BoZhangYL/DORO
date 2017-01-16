@@ -47,12 +47,13 @@ public class EmailAction extends VP4 {
         waitTime(3);
         if(text_exists("You can set up your account in just a few steps.")){
             getObject2ById(EmailPage.EMAIL_ACCOUNT_INPUT).setText("cktfalcontest@gmail.com");
-            waitUntilFind(EmailPage.EMAIL_INPUT_OKTEXT,2000);
-            clickById(EmailPage.EMAIL_INPUT_OKTEXT);
+            waitUntilFind(EmailPage.EMAIL_INPUT_OK_TEXT,2000);
+            clickById(EmailPage.EMAIL_INPUT_OK_TEXT);
             waitUntilFind(EmailPage.EMAIL_PASSWORD_INPUT,8000);
             getObject2ById(EmailPage.EMAIL_PASSWORD_INPUT).setText("falcon@ckt2014");
-            clickById(EmailPage.EMAIL_INPUT_OKBUTTON);
+            clickById(EmailPage.EMAIL_INPUT_OK_BUTTON);
             //EMAIL程序崩溃，暂时不忙写
+
         }
     }
 
