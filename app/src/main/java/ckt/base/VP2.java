@@ -349,8 +349,14 @@ public class VP2 extends VP {
                 new UiSelector().description(ObjectDescription));
         return gbottc;
     }
-
-
+    public static UiObject2 getUiObjectByIdText(String id,String text){
+        initDevice();
+        return  gDevice.wait(Until.findObject(By.res(id).text(text)), 20000);
+    }
+    public static void clickByIdText(String id,String text){
+        initDevice();
+        gDevice.wait(Until.findObject(By.res(id).text(text)), 20000).click();
+    }
     /**
      * Find a UI Element by Resource ID.
      *
@@ -531,6 +537,48 @@ public class VP2 extends VP {
             sb.append(str.charAt(number));
         }
         return sb.toString();
+    }
+    /**
+     * scroll to find a UiObject
+     * return is find or not
+     * @param obj
+     * @return boolean
+     */
+    public static boolean scrollIntoView(UiSelector obj){
+        UiScrollable listScrollable = new UiScrollable(new UiSelector().scrollable(true));
+        boolean isFind=false;
+        if (listScrollable.exists()){
+            listScrollable.setMaxSearchSwipes(50);
+            try {
+                if (listScrollable.scrollIntoView(obj)) {
+                    logger.info("FindScrollFindObject");
+                    isFind=true;
+                }
+            } catch (UiObjectNotFoundException e) {
+                // TODO Auto-generated catch block
+                logger.info("NotFindScrollFindObject");
+                isFind=  false;
+            }
+        }
+        return isFind;
+    }
+    public static boolean ScrollViewByText(String text){
+        UiScrollable listScrollable = new UiScrollable(new UiSelector().scrollable(true));
+        boolean isFind=false;
+        if (listScrollable.exists()){
+            listScrollable.setMaxSearchSwipes(50);
+            try {
+                if (listScrollable.scrollTextIntoView(text)) {
+                    logger.info("FindScrollFindObject-" + text);
+                    isFind=true;
+                }
+            } catch (UiObjectNotFoundException e) {
+                // TODO Auto-generated catch block
+                logger.info("NotFindScrollFindObject-" + text);
+                isFind=  false;
+            }
+        }
+        return isFind;
     }
     /**
      * Scroll to Found a UI Element
@@ -813,6 +861,15 @@ public class VP2 extends VP {
         sb.append(email_suffix[(int)(Math.random()*email_suffix.length)]);
         return sb.toString();
     }
+    public static String getRandomName(int lMin,int lMax) {
+        int length=getNum(lMin,lMax);
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < length; i++) {
+            int number = (int)(Math.random()*base.length());
+            sb.append(base.charAt(number));
+        }
+        return sb.toString();
+    }
     /**
      * 返回手机号码
      */
@@ -831,6 +888,9 @@ public class VP2 extends VP {
      */
     public static void waitUntilFind(String resourceID,int timeout){
         gDevice.wait(Until.findObject(By.res(resourceID)),timeout);
+    }
+    public static void waitUntilFind(String resourceID,String text,int timeout){
+        gDevice.wait(Until.findObject(By.res(resourceID).text(text)),timeout);
     }
     /**
      * Get the Launcher Package Name.
@@ -880,6 +940,9 @@ public class VP2 extends VP {
     public static boolean text_exists(String text) throws UiObjectNotFoundException {
         return  getUiObjectByText(text).exists();
     }
+    public static boolean pkgName_exists(String text) throws UiObjectNotFoundException {
+        return  getLauncherPackageName().contentEquals(text);
+    }
     /**
      * @param regex
      */
@@ -906,6 +969,13 @@ public class VP2 extends VP {
      */
     public static List<UiObject2> findObjects(String ResourceID){
         return  gDevice.findObjects(By.res(ResourceID));
+    }
+    /**
+     *get objects
+     * @param ResourceID id
+     */
+    public static UiObject2 findObject(String ResourceID){
+        return  gDevice.findObject(By.res(ResourceID));
     }
     /**给定日期字符串
      *  * @param recordTime   00:01:20

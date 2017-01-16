@@ -101,6 +101,14 @@ public class CameraPage {
 
     public static final String RECORDTIME = "com.mediatek.camera:id/recording_time";
 
+    public static final String SNAP_BUTTON = "Snap";
+    //Snap安妮,txt
+    public static final String A_PHOTO_BITTON ="A photo";
+
+    public static final String A_VIDEO_BUTTON = "A video";
+
+    public static final String A_SELFIE_BUTTTON = "A selfie";
+
 
 
 }
