@@ -53,4 +53,5 @@ public class MusicPage {
     //Sory by的Text
     public static final String Music_SoryBy_Button_ID="com.doro.apps.musicplayer:id/button";
     //Sory by的类型按键的ResourceID
+
 }

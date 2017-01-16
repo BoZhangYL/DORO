@@ -60,4 +60,5 @@ public class MusicCase extends MusicAction{
         clickOK();//删除所有歌曲
         checkDeleteAllMusiceResult();
     }
+
 }
