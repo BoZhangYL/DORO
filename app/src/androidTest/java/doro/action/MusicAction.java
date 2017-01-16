@@ -132,6 +132,10 @@ public class MusicAction extends VP4 {
             e.printStackTrace();
         }
     }
+    public void checkNoResults(){
+        UiObject NoResults=getObjectByText("Music_Noresults_Text");
+        Assert.assertTrue("Please copy some music to phone!",!NoResults.exists());
+    }
 
 
 

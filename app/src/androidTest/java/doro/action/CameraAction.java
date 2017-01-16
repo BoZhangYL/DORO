@@ -11,6 +11,8 @@ import org.hamcrest.Asst;
 import org.junit.Assert;
 import java.io.File;
 import ckt.base.VP4;
+import doro.page.CameraPage;
+
 import static doro.page.CameraPage.*;
 import static org.junit.Assert.assertEquals;
 
@@ -35,6 +37,10 @@ public class CameraAction extends VP4{
     private static UiObject DeletePictureOption = getObjectByText(DELETE_PICTURES);
     private static UiObject DeleteVideoOption = getObjectByText(DELETE_VIDEOS);
     private static UiObject RecordTimeIcon =getObjectById(RECORDTIME);
+    private static UiObject SnapButton = getUiObjectByText(CameraPage.SNAP_BUTTON);
+    private static UiObject APhotoButton = getUiObjectByText(CameraPage.A_PHOTO_BITTON);
+    private static UiObject AVideoButton = getObjectByText(CameraPage.A_VIDEO_BUTTON);
+    private static UiObject ASelfieButton = getObjectByText(CameraPage.A_SELFIE_BUTTTON);
     private static int PhotosNumber = 0;
     private static int VideosNumber = 0;
 //    private static UiObject PictureNameOption =getObjectById(PICTURE_NAME);
@@ -163,9 +169,9 @@ public class CameraAction extends VP4{
     * */
     public static boolean  isFrontCamera(){
         if(FlashButton.exists()){
-            return false;
-        }else{
             return true;
+        }else{
+            return false;
         }
     }
 
@@ -220,13 +226,14 @@ public class CameraAction extends VP4{
     /*删除照片
     * */
     public static void deletePicture(){
+        waitTime(5);
         PhotosNumber = getAllPhotoNumbers();
         try {
             switchtoGallery();
             clickIWantToButton();
             DeletePictureOption.clickAndWaitForNewWindow();
-            OKButton.click();
-            pressKey("back");
+            OKButton.clickAndWaitForNewWindow();
+            //pressKey("back");
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -237,11 +244,13 @@ public class CameraAction extends VP4{
     * */
     public static void deleteVideo(){
         try {
+            waitTime(5);
+            VideosNumber =getAllVideoNumbers();
             switchtoGallery();
             clickIWantToButton();
             DeleteVideoOption.clickAndWaitForNewWindow();
-            OKButton.click();
-            pressKey("back");
+            OKButton.clickAndWaitForNewWindow();
+            //pressKey("back");
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -255,6 +264,7 @@ public class CameraAction extends VP4{
             RecordButton.click();
             waitTime(RecordTime);
             RecordButton.click();
+            waitTime(5);
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -323,6 +333,21 @@ public class CameraAction extends VP4{
         Assert.assertTrue("Delete function",(checkphotonumbers || checkvideonumbers));
     }
 
+    /*
+    * 检查删除一张照片结果
+    * */
+    public static void checkDeletePicture(){
+        waitTime(10);
+        Asst.assertEquals("删除图片失败",PhotosNumber-1,getAllPhotoNumbers());
+    }
+    /*
+    * 检查删除一个视频的结果
+    * */
+    public static void checkDeleteVideo(){
+        waitTime(10);
+        Asst.assertEquals("删除视频失败",VideosNumber-1,getAllVideoNumbers() );
+    }
+
     /*检查停止录像
     * */
    public static void checkStopRecoed() {
@@ -341,4 +366,76 @@ public class CameraAction extends VP4{
            e.printStackTrace();
        }
    }
+
+    /*
+    * 点击snap按钮
+    * */
+    public static void clickSnapButton(){
+        if(SnapButton.exists()){
+            try {
+                SnapButton.clickAndWaitForNewWindow();
+            } catch (UiObjectNotFoundException e) {
+                e.printStackTrace();
+            }
+        }else {
+            VP4.switchToMenuPage();
+            try {
+                SnapButton.clickAndWaitForNewWindow();
+            } catch (UiObjectNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /*
+    * 点击A Photo按钮
+    * */
+    public static void clickAPhotoButton(){
+        try {
+            APhotoButton.clickAndWaitForNewWindow();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    * 点击A Video 按钮
+    * */
+
+    public static void clickAVideoButton(){
+        try {
+            AVideoButton.clickAndWaitForNewWindow();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    /*
+    * 点击A Selfie按钮
+    * */
+    public static void clickASelfieButton(){
+        try {
+            ASelfieButton.clickAndWaitForNewWindow();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void checkAPhotoView(){
+        waitTime(5);
+        Asst.assertTrue("通过A Photo按钮打开相机，闪光灯按钮不存在", FlashButton.exists());
+        Asst.assertTrue("通过A Photo按钮打开相机，拍照按钮不存在", CaptureButton.exists());
+        Asst.assertTrue("通过A Photo按钮打开相机，录像按钮存在", !RecordButton.exists());
+    }
+    public static void checkAVideoView(){
+        waitTime(5);
+        Asst.assertTrue("通过A Video按钮打开相机，闪光灯按钮不存在", FlashButton.exists());
+        Asst.assertTrue("通过A Video按钮打开相机，拍照按钮存在", !CaptureButton.exists());
+        Asst.assertTrue("通过A Video按钮打开相机，录像按钮不存在", RecordButton.exists());
+    }
+    public static void checkASelfie(){
+        waitTime(5);
+        Asst.assertTrue("通过A Selfie按钮打开相机，闪光灯按钮存在", !FlashButton.exists());
+        Asst.assertTrue("通过A Selfie按钮打开相机，拍照按钮不存在", CaptureButton.exists());
+        Asst.assertTrue("通过A Selfie按钮打开相机，录像按钮存在", !RecordButton.exists());
+    }
 }

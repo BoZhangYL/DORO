@@ -32,14 +32,16 @@ public class MusicCase extends MusicAction{
 
    @Test
     public void Case2_playMusic(){//播放Music
-       mDevice.pressBack();
+       openMusic();
+       checkNoResults();
        playMusic();
-       waitTime(5);
        //不能获取控件，暂无结果
    }
 
     @Test
         public void Case3_pauseMusic(){//暂停Music
+        openMusic();
+        playMusic();
         waitTime(5);
         pauseMusic();
         //不能获取控件，暂无结果

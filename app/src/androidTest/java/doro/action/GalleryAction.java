@@ -6,6 +6,7 @@ import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
+import android.view.View;
 
 import org.hamcrest.Asst;
 
@@ -249,8 +250,8 @@ public class GalleryAction extends VP4{
         int[] numbers = getCurrentPicturesVideosNum();
         int pictureNumber = numbers[0];
         int VideoNumber = numbers[1];
-        Asst.assertEquals("checkAllVideoDisplay",0, pictureNumber);
-        Asst.assertEquals("checkAllVideoDisplay",GalleryVideosNumbers, VideoNumber);
+        Asst.assertEquals("检查所有图片显示",0, pictureNumber);
+        Asst.assertEquals("检查所有视频显示",GalleryVideosNumbers, VideoNumber);
     }
 
     /*
@@ -321,7 +322,7 @@ public class GalleryAction extends VP4{
             int y0 = rect.bottom;
             int x1 = x0;
             int y1 = rect.top;
-            gDevice.swipe(x0,y0,x1,y1, 20);
+        gDevice.swipe(x0,y0,x1,y1, 15);
     }
 
     /*
@@ -418,16 +419,40 @@ public class GalleryAction extends VP4{
         selectDeletePictures();
         clickConfirmButton();
         clickCancelButton();
-        Asst.assertEquals("Cancel delete one picture",GalleryPicturesNumbers,
+        Asst.assertEquals("取消随机删除一张照片",GalleryPicturesNumbers,
                 pictures[0]);
         clickConfirmButton();
         clickOKButton();
         waitTime(10);
         GalleryPicturesNumbers--;
         pictures=getCurrentPicturesVideosNum();
-        Asst.assertEquals("Cancel delete one picture",GalleryPicturesNumbers,
+        Asst.assertEquals("确认随机删除一张照片",GalleryPicturesNumbers,
                 pictures[0]);
     }
+    /*
+    * 删除一个视频
+    * */
+    public static void deleteOneRandomVideo(){
+        int pictures[] =getCurrentPicturesVideosNum();
+        if(scr.exists()) {
+            scrollToBegin(20);
+        }
+        clickIWantToButton();
+        clickDeletePictureButton();
+        selectDeletePictures();
+        clickConfirmButton();
+        clickCancelButton();
+        Asst.assertEquals("取消随机删除一个视频",GalleryVideosNumbers,
+                pictures[1]);
+        clickConfirmButton();
+        clickOKButton();
+        waitTime(10);
+        GalleryVideosNumbers--;
+        pictures=getCurrentPicturesVideosNum();
+        Asst.assertEquals("确认随机删除一个视频",GalleryVideosNumbers,
+                pictures[1]);
+    }
+
 
     /*
     * 删除多张随机照片
@@ -442,15 +467,40 @@ public class GalleryAction extends VP4{
         int multipictures =selectMltiRandomPictures();
         clickConfirmButton();
         clickCancelButton();
-        Asst.assertEquals("Cancel delete one picture",GalleryPicturesNumbers,
+        Asst.assertEquals("取消随机删除多张照片",GalleryPicturesNumbers,
                 pictures[0]);
         clickConfirmButton();
         clickOKButton();
         waitTime(10);
         GalleryPicturesNumbers-=multipictures;
         pictures=getCurrentPicturesVideosNum();
-        Asst.assertEquals("Cancel delete one picture",GalleryPicturesNumbers,
+        Asst.assertEquals("确认随机删除多张照片",GalleryPicturesNumbers,
                 pictures[0]);
+    }
+
+
+    /*
+    * 删除多个视频
+    * */
+    public static void delteMultiRandomVideos(){
+        int pictures[] =getCurrentPicturesVideosNum();
+        if(scr.exists()) {
+            scrollToBegin(20);
+        }
+        clickIWantToButton();
+        clickDeletePictureButton();
+        int multipictures =selectMltiRandomPictures();
+        clickConfirmButton();
+        clickCancelButton();
+        Asst.assertEquals("取消随机删除多个视频",GalleryVideosNumbers,
+                pictures[1]);
+        clickConfirmButton();
+        clickOKButton();
+        waitTime(10);
+        GalleryVideosNumbers-=multipictures;
+        pictures=getCurrentPicturesVideosNum();
+        Asst.assertEquals("确认随机删除多个视频",GalleryVideosNumbers,
+                pictures[1]);
     }
 
 
@@ -464,6 +514,8 @@ public class GalleryAction extends VP4{
                 moveDownOneGraidViewPage(GridView.getChildByInstance(images,0).getBounds());
                 instance -=ColumnsNumber;
             }
+            Asst.assertTrue("DeleteCheckBox not exist",
+                    GridView.getChildByInstance(DeleteCheckBox,instance).exists() );
             GridView.getChildByInstance(DeleteCheckBox,instance).click();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();

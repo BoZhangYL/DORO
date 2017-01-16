@@ -20,7 +20,7 @@ public class CameraCase extends VP4{
     public static void initCalendar(){
         VP4.initDevice();
         VP4.unLock();
-        CameraAction.setCameraRestoredefaults();
+       // CameraAction.setCameraRestoredefaults();
     }
 
     @Test
@@ -82,7 +82,7 @@ public class CameraCase extends VP4{
         VP4.openAppliction(CAMERA);//打开相机
         CameraAction.takePictures();//拍照
         CameraAction.deletePicture();//删除照片
-        CameraAction.checkdeleteResult();//检查删除是否成功
+        CameraAction.checkDeletePicture();//检查删除是否成功
     }
     @Test
     public void recordByFrontCamera(){
@@ -115,7 +115,7 @@ public class CameraCase extends VP4{
         CameraAction.switchToBackCamera();//切换到后摄像头
         CameraAction.recordVideo(DEFAULT_RECORD_TIMES);//录像
         CameraAction.deleteVideo();
-        CameraAction.checkdeleteResult();//检查删除是否成功
+        CameraAction.checkDeleteVideo();//检查删除是否成功
     }
     @Test
     public void restoreDefaults(){
@@ -124,6 +124,30 @@ public class CameraCase extends VP4{
         CameraAction.changeCameraSettings();
         CameraAction.setCameraRestoredefaults();
         CameraAction.checkRestoredefaults();
+    }
+
+    @Test
+    public void launchCameraFromAPhoto(){
+        //通过A Photo按钮启动相机
+        CameraAction.clickSnapButton();
+        CameraAction.clickAPhotoButton();
+        CameraAction.checkAPhotoView();
+    }
+
+    @Test
+    public void launchCameraFromAVideo(){
+        //用过A Video按钮启动相机
+        CameraAction.clickSnapButton();
+        CameraAction.clickAVideoButton();
+        CameraAction.checkAVideoView();
+    }
+
+    @Test
+    public void launchCameraFromASelfie(){
+        //通过A Selfie按钮启动相机
+        CameraAction.clickSnapButton();
+        CameraAction.clickASelfieButton();
+        CameraAction.checkASelfie();
     }
     /**
      * 如下case doro不适用
