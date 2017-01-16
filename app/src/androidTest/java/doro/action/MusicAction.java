@@ -4,6 +4,8 @@ import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
 
+import com.squareup.spoon.Spoon;
+
 import org.junit.Assert;
 
 import java.util.Random;
@@ -30,37 +32,20 @@ public class MusicAction extends VP4 {
 
     public void playMusic() {//播放Music
         try {
-            String Title = getObjectById(Music_header_title_ID).getText();
-            switch (Title) {
-                case Music_Text:
-                    /*Random ran = new Random();
-                    int result = ran.nextInt(8);
-                    clickByClass(Music_Title_Song_Class,result);*/
-                    clickById(Music_Title_Song_ID);
-                    break;
-                case Music_Artist_Text:
-                    UiObject Song=getObjectById(Music_Artist_Song_ID);
-                    while (Song.exists()) {
-                           clickById(Music_Artist_Song_ID);
-                    }
-                    clickById(Music_Title_Song_ID);
-                    break;
-                case Music_Al​bum_Text:
-                    clickById(Music_Artist_Song_ID);
-                    clickById(Music_Title_Song_ID);
-                    break;
-                case Music_Genre_Text:
-                    break;
-                case Music_Favourites_Text:
-                    break;
-                }
-            }catch(Exception e){
-                e.printStackTrace();
+            getObjectById(Music_Iwantto_ID).clickAndWaitForNewWindow();
+            getObjectByText(Music_SoryBy_Text).clickAndWaitForNewWindow();
+            clickByText(Music_Artist_Text);
+            UiObject Song=getObjectById(Music_Artist_Song_ID);
+            while (Song.exists()) {
+                clickById(Music_Artist_Song_ID);
+            }
+            clickById(Music_Title_Song_ID);
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 
     public void pauseMusic(){//暂停Music
-        mDevice.pressBack();
         clickByPonit(360,1119);
     }
 
@@ -133,8 +118,16 @@ public class MusicAction extends VP4 {
         }
     }
     public void checkNoResults(){
-        UiObject NoResults=getObjectByText("Music_Noresults_Text");
+        UiObject NoResults=getObjectByText(Music_Noresults_Text);
         Assert.assertTrue("Please copy some music to phone!",!NoResults.exists());
+    }
+    public void checkPlayMusicResults(){
+        Spoon.screenshot("checkPlayMusicResult");
+    }
+    public void checkPauseMusicResults(){
+        Spoon.screenshot("checkPauseMusicResult1");
+        waitTime(5);
+        Spoon.screenshot("checkPauseMusicResult2");
     }
 
 

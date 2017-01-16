@@ -49,4 +49,8 @@ public class MusicPage {
     //无Music提示的ResourceID
     public static final String Music_Noresults_Text="No results";
     //无Music提示的Text
+    public static final String Music_SoryBy_Text="Sort by…";
+    //Sory by的Text
+    public static final String Music_SoryBy_Button_ID="com.doro.apps.musicplayer:id/button";
+    //Sory by的类型按键的ResourceID
 }
