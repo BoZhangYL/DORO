@@ -432,7 +432,7 @@ public class APPMenuCase extends VP4{
                 logger.info("前后图片对比不相同，再次进入时不一致-"+appToBeLaunched);
                 errorAppCount=errorAppCount+1;
                 Spoon.screenshot("SuchAPPNotTheSameAsBefore");
-                errorAppString.append(String.format(" app %s  ComparedFailed\n",appToBeLaunched));
+                errorAppString.append(String.format(" Activity of%s  ComparedFailed\n",appToBeLaunched));
             }
             if(i>2){
                 MainAction.killAppByPackage(APPMenuPage.AppNameList[i-2]);//结束上上个应用
