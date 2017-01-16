@@ -67,6 +67,16 @@ public class GalleryCase extends VP4{
         GalleryAction.deleteMultiRandomPictures();
     }
 
+    @Test
+    public void deleteVideos(){
+//        D8040-1032:删除视频 [Delete video]
+        GalleryAction.launchGalleryFromAppList();
+        GalleryAction.changeToAllVideosDisplay();
+        GalleryAction.checkAllVideoDisplay();
+        GalleryAction.deleteOneRandomVideo();
+        GalleryAction.delteMultiRandomVideos();
+    }
+
      /*
     *
     *  D8040-1031:删除图片 [Delete picture]

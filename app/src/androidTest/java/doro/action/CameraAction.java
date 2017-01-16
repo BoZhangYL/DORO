@@ -226,6 +226,7 @@ public class CameraAction extends VP4{
     /*删除照片
     * */
     public static void deletePicture(){
+        waitTime(5);
         PhotosNumber = getAllPhotoNumbers();
         try {
             switchtoGallery();
@@ -243,6 +244,7 @@ public class CameraAction extends VP4{
     * */
     public static void deleteVideo(){
         try {
+            waitTime(5);
             VideosNumber =getAllVideoNumbers();
             switchtoGallery();
             clickIWantToButton();
@@ -335,14 +337,14 @@ public class CameraAction extends VP4{
     * 检查删除一张照片结果
     * */
     public static void checkDeletePicture(){
-        waitTime(5);
+        waitTime(10);
         Asst.assertEquals("删除图片失败",PhotosNumber-1,getAllPhotoNumbers());
     }
     /*
     * 检查删除一个视频的结果
     * */
     public static void checkDeleteVideo(){
-        waitTime(5);
+        waitTime(10);
         Asst.assertEquals("删除视频失败",VideosNumber-1,getAllVideoNumbers() );
     }
 
@@ -426,14 +428,14 @@ public class CameraAction extends VP4{
     }
     public static void checkAVideoView(){
         waitTime(5);
-        Asst.assertTrue("通过A Photo按钮打开相机，闪光灯按钮不存在", FlashButton.exists());
-        Asst.assertTrue("通过A Photo按钮打开相机，拍照按钮存在", !CaptureButton.exists());
-        Asst.assertTrue("通过A Photo按钮打开相机，录像按钮不存在", RecordButton.exists());
+        Asst.assertTrue("通过A Video按钮打开相机，闪光灯按钮不存在", FlashButton.exists());
+        Asst.assertTrue("通过A Video按钮打开相机，拍照按钮存在", !CaptureButton.exists());
+        Asst.assertTrue("通过A Video按钮打开相机，录像按钮不存在", RecordButton.exists());
     }
     public static void checkASelfie(){
         waitTime(5);
-        Asst.assertTrue("通过A Photo按钮打开相机，闪光灯按钮存在", !FlashButton.exists());
-        Asst.assertTrue("通过A Photo按钮打开相机，拍照按钮不存在", CaptureButton.exists());
-        Asst.assertTrue("通过A Photo按钮打开相机，录像按钮不存在", RecordButton.exists());
+        Asst.assertTrue("通过A Selfie按钮打开相机，闪光灯按钮存在", !FlashButton.exists());
+        Asst.assertTrue("通过A Selfie按钮打开相机，拍照按钮不存在", CaptureButton.exists());
+        Asst.assertTrue("通过A Selfie按钮打开相机，录像按钮存在", !RecordButton.exists());
     }
 }
