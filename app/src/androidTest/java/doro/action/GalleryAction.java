@@ -56,6 +56,7 @@ public class GalleryAction extends VP4{
     * 检查当视频设置选项
     * */
     public static void checkSingleVideoOption(){
+
         Asst.assertTrue("分享视频按钮不存在",getObjectByText(GalleryPage.
                 GALLERY_SINGLE_VIDEO_OPTION_SHARE_VIDEO).exists());
         Asst.assertTrue("视频详情按钮不存在",getObjectByText(GalleryPage.

@@ -21,6 +21,7 @@ public class GalleryCase extends VP4{
      initDevice();
      VP4.unLock();
      GalleryAction.getAllPicturesCount();
+
  }
     @Test
     public void enterGallery(){

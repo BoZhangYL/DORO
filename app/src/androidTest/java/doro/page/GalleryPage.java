@@ -5,6 +5,7 @@ package doro.page;
  */
 
 public class GalleryPage {
+
     public static final String GALLERY = "Gall\u200Bery";
 
     public static final String GALLERY_PACKAGE ="com.doro.apps.gallery";
