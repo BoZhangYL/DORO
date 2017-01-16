@@ -46,5 +46,6 @@ public class EmailCase extends VP4 {
     @Test
     public void test() throws IOException, UiObjectNotFoundException {
         EmailAction.LogInEmail();
+        
     }
 }
