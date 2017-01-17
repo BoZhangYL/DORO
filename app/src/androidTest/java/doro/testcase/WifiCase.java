@@ -7,6 +7,8 @@ import org.junit.Test;
 import ckt.base.VP4;
 import doro.action.WifiAction;
 
+import static doro.page.WifiPage.SETTINGS;
+import static doro.page.WifiPage.WIFI;
 import static doro.page.WifiPage.WIFI_ONANDOFFID;
 
 /**
@@ -16,8 +18,8 @@ import static doro.page.WifiPage.WIFI_ONANDOFFID;
 public class WifiCase extends VP4 {
     @Test
     public void OpenWifi() {//从菜单进入wifi
-        openAppliction("Settings");
-        clickByText("Wi‑Fi");
+        openAppliction(SETTINGS);
+        clickByText(WIFI);
         Assert.assertTrue("未能成功从菜单进入wifi界面", getObjectById(WIFI_ONANDOFFID).exists());
     }
     @Test
