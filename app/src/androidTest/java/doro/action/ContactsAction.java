@@ -455,12 +455,6 @@ public class ContactsAction extends VP4 {
         }
     }
 
-    public static void deleteAll() {
-        clickById(ContactsPage.DELETE_SELECT_ALL_CHECKBOX);
-        clickById(ContactsPage.DELETE_CONTACT_CONFIREM_ID);
-        clickByIdText(ContactsPage.DELETE_CONTACT_CONFIREM_POP_TEXT_ID, "OK");
-    }
-
     public static void verifyContact(String name, boolean isExpectFind) {
         boolean isActiveFind = ScrollViewByText(name);
         Assert.assertEquals("verify contact:" + name, isExpectFind, isActiveFind);
@@ -569,6 +563,14 @@ public class ContactsAction extends VP4 {
         }
         MainAction.stopFileManager();
     }
+    public static void importFromSdcard() throws UiObjectNotFoundException {
+        ContactsAction.launchContacts();
+        //go import-export page
+        ContactsAction.navImportExport();
+        //export to sdcard
+        ContactsAction.selectImportExport(3);
+        waitTime(10);
+    }
     /*export form mobile to sd card*/
     public static void exportToSdcard(boolean status) throws UiObjectNotFoundException {
         ContactsAction.launchContacts();
@@ -587,6 +589,10 @@ public class ContactsAction extends VP4 {
 
         }
     }
+    public static void delAllContactFromContent(){
+        ContactsManager contactsManager = new ContactsManager();
+        contactsManager.deleteAll();
+    }
     public static void addContactFromContent(){
         ContactsManager contacts=new ContactsManager();
         Contact contact = new Contact();
@@ -596,6 +602,16 @@ public class ContactsAction extends VP4 {
         contact.setEmail(getRandomEmail(3,6));
         contact.setEmailType(getRandomType(Constant.EmailType));
         contacts.addContact(contact);
+    }
+    public static void deleteAll() throws UiObjectNotFoundException {
+        ContactsAction.navWantToDelete();
+        //do delete
+        clickById(ContactsPage.DELETE_SELECT_ALL_CHECKBOX);
+        clickById(ContactsPage.DELETE_CONTACT_CONFIREM_ID);
+        clickByIdText(ContactsPage.DELETE_CONTACT_CONFIREM_POP_TEXT_ID, "OK");
+        //等待删除完成
+        waitUntilFind(ContactsPage.FIREST_TEXT_ID,60000);
+        Assert.assertEquals("no contacts",true,id_exists(ContactsPage.FIREST_TEXT_ID));
     }
     public void exportFromMobileToSim() {
 
