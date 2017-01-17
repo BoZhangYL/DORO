@@ -1,6 +1,10 @@
 package doro.action;
 
+import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiObjectNotFoundException;
+import android.support.test.uiautomator.Until;
+
+import java.io.IOException;
 
 import ckt.base.VP4;
 import doro.page.ViewPage;
@@ -44,5 +48,35 @@ public class MainAction extends VP4{
             clickByIdText(LAUNCH3_APP,AppName);
             logger.info("current-package is - "+gDevice.getCurrentPackageName());
         }
+    }
+    /**
+     * 启动FILE MANAGER
+     */
+    public static void startFileManager() throws Exception {
+        gDevice.pressHome();
+        gDevice.pressHome();
+        waitTime(2);
+        gDevice.executeShellCommand("am start -n com.mediatek.filemanager/.FileManagerOperationActivity");
+        gDevice.wait(Until.findObject(By.pkg("com.mediatek.filemanager")),40000);
+        String pkg = gDevice.getCurrentPackageName();
+        logger.info("current-package:"+pkg);
+    }
+    /**
+     * 关闭文件管理器
+     */
+    public static void stopFileManager() {
+        try {
+            gDevice.executeShellCommand(
+                    "am force-stop com.mediatek.filemanager");
+            waitTime(2);
+            String name = gDevice.getCurrentPackageName();
+            logger.info("current package:" + name);
+            logger.info("stop filemanager-Success");
+        } catch (IOException e) {
+            logger.info("stop filemanager-Fail");
+        }
+    }
+    public static void clearAllVcf() {
+
     }
 }
