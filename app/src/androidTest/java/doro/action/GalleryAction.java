@@ -1,6 +1,7 @@
 package doro.action;
 
 import android.graphics.Rect;
+import android.os.RemoteException;
 import android.support.test.uiautomator.UiCollection;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
@@ -36,7 +37,232 @@ public class GalleryAction extends VP4{
     private static String FirstGridName=null; //图库中favourite数量
     private static UiScrollable scr = new UiScrollable(new UiSelector().scrollable(true));
     private static UiSelector DisplayEmpty =new UiSelector().resourceId(GalleryPage.DISPLAY_EMPTY);
+    /*
+    * 播放视频
+    * */
+    public static void playOneVideo(){
+        try {
+            Asst.assertTrue("图库没有一个视频",!(GridView.getChildCount()==0));
+            GridView.getChildByInstance(images,0).clickAndWaitForNewWindow();
+            gDevice.click(gDevice.getDisplayWidth()/2,gDevice.getDisplayHeight()/2);
+            gDevice.click(gDevice.getDisplayWidth()/2,gDevice.getDisplayHeight()/2);
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
 
+    }
+
+    /*
+    * 点击单个视频设置选项
+    * */
+    public static void clickGingleVideoOption(){
+        try {
+            Asst.assertTrue("图库没有一个视频",!(GridView.getChildCount()==0));
+            GridView.getChildByInstance(images,0).clickAndWaitForNewWindow();
+            if(!getObjectByText(GalleryPage.IWANTTO_BUTTON).exists()){
+                gDevice.click(gDevice.getDisplayWidth()/10,gDevice.getDisplayHeight());
+            }
+            clickIWantToButton();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    /*
+    * 检查当视频设置选项
+    * */
+    public static void checkSingleVideoOption(){
+
+        Asst.assertTrue("分享视频按钮不存在",getObjectByText(GalleryPage.
+                GALLERY_SINGLE_VIDEO_OPTION_SHARE_VIDEO).exists());
+        Asst.assertTrue("视频详情按钮不存在",getObjectByText(GalleryPage.
+                GALLERY_SINGLE_VIDEO_OPTION_VIDEO_DETAILS).exists());
+        Asst.assertTrue("添加Favourite按钮不存在",getObjectByText(GalleryPage.
+                GALLERY_SINGLE_VIDEO_OPTION_ADD_TO_FAVOURITE).exists());
+        Asst.assertTrue("删除视频按钮不存在",getObjectByText(GalleryPage.
+                GALLERY_SINGLE_VIDEO_OPTION_DELETE_VIDEO).exists());
+    }
+
+    /*
+    * 从单张图片选项界面删除一张图片
+    * */
+    public static void deleteSinglePicture(){
+        VP4.scrollToEnd(20);
+        try {
+            getObjectByText(GalleryPage.GALLERY_SINGLE_PICTURE_OPTION_DELETE_PICTURE).
+                    clickAndWaitForNewWindow();
+            clickOKButton();
+            GalleryPicturesNumbers --;
+            while(!getObjectById(GalleryPage.GALLERY_HEADER).exists()){
+                pressKey("back");
+            }
+            changeToMyGalleryDisplay();
+            int numbers[] =getCurrentPicturesVideosNum();
+            Asst.assertEquals("从单张图片设置界面删除图片失败",GalleryPicturesNumbers,numbers[0]);
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /*
+    * 点击单张图片菜单按钮
+    * */
+    public static void clickSinglePictureOption(){
+        try {
+            Asst.assertTrue("图库没有一张图片",!(GridView.getChildCount()==0));
+            GridView.getChildByInstance(images,0).clickAndWaitForNewWindow();
+            if(!getObjectByText(GalleryPage.IWANTTO_BUTTON).exists()){
+                gDevice.click(gDevice.getDisplayWidth()/10,gDevice.getDisplayHeight());
+            }
+            clickIWantToButton();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    * 检查单张图片菜单显示
+    * */
+    public static void checkSinglePictureOption(){
+        Asst.assertTrue("编辑图片按钮不存在",getObjectByText(GalleryPage.
+                GALLERY_SINGLE_PICTURE_OPTION_EDIT_PICTURE).exists());
+        Asst.assertTrue("设置图片按钮不存在",getObjectByText(GalleryPage.
+                GALLERY_SINGLE_PICTURE_OPTION_SET_PICTURE).exists());
+        Asst.assertTrue("分享图片按钮不存在",getObjectByText(GalleryPage.
+                GALLERY_SINGLE_PICTURE_OPTION_SHARE_PICTURE).exists());
+        Asst.assertTrue("图片详情按钮不存在",getObjectByText(GalleryPage.
+                GALLERY_SINGLE_PICTURE_OPTION_PICTURE_DETAIL).exists());
+        Asst.assertTrue("添加favourite按钮不存在",getObjectByText(GalleryPage.
+                GALLERY_SINGLE_PICTURE_OPTION_ADD_TO_FAVOURITE).exists());
+        VP4.scrollToEnd(20);
+        Asst.assertTrue("删除图片按钮不存在",getObjectByText(GalleryPage.
+                GALLERY_SINGLE_PICTURE_OPTION_DELETE_PICTURE).exists());
+    }
+
+    /*
+    * 检查横屏模式
+    * */
+    public static void swtchToLandscapeMode(){
+        waitTime(5);
+        //int height =gDevice.getDisplayHeight();
+        try {
+            gDevice.setOrientationLeft();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+//        try {
+//            Asst.assertEquals("图库界面旋转显示不成功",height,
+//                    getObjectById(GalleryPage.SDADOW_TOP).getBounds().right);
+//        } catch (UiObjectNotFoundException e) {
+//            e.printStackTrace();
+//        }
+    }
+    /*
+    * 切换到竖屏模式
+    * */
+    public static void switchToPortraitMode(){
+        waitTime(5);
+        try {
+            gDevice.setOrientationNatural();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    *查看显示设置
+    * */
+    public static void openDisplaySettings(){
+        clickIWantToButton();
+        clickDisplayOption();
+        Asst.assertTrue("My gallery选项不存在",getObjectByText(GalleryPage.
+                GALLERYSETTINGS_DISPLAY_MYGALLERY).exists());
+        Asst.assertTrue("All pictures选项不存在", getObjectByText(GalleryPage.
+                GALLERYSETTINGS_DISPLAY_ALLPICTURES).exists());
+        Asst.assertTrue("All videos 选项不存在",getObjectByText(GalleryPage.
+                GALLERYSETTINGS_DISPLAY_ALLVIDEOS).exists());
+        Asst.assertTrue("Favourites选项不存在",getObjectByText(GalleryPage.
+                GALLERYSETTINGS_DISPLAY_FAVOURITES).exists());
+    }
+
+    /*
+    * 查看gallery Settings
+    * */
+    public static void openGallerySettings(){
+        clickIWantToButton();
+        clickSet();
+        Asst.assertTrue("每列显示的个数选项不存在",getObjectByText(GalleryPage.
+                GALLERYSETTINGS_SET_COLUMNS).exists());
+        Asst.assertTrue("默认显示选项不存在",getObjectByText(GalleryPage.
+                GALLERYSETTINGS_SET_DEFAULTDISPLAY).exists());
+
+    }
+
+    private static void clickSet(){
+        try {
+            getObjectByText(GalleryPage.GALLERYSETTINGS_SET).clickAndWaitForNewWindow();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    /*
+    * 添加一个favourite
+    * */
+    public static void makeOneFavorite(){
+        clickIWantToButton();
+        try {
+            getObjectByText(GalleryPage.GALLERYSETTINGS_FAVOURITE).click();
+            if(GridView.getChildCount()>0){
+                UiObject OnePicture =GridView.getChildByInstance(images,0);
+                OnePicture.click();
+                clickConfirmButton();
+                waitTime(5);
+                GalleryFavouriteNumber++;
+                int number[] = getCurrentPicturesVideosNum();
+                //int currentFov = GridView.getChildByInstance(Favourite,0).getChildCount();
+                Asst.assertEquals("添加一个favourite失败",GalleryFavouriteNumber, number[2]);
+            }
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    * 删除一个favourite
+    * */
+    public static void unmakeOneFavorite(){
+        clickIWantToButton();
+        try {
+            getObjectByText(GalleryPage.GALLERYSETTINGS_FAVOURITE).click();
+            if(GridView.getChildCount()>0){
+                UiObject OnePicture =GridView.getChildByInstance(images,0);
+                OnePicture.click();
+                clickConfirmButton();
+                waitTime(5);
+                GalleryFavouriteNumber--;
+                int number[] = getCurrentPicturesVideosNum();
+                //int currentFov = GridView.getChildByInstance(Favourite,0).getChildCount();
+                Asst.assertEquals("添加一个favourite失败",GalleryFavouriteNumber, number[2]);
+            }
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    * 检查图库菜单显示
+    * */
+    public static void checkGalleryMenu(){
+        clickIWantToButton();
+        Asst.assertTrue("Display..选项不存在",getObjectByText(GalleryPage.
+                GALLERYSETTINGS_DISPLAY).exists());
+        Asst.assertTrue("Manage favourite选项不存在",getObjectByText(GalleryPage.
+                GALLERYSETTINGS_FAVOURITE).exists());
+        Asst.assertTrue("Delete pictures(s选项不存在",getObjectByText(GalleryPage.
+                GALLERYSETTINGS_DELETE_PICTURES).exists());
+        Asst.assertTrue("set...选项不存在",getObjectByText(GalleryPage.GALLERYSETTINGS_SET).
+                exists());
+    }
     public static void getAllPicturesCount(){
         launchGalleryFromAppList();
         AllCurrentNamess = getPictureVideoNmae();
@@ -453,7 +679,34 @@ public class GalleryAction extends VP4{
                 pictures[1]);
     }
 
-
+    public static void deleteOnePictureOrVideo(){
+        int pictures[] =getCurrentPicturesVideosNum();
+        if(scr.exists()) {
+            scrollToBegin(20);
+        }
+        clickIWantToButton();
+        clickDeletePictureButton();
+        int x =selectDeletePictures();
+        clickConfirmButton();
+        clickCancelButton();
+        Asst.assertEquals("取消随机删除一张照片或者视频",GalleryPicturesNumbers+GalleryVideosNumbers,
+                pictures[0]+pictures[1]);
+        try {
+            String DeleteName = GridView.getChildByInstance(images,x).getContentDescription();
+            String spartName[] = DeleteName.split("\\.");
+            if(spartName[1].equals("mp4") || spartName[1].equals("3gp")){
+                GalleryVideosNumbers--;
+            }else  GalleryPicturesNumbers--;
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        clickConfirmButton();
+        clickOKButton();
+        waitTime(10);
+        pictures=getCurrentPicturesVideosNum();
+        Asst.assertEquals("确认随机删除一张照片或者视频",GalleryPicturesNumbers+GalleryVideosNumbers,
+                pictures[0]+pictures[1]);
+    }
     /*
     * 删除多张随机照片
     * */
@@ -490,10 +743,6 @@ public class GalleryAction extends VP4{
         clickIWantToButton();
         clickDeletePictureButton();
         int multipictures =selectMltiRandomPictures();
-        clickConfirmButton();
-        clickCancelButton();
-        Asst.assertEquals("取消随机删除多个视频",GalleryVideosNumbers,
-                pictures[1]);
         clickConfirmButton();
         clickOKButton();
         waitTime(10);

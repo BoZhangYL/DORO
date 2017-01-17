@@ -1,7 +1,5 @@
 package doro.page;
 
-import static android.R.attr.id;
-
 /**
  * Created by admin on 2016/12/22.
  */
@@ -20,12 +18,11 @@ public class RecorderPage {//数字键的类名
     //确认按钮的ResourceID
     public static final String RECORDER_CONFIRM_ID="com.doro.apps.soundrec:id/confirm_text";
     //OK键的ResourceID
-    public static final String RECORDER_OK_ID="com.doro.apps.soundrec:id/confirm_text";
+    public static final String RECORDER_OK_TEXT="OK";
     //录音按钮的ResourceID
     public static final String RECORDBUTTON_ID= "com.doro.apps.soundrec:id/btn_rec";
     //停止并且保存录音按钮的ResourceID
     public static final String RECORD_STOPBUTTON_ID= "com.doro.apps.soundrec:id/btn_stop";
     //播放录音按钮的ResourceID
     public static final String RECORD_PLAYBUTTON_ID="com.doro.apps.soundrec:id/icon_and_label";
-
 }

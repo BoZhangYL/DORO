@@ -1,22 +1,12 @@
 package doro.action;
 
-import android.support.test.uiautomator.UiDevice;
-import android.support.test.uiautomator.UiObject;
-import android.support.test.uiautomator.UiSelector;
-
-import org.junit.Test;
-
 import ckt.base.VP4;
 
-import static android.R.attr.id;
-import static android.R.attr.staticWallpaperPreview;
-import static android.view.View.Z;
-import static ckt.base.VP2.getObjectsById;
 import static doro.page.RecorderPage.RECORDBUTTON_ID;
 import static doro.page.RecorderPage.RECORDER_CONFIRM_ID;
 import static doro.page.RecorderPage.RECORDER_DELETE_ID;
 import static doro.page.RecorderPage.RECORDER_MENU_ID;
-import static doro.page.RecorderPage.RECORDER_OK_ID;
+import static doro.page.RecorderPage.RECORDER_OK_TEXT;
 import static doro.page.RecorderPage.RECORDER_SELECTALL_ID;
 import static doro.page.RecorderPage.RECORDLIST_ID;
 import static doro.page.RecorderPage.RECORD_PLAYBUTTON_ID;
@@ -39,7 +29,7 @@ public class RecorderAction extends VP4 {
             waitTime(3);
             getObjectById(RECORDER_CONFIRM_ID).click();
             waitTime(3);
-            getUiObjectByText(RECORDER_OK_ID).click();
+            getUiObjectByText(RECORDER_OK_TEXT).click();
             waitTime(3);
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,7 +46,9 @@ public class RecorderAction extends VP4 {
     }
 
     public void saveRecorder() {//按停止录音按钮
+
         try {
+
             getObjectById(RECORD_STOPBUTTON_ID).click();
             waitTime(3);
         } catch (Exception e) {
@@ -80,6 +72,7 @@ public class RecorderAction extends VP4 {
             waitTime(3);
         } catch (Exception e) {
             e.printStackTrace();
+
         }
     }
 }

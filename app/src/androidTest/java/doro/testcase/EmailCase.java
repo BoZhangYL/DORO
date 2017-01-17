@@ -43,5 +43,9 @@ public class EmailCase extends VP4 {
         shellInputText(EmailAction.reduceRandomEmail(10));
         clickByText("OK");
     }
-
+    @Test
+    public void test() throws IOException, UiObjectNotFoundException {
+        EmailAction.LogInEmail();
+        
+    }
 }

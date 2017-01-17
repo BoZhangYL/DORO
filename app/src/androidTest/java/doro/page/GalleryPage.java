@@ -5,6 +5,7 @@ package doro.page;
  */
 
 public class GalleryPage {
+
     public static final String GALLERY = "Gall\u200Bery";
 
     public static final String GALLERY_PACKAGE ="com.doro.apps.gallery";
@@ -96,6 +97,42 @@ public class GalleryPage {
     //删除选择框，id
 
     public static final String DISPLAY_EMPTY = "android:id/empty";
+
+    //public static final String SDADOW_TOP = "com.doro.apps.gallery:id/content_shadow_top";
+    public static final String GALLERY_SINGLE_PICTURE_OPTION_EDIT_PICTURE =
+            "Edit this picture…";
+    //Edit this picture…选项,text
+
+    public static final String GALLERY_SINGLE_PICTURE_OPTION_SET_PICTURE =
+            "Set this picture as…";
+    //设置图片，text
+
+    public static final String GALLERY_SINGLE_PICTURE_OPTION_SHARE_PICTURE =
+            "Share this picture";
+    //分享图片，text
+
+    public static final String GALLERY_SINGLE_PICTURE_OPTION_PICTURE_DETAIL =
+            "Picture details";
+    //图片详情，text
+
+    public static final String GALLERY_SINGLE_PICTURE_OPTION_ADD_TO_FAVOURITE =
+            "Add to favourites";
+    //添加喜爱，text
+
+    public static final String GALLERY_SINGLE_PICTURE_OPTION_DELETE_PICTURE =
+            "Delete this picture";
+    //删除图片，text
+
+    public static final String GALLERY_SINGLE_VIDEO_OPTION_SHARE_VIDEO = "Share this video";
+
+    public static final String GALLERY_SINGLE_VIDEO_OPTION_VIDEO_DETAILS ="Video details";
+
+    public static final String GALLERY_SINGLE_VIDEO_OPTION_ADD_TO_FAVOURITE =
+            "Add to favourites";
+
+    public static final String GALLERY_SINGLE_VIDEO_OPTION_DELETE_VIDEO ="Delete this video";
+
+
 
 
 }
