@@ -13,7 +13,6 @@ import org.junit.runner.RunWith;
 
 import java.io.File;
 
-import ckt.android.ContactsManager;
 import ckt.base.VP4;
 import doro.action.ContactsAction;
 import doro.action.MainAction;
@@ -276,11 +275,7 @@ public class ContactsCase extends VP4{
     @Test
     public void testDeleteAll() throws UiObjectNotFoundException {
         if (!id_exists(ContactsPage.FIREST_TEXT_ID)){
-            ContactsAction.navWantToDelete();
             ContactsAction.deleteAll();
-            //等待删除完成
-            waitUntilFind(ContactsPage.FIREST_TEXT_ID,60000);
-            Assert.assertEquals("no contacts",true,id_exists(ContactsPage.FIREST_TEXT_ID));
         }else {
             Assert.assertTrue("No contacts to be deleted",false);
         }
@@ -294,10 +289,13 @@ public class ContactsCase extends VP4{
         Assert.assertEquals("export vcf file",1,files.length);
     }
     @Test
-    public void testImportFromSdcard(){
-        ContactsManager contactsManager = new ContactsManager();
-        contactsManager.deleteAll();
+    public void testImportFromSdcard() throws Exception {
+        ContactsAction.deleteSdcardContactsVCF();
+        ContactsAction.launchContacts();
+        ContactsAction.deleteAll();
         ContactsAction.addContactFromContent();
-        
+        ContactsAction.exportToSdcard(true);
+        ContactsAction.delAllContactFromContent();
+        ContactsAction.importFromSdcard();
     }
 }
