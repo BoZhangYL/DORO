@@ -1,5 +1,6 @@
 package doro.testcase;
 
+import android.os.RemoteException;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.BeforeClass;
@@ -19,8 +20,8 @@ public class GalleryCase extends VP4{
     public static void initGalleryCase(){
      initDevice();
      VP4.unLock();
-     //GalleryAction.getSomePicturesVideos();
      GalleryAction.getAllPicturesCount();
+
  }
     @Test
     public void enterGallery(){
@@ -64,7 +65,7 @@ public class GalleryCase extends VP4{
         GalleryAction.changeToAllPicturesDisplay();
         GalleryAction.checkAllPicturesDisplay();
         GalleryAction.deleteOneRandomPicture();
-        GalleryAction.deleteMultiRandomPictures();
+       // GalleryAction.deleteMultiRandomPictures();
     }
 
     @Test
@@ -74,9 +75,84 @@ public class GalleryCase extends VP4{
         GalleryAction.changeToAllVideosDisplay();
         GalleryAction.checkAllVideoDisplay();
         GalleryAction.deleteOneRandomVideo();
-        GalleryAction.delteMultiRandomVideos();
+     //   GalleryAction.delteMultiRandomVideos();
+    }
+    @Test
+    public void deleteFromMyGalleryView(){
+//        D8040-1033:我的图库界面删除 [delete in my gallery interface]
+        GalleryAction.launchGalleryFromAppList();
+        GalleryAction.changeToMyGalleryDisplay();
+        GalleryAction.checkMyGalleryDisplay();
+        GalleryAction.deleteOnePictureOrVideo();
+    }
+    @Test
+    public void checkGalleryMenuDisplay(){
+//        D8040-1037:列表显示选项 [list view option]
+       GalleryAction.launchGalleryFromAppList();
+        GalleryAction.checkGalleryMenu();
+    }
+    @Test
+    public void makeAsFavorite(){
+//        图片\视屏标签 [mark as favorite]
+        GalleryAction.launchGalleryFromAppList();
+        GalleryAction.makeOneFavorite();
+        GalleryAction.unmakeOneFavorite();
     }
 
+    @Test
+    public void GallerySettings(){
+//        D8040-1039:图库设置 [gallery settings]
+        GalleryAction.launchGalleryFromAppList();
+        GalleryAction.openGallerySettings();
+    }
+
+    @Test
+    public void GalleryDisplaySettings(){
+//        D8040-1041:显示设置 [display option]
+        GalleryAction.launchGalleryFromAppList();
+        GalleryAction.openDisplaySettings();
+    }
+
+    @Test
+    public void checkGalleryLandscapeeMode(){
+//        D8040-1053:横屏模式查看 [check in landscape mode]
+        GalleryAction.launchGalleryFromAppList();
+        GalleryAction.swtchToLandscapeMode();
+        GalleryAction.switchToPortraitMode();
+    }
+
+    @Test
+    public void SinglePictureOption(){
+//        D8040-1054:单张图片选项 [single picture option]
+        GalleryAction.launchGalleryFromAppList();
+        GalleryAction.changeToAllPicturesDisplay();
+        GalleryAction.clickSinglePictureOption();
+        GalleryAction.checkSinglePictureOption();
+    }
+
+    @Test
+    public void deleteFromSinglePictureOption(){
+//        D8040-1060:删除单张图片 [delete picture]
+        GalleryAction.launchGalleryFromAppList();
+        GalleryAction.changeToAllPicturesDisplay();
+        GalleryAction.clickSinglePictureOption();
+        GalleryAction.deleteSinglePicture();
+    }
+
+    @Test
+    public void SingleVideoOption(){
+        GalleryAction.launchGalleryFromAppList();
+        GalleryAction.changeToAllVideosDisplay();
+        GalleryAction.clickGingleVideoOption();
+        GalleryAction.checkSingleVideoOption();
+    }
+
+    @Test
+    public void playVideo(){
+        GalleryAction.launchGalleryFromAppList();
+        GalleryAction.changeToAllVideosDisplay();
+        GalleryAction.playOneVideo();
+    }
      /*
     *
     *  D8040-1031:删除图片 [Delete picture]
