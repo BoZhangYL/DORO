@@ -25,5 +25,4 @@ public class RecorderPage {//数字键的类名
     public static final String RECORD_STOPBUTTON_ID= "com.doro.apps.soundrec:id/btn_stop";
     //播放录音按钮的ResourceID
     public static final String RECORD_PLAYBUTTON_ID="com.doro.apps.soundrec:id/icon_and_label";
-
 }
