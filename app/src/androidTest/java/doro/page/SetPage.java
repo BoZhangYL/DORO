@@ -37,6 +37,11 @@ public class SetPage {
     public static final String SET_GENERAL_OPTION_TEXT ="A general option";
     //set二级菜单下的"The screen timeout"的Text
     public static final String SET_SCREEN_TIMEOUT_TEXT ="The screen timeout";
+    //set二级菜单下的"The date and time"的Text
+    public static final String SET_DATE_AND_TIME_TEXT ="The date and time";
+    //set二级菜单下的"set time format"的时间格式Text
+    public static final String SET_TIME_FORMAT_12_TEXT ="1:00 pm";
+    public static final String SET_TIME_FORMAT_24_TEXT ="13:00";
 
 
     //set二级菜单"The volume"菜单下的“Alarms”的"+"ID
@@ -61,4 +66,29 @@ public class SetPage {
     //set二级菜单"The text size"菜单下的“Select text size”的ID
     //set二级菜单"The screen timeout"菜单下的“Screen timeout delay”的ID
     public static final String SET_TONE_SETUP_BTN_ID ="com.doro.settings:id/picker_btn";
+    //set二级菜单“Time and date”下“Auto time”的按钮的ID
+    public static final String SET_AUTOTIME_CHECKVIEW_ID ="com.doro.settings:id/checkview";
+    //set二级菜单“Time and date”下"Set time format"的ID
+    public static final String SET_TIMEFORMAT_FIELD_ID ="com.doro.settings:id/time_format_field";
+    //set二级菜单“Time and date”下"Set date"的ID
+    public static final String SET_DATE_FILED_ID ="com.doro.settings:id/date_field";
+    //set二级菜单“Time and date”下"Set date"的按钮的ID
+    public static final String SET_YEAR_DECREASE_ID ="com.doro.settings:id/year_decrease";
+    public static final String SET_YEAR_INCREASE_ID ="com.doro.settings:id/year_increase";
+    public static final String SET_MONTH_DECREASE_ID ="com.doro.settings:id/month_decrease";
+    public static final String SET_MONTH_INCREASE_ID ="com.doro.settings:id/month_increase";
+    public static final String SET_DAY_DECREASE_ID ="com.doro.settings:id/day_decrease";
+    public static final String SET_DAY_INCREASE_ID ="com.doro.settings:id/day_increase";
+    //set二级菜单“Time and date”下"Set time"的ID
+    public static final String SET_TIME_FILED_ID ="com.doro.settings:id/time_field";
+    //set二级菜单“Time and date”下"Set time"的按钮的ID
+    public static final String  SET_HOUR_DECREASE_ID="com.doro.settings:id/hour_decrease";
+    public static final String  SET_HOUR_INCREASE_ID="com.doro.settings:id/hour_increase";
+    public static final String  SET_MINUTE_DECREASE_ID="com.doro.settings:id/minute_decrease";
+    public static final String  SET_MINUTE_INCREASE_ID="com.doro.settings:id/minute_increase";
+    public static final String  SET_FORMAT_INCREASE_ID ="com.doro.settings:id/format_increase";
+    public static final String  SET_FORMAT_DECREASE_ID ="com.doro.settings:id/format_decrease";
+    public static final String  SET_FORMAT_EDIT_ID ="com.doro.settings:id/format_edit";
+    public static final String  SET_HOUR_EDIT_ID ="com.doro.settings:id/hour_edit";
+    public static final String  SET_MINUTE_EDIT_ID ="com.doro.settings:id/minute_edit";
 }
