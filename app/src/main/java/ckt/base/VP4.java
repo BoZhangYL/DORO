@@ -9,6 +9,8 @@ import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
 
+import org.hamcrest.Asst;
+
 import java.io.IOException;
 
 /**
@@ -52,13 +54,39 @@ public class VP4 extends VP2 {
         }
     }
     public static void openAppliction(String AppName){//打开应用
+        UiObject SearchBox = getObjectById("com.doro.apps.launcher3:id/search_box_input");
+        UiCollection APPList = new UiCollection(new UiSelector().
+                resourceId("com.doro.apps.launcher3:id/apps_list_view"));
+        UiSelector Apps = new UiSelector().resourceId("com.doro.apps.launcher3:id/icon");
+        String name =null;
+        int x0=0,y0=0,x1=0,y1=0;
         switchToApplistPage();
-        int i=0;
+        try {
+            switchToApplistPage();
+            if(!SearchBox.getText().equals("Search Apps…")){
+                pressKey("back/back");
+                switchToApplistPage();
+            }
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            x0 = APPList.getChildByInstance(Apps,1).getBounds().centerX();
+            y0 = APPList.getChildByInstance(Apps,1).getBounds().bottom;
+            x1 = APPList.getChildByInstance(Apps,1).getBounds().centerX();
+            y1 = APPList.getChildByInstance(Apps,1).getBounds().top;
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
         while(!getObjectByIdText(LAUNCH3_APP, AppName).exists()){
-            scrollByVerticalForward(STEP_NORMAL);
-            i++;
-            if(i==20){
-                break;
+                gDevice.swipe(x0,y0,x1,y1,10);
+            try {
+                boolean isBootm = (APPList.getChildByInstance(Apps,APPList.
+                        getChildCount(Apps)-1).getContentDescription()).equals(name);
+                Asst.assertTrue("在应用列表没有找到应用",!isBootm);
+                name =APPList.getChildByInstance(Apps,APPList.getChildCount(Apps)-1).getContentDescription();
+            } catch (UiObjectNotFoundException e1) {
+                e1.printStackTrace();
             }
         }
         try {
@@ -264,9 +292,11 @@ public class VP4 extends VP2 {
         try {
             initDevice();
             pressKey("menu");
+            waitTime(5);
             while (getObjectById("com.android.systemui:id/task_view_thumbnail").exists()) {
                 scrollLeft(getObjectById("com.android.systemui:id/task_view_thumbnail"),
                         5);
+                waitTime(2);
             }
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
