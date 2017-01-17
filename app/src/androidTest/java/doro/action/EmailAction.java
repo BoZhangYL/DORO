@@ -104,4 +104,50 @@ public class EmailAction extends VP4 {
         }
         gDevice.pressHome();
     }
+    /**
+     * 发送一封主题为Email_Subject，内容为Email_Body的新邮件给收件人TargetAddress
+     * */
+    public static void CreateNewEmail(String Email_Subject,String Email_Body,String TargetAddress) throws IOException, UiObjectNotFoundException {
+        EmailAction.LogInEmail("chengduxike@hotmail.com","falcon@ckt2015","");
+        gDevice.pressBack();
+        clickById(EmailPage.EMAIL_WRITE_EMAIL);
+        waitUntilFind(EmailPage.EMAIL_ADDRESS,4000);
+        clickById(EmailPage.EMAIL_ADDRESS);
+        //设置发送的地址
+        waitTime(2);
+        findObject(EmailPage.EMAIL_ADDRESS_INPUT).setText(TargetAddress);
+        clickById(EmailPage.EMAIL_ADDRESS_CONFIRM);
+        //设置邮件主题
+        waitTime(2);
+        findObject(EmailPage.EMAIL_SUBJECT).setText(Email_Subject);
+        //设置邮件内容
+        waitTime(2);
+        findObject(EmailPage.EMAIL_BODY).setText(Email_Body);
+        clickById(EmailPage.EMAIL_SEND);
+        waitTime(3);
+    }
+    /**
+     * 根据发件人账号SendEmailAccount，密码SendEmailPassword，
+     * 发送一封主题为Email_Subject，
+     * 内容Email_Body的新邮件给收件人TargetAddress
+     * */
+    public static void CreateNewEmailToAddress(String SendEmailAccount, String SendEmailPassword, String Email_Subject,String Email_Body, String TargetAddress) throws IOException, UiObjectNotFoundException {
+        EmailAction.LogInEmail(SendEmailAccount,SendEmailPassword,"");
+        gDevice.pressBack();
+        clickById(EmailPage.EMAIL_WRITE_EMAIL);
+        waitUntilFind(EmailPage.EMAIL_ADDRESS,4000);
+        clickById(EmailPage.EMAIL_ADDRESS);
+        //设置发送的地址
+        waitTime(2);
+        findObject(EmailPage.EMAIL_ADDRESS_INPUT).setText(TargetAddress);
+        clickById(EmailPage.EMAIL_ADDRESS_CONFIRM);
+        //设置邮件主题
+        waitTime(2);
+        findObject(EmailPage.EMAIL_SUBJECT).setText(Email_Subject);
+        //设置邮件内容
+        waitTime(2);
+        findObject(EmailPage.EMAIL_BODY).setText(Email_Body);
+        clickById(EmailPage.EMAIL_SEND);
+        waitTime(3);
+    }
 }
