@@ -12,6 +12,6 @@ public class WifiPage {
     public static final String TURN_ON_WIFI="On";
     public static final String CONNECTED_WIFI="Connected";
     public static final String FORGET_WIFI="FORGET";
-    public static final String CONNECT_WIFI="CONNECT"
+    public static final String CONNECT_WIFI="CONNECT";
 
 }
