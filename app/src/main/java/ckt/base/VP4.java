@@ -94,6 +94,7 @@ public class VP4 extends VP2 {
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
+
     }
 
     //Home page, menu page, applist page
