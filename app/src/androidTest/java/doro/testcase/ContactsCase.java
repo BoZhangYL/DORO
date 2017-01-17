@@ -11,6 +11,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.File;
+
+import ckt.android.ContactsManager;
 import ckt.base.VP4;
 import doro.action.ContactsAction;
 import doro.action.MainAction;
@@ -27,42 +30,6 @@ public class ContactsCase extends VP4{
     @Before
     public void before(){
         ContactsAction.launchContacts();
-    }
-    @Test
-    public void testDelFavourites() throws UiObjectNotFoundException {
-        boolean isFind=ContactsAction.isFindFavourites();
-        if (isFind){
-            String name = ContactsAction.selectFavourites();
-            ContactsAction.navWantToDelete();
-            ContactsAction.deleteContact(name);
-            ContactsAction.verifyContact(name,false);
-        }else{
-            Assert.assertEquals("there is no favourites contact",isFind);
-        }
-    }
-    @Test
-    public void testDeleteOne() throws UiObjectNotFoundException {
-        //滑动到页面最后,输出最后面的那个联系人
-        if (!id_exists(ContactsPage.FIREST_TEXT_ID)){
-            ContactsAction.navWantToDelete();
-            String name = ContactsAction.isFindNormalName();
-            ContactsAction.deleteContact(name);
-            ContactsAction.verifyContact(name,false);
-        }else {
-            Assert.assertTrue("No contacts to be deleted",false);
-        }
-    }
-    @Test
-    public void testDeleteAll() throws UiObjectNotFoundException {
-       if (!id_exists(ContactsPage.FIREST_TEXT_ID)){
-            ContactsAction.navWantToDelete();
-            ContactsAction.deleteAll();
-            //等待删除完成
-            waitUntilFind(ContactsPage.FIREST_TEXT_ID,60000);
-            Assert.assertEquals("no contacts",true,id_exists(ContactsPage.FIREST_TEXT_ID));
-        }else {
-            Assert.assertTrue("No contacts to be deleted",false);
-        }
     }
     @Test
     public void testLaunchFromView() throws UiObjectNotFoundException {
@@ -281,5 +248,56 @@ public class ContactsCase extends VP4{
         bean.setIs_play_message(true);
         ContactsAction.addContact(bean);//使用bean添加联系人
         ContactsAction.checkContactsBean(bean);//验证联系人
+    }
+    @Test
+    public void testDelFavourites() throws UiObjectNotFoundException {
+        boolean isFind=ContactsAction.isFindFavourites();
+        if (isFind){
+            String name = ContactsAction.selectFavourites();
+            ContactsAction.navWantToDelete();
+            ContactsAction.deleteContact(name);
+            ContactsAction.verifyContact(name,false);
+        }else{
+            Assert.assertEquals("there is no favourites contact",isFind);
+        }
+    }
+    @Test
+    public void testDeleteOne() throws UiObjectNotFoundException {
+        //滑动到页面最后,输出最后面的那个联系人
+        if (!id_exists(ContactsPage.FIREST_TEXT_ID)){
+            ContactsAction.navWantToDelete();
+            String name = ContactsAction.isFindNormalName();
+            ContactsAction.deleteContact(name);
+            ContactsAction.verifyContact(name,false);
+        }else {
+            Assert.assertTrue("No contacts to be deleted",false);
+        }
+    }
+    @Test
+    public void testDeleteAll() throws UiObjectNotFoundException {
+        if (!id_exists(ContactsPage.FIREST_TEXT_ID)){
+            ContactsAction.navWantToDelete();
+            ContactsAction.deleteAll();
+            //等待删除完成
+            waitUntilFind(ContactsPage.FIREST_TEXT_ID,60000);
+            Assert.assertEquals("no contacts",true,id_exists(ContactsPage.FIREST_TEXT_ID));
+        }else {
+            Assert.assertTrue("No contacts to be deleted",false);
+        }
+    }
+    @Test
+    public void testExportToSdcard() throws Exception {
+        //delete  all vcf file
+        ContactsAction.deleteSdcardContactsVCF();
+        ContactsAction.exportToSdcard(true);
+        File[] files=ContactsAction.getFileList();
+        Assert.assertEquals("export vcf file",1,files.length);
+    }
+    @Test
+    public void testImportFromSdcard(){
+        ContactsManager contactsManager = new ContactsManager();
+        contactsManager.deleteAll();
+        ContactsAction.addContactFromContent();
+        
     }
 }
