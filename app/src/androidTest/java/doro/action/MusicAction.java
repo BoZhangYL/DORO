@@ -1,5 +1,6 @@
 package doro.action;
 
+import android.support.test.uiautomator.UiCollection;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
@@ -24,7 +25,7 @@ public class MusicAction extends VP4 {
 
     public void checkLanuchMusicResult() {//检查进入Music的结果
         try {
-            Assert.assertEquals("Case1_launchMusic", Music_Iwantto_Text, getObjectById(Music_Iwantto_ID).getText());
+            Assert.assertEquals("没有进入音乐播放器！", Music_Iwantto_Text, getObjectById(Music_Iwantto_ID).getText());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -34,12 +35,8 @@ public class MusicAction extends VP4 {
         try {
             getObjectById(Music_Iwantto_ID).clickAndWaitForNewWindow();
             getObjectByText(Music_SoryBy_Text).clickAndWaitForNewWindow();
-            clickByText(Music_Artist_Text);
-            UiObject Song=getObjectById(Music_Artist_Song_ID);
-            while (Song.exists()) {
-                clickById(Music_Artist_Song_ID);
-            }
-            clickById(Music_Title_Song_ID);
+            getObjectByText(Music_Title_Text).clickAndWaitForNewWindow();
+            getLinearLayout(1,Music_SongList_CLASS,Music_Song_CLASS).clickAndWaitForNewWindow();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -51,18 +48,13 @@ public class MusicAction extends VP4 {
 
     public void deleteMusic(){//删除一首Music
         try {
-            UiObject ConfirmButton = getObjectById(Music_ConfirmButton_ID);
-            if(!ConfirmButton.exists()) {
-                UiObject IwanttoCloseButton=getObjectById(Music_IwanttoClose_ID);
-                if(!IwanttoCloseButton.exists()){
-                    clickById(Music_Iwantto_ID);
-                }
-                scrollAndGetUIObject(Music_Delete_Text);
-                clickByText(Music_Delete_Text);
-            }
-            Random i = new Random();
-            int j = i.nextInt(5);
-            clickByClass(Music_Title_Song_Class,j);
+            getObjectById(Music_Iwantto_ID).clickAndWaitForNewWindow();
+            getObjectByText(Music_SoryBy_Text).clickAndWaitForNewWindow();
+            getObjectByText(Music_Title_Text).clickAndWaitForNewWindow();
+            clickById(Music_Iwantto_ID);
+            scrollAndGetUIObject(Music_Delete_Text);
+            clickByText(Music_Delete_Text);
+            clickByClass(Music_Title_Song_Class,0);
             clickConfirm();
         }catch (Exception e){
             e.printStackTrace();
@@ -70,15 +62,12 @@ public class MusicAction extends VP4 {
     }
     public void deleteAllMusic(){//删除所有Music
         try {
-            UiObject ConfirmButton = getObjectById(Music_ConfirmButton_ID);
-            if(!ConfirmButton.exists()) {
-                UiObject IwanttoCloseButton = getObjectById(Music_IwanttoClose_ID);
-                if (!IwanttoCloseButton.exists()) {
-                    clickById(Music_Iwantto_ID);
-                }
-                scrollAndGetUIObject(Music_Delete_Text);
-                clickByText(Music_Delete_Text);
-            }
+            getObjectById(Music_Iwantto_ID).clickAndWaitForNewWindow();
+            getObjectByText(Music_SoryBy_Text).clickAndWaitForNewWindow();
+            getObjectByText(Music_Title_Text).clickAndWaitForNewWindow();
+            clickById(Music_Iwantto_ID);
+            scrollAndGetUIObject(Music_Delete_Text);
+            clickByText(Music_Delete_Text);
             clickById(Music_DeleteAll_ID);
             clickConfirm();
         }catch (Exception e){
@@ -112,17 +101,26 @@ public class MusicAction extends VP4 {
     }
     public void checkDeleteAllMusiceResult(){
         try {
-            Assert.assertEquals("Case4_deleteMusic", Music_Noresults_Text, getObjectById(Music_Noresults_ID).getText());
+            Assert.assertEquals("删除所有歌曲失败！", Music_Noresults_Text, getObjectById(Music_Noresults_ID).getText());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     public void checkNoResults(){
         UiObject NoResults=getObjectByText(Music_Noresults_Text);
-        Assert.assertTrue("Please copy some music to phone!",!NoResults.exists());
+        Assert.assertTrue("请在手机中拷入一些歌曲！",!NoResults.exists());
     }
     public void checkPlayMusicResults(){
-        Spoon.screenshot("checkPlayMusicResult");
+        try {
+            waitTime(1);
+            mDevice.sleep();
+            waitTime(1);
+            mDevice.wakeUp();
+            UiObject MusicplayerIcon=getObjectById(Music_Icon_ID);
+            Assert.assertTrue("没有播放音乐！",MusicplayerIcon.exists());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
     public void checkPauseMusicResults(){
         Spoon.screenshot("checkPauseMusicResult1");
