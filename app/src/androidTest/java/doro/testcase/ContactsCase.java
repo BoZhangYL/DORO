@@ -291,21 +291,16 @@ public class ContactsCase extends VP4{
     }
     @Test
     public void testImportFromSdcard() throws Exception {
-        //ContactsAction.deleteSdcardContactsVCF();
+        ContactsAction.deleteSdcardContactsVCF();
         ContactsAction.launchContacts();
         //删除所有联系人
         ContactsAction.deleteAll();
         ContactsAction.addContactFromContent();
         ContactsAction.exportToSdcard(true);
-        //ContactsAction.delAllContactFromContent();
         ContactsAction.launchContacts();
         //删除所有联系人
         ContactsAction.deleteAll();
         //导入cvf文件联系人
         ContactsAction.importFromSdcard();
-    }
-    @Test
-    public void testA(){
-
     }
 }
