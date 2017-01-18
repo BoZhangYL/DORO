@@ -8,9 +8,13 @@ import static doro.page.SetPage.SET_ALARM_VALUE_ID;
 import static doro.page.SetPage.SET_AUDIOSETUP_HACMODE_TEXT;
 import static doro.page.SetPage.SET_AUDIOSETUP_HIGH_TEXT;
 import static doro.page.SetPage.SET_AUDIOSETUP_NORMAL_TEXT;
+import static doro.page.SetPage.SET_DATE_AND_TIME_TEXT;
+import static doro.page.SetPage.SET_GENERAL_OPTION_TEXT;
 import static doro.page.SetPage.SET_MEDIA_VALUE_ID;
 import static doro.page.SetPage.SET_RINGTONE_VALUE_ID;
 import static doro.page.SetPage.SET_TEXTSIZE_EXTRALARGE_TEXT;
+import static doro.page.SetPage.SET_TIME_FORMAT_12_TEXT;
+import static doro.page.SetPage.SET_TIME_FORMAT_24_TEXT;
 
 /**
  * Created by user on 2017/01/11   .
@@ -56,5 +60,24 @@ public class SetCase {
         setAction.findSet();
         setAction.screenTimeout("15 seconds");
         setAction.checkScreenTimeout(0.25);
+    }
+    @Test
+    public void setAutoTime(){ // 自动时间
+        setAction.findSet();//找到设置
+        setAction.findListSubmenu(SET_GENERAL_OPTION_TEXT);
+        setAction.findListSubmenu(SET_DATE_AND_TIME_TEXT);//找到The date and time
+        setAction.autoTime(true);
+    }
+    @Test
+    public void setTimeFormat12(){
+        setAutoTime();
+        setAction.setTimeFormat(SET_TIME_FORMAT_12_TEXT);//采用12小时制
+        setAction.checkTimeFormat(12);
+    }
+    @Test
+    public void setTimeFormat24(){
+        setAutoTime();
+        setAction.setTimeFormat(SET_TIME_FORMAT_24_TEXT);//采用24小时制
+        setAction.checkTimeFormat(24);
     }
 }

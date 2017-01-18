@@ -1,7 +1,8 @@
 package doro.action;
 
+import junit.framework.Assert;
+
 import ckt.base.VP4;
-import doro.page.SettingPage;
 
 import static doro.page.SettingPage.SETTINGS_AUTOMATIC_DATETIME_TEXT;
 import static doro.page.SettingPage.SETTINGS_AUTO_TIME_ZONE_TEXT;
@@ -20,6 +21,11 @@ import static doro.page.SettingPage.SETTINGS_SELECT_TIME_ZONE_TEXT;
 import static doro.page.SettingPage.SETTINGS_SET_DATE_OK_TEXT;
 import static doro.page.SettingPage.SETTINGS_SET_DATE_TEXT;
 import static doro.page.SettingPage.SETTINGS_SET_TIME_TEXT;
+import static doro.page.SettingPage.SETTINGS_STORAGE_LINEARLAYOUT_CLASS;
+import static doro.page.SettingPage.SETTINGS_STORAGE_RADIOBUTTON_CLASS;
+import static doro.page.SettingPage.SETTINGS_STORAGE_RECYCLERVIEWER_CLASS;
+import static doro.page.SettingPage.SETTINGS_STORAGE_SETTINGS_TEXT;
+import static doro.page.SettingPage.SETTINGS_STORAGE_TEXT;
 import static doro.page.SettingPage.SETTINGS_TIME_HOURS_ID;
 import static doro.page.SettingPage.SETTINGS_TIME_MINUTES_ID;
 import static doro.page.SettingPage.SETTINGS_USE_24HOUR_FORMAT_TEXT;
@@ -31,19 +37,26 @@ import static java.lang.Integer.parseInt;
  * Created by lingjiang.du on 2016/12/1.
  */
 public class SettingAction extends VP4 {
-    public static void openBluetooth() {
-        clickById(SettingPage.BLUETOOTH_SWITCH);
-    }
 
-    public static void closeBluetooth() {
+    public void storageIsSD(boolean sdCard){ //设置手机的存储位置是否为SD
+        try{
+            if(getObjectByText(SETTINGS_STORAGE_SETTINGS_TEXT).exists()){
+                if(sdCard){
+                    getLinearLayout(2,SETTINGS_STORAGE_RECYCLERVIEWER_CLASS,SETTINGS_STORAGE_LINEARLAYOUT_CLASS).click();
+                }else{
+                    getLinearLayout(1,SETTINGS_STORAGE_RECYCLERVIEWER_CLASS,SETTINGS_STORAGE_LINEARLAYOUT_CLASS).click();
+                }
+            }else{
+                System.out.println("The phone don't have the SD card ");
+            }
+        }catch(Exception e){e.printStackTrace();}
     }
-
-    public void dateAndTime() { //进入手机设置中的 Date&Time
+    public void findSettingChildren(String childName){
         try {
-            while (!getObjectByTextContains(SETTINGS_DATE_TIME_TEXT).exists()) {
+            while (!getObjectByTextContains(childName).exists()) {
                 scrollByVerticalForward(15);
             }
-            getObjectByTextContains(SETTINGS_DATE_TIME_TEXT).clickAndWaitForNewWindow();
+            getObjectByTextContains(childName).clickAndWaitForNewWindow();
         } catch (Exception e) {e.printStackTrace();}
     }
 
@@ -206,6 +219,18 @@ public class SettingAction extends VP4 {
             }
         }catch(Exception e){e.printStackTrace();}
     }
+
+
+    /*
+* Settings下的基本操作
+    * */
+    public void dateAndTime() { //进入手机设置中的 Date&Time
+        findSettingChildren(SETTINGS_DATE_TIME_TEXT);
+    }
+    public void storage() { //进入手机设置中的Storage
+        findSettingChildren(SETTINGS_STORAGE_TEXT);
+    }
+
     /*
 * 一些基本的关于时间日期的设置
 * */
@@ -257,7 +282,22 @@ public class SettingAction extends VP4 {
             new AlarmAction().alarmComingStop();//闹钟到来后选择关闭闹钟
         }
     }
+    public void setStorageIsSD(boolean sdCard){ //设置默认存储位置是否为SD卡
+        storage();
+        storageIsSD(sdCard);
+    }
+    public void CheckStorageIsSD(boolean sdCard){ //检查默认设置是否为SD ，存储位置不是SD 就是手机
+        try{
+            if(sdCard){
+                Assert.assertTrue("Default write disk isn't SD card",
+                        !getObjectByClass(SETTINGS_STORAGE_RADIOBUTTON_CLASS).isChecked());
+            }else{
+                Assert.assertTrue("Default write disk isn't phone",
+                        getObjectByClass(SETTINGS_STORAGE_RADIOBUTTON_CLASS).isChecked());
+            }
+        }catch(Exception e){e.printStackTrace();}
 
+    }
 }
 
 

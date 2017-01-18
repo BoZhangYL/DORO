@@ -325,6 +325,7 @@ public class APPMenuCase extends VP4{
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[32]);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(32));
+        logger.info(gDevice.getCurrentPackageName());
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
         Asst.assertFalse("Can't_Launch_"+APPMenuPage.AppNameList[32],!Actual1&&Actual2);
@@ -416,6 +417,7 @@ public class APPMenuCase extends VP4{
         int errorAppCount=0;
         StringBuffer errorAppString=new StringBuffer();
         for (int i =0;i<APPMenuPage.AppNameList.length;i++) {
+            logger.info("第。。。。。。。。。。" +i+"次循环" );
             String appToBeLaunched=APPMenuPage.AppNameList[i];
             MainAction.startApp(appToBeLaunched);//启动第一个应用
             waitTime(8);
@@ -435,7 +437,7 @@ public class APPMenuCase extends VP4{
                 errorAppString.append(String.format(" Activity of%s  ComparedFailed\n",appToBeLaunched));
             }
             if(i>2){
-                MainAction.killAppByPackage(APPMenuPage.AppNameList[i-2]);//结束上上个应用
+                MainAction.killAppByPackage(APPMenuPage.AppNameList[i-3]);//结束上上个应用
             }
         }
         if (errorAppCount>=1){
