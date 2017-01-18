@@ -76,7 +76,32 @@ public class MainAction extends VP4{
             logger.info("stop filemanager-Fail");
         }
     }
-    public static void clearAllVcf() {
-
+    /**
+     * 启动FILE MANAGER
+     */
+    public static void startMessage() throws Exception {
+        gDevice.pressHome();
+        gDevice.pressHome();
+        waitTime(2);
+        gDevice.executeShellCommand("am start -n com.doro.apps.messages/.ui.conversationlist.ConversationListActivity");
+        gDevice.wait(Until.findObject(By.pkg("com.doro.apps.messages")),40000);
+        String pkg = gDevice.getCurrentPackageName();
+        logger.info("current-package:"+pkg);
+    }
+    /**
+     * 关闭文件管理器
+     */
+    public static void stopMessage() {
+        initDevice();
+        try {
+            gDevice.executeShellCommand(
+                    "am force-stop com.doro.apps.messages");
+            waitTime(2);
+            String name = gDevice.getCurrentPackageName();
+            logger.info("current package:" + name);
+            logger.info("stop SMS-Success");
+        } catch (IOException e) {
+            logger.info("stop SMS-Fail");
+        }
     }
 }

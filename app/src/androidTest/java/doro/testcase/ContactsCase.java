@@ -28,7 +28,7 @@ import doro.page.ViewPage;
 public class ContactsCase extends VP4{
     @Before
     public void before(){
-        ContactsAction.launchContacts();
+        //ContactsAction.launchContacts();
     }
     @Test
     public void testLaunchFromView() throws UiObjectNotFoundException {
@@ -263,6 +263,7 @@ public class ContactsCase extends VP4{
     @Test
     public void testDeleteOne() throws UiObjectNotFoundException {
         //滑动到页面最后,输出最后面的那个联系人
+        ContactsAction.addContactFromContent();
         if (!id_exists(ContactsPage.FIREST_TEXT_ID)){
             ContactsAction.navWantToDelete();
             String name = ContactsAction.isFindNormalName();
@@ -290,12 +291,21 @@ public class ContactsCase extends VP4{
     }
     @Test
     public void testImportFromSdcard() throws Exception {
-        ContactsAction.deleteSdcardContactsVCF();
+        //ContactsAction.deleteSdcardContactsVCF();
         ContactsAction.launchContacts();
+        //删除所有联系人
         ContactsAction.deleteAll();
         ContactsAction.addContactFromContent();
         ContactsAction.exportToSdcard(true);
-        ContactsAction.delAllContactFromContent();
+        //ContactsAction.delAllContactFromContent();
+        ContactsAction.launchContacts();
+        //删除所有联系人
+        ContactsAction.deleteAll();
+        //导入cvf文件联系人
         ContactsAction.importFromSdcard();
+    }
+    @Test
+    public void testA(){
+
     }
 }

@@ -4,6 +4,8 @@ package doro.page;
  * Created by qiang.zhang on 2017/1/12.
  */
 public class MessagePage {
+    public static final String MSG="Mess\u200Bages";
+    public static final String pkg="com.doro.apps.messages";
     //no message here
     public static final String HEADER_ICON_ID="com.doro.apps.messages:id/header_icon";
     public static final String HEADER_TITLE_ID="com.doro.apps.messages:id/header_title";
@@ -33,6 +35,15 @@ public class MessagePage {
     public static final String TO_WHOM_PICK_KEYPAD_ID="com.doro.apps.intentions:id/numeric_keypad_action_label";
     //删除按钮
     public static final String TO_WHOM_DELETE_BTN_ID="com.doro.apps.intentions:id/deleteButton";
+    //close button
+    public static final String MENU_CLOSE_ID="com.doro.apps.messages:id/menu_close";
+    //msg edit text
+    public static final String COMPOSE_MSG_EDIT_TEXT_ID="com.doro.apps.messages:id/compose_message_text";
+    //send msg button
+    public static final String SEND_MSG_BUTTON_ID="com.doro.apps.messages:id/neo_command_button";
+    //after send，msg list
+    public static final String MSG_TEXT_ID="com.doro.apps.messages:id/message_text";
+    public static final String MSG_STATUS_ID="com.doro.apps.messages:id/message_status";
 
 
 

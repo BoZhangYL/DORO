@@ -550,7 +550,16 @@ public class ContactsAction extends VP4 {
         logger.info("getFileList-"+files.length);
         return  files;
     }
+    public static void initContactFolder(){
+        File f = new File("/mnt/m_external_sd");
+        if (f.exists()){
+            new File("/mnt/m_external_sd/Contacts/").mkdirs();
+        }else {
+            new File("/mnt/sdcard/Contacts/").mkdirs();
+        }
+    }
     public static void deleteSdcardContactsVCF() throws Exception {
+        initContactFolder();
         MainAction.stopFileManager();
         MainAction.startFileManager();
         FileManagerAction fm = new FileManagerAction();
@@ -610,8 +619,7 @@ public class ContactsAction extends VP4 {
         clickById(ContactsPage.DELETE_CONTACT_CONFIREM_ID);
         clickByIdText(ContactsPage.DELETE_CONTACT_CONFIREM_POP_TEXT_ID, "OK");
         //等待删除完成
-        waitUntilFind(ContactsPage.FIREST_TEXT_ID,60000);
-        Assert.assertEquals("no contacts",true,id_exists(ContactsPage.FIREST_TEXT_ID));
+        waitUntilFind(ContactsPage.COMMAND_TEXT_VIEW_BTN_ID,60000);
     }
     public void exportFromMobileToSim() {
 
