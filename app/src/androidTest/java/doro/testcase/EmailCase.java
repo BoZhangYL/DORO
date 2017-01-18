@@ -1,6 +1,7 @@
 package doro.testcase;
 
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 
 import org.hamcrest.Asst;
@@ -14,6 +15,7 @@ import ckt.base.VP4;
 import doro.action.EmailAction;
 import doro.action.MainAction;
 import doro.page.APPMenuPage;
+import doro.page.EmailPage;
 
 /**
  * Created by Caibing.Yin on 2017/1/14.
@@ -26,6 +28,7 @@ public class EmailCase extends VP4 {
     }
 
     @Test
+    //
     public void testEnterEmail() throws UiObjectNotFoundException {
         MainAction.startApp(APPMenuPage.AppNameList[14]);
         Asst.assertTrue(text_exists("Email address"));
@@ -44,8 +47,18 @@ public class EmailCase extends VP4 {
         clickByText("OK");
     }
     @Test
-    public void test() throws IOException, UiObjectNotFoundException {
-        EmailAction.LogInEmail();
-        
+    //新建邮件并发送成功
+    public void testCreateNewEmailAndRecieveSuccessfully() throws IOException, UiObjectNotFoundException {
+        //给woshihouzi2016@gmail.com发送一封新邮件
+        EmailAction.CreateNewEmail("TestCreateNewEmail","CreateSuccessfully","woshihouzi2016@gmail.com");
+        //登录woshihouzi2016@gmail.com账号查看是否收到新邮件
+        EmailAction.LogInEmail("woshihouzi2016@gmail.com","woshidoubi","");
+        gDevice.pressBack();
+
+    }
+
+    @Test
+    public void testA() throws UiObjectNotFoundException, IOException {
+        EmailAction.LogInEmail("woshihouzi2016@gmail.com", "woshidoubi", "");
     }
 }
