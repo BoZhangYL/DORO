@@ -132,6 +132,7 @@ public class EmailAction extends VP4 {
      * 内容Email_Body的新邮件给收件人TargetAddress
      * */
     public static void CreateNewEmailToAddress(String SendEmailAccount, String SendEmailPassword, String Email_Subject,String Email_Body, String TargetAddress) throws IOException, UiObjectNotFoundException {
+        //发件人账号登录
         EmailAction.LogInEmail(SendEmailAccount,SendEmailPassword,"");
         gDevice.pressBack();
         clickById(EmailPage.EMAIL_WRITE_EMAIL);
