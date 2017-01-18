@@ -1,6 +1,11 @@
 package doro.action;
 
+import android.support.test.uiautomator.By;
+import android.support.test.uiautomator.BySelector;
+import android.support.test.uiautomator.UiObject;
+import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiObjectNotFoundException;
+import android.support.test.uiautomator.UiSelector;
 
 import java.io.IOException;
 import java.util.Random;
@@ -9,11 +14,15 @@ import ckt.base.VP4;
 import doro.page.APPMenuPage;
 import doro.page.EmailPage;
 
+import static doro.page.EmailPage.EMAIL_INPUT_OK_BUTTON;
+import static doro.page.EmailPage.EMAIL_WRITE_EMAIL;
+
 /**
  * Created by Caibing.Yin on 2017/1/14.
  */
 
 public class EmailAction extends VP4 {
+    //产生一个随机邮箱账号
     public static String reduceRandomEmail(int length) {
         int count=(int)(3+Math.random()*(length-3));
         int count1=(int)(1+Math.random()*(count-3));
@@ -40,21 +49,105 @@ public class EmailAction extends VP4 {
         System.out.println(randomEmail);
         return randomEmail;
     }
-    //退出邮箱账号
-    public static void LogInEmail() throws UiObjectNotFoundException, IOException {
+    //判断邮箱账号是否已经登录
+    public static Boolean IsExist_Email_account(String EmailAccount) throws UiObjectNotFoundException {
+        MainAction.startApp(APPMenuPage.AppNameList[15]);
+        waitTime(2);
+        if(text_exists("You can set up your account in just a few steps."))
+            return false;
+        clickById(EmailPage.EMAIL_I_WANT_TO);
+        clickByText("Manage accounts");
+        return text_exists(EmailAccount);
+    }
+    //登录邮箱账号
+    public static void LogInEmail(String account,String password,String nickname) throws UiObjectNotFoundException, IOException {
         MainAction.killAppByPackage(APPMenuPage.PkgNameList[15]);
         MainAction.startApp(APPMenuPage.AppNameList[15]);
         waitTime(3);
-        if(text_exists("You can set up your account in just a few steps.")){
-            getObject2ById(EmailPage.EMAIL_ACCOUNT_INPUT).setText("cktfalcontest@gmail.com");
+        if(!EmailAction.IsExist_Email_account(account)){
+            clickByText("Add account");
+            getObject2ById(EmailPage.EMAIL_ACCOUNT_INPUT).setText(account);
             waitUntilFind(EmailPage.EMAIL_INPUT_OK_TEXT,2000);
             clickById(EmailPage.EMAIL_INPUT_OK_TEXT);
-            waitUntilFind(EmailPage.EMAIL_PASSWORD_INPUT,8000);
-            getObject2ById(EmailPage.EMAIL_PASSWORD_INPUT).setText("falcon@ckt2014");
+            waitUntilFind(EmailPage.EMAIL_PASSWORD_INPUT,10000);
+            getObject2ById(EmailPage.EMAIL_PASSWORD_INPUT).setText(password);
             clickById(EmailPage.EMAIL_INPUT_OK_BUTTON);
-            //EMAIL程序崩溃，暂时不忙写
-
+            waitTime(10);
+            clickById(EmailPage.EMAIL_INPUT_OK_BUTTON);
+            waitTime(5);
+            getObject2ById(EmailPage.EMAIL_ACCOUNT_NAME).setText(nickname);
+            clickById(EmailPage.EMAIL_INPUT_OK_BUTTON);
         }
     }
-
+    //退出所有邮箱账号
+    public static void LogOutEmail() throws UiObjectNotFoundException {
+        MainAction.killAppByPackage(APPMenuPage.PkgNameList[15]);
+        MainAction.startApp(APPMenuPage.AppNameList[15]);
+        waitTime(2);
+        if(id_exists(EmailPage.EMAIL_WRITE_EMAIL)) {
+            gDevice.pressHome();
+            openAppliction("Settings");
+            UiObject account = scrollAndGetUIObject("Accounts");
+            account.click();
+            UiObject mail = getLinearLayout(0,"android.widget.LinearLayout","android.widget.ImageView");
+            mail.click();
+            clickById(EmailPage.EMAIL_ICON_FRAME);
+            clickByDescription("More options");
+            clickByText("Remove account");
+            clickById(EmailPage.EMAIL_REMOVEACCOUNT);
+            if(!text_exists("Add account")){
+                clickById(EmailPage.EMAIL_ICON_FRAME);
+                clickByDescription("More options");
+                clickByText("Remove account");
+                clickById(EmailPage.EMAIL_REMOVEACCOUNT);
+            }
+        }
+        gDevice.pressHome();
+    }
+    /**
+     * 发送一封主题为Email_Subject，内容为Email_Body的新邮件给收件人TargetAddress
+     * */
+    public static void CreateNewEmail(String Email_Subject,String Email_Body,String TargetAddress) throws IOException, UiObjectNotFoundException {
+        EmailAction.LogInEmail("chengduxike@hotmail.com","falcon@ckt2015","");
+        gDevice.pressBack();
+        clickById(EmailPage.EMAIL_WRITE_EMAIL);
+        waitUntilFind(EmailPage.EMAIL_ADDRESS,4000);
+        clickById(EmailPage.EMAIL_ADDRESS);
+        //设置发送的地址
+        waitTime(2);
+        findObject(EmailPage.EMAIL_ADDRESS_INPUT).setText(TargetAddress);
+        clickById(EmailPage.EMAIL_ADDRESS_CONFIRM);
+        //设置邮件主题
+        waitTime(2);
+        findObject(EmailPage.EMAIL_SUBJECT).setText(Email_Subject);
+        //设置邮件内容
+        waitTime(2);
+        findObject(EmailPage.EMAIL_BODY).setText(Email_Body);
+        clickById(EmailPage.EMAIL_SEND);
+        waitTime(3);
+    }
+    /**
+     * 根据发件人账号SendEmailAccount，密码SendEmailPassword，
+     * 发送一封主题为Email_Subject，
+     * 内容Email_Body的新邮件给收件人TargetAddress
+     * */
+    public static void CreateNewEmailToAddress(String SendEmailAccount, String SendEmailPassword, String Email_Subject,String Email_Body, String TargetAddress) throws IOException, UiObjectNotFoundException {
+        EmailAction.LogInEmail(SendEmailAccount,SendEmailPassword,"");
+        gDevice.pressBack();
+        clickById(EmailPage.EMAIL_WRITE_EMAIL);
+        waitUntilFind(EmailPage.EMAIL_ADDRESS,4000);
+        clickById(EmailPage.EMAIL_ADDRESS);
+        //设置发送的地址
+        waitTime(2);
+        findObject(EmailPage.EMAIL_ADDRESS_INPUT).setText(TargetAddress);
+        clickById(EmailPage.EMAIL_ADDRESS_CONFIRM);
+        //设置邮件主题
+        waitTime(2);
+        findObject(EmailPage.EMAIL_SUBJECT).setText(Email_Subject);
+        //设置邮件内容
+        waitTime(2);
+        findObject(EmailPage.EMAIL_BODY).setText(Email_Body);
+        clickById(EmailPage.EMAIL_SEND);
+        waitTime(3);
+    }
 }
