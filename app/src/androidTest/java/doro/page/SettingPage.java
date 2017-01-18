@@ -4,8 +4,12 @@ package doro.page;
  * Created by elon on 2016/12/1.
  */
 public class SettingPage {
-    public static final String BLUETOOTH_SWITCH="com.android.settings:id/switch_widget";
 
+
+    //设置中的“Storage”的Text
+    public static final String SETTINGS_STORAGE_TEXT ="Storage";
+    //""中“Storage settings”的设置
+    public static final String SETTINGS_STORAGE_SETTINGS_TEXT ="Storage settings";
     //设置中的“Date&Time”的Text
     public static final String SETTINGS_DATE_TIME_TEXT ="Date & time";
     //“Date&Time”中“Automatic date & time”的Text
@@ -46,6 +50,11 @@ public class SettingPage {
     //时间设置中的时间“min”的ID
     public static final String SETTINGS_TIME_MINUTES_ID ="android:id/minutes";
 
+    //存储设置中的Class
+    public static final String SETTINGS_STORAGE_RECYCLERVIEWER_CLASS ="android.support.v7.widget.RecyclerView";
+    public static final String SETTINGS_STORAGE_LINEARLAYOUT_CLASS ="android.widget.LinearLayout";
+    //存储设置中默认设置的按钮的Class
+    public static final String SETTINGS_STORAGE_RADIOBUTTON_CLASS="android.widget.RadioButton";
     //日期设置中的“天”的Class
     public static final String SETTING_DATE_DAY_VIEW_CLASS ="android.view.View";
     //时间设置中的“hour”与“mins”的Class

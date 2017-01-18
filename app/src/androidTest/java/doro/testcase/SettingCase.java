@@ -13,11 +13,17 @@ import doro.action.SettingAction;
  */
 @RunWith(AndroidJUnit4.class)
 public class SettingCase extends VP4 {
+    SettingAction SettingAction = new SettingAction();
     @Test
-    public void testa(){
+    public void setSorageSD(){ //设置默认存储为SD卡
         openAppliction("Settings"); //找到设置应用
-        new SettingAction().dateAndTime(); //找到时间设置
-        new SettingAction().whatProvidedTime(0);//使用自定义时间
-        new SettingAction().setDate("2013-12-31");
+        SettingAction.setStorageIsSD(true); //设置默认存储为SD卡
+        SettingAction.CheckStorageIsSD(true); //检查默认设置是否为SD卡
+    }
+    @Test
+    public void setSoragePhone(){ //设置默认存储为Phone
+        openAppliction("Settings"); //找到设置应用
+        SettingAction.setStorageIsSD(false); //设置默认存储为Phone
+        SettingAction.CheckStorageIsSD(false); //检查默认设置是否为Phone
     }
 }
