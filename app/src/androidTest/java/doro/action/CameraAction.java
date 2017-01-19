@@ -195,7 +195,7 @@ public class CameraAction extends VP4{
     public static void manualFocus(){
         try {
             CenterFocusArea.click();
-            waitTime(3);
+            waitTime(5);
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -207,7 +207,7 @@ public class CameraAction extends VP4{
        PhotosNumber = getAllPhotoNumbers();
        try {
            CaptureButton.click();
-           waitTime(2);
+           waitTime(5);
        } catch (UiObjectNotFoundException e) {
            e.printStackTrace();
        }
