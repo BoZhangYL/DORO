@@ -54,6 +54,7 @@ public class VP4 extends VP2 {
         }
     }
     public static void openAppliction(String AppName){//打开应用
+        String  FinallyAppName = "YouTube";
         UiObject SearchBox = getObjectById("com.doro.apps.launcher3:id/search_box_input");
         UiCollection APPList = new UiCollection(new UiSelector().
                 resourceId("com.doro.apps.launcher3:id/apps_list_view"));
@@ -78,18 +79,19 @@ public class VP4 extends VP2 {
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
-        while(!getObjectByIdText(LAUNCH3_APP, AppName).exists()){
+        while(!getObjectByIdText(LAUNCH3_APP, AppName).exists() && !
+                getObjectByText(FinallyAppName).exists()){
                 gDevice.swipe(x0,y0,x1,y1,10);
             try {
                 boolean isBootm = (APPList.getChildByInstance(Apps,APPList.
                         getChildCount(Apps)-1).getContentDescription()).equals(name);
-                Asst.assertTrue("在应用列表没有找到应用",!isBootm);
                 name =APPList.getChildByInstance(Apps,APPList.getChildCount(Apps)-1).getContentDescription();
             } catch (UiObjectNotFoundException e1) {
                 e1.printStackTrace();
             }
         }
         try {
+            Asst.assertTrue("在应用列表没有找到应用",getObjectByIdText(LAUNCH3_APP, AppName).exists());
             getObjectByIdText(LAUNCH3_APP, AppName).clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
