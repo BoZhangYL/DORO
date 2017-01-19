@@ -33,6 +33,26 @@ public class DownloadsPage {
     //APP的修改时间resource id
     public static final String DOWNLOADS_APPS_SIZE="com.android.documentsui:id/size";
     //APP的大小resource id
+    public static final String DOWNLOADS_MOREOPTIONS_DESC="More options";
+    //More options的Description
+    public static final String DOWNLOADS_SHOWFILESIZE="Show file size";
+    //Show file size的Text
+    public static final String DOWNLOADS_SHOWFILESIZE_ID="android:id/title";
+    //Show file siz的resource id
+    public static final String DOWNLOADS_LISTVIEW="ListView";
+    //ListView
+    public static final String DOWNLOADS_LISTVIEW_ID="com.android.documentsui:id/menu_list";
+    //ListView的resource id
+    public static final String DOWNLOADS_LISTVIEW_CLASS="android.widget.LinearLayout";
+    //ListView的class
+    public static final String DOWNLOADS_GRIDVIEW="GridView";
+    //GridView
+    public static final String DOWNLOADS_GRIDVIEW_ID="com.android.documentsui:id/menu_grid";
+    //GridView的resource id
+    public static final String DOWNLOADS_GRIDVIEW_CLASS="android.widget.RelativeLayout";
+    //GridView的class
+
+
 
 
 
