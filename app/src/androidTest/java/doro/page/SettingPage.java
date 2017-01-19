@@ -6,6 +6,12 @@ package doro.page;
 public class SettingPage {
 
 
+    //设置中的“Apps”的Text
+    public static final String SETTINGS_APPS_TEXT ="Apps";
+    //设置中的“Apps”下“Configure apps”的Text
+    public static final String SETTINGS_CONFIGURE_APPS_TEXT ="Configure apps";
+    //设置中的“Apps”下“App info”的Text
+    public static final String SETTINGS_APP_INFO_TEXT ="App info";
     //设置中的“Storage”的Text
     public static final String SETTINGS_STORAGE_TEXT ="Storage";
     //""中“Storage settings”的设置
@@ -36,6 +42,10 @@ public class SettingPage {
     public static final String SETTINGS_CHOOSE_24HOUR_FORMAT_TEXT ="13:00";
 
 
+    //设置中列表选项的ID
+    public static final String SETTINGS_TITLE_ID ="android:id/title";
+    //设置中App的设置按钮的ID
+    public static final String SETTINGS_APPS_ADVANCED_ID ="com.android.settings:id/advanced";
     //日期设置中“year”的ID
     public static final String SETTINGS_DATE_HEADER_YEAR_ID ="android:id/date_picker_header_year";
     //日期设置中“date”的ID

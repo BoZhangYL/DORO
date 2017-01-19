@@ -132,6 +132,9 @@ public class GalleryPage {
 
     public static final String GALLERY_SINGLE_VIDEO_OPTION_DELETE_VIDEO ="Delete this video";
 
+    public static final String GALLERY_SINGLE_VIDEO_OPTION_REMOVE_FOVOURITR =
+            "Remove from favourites";
+
 
 
 

@@ -26,4 +26,18 @@ public class SettingCase extends VP4 {
         SettingAction.setStorageIsSD(false); //设置默认存储为Phone
         SettingAction.CheckStorageIsSD(false); //检查默认设置是否为Phone
     }
+    @Test
+    public void viewConfigureApps(){
+        openAppliction("Settings"); //找到设置应用
+        SettingAction.apps(); //找到Apps
+        SettingAction.configureApps();//进入Apps的配置界面
+        SettingAction.CheckConfigureApps();//检查已经进入了配置界面
+    }
+    @Test
+    public void viewAppInfo(){
+        openAppliction("Settings"); //找到设置应用
+        SettingAction.apps(); //找到Apps
+        SettingAction.appsInfo(1);//进入第一个应用
+        SettingAction.CheckAppsInfo();
+    }
 }

@@ -61,7 +61,6 @@ public class VP4 extends VP2 {
         UiSelector Apps = new UiSelector().resourceId("com.doro.apps.launcher3:id/icon");
         String name =null;
         int x0=0,y0=0,x1=0,y1=0;
-        switchToApplistPage();
         try {
             switchToApplistPage();
             if(!SearchBox.getText().equals("Search Apps…")){
@@ -174,8 +173,10 @@ public class VP4 extends VP2 {
         initDevice();
         try {
             UiScrollable scr = new UiScrollable(new UiSelector().scrollable(true));
-            scr.setAsVerticalList();
-            scr.scrollToBeginning(steps);
+            if (scr.exists()){
+                scr.setAsVerticalList();
+                scr.scrollToBeginning(steps);
+            }
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
