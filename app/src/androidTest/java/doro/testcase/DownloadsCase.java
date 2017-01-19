@@ -12,6 +12,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import doro.action.DownloadsAction;
 
@@ -23,7 +27,6 @@ import static doro.page.DownloadsPage.*;
  */
 
 @RunWith(AndroidJUnit4.class)
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DownloadsCase extends DownloadsAction {
     @BeforeClass
     public static void initDownloads(){
@@ -34,7 +37,7 @@ public class DownloadsCase extends DownloadsAction {
     public void testEnterDownloads()throws UiObjectNotFoundException{
         openAppliction(DOWNLOADS);
         Assert.assertEquals("没有进入Downloads",DOWNLOADS,getObjectByClass(DOWNLOADS_CLASS).getText());
-        Assert.assertTrue("请下载一些应用程序！",!getObjectByText("Doro 8042").exists());//检查是否已下载有程序
+        Assert.assertTrue("请下载一些文件！",!getObjectByText("Doro 8042").exists());//检查是否已下载有程序
     }
 
     @Test
@@ -52,76 +55,36 @@ public class DownloadsCase extends DownloadsAction {
     public void testSortByName(){
         openAppliction(DOWNLOADS);
         sortBy(DOWNLOADS_SORTBY_NAME);//点击姓名排序
-        checkSoryBy(DOWNLOADS_SORTBY_NAME);//检查下载文件按姓名排序
+        checkSortBy(DOWNLOADS_SORTBY_NAME);//检查下载文件按姓名排序
     }
 
     @Test
     public void testSortByDateModified(){
         openAppliction(DOWNLOADS);
         sortBy(DOWNLOADS_SORTBY_DATEMODIFIED);//点击修改时间排序
-        checkSoryBy(DOWNLOADS_SORTBY_DATEMODIFIED);//检查下载文件修改时间排序
-    }
-
-   /* @Test
-    public void testSortBySize(){
-
-        System.out.println(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS));
-        File downfiles = new File(Environment.getExternalStorageDirectory()+"/Download/");
-        System.out.println(Environment.getExternalStorageDirectory()+"/Download/");
-        String [] file=downfiles.list();
-        for(int i=0 ;i<file.length;i++) {
-            System.out.println(file[i]);
-        }
-
-
+        checkSortBy(DOWNLOADS_SORTBY_DATEMODIFIED);//检查下载文件修改时间排序
     }
 
     @Test
-    public void testGridView(){
-
+    public void testSortBySize(){
+        openAppliction(DOWNLOADS);
+        showFileSize();//打开显示下载文件大小
+        sortBy(DOWNLOADS_SORTBY_SIZE);//点击按大小排序
+        checkSortBy(DOWNLOADS_SORTBY_SIZE);//检查下载文件大小排序
     }
+
+   @Test
+    public void testGridView(){
+       openAppliction(DOWNLOADS);
+       viewBy(DOWNLOADS_GRIDVIEW);//点击网格查看
+       checkViewBy(DOWNLOADS_GRIDVIEW);//检查网格显示
+   }
 
     @Test
     public void testListView(){
-
-    }*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        openAppliction(DOWNLOADS);
+        viewBy(DOWNLOADS_LISTVIEW);//点击列表查看
+        checkViewBy(DOWNLOADS_LISTVIEW);//检查列表显示
+    }
 
 }

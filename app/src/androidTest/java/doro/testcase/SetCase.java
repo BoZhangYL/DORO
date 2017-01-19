@@ -2,6 +2,7 @@ package doro.testcase;
 
 import org.junit.Test;
 
+import doro.action.GalleryAction;
 import doro.action.SetAction;
 
 import static doro.page.SetPage.SET_ALARM_VALUE_ID;
@@ -69,15 +70,19 @@ public class SetCase {
         setAction.autoTime(true);
     }
     @Test
-    public void setTimeFormat12(){
+    public void setTimeFormat12(){ //12小时制
         setAutoTime();
         setAction.setTimeFormat(SET_TIME_FORMAT_12_TEXT);//采用12小时制
         setAction.checkTimeFormat(12);
     }
     @Test
-    public void setTimeFormat24(){
+    public void setTimeFormat24(){ //24小时制
         setAutoTime();
         setAction.setTimeFormat(SET_TIME_FORMAT_24_TEXT);//采用24小时制
         setAction.checkTimeFormat(24);
+    }
+    @Test
+    public void setWallpaper(){
+        GalleryAction.launchGalleryFromAppList();
     }
 }

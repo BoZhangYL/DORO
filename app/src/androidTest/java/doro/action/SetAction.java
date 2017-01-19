@@ -258,7 +258,7 @@ public class SetAction extends VP4{
             Assert.assertTrue("音量没有调节成功",x==z);
         }catch(Exception e){e.printStackTrace();}
     }
-    public void checkScreenTimeout(double min){
+    public void checkScreenTimeout(double min){ //检查屏幕是否灭屏
         try{
             mDevice.sleep();
             Thread.sleep(5);
@@ -268,7 +268,7 @@ public class SetAction extends VP4{
             Assert.assertFalse("屏幕没有关闭",mDevice.isScreenOn());
         }catch(Exception e){e.printStackTrace();}
     }
-    public void checkTimeFormat(int timeformat){
+    public void checkTimeFormat(int timeformat){ //检查手机设置的时间格式
         try{
             getObjectByText(SET_DATE_AND_TIME_TEXT).clickAndWaitForNewWindow();
             autoTime(false);
@@ -279,6 +279,5 @@ public class SetAction extends VP4{
                 Assert.assertFalse("没有改变成为24小时制",format);
             }
         }catch(Exception e){e.printStackTrace();}
-
     }
 }
