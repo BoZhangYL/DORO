@@ -6,6 +6,13 @@ package doro.page;
 public class SettingPage {
 
 
+    //设置主界面 的Text
+    public static final String SETTINGS_HOME_TEXT ="Settings Home";
+    //设置下蓝牙状态的Text
+    public static final String SETTINGS_BLUETOOTHSWITCH_TEXT ="com.android.settings:id/switch_text";
+    //飞行模式打开下的Text
+    public static final String SETTINGS_FLIGHTMODE_ON_TEXT ="Flight mode is on";
+    public static final String SETTINGS_FLIGHTMODE_TURNOFF_TEXT ="TURN OFF";
     //设置中的“Apps”的Text
     public static final String SETTINGS_APPS_TEXT ="Apps";
     //设置中的“Apps”下“Configure apps”的Text
@@ -63,6 +70,12 @@ public class SettingPage {
     //存储设置中的Class
     public static final String SETTINGS_STORAGE_RECYCLERVIEWER_CLASS ="android.support.v7.widget.RecyclerView";
     public static final String SETTINGS_STORAGE_LINEARLAYOUT_CLASS ="android.widget.LinearLayout";
+    //Apps设置中“App info”下的Class
+    public static final String SETTINGS_WIDGET_LISTVIEW_CLASS ="android.widget.ListView";
+    public static final String SETTINGS_WIDGET_LINEARLAYOUT_CLASS ="android.widget.LinearLayout";
+    //设置下More下的Switch开关的class
+    public static final String SETTINGS_WIDGET_SWITCH_CLASS ="android.widget.Switch";
+    public static final String SETTINGS_WIDGET_IMAGEBUTTON_CLASS ="android.widget.ImageButton";
     //存储设置中默认设置的按钮的Class
     public static final String SETTINGS_STORAGE_RADIOBUTTON_CLASS="android.widget.RadioButton";
     //日期设置中的“天”的Class

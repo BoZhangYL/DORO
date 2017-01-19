@@ -9,6 +9,7 @@ import static doro.page.SettingPage.SETTINGS_APPS_TEXT;
 import static doro.page.SettingPage.SETTINGS_APP_INFO_TEXT;
 import static doro.page.SettingPage.SETTINGS_AUTOMATIC_DATETIME_TEXT;
 import static doro.page.SettingPage.SETTINGS_AUTO_TIME_ZONE_TEXT;
+import static doro.page.SettingPage.SETTINGS_BLUETOOTHSWITCH_TEXT;
 import static doro.page.SettingPage.SETTINGS_CHOOSE_12HOUR_FORMAT_TEXT;
 import static doro.page.SettingPage.SETTINGS_CHOOSE_24HOUR_FORMAT_TEXT;
 import static doro.page.SettingPage.SETTINGS_CONFIGURE_APPS_TEXT;
@@ -18,9 +19,9 @@ import static doro.page.SettingPage.SETTINGS_DATE_MONTH_NEXT_ID;
 import static doro.page.SettingPage.SETTINGS_DATE_MONTH_PREV_ID;
 import static doro.page.SettingPage.SETTINGS_DATE_TIME_TEXT;
 import static doro.page.SettingPage.SETTINGS_DATE_YEAR_TEXT1_ID;
-import static doro.page.SettingPage.SETTINGS_GPS_PROVIDED_TEXT;
-import static doro.page.SettingPage.SETTINGS_NETWORK_PROVIDED_TIME_TEXT;
-import static doro.page.SettingPage.SETTINGS_OFF_TEXT;
+import static doro.page.SettingPage.SETTINGS_FLIGHTMODE_ON_TEXT;
+import static doro.page.SettingPage.SETTINGS_FLIGHTMODE_TURNOFF_TEXT;
+import static doro.page.SettingPage.SETTINGS_HOME_TEXT;
 import static doro.page.SettingPage.SETTINGS_SELECT_TIME_ZONE_TEXT;
 import static doro.page.SettingPage.SETTINGS_SET_DATE_OK_TEXT;
 import static doro.page.SettingPage.SETTINGS_SET_DATE_TEXT;
@@ -34,6 +35,10 @@ import static doro.page.SettingPage.SETTINGS_TIME_HOURS_ID;
 import static doro.page.SettingPage.SETTINGS_TIME_MINUTES_ID;
 import static doro.page.SettingPage.SETTINGS_TITLE_ID;
 import static doro.page.SettingPage.SETTINGS_USE_24HOUR_FORMAT_TEXT;
+import static doro.page.SettingPage.SETTINGS_WIDGET_IMAGEBUTTON_CLASS;
+import static doro.page.SettingPage.SETTINGS_WIDGET_LINEARLAYOUT_CLASS;
+import static doro.page.SettingPage.SETTINGS_WIDGET_LISTVIEW_CLASS;
+import static doro.page.SettingPage.SETTINGS_WIDGET_SWITCH_CLASS;
 import static doro.page.SettingPage.SETTING_DATE_DAY_VIEW_CLASS;
 import static doro.page.SettingPage.SETTING_HOUR_TOUCHHELPER_CLASS;
 import static java.lang.Integer.parseInt;
@@ -43,13 +48,63 @@ import static java.lang.Integer.parseInt;
  */
 public class SettingAction extends VP4 {
 
+    public void bluetooth(boolean bluetooth){ //打开或者关闭蓝牙
+        try{
+            String status =getObjectByText(SETTINGS_BLUETOOTHSWITCH_TEXT).getText();
+            if(bluetooth){
+                if(status.equals("Off")){
+                    getObjectByText(SETTINGS_BLUETOOTHSWITCH_TEXT).click();
+                }
+            }else{
+                if(status.equals("On")){
+                    getObjectByText(SETTINGS_BLUETOOTHSWITCH_TEXT).click();
+                }
+            }
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void mobileData(boolean data){ //开启或者关闭流量
+        try{
+            String status =getObjectByClass(SETTINGS_WIDGET_SWITCH_CLASS).getText();
+            if(data){
+                if(status.equals("OFF")){
+                    getLinearLayout(5,SETTINGS_STORAGE_RECYCLERVIEWER_CLASS,
+                            SETTINGS_STORAGE_LINEARLAYOUT_CLASS).click();
+                }
+            }else{
+                if(status.equals("ON")){
+                    getLinearLayout(5,SETTINGS_STORAGE_RECYCLERVIEWER_CLASS,
+                            SETTINGS_STORAGE_LINEARLAYOUT_CLASS).click();
+                }
+            }
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void switchFlightMode(boolean flightMode){ //开启或者关闭飞行模式
+        try{
+            String status =getLinearLayout(0,SETTINGS_WIDGET_LINEARLAYOUT_CLASS,
+                    SETTINGS_WIDGET_SWITCH_CLASS).getText();
+            if(flightMode){
+                if(status.equals("OFF")){
+                    getLinearLayout(0,SETTINGS_STORAGE_RECYCLERVIEWER_CLASS,
+                            SETTINGS_STORAGE_LINEARLAYOUT_CLASS).click();
+                }
+            }else{
+                if(status.equals("ON")){
+                    getLinearLayout(0,SETTINGS_STORAGE_RECYCLERVIEWER_CLASS,
+                            SETTINGS_STORAGE_LINEARLAYOUT_CLASS).click();
+                }
+            }
+        }catch(Exception e){e.printStackTrace();}
+    }
+
     public void storageIsSD(boolean sdCard){ //设置手机的存储位置是否为SD
         try{
             if(getObjectByText(SETTINGS_STORAGE_SETTINGS_TEXT).exists()){
                 if(sdCard){
-                    getLinearLayout(2,SETTINGS_STORAGE_RECYCLERVIEWER_CLASS,SETTINGS_STORAGE_LINEARLAYOUT_CLASS).click();
+                    getLinearLayout(2,SETTINGS_STORAGE_RECYCLERVIEWER_CLASS,
+                            SETTINGS_STORAGE_LINEARLAYOUT_CLASS).click();
                 }else{
-                    getLinearLayout(1,SETTINGS_STORAGE_RECYCLERVIEWER_CLASS,SETTINGS_STORAGE_LINEARLAYOUT_CLASS).click();
+                    getLinearLayout(1,SETTINGS_STORAGE_RECYCLERVIEWER_CLASS,
+                            SETTINGS_STORAGE_LINEARLAYOUT_CLASS).click();
                 }
             }else{
                 System.out.println("The phone don't have the SD card ");
@@ -72,40 +127,18 @@ public class SettingAction extends VP4 {
             getObjectByIdText(id,childName).clickAndWaitForNewWindow();
         } catch (Exception e) {e.printStackTrace();}
     }
-
-    public void whatProvidedTime(int style) {
-        //选择使用什么方式提供时间：0：个人设置；1：网络提供时间；2：GPS提供时间。
-        try {
-            switch (style) {
-                case 1:
-                    if (getUiObjectByText(SETTINGS_NETWORK_PROVIDED_TIME_TEXT).exists()) {
-                        Thread.sleep(500);
-                        break;
-                    } else {
-                        getObjectByTextContains(SETTINGS_AUTOMATIC_DATETIME_TEXT).clickAndWaitForNewWindow();
-                        getObjectByTextContains(SETTINGS_NETWORK_PROVIDED_TIME_TEXT).click();
-                        break;
-                    }
-                case 2:
-                    if (getObjectByTextContains(SETTINGS_GPS_PROVIDED_TEXT).exists()) {
-                        Thread.sleep(500);
-                        break;
-                    } else {
-                        getObjectByTextContains(SETTINGS_AUTOMATIC_DATETIME_TEXT).clickAndWaitForNewWindow();
-                        getObjectByTextContains(SETTINGS_GPS_PROVIDED_TEXT).click();
-                        break;
-                    }
-                default:
-                    if (getObjectByTextContains(SETTINGS_OFF_TEXT).exists()) {
-                        Thread.sleep(500);
-                        break;
-                    } else {
-                        getObjectByTextContains(SETTINGS_AUTOMATIC_DATETIME_TEXT).clickAndWaitForNewWindow();
-                        getObjectByTextContains(SETTINGS_OFF_TEXT).click();
-                        break;
-                    }
+    public void useNetworkTime(boolean status){ //选择是否使用网络提供的时间.true:是；
+        try{
+            if(status){
+                if(getUiObjectByText(SETTINGS_SET_DATE_TEXT).isEnabled()){
+                    getUiObjectByText(SETTINGS_AUTOMATIC_DATETIME_TEXT).click();
+                }
+            }else{
+                if(!getUiObjectByText(SETTINGS_SET_DATE_TEXT).isEnabled()){
+                    getUiObjectByText(SETTINGS_AUTOMATIC_DATETIME_TEXT).click();
+                }
             }
-        } catch (Exception e) {e.printStackTrace();}
+        }catch(Exception e){e.printStackTrace();}
     }
     public void setNextDay(){//设置成下一天
         try{
@@ -169,7 +202,7 @@ public class SettingAction extends VP4 {
     }
     private void setTime(String time){ //设置时间
         try{
-            whatProvidedTime(0);
+            useNetworkTime(false);
             getUiObjectByText(SETTINGS_SET_TIME_TEXT).clickAndWaitForNewWindow();
             String[] times =time.split(":");
             int hour = Integer.valueOf(times[0]);
@@ -260,12 +293,73 @@ public class SettingAction extends VP4 {
     public void appsInfo(int x){ //进入Apps下的第X个 配置App info界面
         try{
             if(getObjectByText(SETTINGS_APPS_TEXT).exists()){
-                getLinearLayout(x-1,"android.widget.ListView","android.widget.LinearLayout").clickAndWaitForNewWindow();
+                getLinearLayout(x-1,SETTINGS_WIDGET_LISTVIEW_CLASS,
+                        SETTINGS_WIDGET_LINEARLAYOUT_CLASS).clickAndWaitForNewWindow();
             }
         }catch(Exception e){e.printStackTrace();}
     }
     public void CheckAppsInfo(){
         Assert.assertTrue("未进入App info",getObjectByText(SETTINGS_APP_INFO_TEXT).exists());
+    }
+    public void CheckFlightModeOnInfo(boolean flightMode ){ //检查飞行模式下的提示信息是否存在
+        try{
+            if(flightMode){
+                getObjectByClass(SETTINGS_WIDGET_IMAGEBUTTON_CLASS).click();
+                getObjectByText(SETTINGS_HOME_TEXT).clickAndWaitForNewWindow();
+                Assert.assertTrue("Flight mode info isn't on",getObjectByText(SETTINGS_FLIGHTMODE_ON_TEXT).exists());
+                getObjectByText(SETTINGS_FLIGHTMODE_ON_TEXT).click();
+                Assert.assertTrue("Don't have the Flight mode info ",getObjectByText(SETTINGS_FLIGHTMODE_TURNOFF_TEXT).exists());
+                getObjectByText(SETTINGS_FLIGHTMODE_TURNOFF_TEXT).click();
+            }else{
+                Assert.assertFalse("Flight mode info isn't off",getObjectByText(SETTINGS_FLIGHTMODE_ON_TEXT).exists());
+            }
+        }catch(Exception e){e.printStackTrace();}
+    }
+    private void wifiStatus(boolean status){ //wifi状态
+        try{
+            if(status){
+                Assert.assertTrue(1==1);
+            }else{
+                Assert.assertTrue("Wi-Fi isn't off",getObjectByText("OFF").exists());
+            }
+        }catch(Exception e){e.printStackTrace();}
+    }
+    private void bluetoothStatus(boolean status){ //飞行模式下蓝牙状态
+        try{
+            if(status){
+                Assert.assertTrue(1==1);
+            }else{
+                Assert.assertTrue("Bluetooth isn't off",getObjectByText("OFF").exists());
+            }
+        }catch(Exception e){e.printStackTrace();}
+    }
+    private void mobileDataStatus(boolean status){ //数据流量状态
+        try{
+            boolean enabled =getLinearLayout(5,SETTINGS_STORAGE_RECYCLERVIEWER_CLASS,
+                    SETTINGS_STORAGE_LINEARLAYOUT_CLASS).isEnabled();
+            if(status){
+                Assert.assertTrue("Mobiledata can't use",enabled);
+            }else{
+                Assert.assertTrue("Mobiledata can use",!enabled);
+            }
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void CheckStatus(boolean status){ //检查飞行模式下wifi，蓝牙，流量的状态
+        try{
+            getObjectByClass(SETTINGS_WIDGET_IMAGEBUTTON_CLASS).click();
+            getObjectByText(SETTINGS_HOME_TEXT).clickAndWaitForNewWindow();
+            settingChild("Wi‑Fi");
+            wifiStatus(status);
+            getObjectByClass(SETTINGS_WIDGET_IMAGEBUTTON_CLASS).click();
+            getObjectByText(SETTINGS_HOME_TEXT).clickAndWaitForNewWindow();
+            settingChild("Bluetooth");
+            bluetoothStatus(status);
+            getObjectByClass(SETTINGS_WIDGET_IMAGEBUTTON_CLASS).click();
+            getObjectByText(SETTINGS_HOME_TEXT).clickAndWaitForNewWindow();
+            settingChild("Data usage");
+            mobileDataStatus(status);
+        }catch(Exception e){e.printStackTrace();}
+
     }
     /*
 * 一些基本的关于时间日期的设置
@@ -273,33 +367,33 @@ public class SettingAction extends VP4 {
     public void setSpecialTime(String time){ //去设置中设置一个时间
         openAppliction("Settings"); //找到设置应用
         settingChild(SETTINGS_DATE_TIME_TEXT); //找到时间设置
-        whatProvidedTime(0);
+        useNetworkTime(false);//使用自定义时间
         setTime24(time);//设置手机时间
     }
     public void setSpecialDate(String date){ //去设置中设置一个日期
         openAppliction("Settings"); //找到设置应用
         settingChild(SETTINGS_DATE_TIME_TEXT); //找到时间设置
-        whatProvidedTime(0);
+        useNetworkTime(false);//使用自定义时间
         setDate(date);//设置手机日期
     }
     public void setDateTime(String date,String time){ //去设置中设置日期与时间
         openAppliction("Settings"); //找到设置应用
         settingChild(SETTINGS_DATE_TIME_TEXT); //找到时间设置
-        whatProvidedTime(0);
+        useNetworkTime(false);//使用自定义时间
         setDate(date);//设置手机日期
         setTime24(time);//设置手机时间
     }
     public void setNextdayTime(String time){ //去设置中设置下一天的时间
         openAppliction("Settings"); //找到设置应用
         settingChild(SETTINGS_DATE_TIME_TEXT); //找到时间设置
-        whatProvidedTime(0);//使用自定义时间
+        useNetworkTime(false);//使用自定义时间
         setNextDay();//更改日期为下一天
         setTime24(time);//设置手机时间为18:21
     }
     public void setSpecialWeek(String week,String time){ //去设置中特定星期
         openAppliction("Settings"); //找到设置应用
         settingChild(SETTINGS_DATE_TIME_TEXT); //找到时间设置
-        whatProvidedTime(0);//使用自定义时间
+        useNetworkTime(false);//使用自定义时间
         setWeek(week);//特定星期
         setTime24(time);//设置手机时间
     }
