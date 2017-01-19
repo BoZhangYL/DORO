@@ -34,8 +34,4 @@ public class LockScreenAction extends VP4 {
             e.printStackTrace();
         }
     }
-
-
-
-
 }

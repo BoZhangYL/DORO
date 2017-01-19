@@ -71,5 +71,4 @@ public class LockScreenCase extends LockScreenAction {
  * 如下case doro不适用
  5.背景显示（默认或自定义设置）
  */
-
 }

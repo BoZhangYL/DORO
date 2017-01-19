@@ -45,5 +45,4 @@ public class LockScreenPage {
     //Camera键
 
 
-
 }
