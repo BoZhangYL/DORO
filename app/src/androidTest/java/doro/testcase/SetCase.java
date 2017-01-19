@@ -2,7 +2,6 @@ package doro.testcase;
 
 import org.junit.Test;
 
-import doro.action.GalleryAction;
 import doro.action.SetAction;
 
 import static doro.page.SetPage.SET_ALARM_VALUE_ID;
@@ -83,6 +82,18 @@ public class SetCase {
     }
     @Test
     public void setWallpaper(){
-        GalleryAction.launchGalleryFromAppList();
+        setAction.findSet();//找到设置
+        setAction.setWallpaper(1);//设置第一张图片为壁纸
+    }
+    @Test
+    public void checkSetView(){
+        setAction.findSet();//找到设置
+        setAction.findWallpaper();//找到Wallpaper
+        setAction.CheckWallpaper();
+        setAction.findBrightness();//找到Brightness和TextSize
+        setAction.CheckBrightness();
+        setAction.CheckTextSize();
+        setAction.findScreenTimeout();//ScreenTimeout
+        setAction.CheckScreenTimeout();
     }
 }

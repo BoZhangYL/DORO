@@ -7,6 +7,7 @@ import ckt.base.VP4;
 import static doro.page.SetPage.SET_ALARM_VALUE_ID;
 import static doro.page.SetPage.SET_AN_AUDIO_OPTION_TEXT;
 import static doro.page.SetPage.SET_AUTOTIME_CHECKVIEW_ID;
+import static doro.page.SetPage.SET_CHANGE_GALLERY_TEXT;
 import static doro.page.SetPage.SET_CONFIRM_TEXT;
 import static doro.page.SetPage.SET_DATE_AND_TIME_TEXT;
 import static doro.page.SetPage.SET_DATE_FILED_ID;
@@ -29,18 +30,24 @@ import static doro.page.SetPage.SET_MINUTE_EDIT_ID;
 import static doro.page.SetPage.SET_MINUTE_INCREASE_ID;
 import static doro.page.SetPage.SET_MONTH_DECREASE_ID;
 import static doro.page.SetPage.SET_MONTH_INCREASE_ID;
+import static doro.page.SetPage.SET_MYHOMESCREEN_TEXT;
 import static doro.page.SetPage.SET_MY_AUDIO_SETUP_TEXT;
+import static doro.page.SetPage.SET_MY_WALLPAPER_TEXT;
 import static doro.page.SetPage.SET_PLUS_ALARM_ID;
 import static doro.page.SetPage.SET_PLUS_MEDIA_ID;
 import static doro.page.SetPage.SET_PLUS_RINGTONE_ID;
 import static doro.page.SetPage.SET_RINGTONE_VALUE_ID;
+import static doro.page.SetPage.SET_SCREEN_BRIGHTNESS_TEXT;
 import static doro.page.SetPage.SET_SCREEN_TIMEOUT_TEXT;
+import static doro.page.SetPage.SET_SCREEN_TIMEOUT_TWO_TEXT;
 import static doro.page.SetPage.SET_SUPPORT_RECYCLERVIEW_CLASS;
 import static doro.page.SetPage.SET_TEXT_SIZE_TEXT;
 import static doro.page.SetPage.SET_THE_VOLUME_SETUP_TEXT;
 import static doro.page.SetPage.SET_TIMEFORMAT_FIELD_ID;
 import static doro.page.SetPage.SET_TIME_FILED_ID;
 import static doro.page.SetPage.SET_TONE_SETUP_BTN_ID;
+import static doro.page.SetPage.SET_WALLPAPER_CHANGE_TEXT;
+import static doro.page.SetPage.SET_WGRIDVIEW_CLASS;
 import static doro.page.SetPage.SET_WIDGET_FRAMELAYOUT_CLASS;
 import static doro.page.SetPage.SET_YEAR_DECREASE_ID;
 import static doro.page.SetPage.SET_YEAR_INCREASE_ID;
@@ -63,6 +70,17 @@ public class SetAction extends VP4{
                 scrollByVerticalForward(40);
             }
             getObjectByText(Submenu1).clickAndWaitForNewWindow();
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void wallpaperChange(int x){ //设置背景壁纸
+        try{
+            int y=x*2-1;
+            getObjectByText(SET_WALLPAPER_CHANGE_TEXT).clickAndWaitForNewWindow();
+            getObjectByText(SET_CHANGE_GALLERY_TEXT).clickAndWaitForNewWindow();
+            getLinearLayout(y,SET_WGRIDVIEW_CLASS,SET_WIDGET_FRAMELAYOUT_CLASS).clickAndWaitForNewWindow();
+            getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
+            Thread.sleep(3);
+            getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
         }catch(Exception e){e.printStackTrace();}
     }
     public void minusAndPlus(String value,int x,String minus,String plus ){ //调节Set菜单下音频设置的音量
@@ -217,6 +235,42 @@ public class SetAction extends VP4{
     /*
     * Doro设置下的一些基本操作
     * */
+    public void findWallpaper(){ //找到Wallpaper
+        try{
+            getObjectByText(SET_ICON_SET_TEXT).click();
+            findListSubmenu(SET_MYHOMESCREEN_TEXT);
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void CheckWallpaper(){ //检查Wallpaper
+        Assert.assertTrue("Don't find the Wallpaper",getObjectByText(SET_MY_WALLPAPER_TEXT).exists());
+    }
+    public void findBrightness(){ //找到Brightnessh和text size
+        try{
+            getObjectByText(SET_ICON_SET_TEXT).click();
+            findListSubmenu(SET_DISPLAY_OPTION_TEXT);
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void CheckBrightness(){ //检查Brightness
+        Assert.assertTrue("Don't find the Brightness",getObjectByText(SET_SCREEN_BRIGHTNESS_TEXT).exists());
+    }
+    public void CheckTextSize(){ //检查text size
+        Assert.assertTrue("Don't find the text size",getObjectByText(SET_TEXT_SIZE_TEXT).exists());
+    }
+    public void findScreenTimeout(){ //找到ScreenTimeout
+        try{
+            getObjectByText(SET_ICON_SET_TEXT).click();
+        }catch(Exception e){e.printStackTrace();}
+        findListSubmenu(SET_GENERAL_OPTION_TEXT);
+        findListSubmenu(SET_SCREEN_TIMEOUT_TEXT);
+    }
+    public void CheckScreenTimeout(){ //检查ScreenTimeout
+        Assert.assertTrue("Don't find the Screen Timeout",getObjectByText(SET_SCREEN_TIMEOUT_TWO_TEXT).exists());
+    }
+    public void setWallpaper(int x){ //设置第x张图片为壁纸
+        findListSubmenu(SET_MYHOMESCREEN_TEXT);
+        findListSubmenu(SET_MY_WALLPAPER_TEXT);
+        wallpaperChange(x);
+    }
     public void checkAudioSetup(String audioSetupMode){ //检查音频设置是否为指定的模式
         findListSubmenu(SET_AN_AUDIO_OPTION_TEXT);
         findListSubmenu(SET_MY_AUDIO_SETUP_TEXT);
