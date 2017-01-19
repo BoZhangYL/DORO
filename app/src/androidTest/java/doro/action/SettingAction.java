@@ -4,10 +4,14 @@ import junit.framework.Assert;
 
 import ckt.base.VP4;
 
+import static doro.page.SettingPage.SETTINGS_APPS_ADVANCED_ID;
+import static doro.page.SettingPage.SETTINGS_APPS_TEXT;
+import static doro.page.SettingPage.SETTINGS_APP_INFO_TEXT;
 import static doro.page.SettingPage.SETTINGS_AUTOMATIC_DATETIME_TEXT;
 import static doro.page.SettingPage.SETTINGS_AUTO_TIME_ZONE_TEXT;
 import static doro.page.SettingPage.SETTINGS_CHOOSE_12HOUR_FORMAT_TEXT;
 import static doro.page.SettingPage.SETTINGS_CHOOSE_24HOUR_FORMAT_TEXT;
+import static doro.page.SettingPage.SETTINGS_CONFIGURE_APPS_TEXT;
 import static doro.page.SettingPage.SETTINGS_DATE_HEADER_DATE_ID;
 import static doro.page.SettingPage.SETTINGS_DATE_HEADER_YEAR_ID;
 import static doro.page.SettingPage.SETTINGS_DATE_MONTH_NEXT_ID;
@@ -28,6 +32,7 @@ import static doro.page.SettingPage.SETTINGS_STORAGE_SETTINGS_TEXT;
 import static doro.page.SettingPage.SETTINGS_STORAGE_TEXT;
 import static doro.page.SettingPage.SETTINGS_TIME_HOURS_ID;
 import static doro.page.SettingPage.SETTINGS_TIME_MINUTES_ID;
+import static doro.page.SettingPage.SETTINGS_TITLE_ID;
 import static doro.page.SettingPage.SETTINGS_USE_24HOUR_FORMAT_TEXT;
 import static doro.page.SettingPage.SETTING_DATE_DAY_VIEW_CLASS;
 import static doro.page.SettingPage.SETTING_HOUR_TOUCHHELPER_CLASS;
@@ -51,12 +56,20 @@ public class SettingAction extends VP4 {
             }
         }catch(Exception e){e.printStackTrace();}
     }
-    public void findSettingChildren(String childName){
+    public void findSettingChildren(String childName){ //通过名字来找到列表中的选项
         try {
             while (!getObjectByTextContains(childName).exists()) {
-                scrollByVerticalForward(15);
+                scrollByVerticalForward(25);
             }
             getObjectByTextContains(childName).clickAndWaitForNewWindow();
+        } catch (Exception e) {e.printStackTrace();}
+    }
+    public void findSettingChildren(String id,String childName){//通过名字以及ID来找到列表中的选项
+        try {
+            while (!getObjectByIdText(id,childName).exists()) {
+                scrollByVerticalForward(25);
+            }
+            getObjectByIdText(id,childName).clickAndWaitForNewWindow();
         } catch (Exception e) {e.printStackTrace();}
     }
 
@@ -224,45 +237,68 @@ public class SettingAction extends VP4 {
     /*
 * Settings下的基本操作
     * */
-    public void dateAndTime() { //进入手机设置中的 Date&Time
-        findSettingChildren(SETTINGS_DATE_TIME_TEXT);
+    public void settingChild(String name){ //在Setting界面通过名字找到子列表，并进入
+        findSettingChildren(name);
     }
-    public void storage() { //进入手机设置中的Storage
-        findSettingChildren(SETTINGS_STORAGE_TEXT);
+    public void settingChild(String id,String name){ //在Setting界面通过名字与ID找到子列表，并进入
+        findSettingChildren(id,name);
+    }
+    public void apps(){ //进入手机设置中的Apps
+        settingChild(SETTINGS_TITLE_ID,SETTINGS_APPS_TEXT);
     }
 
+    public void configureApps(){ //进入配置App信息界面
+        try{
+            if(getObjectByText(SETTINGS_APPS_TEXT).exists()){
+                getObjectById(SETTINGS_APPS_ADVANCED_ID).clickAndWaitForNewWindow();
+            }
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void CheckConfigureApps(){
+        Assert.assertTrue("未进入Configure apps",getObjectByText(SETTINGS_CONFIGURE_APPS_TEXT).exists());
+    }
+    public void appsInfo(int x){ //进入Apps下的第X个 配置App info界面
+        try{
+            if(getObjectByText(SETTINGS_APPS_TEXT).exists()){
+                getLinearLayout(x-1,"android.widget.ListView","android.widget.LinearLayout").clickAndWaitForNewWindow();
+            }
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void CheckAppsInfo(){
+        Assert.assertTrue("未进入App info",getObjectByText(SETTINGS_APP_INFO_TEXT).exists());
+    }
     /*
 * 一些基本的关于时间日期的设置
 * */
     public void setSpecialTime(String time){ //去设置中设置一个时间
         openAppliction("Settings"); //找到设置应用
-        dateAndTime(); //找到时间设置
+        settingChild(SETTINGS_DATE_TIME_TEXT); //找到时间设置
         whatProvidedTime(0);
         setTime24(time);//设置手机时间
     }
     public void setSpecialDate(String date){ //去设置中设置一个日期
         openAppliction("Settings"); //找到设置应用
-        dateAndTime(); //找到时间设置
+        settingChild(SETTINGS_DATE_TIME_TEXT); //找到时间设置
         whatProvidedTime(0);
         setDate(date);//设置手机日期
     }
     public void setDateTime(String date,String time){ //去设置中设置日期与时间
         openAppliction("Settings"); //找到设置应用
-        dateAndTime(); //找到时间设置
+        settingChild(SETTINGS_DATE_TIME_TEXT); //找到时间设置
         whatProvidedTime(0);
         setDate(date);//设置手机日期
         setTime24(time);//设置手机时间
     }
     public void setNextdayTime(String time){ //去设置中设置下一天的时间
         openAppliction("Settings"); //找到设置应用
-        dateAndTime(); //找到时间设置
+        settingChild(SETTINGS_DATE_TIME_TEXT); //找到时间设置
         whatProvidedTime(0);//使用自定义时间
         setNextDay();//更改日期为下一天
         setTime24(time);//设置手机时间为18:21
     }
     public void setSpecialWeek(String week,String time){ //去设置中特定星期
         openAppliction("Settings"); //找到设置应用
-        dateAndTime(); //找到时间设置
+        settingChild(SETTINGS_DATE_TIME_TEXT); //找到时间设置
         whatProvidedTime(0);//使用自定义时间
         setWeek(week);//特定星期
         setTime24(time);//设置手机时间
@@ -283,7 +319,7 @@ public class SettingAction extends VP4 {
         }
     }
     public void setStorageIsSD(boolean sdCard){ //设置默认存储位置是否为SD卡
-        storage();
+        settingChild(SETTINGS_STORAGE_TEXT);//进入Storage
         storageIsSD(sdCard);
     }
     public void CheckStorageIsSD(boolean sdCard){ //检查默认设置是否为SD ，存储位置不是SD 就是手机
