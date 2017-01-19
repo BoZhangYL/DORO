@@ -173,8 +173,10 @@ public class VP4 extends VP2 {
         initDevice();
         try {
             UiScrollable scr = new UiScrollable(new UiSelector().scrollable(true));
-            scr.setAsVerticalList();
-            scr.scrollToBeginning(steps);
+            if (scr.exists()){
+                scr.setAsVerticalList();
+                scr.scrollToBeginning(steps);
+            }
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }

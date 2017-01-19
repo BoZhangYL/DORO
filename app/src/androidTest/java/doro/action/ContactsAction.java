@@ -581,7 +581,9 @@ public class ContactsAction extends VP4 {
         waitTime(10);
     }
     /*export form mobile to sd card*/
-    public static void exportToSdcard(boolean status) throws UiObjectNotFoundException {
+    public static void exportToSdcard(boolean status) throws Exception {
+        ContactsAction.launchContacts();
+        ContactsAction.addContact(true);
         ContactsAction.launchContacts();
         //go import-export page
         ContactsAction.navImportExport();
@@ -620,6 +622,23 @@ public class ContactsAction extends VP4 {
         clickByIdText(ContactsPage.DELETE_CONTACT_CONFIREM_POP_TEXT_ID, "OK");
         //等待删除完成
         waitUntilFind(ContactsPage.COMMAND_TEXT_VIEW_BTN_ID,60000);
+    }
+    public static void addContact(boolean isStar) throws Exception {
+        ContactsBean bean = new ContactsBean();
+        bean.setStar(isStar); //step1 identity
+        bean.setEdit_picture(false);
+        bean.setName(getRandomName(3,8));
+        bean.setBirthday("20/11/1948");
+        ContactsAction.pushNumber(bean,3);   //step2 numbers
+        ContactsAction.pushEmail(bean,3);//step3 email
+        bean.setStreet(getRandomName(20,30));//step4 details
+        bean.setNote(getRandomName(10,20));
+        bean.setRing_tone(ContactsAction.getRandomType(Constant.RingTone));//step5 Tone
+        bean.setIs_play_ring(true);
+        bean.setMessage_tome(ContactsAction.getRandomType(Constant.MessageTone));
+        bean.setIs_play_message(true);
+        addContact(bean);//使用bean添加联系人
+        //checkContactsBean(bean);//验证联系人
     }
     public void exportFromMobileToSim() {
 
