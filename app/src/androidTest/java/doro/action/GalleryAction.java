@@ -76,8 +76,9 @@ public class GalleryAction extends VP4{
                 GALLERY_SINGLE_VIDEO_OPTION_SHARE_VIDEO).exists());
         Asst.assertTrue("视频详情按钮不存在",getObjectByText(GalleryPage.
                 GALLERY_SINGLE_VIDEO_OPTION_VIDEO_DETAILS).exists());
-        Asst.assertTrue("添加Favourite按钮不存在",getObjectByText(GalleryPage.
-                GALLERY_SINGLE_VIDEO_OPTION_ADD_TO_FAVOURITE).exists());
+        Asst.assertTrue("添加/删除Favourite按钮不存在",getObjectByText(GalleryPage.
+                GALLERY_SINGLE_VIDEO_OPTION_ADD_TO_FAVOURITE).exists() || getObjectByText
+                (GalleryPage.GALLERY_SINGLE_VIDEO_OPTION_REMOVE_FOVOURITR).exists());
         Asst.assertTrue("删除视频按钮不存在",getObjectByText(GalleryPage.
                 GALLERY_SINGLE_VIDEO_OPTION_DELETE_VIDEO).exists());
     }
@@ -96,6 +97,7 @@ public class GalleryAction extends VP4{
                 pressKey("back");
             }
             changeToMyGalleryDisplay();
+            waitTime(5);
             int numbers[] =getCurrentPicturesVideosNum();
             Asst.assertEquals("从单张图片设置界面删除图片失败",GalleryPicturesNumbers,numbers[0]);
         } catch (UiObjectNotFoundException e) {
@@ -132,8 +134,9 @@ public class GalleryAction extends VP4{
                 GALLERY_SINGLE_PICTURE_OPTION_SHARE_PICTURE).exists());
         Asst.assertTrue("图片详情按钮不存在",getObjectByText(GalleryPage.
                 GALLERY_SINGLE_PICTURE_OPTION_PICTURE_DETAIL).exists());
-        Asst.assertTrue("添加favourite按钮不存在",getObjectByText(GalleryPage.
-                GALLERY_SINGLE_PICTURE_OPTION_ADD_TO_FAVOURITE).exists());
+        Asst.assertTrue("添加/删除favourite按钮不存在",getObjectByText(GalleryPage.
+                GALLERY_SINGLE_PICTURE_OPTION_ADD_TO_FAVOURITE).exists() || getObjectByText
+                (GalleryPage.GALLERY_SINGLE_VIDEO_OPTION_REMOVE_FOVOURITR).exists());
         VP4.scrollToEnd(20);
         Asst.assertTrue("删除图片按钮不存在",getObjectByText(GalleryPage.
                 GALLERY_SINGLE_PICTURE_OPTION_DELETE_PICTURE).exists());
@@ -430,8 +433,8 @@ public class GalleryAction extends VP4{
         int[] numbers = getCurrentPicturesVideosNum();
         int pictureNumber = numbers[0];
         int VideoNumber = numbers[1];
-        Asst.assertEquals("checkMyGalleryDisplay",GalleryPicturesNumbers, pictureNumber);
-        Asst.assertEquals("checkMyGalleryDisplay",GalleryVideosNumbers, VideoNumber);
+        Asst.assertEquals("checkMyGalleryDisplay",GalleryPicturesNumbers + GalleryVideosNumbers,
+                pictureNumber + VideoNumber);
     }
 
     /*
@@ -543,12 +546,19 @@ public class GalleryAction extends VP4{
     * 向下移动一个网格页面的距离
     * Rect OnePageBounds =getObjectById(GalleryPage.GALLERY_GRAID_VIEW).getBounds();
     * */
-    private static void moveDownOneGraidViewPage(Rect rect){
-            int x0 = rect.right/2;
-            int y0 = rect.bottom;
+    private static void moveDownOneGraidViewPage(){
+        try {
+            int y1 = gDevice.getDisplayHeight() + GridView.getChildByInstance(images,GridView.
+                    getChildCount()/2).getBounds().top;
+            int y0 = gDevice.getDisplayHeight() + GridView.getChildByInstance(images,GridView.
+                    getChildCount()/2).getBounds().bottom;
+            int x0 =gDevice.getDisplayWidth()/2;
             int x1 = x0;
-            int y1 = rect.top;
-        gDevice.swipe(x0,y0,x1,y1, 15);
+            gDevice.swipe(x0,y0,x1,y1, 20);
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /*
@@ -599,7 +609,7 @@ public class GalleryAction extends VP4{
             }
             FirstGridName =AllCurrentNames[0];
             if(GridView.getChildByInstance(images,0).exists()) {
-                moveDownOneGraidViewPage(GridView.getChildByInstance(images, 0).getBounds());
+                moveDownOneGraidViewPage();
             }
             while(!FirstGridName.equals(GridView.getChildByInstance(images,0).getContentDescription())){
                int LastGridNumber= GridView.getChildCount() % ColumnsNumber;
@@ -623,7 +633,7 @@ public class GalleryAction extends VP4{
                     }
                 }
                 FirstGridName =GridView.getChildByInstance(images,0).getContentDescription();
-                moveDownOneGraidViewPage(GridView.getChildByInstance(images,0).getBounds());
+                moveDownOneGraidViewPage();
             }
 
         } catch (UiObjectNotFoundException e) {
@@ -760,7 +770,7 @@ public class GalleryAction extends VP4{
         int instance = getOneRandomPictureNumber();
         try {
             while(instance > GridView.getChildCount()){
-                moveDownOneGraidViewPage(GridView.getChildByInstance(images,0).getBounds());
+                moveDownOneGraidViewPage();
                 instance -=ColumnsNumber;
             }
             Asst.assertTrue("DeleteCheckBox not exist",
@@ -781,7 +791,7 @@ public class GalleryAction extends VP4{
         for(int i=0;i<instance.length;i++){
             try {
                 while(instance[i] > GridView.getChildCount()){
-                    moveDownOneGraidViewPage(GridView.getChildByInstance(images,0).getBounds());
+                    moveDownOneGraidViewPage();
                     instance[i] -=ColumnsNumber;
                 }
                 if(GridView.getChildByInstance(DeleteCheckBox,instance[i]).exists()){
