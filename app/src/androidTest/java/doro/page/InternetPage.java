@@ -90,10 +90,38 @@ public class InternetPage {
     public static final String ADD_BUTTON = "Add";
     public static final String CANCEL_BUTTON = "Cancel";
 
-    public static final String BOOKMARKS_NAME_BAIDU ="NEW Create Book";
+    public static final String BOOKMARKS_NEW_1 ="NEW Create Book1";
 
+    public static final String DeleteBookmarks = "Delete bookmark(s)";
 
+    public static final String HAO123 = "www.hao123.com";
 
+    public static final String BOOKMARKS_NEW_2 ="NEW Create Book2";
 
+    public static final String REMOVE_A_BOOKMARKS = "Rename a bookmark";
+
+    public static final String CONFIRM = "Confirm";
+
+    public static final String PAGE_ALL_INDICATOR = "com.doro.apps.browser:id/page_indicator";
+
+    public static final String PAGE_INDICATOR = "android.widget.TextView";
+
+    public static final int MAX_PAGES = 10;
+
+    public static final String SEARCH_PAGE_BUTTON = "Search page";
+
+    public static final String EMPTY_PAGE_PROMPT = "You don't have any opened pages.";
+
+    public static final String GO_TO_HOME_PAGE = "Go to home page";
+
+    public static final String CLOSE_PAGE_BUTTON = "Close page(s)";
+
+    public static final String VIEW_PAGE = "com.doro.apps.browser:id/view_pager";
+
+    public static final String DELETE_CHECKBOX_PAGE =
+            "com.doro.apps.browser:id/checkbox_for_delete";
+
+    public static final String DELETE_ALL_CHECKBOX =
+            "com.doro.apps.browser:id/selectallcheckbox";
 
 }
