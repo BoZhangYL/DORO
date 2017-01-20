@@ -12,7 +12,6 @@ import static doro.page.SetPage.SET_DATE_AND_TIME_TEXT;
 import static doro.page.SetPage.SET_GENERAL_OPTION_TEXT;
 import static doro.page.SetPage.SET_MEDIA_VALUE_ID;
 import static doro.page.SetPage.SET_RINGTONE_VALUE_ID;
-import static doro.page.SetPage.SET_TEXTSIZE_EXTRALARGE_TEXT;
 import static doro.page.SetPage.SET_TIME_FORMAT_12_TEXT;
 import static doro.page.SetPage.SET_TIME_FORMAT_24_TEXT;
 
@@ -51,15 +50,16 @@ public class SetCase {
         setAction.checkVolume(8,SET_RINGTONE_VALUE_ID);
     }
     @Test
-    public void setTextSize(){ //设置文字大小,暂时没有判断是否设置成功
+    public void setTextSize(){ //设置文字大小
         setAction.findSet();
-        setAction.textSize(SET_TEXTSIZE_EXTRALARGE_TEXT);
+        setAction.CheckTextSizeLog();
     }
     @Test
-    public void setScreenTimeout(){
+    public void setScreenTimeout(){//设置灭屏时间为15秒
         setAction.findSet();
         setAction.screenTimeout("15 seconds");
         setAction.checkScreenTimeout(0.25);
+        setAction.screenTimeout("10 minutes");//设置灭屏时间为10分钟
     }
     @Test
     public void setAutoTime(){ // 自动时间

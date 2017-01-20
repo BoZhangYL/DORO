@@ -27,6 +27,8 @@ public class SetPage {
     public static final String SET_DISPLAY_OPTION_TEXT ="A display option";
     //set二级菜单下的"The text size"的Text
     public static final String SET_TEXT_SIZE_TEXT ="The text size";
+    //set三级菜单下的"Select text size"的Text
+    public static final String SET_SELECT_TEXT_SIZE_TEXT ="Select text size";
     //Text size 的三种模式
     public static final String SET_TEXTSIZE_NORMAL_TEXT ="Normal";
     public static final String SET_TEXTSIZE_LARGE_TEXT ="Large";

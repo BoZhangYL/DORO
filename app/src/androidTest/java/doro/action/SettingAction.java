@@ -183,11 +183,11 @@ public class SettingAction extends VP4 {
                 getObjectByIdText(SETTINGS_DATE_YEAR_TEXT1_ID, timeDate[0]).click();
             }
             String[] month = getObjectById(SETTINGS_DATE_HEADER_DATE_ID).getText().split(" ");
-            while (!month[2].equals("Jan")) {
+            while (!month[1].equals("Jan")) {
                 getObjectById(SETTINGS_DATE_MONTH_PREV_ID).click();
-                getUiObjectByClassText(SETTING_DATE_DAY_VIEW_CLASS, "1").click();
+                getUiObjectByClassText(SETTING_DATE_DAY_VIEW_CLASS,"1").click();
                 String[] month1 = getObjectById(SETTINGS_DATE_HEADER_DATE_ID).getText().split(" ");
-                month[2] = month1[2];
+                month[1] = month1[1];
             }
             for (int i = 1; i < months; i++) {
                 getObjectById(SETTINGS_DATE_MONTH_NEXT_ID).click();
