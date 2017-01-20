@@ -40,7 +40,11 @@ import static doro.page.SetPage.SET_RINGTONE_VALUE_ID;
 import static doro.page.SetPage.SET_SCREEN_BRIGHTNESS_TEXT;
 import static doro.page.SetPage.SET_SCREEN_TIMEOUT_TEXT;
 import static doro.page.SetPage.SET_SCREEN_TIMEOUT_TWO_TEXT;
+import static doro.page.SetPage.SET_SELECT_TEXT_SIZE_TEXT;
 import static doro.page.SetPage.SET_SUPPORT_RECYCLERVIEW_CLASS;
+import static doro.page.SetPage.SET_TEXTSIZE_EXTRALARGE_TEXT;
+import static doro.page.SetPage.SET_TEXTSIZE_LARGE_TEXT;
+import static doro.page.SetPage.SET_TEXTSIZE_NORMAL_TEXT;
 import static doro.page.SetPage.SET_TEXT_SIZE_TEXT;
 import static doro.page.SetPage.SET_THE_VOLUME_SETUP_TEXT;
 import static doro.page.SetPage.SET_TIMEFORMAT_FIELD_ID;
@@ -108,13 +112,38 @@ public class SetAction extends VP4{
     }
     public void textSize(String textSize){ //设置 字体大小
         findListSubmenu(SET_DISPLAY_OPTION_TEXT);
+        findListSubmenu(SET_TEXT_SIZE_TEXT);
         try{
-            findListSubmenu(SET_TEXT_SIZE_TEXT);
             getObjectById(SET_TONE_SETUP_BTN_ID).clickAndWaitForNewWindow();
             getObjectByText(textSize).clickAndWaitForNewWindow();
             getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
-            getObjectByText(SET_ICON_SET_TEXT).click();
+            getObjectByText(SET_TEXT_SIZE_TEXT).clickAndWaitForNewWindow();
         }catch(Exception e){e.printStackTrace();}
+    }
+    private int textSizeLog(String name){ //得到name的中心X坐标
+        int x =0;
+        try{
+            x =getObjectByText(name).getBounds().centerX();
+        }catch(Exception e){e.printStackTrace();}
+        return x;
+    }
+    public void CheckTextSizeLog(){ //检查字体大小是否改变
+        try{
+            textSize(SET_TEXTSIZE_EXTRALARGE_TEXT);
+            int x1 =textSizeLog(SET_SELECT_TEXT_SIZE_TEXT);
+            getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
+            getObjectByText(SET_ICON_SET_TEXT).click();
+            textSize(SET_TEXTSIZE_LARGE_TEXT);
+            int x2 =textSizeLog(SET_SELECT_TEXT_SIZE_TEXT);
+            getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
+            getObjectByText(SET_ICON_SET_TEXT).click();
+            textSize(SET_TEXTSIZE_NORMAL_TEXT);
+            int x3 =textSizeLog(SET_SELECT_TEXT_SIZE_TEXT);
+            getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
+            getObjectByText(SET_ICON_SET_TEXT).click();
+            Assert.assertTrue("The tetx size can't change",x3<x2&&x2<x1);
+        }catch(Exception e){e.printStackTrace();}
+
     }
     public void screenTimeout(String time){ //设置屏幕待机时间
         findListSubmenu(SET_GENERAL_OPTION_TEXT);
@@ -320,6 +349,8 @@ public class SetAction extends VP4{
             unLock();
             phoneWaitTime(min);
             Assert.assertFalse("屏幕没有关闭",mDevice.isScreenOn());
+            mDevice.wakeUp();
+            unLock();
         }catch(Exception e){e.printStackTrace();}
     }
     public void checkTimeFormat(int timeformat){ //检查手机设置的时间格式
