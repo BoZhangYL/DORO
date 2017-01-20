@@ -29,7 +29,7 @@ public class FileManagerAction extends VP4 {
             String[] pathName =Filepath.split("/");
             for(int i=0;i<pathName.length-1;i++){
                 while(!getObjectByTextContains(pathName[i]).exists()){
-                    scrollByVerticalForward(25);
+                    scrollByVerticalForward(35);
                 }
                 getObjectByTextContains(pathName[i]).clickAndWaitForNewWindow();
             }
