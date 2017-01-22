@@ -37,6 +37,26 @@ public class GalleryAction extends VP4{
     private static String FirstGridName=null; //图库中favourite数量
     private static UiScrollable scr = new UiScrollable(new UiSelector().scrollable(true));
     private static UiSelector DisplayEmpty =new UiSelector().resourceId(GalleryPage.DISPLAY_EMPTY);
+
+    /*
+    * 设置一张图片为壁纸
+    * */
+    public static void setPictureAsWallpaper(){
+        VP4.openAppliction(GalleryPage.GALLERY);
+        changeToAllPicturesDisplay();
+        try {
+            Asst.assertTrue("手机中没有图片",GridView.getChildByInstance(images,0).exists());
+            GridView.getChildByInstance(images,0).clickAndWaitForNewWindow();
+            clickIWantToButton();
+            getObjectByText(GalleryPage.GALLERY_SINGLE_PICTURE_OPTION_SET_PICTURE).
+                    clickAndWaitForNewWindow();
+            getObjectByText(GalleryPage.Wallpaper).clickAndWaitForNewWindow();
+            getObjectByText(GalleryPage.CONFIRM_BUTTON).clickAndWaitForNewWindow();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     /*
     * 播放视频
     * */
