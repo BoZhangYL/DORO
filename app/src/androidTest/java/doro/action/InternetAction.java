@@ -84,6 +84,123 @@ public class InternetAction extends VP4 {
     private static UiSelector PageDeleteCheckbox = new UiSelector().resourceId(InternetPage.
             DELETE_CHECKBOX_PAGE);
     private static UiObject DleteAllPageButton = getObjectById(InternetPage.DELETE_ALL_CHECKBOX);
+    private static UiObject RefreshThePage = getObjectByText(InternetPage.SETTINGS_REFRESH_THE_PAGE);
+    private static UiObject SendThisPageButton = getObjectByText(InternetPage.SETTINGS_SEND_THIS_PAGE);
+
+    private static UiObject ShareByMessage = getObjectByText(InternetPage.SHAREPAGE_MESSAGE);
+    private static UiObject ShareByEmail = getObjectByText(InternetPage.SHAREPAGE_EMAIL);
+    private static UiObject ShareByBT = getObjectByText(InternetPage.SHAREPAGE_BT);
+    private static UiObject ShareByBeam = getObjectByText(InternetPage.SHAREPAGE_ANDROID_BRAM);
+    private static UiObject ShareByCopy = getObjectByText(InternetPage.SHAREPAGE_COPY_TO_CLIPBOAD);
+    private static UiObject ShareByGmail = getObjectByText(InternetPage.SHAREPAGE_GMAIL);
+    private static UiObject ShareByDrive = getObjectByText(InternetPage.SHAREPAGE_SAVE_TO_DRIVE);
+
+    private static UiObject SetMaxPage = getObjectByText(InternetPage.SET_MAX_OPEN_PAGE);
+    private static UiObject TheDefaultPage = getObjectByText(InternetPage.THE_DEFAULT_PAGE);
+    private static UiObject SetMaxPageBox = getObjectById(InternetPage.SET_MAX_OPEN_PAGE_BOX);
+
+    private static UiObject DefultPageGoole = getObjectByText(InternetPage.TheDefaplayPAge_Google);
+    private static String MAX_PAGES = InternetPage.MAX_PAGES;
+    /*
+    * 设置最大打来的页面
+    * */
+    public static void setMaxOpendPages(String PageNumber){
+        try {
+            SetMaxPage.clickAndWaitForNewWindow();
+            SetMaxPageBox.clickAndWaitForNewWindow();
+            Asst.assertTrue("设置最大页面的选项2不正确",
+                    getObjectByText(InternetPage.MAXPAGE_NUMBER_2).exists());
+            Asst.assertTrue("设置最大页面的选项5不正确",
+                    getObjectByText(InternetPage.MAXPAGE_NUMBER_5).exists());
+            Asst.assertTrue("设置最大页面的选项10不正确",
+                    getObjectByText(InternetPage.MAXPAGE_NUMBER_10).exists());
+            Asst.assertTrue("设置最大页面的选项20不正确",
+                    getObjectByText(InternetPage.MAXPAGE_NUMBER_20).exists());
+            getObjectByText(PageNumber).clickAndWaitForNewWindow();
+            MAX_PAGES= PageNumber;
+            ConfirmButton.clickAndWaitForNewWindow();
+
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    * 检查默认页面
+    * */
+    public static void checkDefaultPages(){
+        try {
+            TheDefaultPage.clickAndWaitForNewWindow();
+            Asst.assertTrue("默认页面不正确",DefultPageGoole.exists());
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    * 检查Set选项
+    * */
+    public static void checkSetOption(){
+        try {
+            IWantToButton.clickAndWaitForNewWindow();
+            Set.clickAndWaitForNewWindow();
+            Asst.assertTrue("设置最大页面不存在",SetMaxPage.exists());
+            Asst.assertTrue("默认页面",TheDefaultPage.exists());
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    * 分享导航按钮
+    * */
+    public static void sendThisPage(){
+        try {
+            SendThisPageButton.clickAndWaitForNewWindow();
+            checkSharePage();
+            pressKey("Back");
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    * 检查分享页面
+    * */
+    public static void checkSharePage(){
+        Asst.assertTrue("分享message按钮不存在",ShareByMessage.exists());
+        Asst.assertTrue("分享Email按钮不存在",ShareByEmail.exists());
+        Asst.assertTrue("分享BT按钮不存在",ShareByBT.exists());
+        Asst.assertTrue("分享Android Beam按钮不存在",ShareByBeam.exists());
+        Asst.assertTrue("分享Copy to clipboard按钮不存在",ShareByCopy.exists());
+        Asst.assertTrue("分享Gail按钮不存在",ShareByGmail.exists());
+        Asst.assertTrue("分享Drive按钮不存在",ShareByDrive.exists());
+    }
+
+
+    /*
+    * 检查导航页面
+    * */
+    public static void checkNavigationPages(){
+        try {
+            IWantToButton.clickAndWaitForNewWindow();
+            Asst.assertTrue("RefreshThePage按钮不存在",RefreshThePage.exists());
+            Asst.assertTrue("SwitchPAge",SwitchPage.exists());
+            Asst.assertTrue("Go to Home PAge按钮不存在",GoToHomePageButton.exists());
+            Asst.assertTrue("Add/Remove bookmarks按钮不存在",AddBookmarksButton.exists() ||
+                    DeleteBookmarks.exists());
+            Asst.assertTrue("ViewMyBookmarks按钮不存在",ViewMyBookmarks.exists());
+            gDevice.swipe(gDevice.getDisplayWidth()/2,gDevice.getDisplayHeight()/2,
+                    gDevice.getDisplayWidth()/2,0,20);
+            //VP4.scrollToEnd(20);滑动不了
+            Asst.assertTrue("SendThisPageButton按钮不存在",SendThisPageButton.exists());
+            Asst.assertTrue("ClearDataAndHisTory按钮不存在",ClearDataAndHistory.exists());
+            Asst.assertTrue("Set按钮不存在",Set.exists());
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     /*
     * 删除页面
     * */
@@ -126,8 +243,8 @@ public class InternetAction extends VP4 {
             }
             int number= Integer.valueOf(PageList.getChildByInstance(Page, PageList.getChildCount()-1).
                     getText());
-            Asst.assertEquals("最大页面数不是" + InternetPage.MAX_PAGES + "个",
-                    InternetPage.MAX_PAGES -1, number);
+            Asst.assertEquals("最大页面数不是" + MAX_PAGES+ "个",
+                    Integer.valueOf(MAX_PAGES) -1, number);
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -147,7 +264,7 @@ public class InternetAction extends VP4 {
      *  */
     public static void AddPage(){
         openInternetApp();
-        for(int i = 0; i<15;i++) {
+        for(int i = 0; i<20;i++) {
             try {
                 SearchAddressBox.setText(InternetPage.SEARCH_ADDRESS);
                 SearchButton.clickAndWaitForNewWindow();
@@ -177,8 +294,25 @@ public class InternetAction extends VP4 {
             }
         int number= Integer.valueOf(PageList.getChildByInstance(Page, PageList.getChildCount()-1).
                     getText());
-         Asst.assertEquals("最大页面数不是" + InternetPage.MAX_PAGES + "个",
-                 InternetPage.MAX_PAGES, number);
+         Asst.assertEquals("最大页面数不是" + MAX_PAGES+ "个",
+                 MAX_PAGES, String.valueOf(number));
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+    public static void checkMaxPages(String PAgeNumber){
+        try {
+            AddPage();
+            openInternetApp();
+            goToSwitchPage();
+            while(PageList.getChildCount()>4){
+                PageList.getChildByInstance(Page,PageList.getChildCount()-1).clickAndWaitForNewWindow();
+            }
+            int number= Integer.valueOf(PageList.getChildByInstance(Page, PageList.getChildCount()-1).
+                    getText());
+            Asst.assertEquals("最大页面数不是" + PAgeNumber + "个",
+                    MAX_PAGES, String.valueOf(number));
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -258,9 +392,11 @@ public class InternetAction extends VP4 {
         try {
             IWantToButton.clickAndWaitForNewWindow();
            // Asst.assertTrue("书签已经添加",!AddBookmarksButton.exists());
-            AddBookmarksButton.clickAndWaitForNewWindow();
-            EditBookmarksName.setText(BookmarksName);
-            AddButton.clickAndWaitForNewWindow();
+            if(!DeleteBookmarks.exists()) {
+                AddBookmarksButton.clickAndWaitForNewWindow();
+                EditBookmarksName.setText(BookmarksName);
+                AddButton.clickAndWaitForNewWindow();
+            }
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -337,10 +473,8 @@ public class InternetAction extends VP4 {
     public static void searchWord(){
         try {
             SearchAddressBox.setText(InternetPage.SEARCH_WORD);
+            WelcomeText.click();
             SearchButton.clickAndWaitForNewWindow();
-            if(HeadTiltle.exists()){
-                SearchButton.clickAndWaitForNewWindow();
-            }
             Asst.assertTrue("点击搜索按钮后没有进入搜索页面", !HeadTiltle.exists());
             Asst.assertEquals("搜索文字出错！",InternetPage.SEARCH_WORD_URL,Web_url.getText());
         } catch (UiObjectNotFoundException e) {
@@ -354,9 +488,7 @@ public class InternetAction extends VP4 {
     public static void searchAddress(String Address){
         try {
             SearchAddressBox.setText(Address);
-            if(HeadTiltle.exists()){
-                SearchButton.clickAndWaitForNewWindow();
-            }
+            WelcomeText.click();
             SearchButton.clickAndWaitForNewWindow();
             Asst.assertTrue("点击搜索按钮后没有进入搜索页面", !HeadTiltle.exists());
             if(getObjectByText(InternetPage.BAIDU_LOCATION).exists()){
@@ -372,9 +504,7 @@ public class InternetAction extends VP4 {
     public static void searchAddress(){
         try {
             SearchAddressBox.setText(InternetPage.SEARCH_ADDRESS);
-            if(HeadTiltle.exists()){
-                SearchButton.clickAndWaitForNewWindow();
-            }
+            WelcomeText.click();
             SearchButton.clickAndWaitForNewWindow();
             Asst.assertTrue("点击搜索按钮后没有进入搜索页面", !HeadTiltle.exists());
             if(getObjectByText(InternetPage.BAIDU_LOCATION).exists()){
