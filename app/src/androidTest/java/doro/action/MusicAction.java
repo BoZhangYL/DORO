@@ -170,7 +170,7 @@ public class MusicAction extends VP4 {
                 flag = true;
             }
         }
-        System.out.println(filename);
+        list.setSwipeDeadZonePercentage(0.1);
         return filename.size();
     }
 
