@@ -44,10 +44,11 @@ public class MusicAction extends VP4 {
     }
 
     public void pauseMusic() {//暂停Music
+
         clickByPonit(360, 1119);
     }
 
-    public void soryByTitle(){
+    public void soryByTitle(){//选择以歌曲标题排序
         try {
             if (!getObjectById(Music_header_title_ID).getText().equals(Music_Text)) {
                 getObjectById(Music_Iwantto_ID).clickAndWaitForNewWindow();
@@ -116,7 +117,7 @@ public class MusicAction extends VP4 {
         }
     }
 
-    public void checkDeleteAllMusicResult() {
+    public void checkDeleteAllMusicResult() {//检查删除所有歌曲
         try {
             Assert.assertEquals("删除所有歌曲失败！", Music_Noresults_Text, getObjectById(Music_Noresults_ID).getText());
         } catch (Exception e) {
@@ -124,12 +125,12 @@ public class MusicAction extends VP4 {
         }
     }
 
-    public void checkNoResults() {
+    public void checkNoResults() {//检查手机中是否有歌曲
         UiObject NoResults = getObjectByText(Music_Noresults_Text);
         Assert.assertTrue("请在手机中拷入一些歌曲！", !NoResults.exists());
     }
 
-    public void checkPlayMusicResults() {
+    public void checkPlayMusicResults() {//检查歌曲是否播放
         try {
             waitTime(1);
             mDevice.sleep();
@@ -142,13 +143,14 @@ public class MusicAction extends VP4 {
         }
     }
 
-    public void checkPauseMusicResults() {
+    public void checkPauseMusicResults() {//检查歌曲播放是否暂停
         Spoon.screenshot("checkPauseMusicResult1");
         waitTime(5);
         Spoon.screenshot("checkPauseMusicResult2");
     }
 
     public int getSongsCount() throws UiObjectNotFoundException{
+        //计算播放列表中有多少歌曲
         HashSet<String> filename = new HashSet<String>();
         UiScrollable list = new UiScrollable(new UiSelector().className(Music_SongList_CLASS));
         UiSelector selector = new UiSelector().className(Music_Song_CLASS);
