@@ -2,7 +2,9 @@ package doro.testcase;
 
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiObject;
+import android.support.test.uiautomator.UiObjectNotFoundException;
 
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -51,16 +53,27 @@ public class MusicCase extends MusicAction{
     }
 
     @Test
-    public void Case4_deleteMusic(){
+    public void Case4_deleteMusic()throws UiObjectNotFoundException{
+        //删除一首歌曲
         openMusic();
+        soryByTitle();
+        int i=getSongsCount();//计算播放列表有多少歌曲
         deleteMusic();
         clickCancel();//删除一首歌曲时取消删除
         deleteMusic();
         clickOK();//删除一首歌曲
+        int j=getSongsCount();//删除一首歌曲后还剩多少歌曲
+        Assert.assertTrue("删除一首歌曲失败！",i-j==1);
+    }
+
+    @Test
+    public void Case5_deleteAllMusic(){
+        //删除所有歌曲
+        openMusic();
         checkNoResults();
         deleteAllMusic();
         clickOK();//删除所有歌曲
-        checkDeleteAllMusiceResult();
+        checkDeleteAllMusicResult();
     }
 
 }

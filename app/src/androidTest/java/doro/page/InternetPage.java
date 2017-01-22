@@ -90,10 +90,62 @@ public class InternetPage {
     public static final String ADD_BUTTON = "Add";
     public static final String CANCEL_BUTTON = "Cancel";
 
-    public static final String BOOKMARKS_NAME_BAIDU ="NEW Create Book";
+    public static final String BOOKMARKS_NEW_1 ="NEW Create Book1";
 
+    public static final String DeleteBookmarks = "Delete bookmark(s)";
 
+    public static final String HAO123 = "www.hao123.com";
 
+    public static final String BOOKMARKS_NEW_2 ="NEW Create Book2";
+
+    public static final String CONFIRM = "Confirm";
+
+    public static final String PAGE_ALL_INDICATOR = "com.doro.apps.browser:id/page_indicator";
+
+    public static final String PAGE_INDICATOR = "android.widget.TextView";
+
+    public static final String MAX_PAGES = "10";
+
+    public static final String SEARCH_PAGE_BUTTON = "Search page";
+
+    public static final String EMPTY_PAGE_PROMPT = "You don't have any opened pages.";
+
+    public static final String GO_TO_HOME_PAGE = "Go to home page";
+
+    public static final String CLOSE_PAGE_BUTTON = "Close page(s)";
+
+    public static final String VIEW_PAGE = "com.doro.apps.browser:id/view_pager";
+
+    public static final String DELETE_CHECKBOX_PAGE =
+            "com.doro.apps.browser:id/checkbox_for_delete";
+
+    public static final String DELETE_ALL_CHECKBOX =
+            "com.doro.apps.browser:id/selectallcheckbox";
+
+    public static final String SETTINGS_REFRESH_THE_PAGE = "Refresh the page";
+
+    public static final String SETTINGS_SEND_THIS_PAGE = "Send this page";
+
+    public static final String SHAREPAGE_MESSAGE = "Messages";
+    public static final String SHAREPAGE_EMAIL = "Email";
+    public static final String SHAREPAGE_BT = "Blue\u200Btooth";
+    public static final String SHAREPAGE_ANDROID_BRAM = "Android Beam";
+    public static final String SHAREPAGE_COPY_TO_CLIPBOAD = "Copy to clipboard";
+    public static final String SHAREPAGE_GMAIL = "Gmail";
+    public static final String SHAREPAGE_SAVE_TO_DRIVE = "Save to Drive";
+
+    public static final String SET_MAX_OPEN_PAGE= "The maximum number of opened pages";
+    public static final String THE_DEFAULT_PAGE = "The default page";
+
+    public static final String SET_MAX_OPEN_PAGE_BOX =
+            "com.doro.apps.browser:id/picker_btn";
+
+    public static final String MAXPAGE_NUMBER_2 ="2";
+    public static final String MAXPAGE_NUMBER_5 ="5";
+    public static final String MAXPAGE_NUMBER_10 ="10";
+    public static final String MAXPAGE_NUMBER_20 ="20";
+
+    public static final String TheDefaplayPAge_Google = "https://google.co.uk";
 
 
 }

@@ -135,6 +135,8 @@ public class GalleryPage {
     public static final String GALLERY_SINGLE_VIDEO_OPTION_REMOVE_FOVOURITR =
             "Remove from favourites";
 
+    public static final String Wallpaper = "Wallpaper";
+
 
 
 

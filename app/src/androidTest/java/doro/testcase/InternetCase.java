@@ -42,13 +42,15 @@ public class InternetCase extends VP4{
     }
 
     @Test
-    public void searchWordAndAddress(){
+    public void searchWord(){//
         InternetAction.openInternetApp();
         InternetAction.searchWord();
+    }
+    @Test
+    public void searchAddress(){//
         InternetAction.openInternetApp();
         InternetAction.searchAddress();
     }
-
     @Test
     public void clearDataAndHistory(){
         InternetAction.openInternetApp();
@@ -69,11 +71,76 @@ public class InternetCase extends VP4{
     public void addBookmarks(){
         InternetAction.openInternetApp();
         InternetAction.searchAddress();
-        InternetAction.addOneBookmarks(InternetPage.BOOKMARKS_NAME_BAIDU);
-        InternetAction.checkAddBookmarks(InternetPage.BOOKMARKS_NAME_BAIDU);
+        InternetAction.addOneBookmarks(InternetPage.BOOKMARKS_NEW_1);
+        InternetAction.checkAddBookmarks(InternetPage.BOOKMARKS_NEW_1);
     }
     @Test
-    public void deleteBookmakes(){
-
+    public void deleteBookmakes(){//
+        InternetAction.openInternetApp();
+        InternetAction.searchAddress(InternetPage.HAO123);
+        InternetAction.addOneBookmarks(InternetPage.BOOKMARKS_NEW_2);
+        InternetAction.checkAddBookmarks(InternetPage.BOOKMARKS_NEW_2);
+        InternetAction.openInternetApp();
+        InternetAction.deleteBookmarks(InternetPage.BOOKMARKS_NEW_2);
+        InternetAction.ckeckDleeteBookmarks(InternetPage.BOOKMARKS_NEW_2);
     }
+    @Test
+    public void openSwitchPage(){
+        InternetAction.openInternetApp();
+        InternetAction.goToSwitchPage();
+        InternetAction.checkSwitchPage();
+    }
+    @Test
+    public void checkMaxPage(){
+        InternetAction.checkMaxPages();
+    }
+    @Test
+    public void checkEmptyPage(){//
+        InternetAction.openInternetApp();
+        InternetAction.clickClearDataAndHistoryButton();
+       // InternetAction.goToSwitchPage();
+        InternetAction.ckeckEmptyPages();
+    }
+
+    @Test
+    public void deletePage(){
+        InternetAction.AddPage();
+        InternetAction.goToSwitchPage();
+        InternetAction.deleteOnePage();
+        InternetAction.checkDeleteOnePage();
+        InternetAction.DelteAllPage();
+    }
+    @Test
+    public void checkNavigationPage(){//
+        InternetAction.openInternetApp();
+        InternetAction.searchAddress();
+        InternetAction.checkNavigationPages();
+    }
+    @Test
+    public void shareNavigationPage(){//
+        InternetAction.openInternetApp();
+        InternetAction.searchAddress();
+        InternetAction.checkNavigationPages();
+        InternetAction.sendThisPage();
+    }
+    @Test
+    public void checkInternetSet(){
+        InternetAction.openInternetApp();
+        InternetAction.checkSetOption();
+    }
+
+    @Test
+    public void setMaxOpendPage(){
+        InternetAction.openInternetApp();
+        InternetAction.checkSetOption();
+        InternetAction.setMaxOpendPages(InternetPage.MAXPAGE_NUMBER_2);
+        InternetAction.checkMaxPages(InternetPage.MAXPAGE_NUMBER_2);
+    }
+    @Test
+    public void checkDefaultPage(){
+        InternetAction.openInternetApp();
+        InternetAction.checkSetOption();
+        InternetAction.checkDefaultPages();
+    }
+
 }
