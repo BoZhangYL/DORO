@@ -2,6 +2,7 @@ package doro.testcase;
 
 import org.junit.Test;
 
+import doro.action.GalleryAction;
 import doro.action.SetAction;
 
 import static doro.page.SetPage.SET_ALARM_VALUE_ID;
@@ -81,9 +82,15 @@ public class SetCase {
         setAction.checkTimeFormat(24);
     }
     @Test
-    public void setWallpaper(){
+    public void setWallpaper(){  //在设置中设置图片为壁纸
         setAction.findSet();//找到设置
         setAction.setWallpaper(1);//设置第一张图片为壁纸
+    }
+    @Test
+    public void resetWallpaper(){ //重置壁纸,“没有添加验证”
+        GalleryAction.setPictureAsWallpaper();
+        setAction.findSet();//找到设置
+        setAction.resetWallpaper();
     }
     @Test
     public void checkSetView(){
