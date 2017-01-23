@@ -2,6 +2,7 @@ package doro.testcase;
 
 import android.support.test.runner.AndroidJUnit4;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -20,6 +21,10 @@ public class AlarmCase extends VP4{
     AlarmAction AlarmAction = new AlarmAction();
     SettingAction SettingAction = new SettingAction();
     SetAction SetAction = new SetAction();
+    @Before
+    public void unlock(){
+        unLock();
+    }
     @Test
     public void enterAndExitAlarm(){ //进入与退出闹钟界面
         openAppliction("Alarm"); //找到设置应用
