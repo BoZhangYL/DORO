@@ -109,4 +109,5 @@ public class AlarmCase extends VP4{
         phoneWaitTime(5.5);//等待5.5分钟
         AlarmAction.checkAlarmNotComing();//判断闹钟是否到来
     }
+
 }
