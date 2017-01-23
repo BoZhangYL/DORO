@@ -57,6 +57,7 @@ public class NotificationBarAction extends VP4 {
 
     public void checkSettingButton(){
 
+
     }
 
 

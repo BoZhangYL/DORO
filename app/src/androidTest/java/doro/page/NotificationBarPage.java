@@ -12,4 +12,5 @@ public class NotificationBarPage {
     public static final String NOTIFICATIONBAR_TIME_ID="com.android.systemui:id/time_view";
 
     public static final String NOTIFICATIONBAR_DATE_ID="com.android.systemui:id/date";
+
 }

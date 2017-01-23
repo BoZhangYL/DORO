@@ -13,7 +13,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import doro.action.NotificationBarAction;
-
 import static doro.page.NotificationBarPage.*;
 
 /**
