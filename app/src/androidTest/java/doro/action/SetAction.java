@@ -51,6 +51,7 @@ import static doro.page.SetPage.SET_TIMEFORMAT_FIELD_ID;
 import static doro.page.SetPage.SET_TIME_FILED_ID;
 import static doro.page.SetPage.SET_TONE_SETUP_BTN_ID;
 import static doro.page.SetPage.SET_WALLPAPER_CHANGE_TEXT;
+import static doro.page.SetPage.SET_WALLPAPER_RESET_TEXT;
 import static doro.page.SetPage.SET_WGRIDVIEW_CLASS;
 import static doro.page.SetPage.SET_WIDGET_FRAMELAYOUT_CLASS;
 import static doro.page.SetPage.SET_YEAR_DECREASE_ID;
@@ -86,6 +87,13 @@ public class SetAction extends VP4{
             Thread.sleep(3);
             getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
         }catch(Exception e){e.printStackTrace();}
+    }
+    public void wallpaperReset(){ //将壁纸重置成默认设置
+        try{
+            getObjectByText(SET_WALLPAPER_RESET_TEXT).clickAndWaitForNewWindow();
+            getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
+        }catch(Exception e){e.printStackTrace();}
+
     }
     public void minusAndPlus(String value,int x,String minus,String plus ){ //调节Set菜单下音频设置的音量
         try{
@@ -315,6 +323,11 @@ public class SetAction extends VP4{
         findListSubmenu(SET_MYHOMESCREEN_TEXT);
         findListSubmenu(SET_MY_WALLPAPER_TEXT);
         wallpaperChange(x);
+    }
+    public void resetWallpaper(){ //重置壁纸
+        findListSubmenu(SET_MYHOMESCREEN_TEXT);
+        findListSubmenu(SET_MY_WALLPAPER_TEXT);
+        wallpaperReset();
     }
     public void checkAudioSetup(String audioSetupMode){ //检查音频设置是否为指定的模式
         findListSubmenu(SET_AN_AUDIO_OPTION_TEXT);

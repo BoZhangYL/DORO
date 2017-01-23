@@ -21,6 +21,8 @@ public class SetPage {
     public static final String SET_MY_WALLPAPER_TEXT ="My wallpaper";
     //set二级菜单下的"Wallpaper"下的“change”Text
     public static final String SET_WALLPAPER_CHANGE_TEXT ="Change";
+    //set二级菜单下的"Wallpaper"下的“Reset”Text
+    public static final String SET_WALLPAPER_RESET_TEXT ="Reset";
     //set三级菜单下的"Wallpaper"下的“change”下的“Wallpaper”的Text
     public static final String SET_CHANGE_GALLERY_TEXT ="Gallery";
     //set一级菜单下的"A display option"的Text
