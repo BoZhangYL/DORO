@@ -185,27 +185,43 @@ public class SetAction extends VP4{
             int clickY =Integer.valueOf(dates[0]) - Integer.valueOf(phoneDates[2]);
             int clickM =Integer.valueOf(dates[1]) - Integer.valueOf(phoneDates[1]);
             int clickD =Integer.valueOf(dates[2]) - Integer.valueOf(phoneDates[0]);
-            while(clickY!=0){
-                if(clickY<0){
+            getObjectById(SET_DATE_FILED_ID).clickAndWaitForNewWindow();
+            if(clickY<0){
+                for(int x=0;x<-clickY;x++){
                     getObjectById(SET_YEAR_DECREASE_ID).click();
-                }else{
+                }
+            }else{
+                for(int y=0;y<clickY;y++){
                     getObjectById(SET_YEAR_INCREASE_ID).click();
                 }
             }
-            while(clickM!=0){
-                if(clickM<0){
+            if(clickM<0){
+                for(int x=0;x<-clickM;x++) {
                     getObjectById(SET_MONTH_DECREASE_ID).click();
-                }else{
+                }
+            }else{
+                for(int y=0;y<clickM;y++) {
                     getObjectById(SET_MONTH_INCREASE_ID).click();
                 }
             }
-            while(clickD!=0){
-                if(clickD<0){
+            if(clickD<0){
+                for(int x=0;x<-clickD;x++) {
                     getObjectById(SET_DAY_DECREASE_ID).click();
-                }else{
+                }
+            }else{
+                for(int y=0;y<clickD;y++) {
                     getObjectById(SET_DAY_INCREASE_ID).click();
                 }
             }
+            getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void setNextDay(){ //设置当前日期的下一天
+        findTimeAndate();
+        autoTime(false);
+        try{
+            getObjectById(SET_DATE_FILED_ID).clickAndWaitForNewWindow();
+            getObjectById(SET_DAY_INCREASE_ID).click();
             getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
         }catch(Exception e){e.printStackTrace();}
     }
@@ -351,6 +367,40 @@ public class SetAction extends VP4{
             Assert.assertFalse("屏幕没有关闭",mDevice.isScreenOn());
             mDevice.wakeUp();
             unLock();
+        }catch(Exception e){e.printStackTrace();}
+    }
+    private void findTimeAndate(){
+        findSet();//找到设置
+        findListSubmenu(SET_GENERAL_OPTION_TEXT);
+        findListSubmenu(SET_DATE_AND_TIME_TEXT);//找到The date and time
+    }
+    public void setATime(String time){ //去设置一个指定时间
+        findTimeAndate();
+        setTime(time);
+        try{
+            getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void setADate(String date){//去指定一个日期
+        findTimeAndate();
+        setDate(date);
+        try{
+            getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void setNextDayTime(String time){ //设置下一天的时间
+        setNextDay();
+        setTime(time);
+        try{
+            getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void setADateAndTime(String date,String time){//去指定一个日期与时间
+        findTimeAndate();
+        setDate(date);
+        setTime(time);
+        try{
+            getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
         }catch(Exception e){e.printStackTrace();}
     }
     public void checkTimeFormat(int timeformat){ //检查手机设置的时间格式
