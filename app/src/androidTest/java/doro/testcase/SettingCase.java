@@ -60,6 +60,7 @@ public class SettingCase extends VP4 {
         SettingAction.settingChild("More");
         SettingAction.switchFlightMode(true);//打开飞行模式
         SettingAction.CheckStatus(false);//检查wifi，蓝牙数据流量是否关闭
+        flightModeOff();
     }
     @Test
     public void checkWBDOnStatus(){

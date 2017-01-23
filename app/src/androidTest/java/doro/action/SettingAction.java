@@ -47,7 +47,6 @@ import static java.lang.Integer.parseInt;
  * Created by lingjiang.du on 2016/12/1.
  */
 public class SettingAction extends VP4 {
-
     public void bluetooth(boolean bluetooth){ //打开或者关闭蓝牙
         try{
             String status =getObjectByText(SETTINGS_BLUETOOTHSWITCH_TEXT).getText();
@@ -303,9 +302,8 @@ public class SettingAction extends VP4 {
     }
     public void CheckFlightModeOnInfo(boolean flightMode ){ //检查飞行模式下的提示信息是否存在
         try{
+            openAppliction("Settings"); //找到设置应用
             if(flightMode){
-                getObjectByClass(SETTINGS_WIDGET_IMAGEBUTTON_CLASS).click();
-                getObjectByText(SETTINGS_HOME_TEXT).clickAndWaitForNewWindow();
                 Assert.assertTrue("Flight mode info isn't on",getObjectByText(SETTINGS_FLIGHTMODE_ON_TEXT).exists());
                 getObjectByText(SETTINGS_FLIGHTMODE_ON_TEXT).click();
                 Assert.assertTrue("Don't have the Flight mode info ",getObjectByText(SETTINGS_FLIGHTMODE_TURNOFF_TEXT).exists());

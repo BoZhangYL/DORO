@@ -24,7 +24,6 @@ import static doro.page.FileManagerPage.FILEMANAGER_WIDGET_LISTVIEW_CLASS;
 
 public class FileManagerAction extends VP4 {
     public void chooseFile(String Filepath){ //根据文件路径选中一个文件
-        getObjectByClass(FILEMANAGER_WIDGET_IMAGEBUTTON_TEXT);
         try{
             String[] pathName =Filepath.split("/");
             for(int i=0;i<pathName.length-1;i++){
@@ -35,7 +34,11 @@ public class FileManagerAction extends VP4 {
             }
             getUiObjectByDes(FILEMANAGER_MORE_OPTIONS_DESC).clickAndWaitForNewWindow();
             getObjectByTextContains(FILEMANAGER_SELECT_FILE_TEXT).clickAndWaitForNewWindow();
-            getObjectByText(pathName[pathName.length-1]).click();
+            if(getObjectByText(pathName[pathName.length-1]).exists()){
+                getObjectByText(pathName[pathName.length-1]).click();
+            }else{
+                Assert.assertTrue("The resource folder don't exist!",false);
+            }
         }catch(Exception e){e.printStackTrace();}
     }
     public void findFile(String Filepath){ //随机选择一个文件夹
@@ -63,9 +66,11 @@ public class FileManagerAction extends VP4 {
     public void CheckSDCard(){ //检查SD卡是否存在
         try{
             boolean sd =getObjectByIdText(FILEMANAGER_EDIT_ADAPTER_NAME_ID,FILEMANAGER_SD_CARD_TEXT).exists();
-            getObjectByIdText(FILEMANAGER_EDIT_ADAPTER_NAME_ID,FILEMANAGER_SD_CARD_TEXT).clickAndWaitForNewWindow();
-            pressKey("back");
-            Assert.assertTrue("SD card不存在",sd);
+            if(sd){
+                getObjectByIdText(FILEMANAGER_EDIT_ADAPTER_NAME_ID,FILEMANAGER_SD_CARD_TEXT).clickAndWaitForNewWindow();
+                pressKey("back");
+            }
+            Assert.assertTrue("SD card  don't exist",sd);
         }catch(Exception e){e.printStackTrace();}
     }
     public void checkDetails(String Filepath){ //查看一个文件夹的详细信息

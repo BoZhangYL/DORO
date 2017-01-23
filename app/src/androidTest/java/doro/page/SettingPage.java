@@ -10,6 +10,8 @@ public class SettingPage {
     public static final String SETTINGS_HOME_TEXT ="Settings Home";
     //设置下蓝牙状态的Text
     public static final String SETTINGS_BLUETOOTHSWITCH_TEXT ="com.android.settings:id/switch_text";
+    //流量中"Mobile data usage"的Text
+    public static final String SETTINGS_DATA_USAGE_TEXT ="Mobile data usage";
     //飞行模式打开下的Text
     public static final String SETTINGS_FLIGHTMODE_ON_TEXT ="Flight mode is on";
     public static final String SETTINGS_FLIGHTMODE_TURNOFF_TEXT ="TURN OFF";
