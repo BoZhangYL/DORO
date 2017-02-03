@@ -13,13 +13,16 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Set;
 
 import ckt.base.VP4;
 import doro.action.APPMenuAction;
+import doro.action.EmailAction;
 import doro.action.MainAction;
 import doro.page.APPMenuPage;
+import doro.page.ConstantPage;
 
 /**
  * Created by Caibing.Yin  on 2017/1/12.
@@ -28,8 +31,9 @@ import doro.page.APPMenuPage;
 public class APPMenuCase extends VP4{
     Hashtable<String,String> apps;
     @BeforeClass
-    public static void initGalleryCase(){
+    public static void initGalleryCase() throws IOException, UiObjectNotFoundException {
         unLock();
+        EmailAction.LogInEmail("woshihouzi2016@gmail.com","woshidoubi","");
     }
 
     @Test
