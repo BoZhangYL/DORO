@@ -7,6 +7,9 @@ import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
 
+import org.hamcrest.Asst;
+import org.junit.Assert;
+
 import java.io.IOException;
 import java.util.Random;
 
@@ -83,7 +86,7 @@ public class EmailAction extends VP4 {
                     clickByText("Cancel");//gmail需要
                     waitUntilFind(EmailPage.EMAIL_INPUT_OK_TEXT, 2000);
                     clickById(EmailPage.EMAIL_INPUT_OK_TEXT);
-                    waitUntilFind(EmailPage.EMAIL_PASSWORD_INPUT, 20000);
+                    waitUntilFind(EmailPage.EMAIL_PASSWORD_INPUT, 20000);//可能超时
                     //输入密码
                     getObject2ById(EmailPage.EMAIL_PASSWORD_INPUT).setText(password);
                     clickById(EmailPage.EMAIL_INPUT_OK_BUTTON);
@@ -230,28 +233,73 @@ public class EmailAction extends VP4 {
     }
     /**
      *备注：登陆后需要在手机上注册Google账号才能使用Play Store
-     * 手机注册Google账号
+     * 手机注册Chrome账号
+     * */
+    public static void RegisterChromeAccount(String EmailAccount,String PassWord) throws UiObjectNotFoundException, IOException {
+        MainAction.startApp(APPMenuPage.AppNameList[4]);
+        if(text_exists("Sign in to Chrome")){
+                clickByText("SIGN IN");
+                //等待与服务器连接
+                waitTime(40);
+                //1、如果与服务器连接失败
+                if(text_exists("Couldn't sign in")&&
+                        text_exists("There was a problem communicating with Google servers. \n" +
+                        "\n" +
+                        "Try again later.")){
+                    clickByText("NEXT");
+                    RegisterChromeAccount(EmailAccount,PassWord);
+                }
+                //2、如果没有停留在连接状态
+                else if (!text_exists("Checking info…")){
+                    findObject("identifierId").setText(EmailAccount);
+                    clickById("identifierNext");
+                    findObject("password").setText(PassWord);
+                    clickByText("NEXT");
+                    clickById("next");
+                    waitTime(5);
+                    clickByText("NEXT");
+                    clickByText("CONTINUE");
+                    clickByText("OK, GOT IT");
+                }
+                //3、如果依然停留在连接状态
+                MainAction.killAppByPackage(APPMenuPage.AppNameList[4]);
+                RegisterGoogleAccount(EmailAccount,PassWord);
+            }
+        }
+    /**
+     *备注：登陆后需要在手机上注册Google账号才能使用Play Store
+     * 手机注册Chrome账号
      * */
     public static void RegisterGoogleAccount(String EmailAccount,String PassWord) throws UiObjectNotFoundException, IOException {
         MainAction.startApp(APPMenuPage.AppNameList[20]);
-        if(text_exists("Sign in to Chrome")){
+        if(text_exists("Let Google help you throughout the day")&&text_exists("SIGN IN")){
             clickByText("SIGN IN");
-            waitTime(20);
+            //等待与服务器连接
+            waitTime(40);
+            //1、如果与服务器连接失败
             if(text_exists("Couldn't sign in")&&text_exists("There was a problem communicating with Google servers. \n" +
                     "\n" +
                     "Try again later.")){
                 clickByText("NEXT");
-                RegisterGoogleAccount(EmailAccount,PassWord);
+                RegisterChromeAccount(EmailAccount,PassWord);
             }
-            shellInputText(EmailAccount);
-            clickByText("NEXT");
-            shellInputText(PassWord);
-            clickByText("NEXT");
-            clickById("next");
-            waitTime(5);
-            clickByText("NEXT");
-            clickByText("CONTINUE");
-            clickByText("OK, GOT IT");
+            //2、如果没有停留在连接状态
+            else if (!text_exists("Checking info…")){
+                findObject("identifierId").setText(EmailAccount);
+                clickById("identifierNext");
+                waitTime(3);
+                findObject("password").setText(PassWord);
+                waitTime(3);
+                clickByText("NEXT");
+                clickById("next");
+                waitTime(5);
+                clickByText("NEXT");
+                clickByText("CONTINUE");
+                clickByText("OK, GOT IT");
+            }
+            //3、如果依然停留在连接状态
+            MainAction.killAppByPackage(APPMenuPage.AppNameList[20]);
+            RegisterGoogleAccount(EmailAccount,PassWord);
         }
     }
 }

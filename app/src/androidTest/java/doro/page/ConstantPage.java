@@ -26,6 +26,7 @@ public class ConstantPage {
         //account.put("cktfalcontest@gmail.com","falcon@ckt2014");//(需要短信验证13458523374)
         account.put("clh309150918@gmail.com", "309150978");
         account.put("woshihouzi2016@gmail.com", "woshidoubi");
+        account.put("woshihouzi329@gmail.com", "ycb1991924");
         account.put("chengduxike@hotmail.com", "falcon@ckt2015");
         account.put("cktfalcontest@qq.com", "falcon@ckt2014");
         account.put("cktfalcontest@sina.com", "falcon@ckt2014");//Not Cancle
