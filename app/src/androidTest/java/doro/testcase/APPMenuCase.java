@@ -34,6 +34,7 @@ public class APPMenuCase extends VP4{
     public static void initGalleryCase() throws IOException, UiObjectNotFoundException {
         unLock();
         EmailAction.LogInEmail("woshihouzi2016@gmail.com","woshidoubi","");
+        EmailAction.RegisterGoogleAccount("woshihouzi2016@gmail.com","woshidoubi");
     }
 
     @Test
