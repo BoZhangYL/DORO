@@ -68,6 +68,7 @@ public class EmailAction extends VP4 {
         MainAction.killAppByPackage(APPMenuPage.PkgNameList[15]);
         MainAction.startApp(APPMenuPage.AppNameList[15]);
         waitTime(3);
+        //登录有四种情况登录：1、没有其他账号；2、有其他账号；3、gmail账号；4、非gmail账号；其他136账号，189账号，QQ邮箱，sina邮箱，yahoo邮箱注册功能好像未实现就未考虑
         if(!EmailAction.IsExist_Email_account(account)){
             //已有其他账号，再添加账号
             if(text_exists("Add account")) {
@@ -134,6 +135,7 @@ public class EmailAction extends VP4 {
                     clickById(EmailPage.EMAIL_INPUT_OK_BUTTON);
                     //等待10s将收件箱刷新出来
                     waitTime(10);
+
                 }
                 //非gmail邮箱
                 else {
@@ -143,7 +145,7 @@ public class EmailAction extends VP4 {
                     //输入密码
                     getObject2ById(EmailPage.EMAIL_PASSWORD_INPUT).setText(password);
                     clickById(EmailPage.EMAIL_INPUT_OK_BUTTON);
-                    waitTime(10);
+                    waitTime(10);//容易超时
                     clickById(EmailPage.EMAIL_INPUT_OK_BUTTON);
                     waitTime(5);
                     getObject2ById(EmailPage.EMAIL_ACCOUNT_NAME).setText("");
@@ -225,5 +227,31 @@ public class EmailAction extends VP4 {
         findObject(EmailPage.EMAIL_BODY).setText(Email_Body);
         clickById(EmailPage.EMAIL_SEND);
         waitTime(3);
+    }
+    /**
+     *备注：登陆后需要在手机上注册Google账号才能使用Play Store
+     * 手机注册Google账号
+     * */
+    public static void RegisterGoogleAccount(String EmailAccount,String PassWord) throws UiObjectNotFoundException, IOException {
+        MainAction.startApp(APPMenuPage.AppNameList[20]);
+        if(text_exists("Sign in to Chrome")){
+            clickByText("SIGN IN");
+            waitTime(20);
+            if(text_exists("Couldn't sign in")&&text_exists("There was a problem communicating with Google servers. \n" +
+                    "\n" +
+                    "Try again later.")){
+                clickByText("NEXT");
+                RegisterGoogleAccount(EmailAccount,PassWord);
+            }
+            shellInputText(EmailAccount);
+            clickByText("NEXT");
+            shellInputText(PassWord);
+            clickByText("NEXT");
+            clickById("next");
+            waitTime(5);
+            clickByText("NEXT");
+            clickByText("CONTINUE");
+            clickByText("OK, GOT IT");
+        }
     }
 }
