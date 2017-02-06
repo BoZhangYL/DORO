@@ -8,7 +8,7 @@ public class GalleryPage {
 
     public static final String GALLERY = "Gall\u200Bery";
 
-    public static final String GALLERY_PACKAGE ="com.doro.apps.gallery";
+    public static final String GALLERY_PACKAGE = "com.doro.apps.gallery";
 
     public static final String GALLERY_HEADER =
             "com.doro.apps.gallery:id/relativelayoutforheader";
@@ -24,7 +24,7 @@ public class GalleryPage {
     public static final String GALLERYSETTINGS_FAVOURITE = "Manage favourite";
     //设置选项：Manage favourite， text
 
-    public static final String GALLERYSETTINGS_DELETE_PICTURES ="Delete picture(s)";
+    public static final String GALLERYSETTINGS_DELETE_PICTURES = "Delete picture(s)";
     //设置选项：删除图片，text
 
     public static final String GALLERYSETTINGS_SET = "Set…";
@@ -37,13 +37,13 @@ public class GalleryPage {
     public static final String GALLERYSETTINGS_DISPLAY_MYGALLERY = "My gallery";
     //设置选项： 显示-我的图库， tezt
 
-    public static final String GALLERYSETTINGS_DISPLAY_ALLPICTURES ="All pictures";
+    public static final String GALLERYSETTINGS_DISPLAY_ALLPICTURES = "All pictures";
     //设置选项： 显示-所有图片， tezt
 
     public static final String GALLERYSETTINGS_DISPLAY_ALLVIDEOS = "All videos";
     //设置选项： 显示-所有video， tezt
 
-    public static final String GALLERYSETTINGS_DISPLAY_FAVOURITES ="Favourites";
+    public static final String GALLERYSETTINGS_DISPLAY_FAVOURITES = "Favourites";
     //设置选项： 显示-喜欢， tezt
 
     public static final String GALLERYSETTINGS_SET_COLUMNS = "The number of columns";
@@ -58,7 +58,7 @@ public class GalleryPage {
     public static final String SET_DEFAULT_VIEW = "com.doro.apps.gallery:id/picker_btn";
     //设置默认显示界面， id
 
-    public static final String GALLERY_GRAID_VIEW ="com.doro.apps.gallery:id/gridview";
+    public static final String GALLERY_GRAID_VIEW = "com.doro.apps.gallery:id/gridview";
     //图库网格界面，id
 
     public static final String GALLERY_PREVIOUS_BUTTTON =
@@ -82,14 +82,14 @@ public class GalleryPage {
     public static final String GRID_IMAGE = "com.doro.apps.gallery:id/image_image";
     //每张图片的id
 
-    public static final int MAX_PICTURES_NUMBERS =200;
+    public static final int MAX_PICTURES_NUMBERS = 200;
     //最大图库保存的照片数
 
-    public static final String GALLERY_FAVORITE_ICON ="favorite_icon";
+    public static final String GALLERY_FAVORITE_ICON = "favorite_icon";
     //favourite图标
 
     public static final String CONFIRM_BUTTON = "Confirm";
-    public static final String OK_BUTTON ="OK";
+    public static final String OK_BUTTON = "OK";
     public static final String CANCEL_BUTTON = "Cancel";
 
     public static final String GALLERY_DELETE_CHECK_BOX =
@@ -125,19 +125,17 @@ public class GalleryPage {
 
     public static final String GALLERY_SINGLE_VIDEO_OPTION_SHARE_VIDEO = "Share this video";
 
-    public static final String GALLERY_SINGLE_VIDEO_OPTION_VIDEO_DETAILS ="Video details";
+    public static final String GALLERY_SINGLE_VIDEO_OPTION_VIDEO_DETAILS = "Video details";
 
     public static final String GALLERY_SINGLE_VIDEO_OPTION_ADD_TO_FAVOURITE =
             "Add to favourites";
 
-    public static final String GALLERY_SINGLE_VIDEO_OPTION_DELETE_VIDEO ="Delete this video";
+    public static final String GALLERY_SINGLE_VIDEO_OPTION_DELETE_VIDEO = "Delete this video";
 
     public static final String GALLERY_SINGLE_VIDEO_OPTION_REMOVE_FOVOURITR =
             "Remove from favourites";
 
     public static final String Wallpaper = "Wallpaper";
-
-
 
 
 }

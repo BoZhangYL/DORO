@@ -5,10 +5,10 @@ package doro.page;
  */
 
 public class CalednarPage {
-    public static final int ENABLE_CALENDAR_ALL_DAY_EVENT=1;
+    public static final int ENABLE_CALENDAR_ALL_DAY_EVENT = 1;
     //全天事件选中状态
 
-    public static final int DISABLE_CALENDAR_ALL_DAY_EVENT=0;
+    public static final int DISABLE_CALENDAR_ALL_DAY_EVENT = 0;
     //全天事件未选中状态
 
     public static final String CALENDAR_ADD_BUTTIN_ID = "com.doro.apps.calendar:id/text";
@@ -63,10 +63,10 @@ public class CalednarPage {
     public static final String CALENDAR_SET_DAY_VIEW = "android.widget.CheckedTextView";
     //日期设置日界面
 
-    public static final String CALENDAR_ALL_DAY_ENALE ="1";
+    public static final String CALENDAR_ALL_DAY_ENALE = "1";
     //启用全天事件
 
-    public static final String CALENDAR_ALL_DAY_DISABLE ="0";
+    public static final String CALENDAR_ALL_DAY_DISABLE = "0";
     //禁用全天事件
 
     public static final String CALENDAR_ALL_DAY_EVENT =
@@ -76,7 +76,7 @@ public class CalednarPage {
     public static final String CALENDAR_RECURRENCE_NONE = "None";
     //循环:None
 
-    public static final String CALENDAR_RECURRENCE_EVERY_DAY ="Every day";
+    public static final String CALENDAR_RECURRENCE_EVERY_DAY = "Every day";
     //循环:Every day
 
     public static final String CALENDAR_RECURRENCE_EVERY_WEEK = "Every week";
@@ -140,7 +140,7 @@ public class CalednarPage {
 
     public static final String CALENDAR_REMINDER_TYPE_NO_REMINDER = "No reminder";
     public static final String CALENDAR_REMINDER_TYPE_NOTIFICATION = "Notification";
-    public static final String CALENDAR_REMINDER_TYPE_SLARM ="Alarm";
+    public static final String CALENDAR_REMINDER_TYPE_SLARM = "Alarm";
     //reminder的类型
 
     public static final String CALENDAR_BEFORE_VALUE_AT_ACTIVITY_TIME =
@@ -151,40 +151,11 @@ public class CalednarPage {
     public static final String CALENDAR_BEFORE_VALUE_1_HOUR = "1 hour";
     public static final String CALENDAR_BEFORE_VALUE_2_HOURS = "2 hours";
     public static final String CALENDAR_BEFORE_VALUE_1_DAY = "1 day";
-    public static final String CALENDAR_BEFORE_VALUE_2_DAYS ="2 days";
+    public static final String CALENDAR_BEFORE_VALUE_2_DAYS = "2 days";
     //Before的值
 
     public static final String CALENDAR_DAY_LABEL = "com.doro.apps.calendar:id/label";
     //日历DAY框
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
