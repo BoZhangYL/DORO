@@ -429,6 +429,7 @@ public class CalendarAction extends VP4 {
                 CALENDAR_PACKAGE,gDevice.getCurrentPackageName());
     }
     public static void checkCreateBeforCalendar() throws UiObjectNotFoundException {
+        waitTime(5);
         scrollToEnd(STEP_NORMAL);
         UiObject beforbox = getObjectById("com.doro.apps.calendar:id/event_alarm");
         Assert.assertEquals("CreateBeforeFiveMinEvent",CALENDAR_BEFORE_VALUE_5_MINUTES,
