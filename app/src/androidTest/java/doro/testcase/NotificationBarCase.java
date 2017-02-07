@@ -32,6 +32,8 @@ public class NotificationBarCase extends NotificationBarAction {
         Assert.assertTrue("状态栏没有全屏显示",getObjectByClass(NOTIFICATIONBAR_BRIGHTNESS_CLASS).exists());
     }
 
+
+
     @Test
     public void testTimeAndDate(){
         mDevice.pressBack();
