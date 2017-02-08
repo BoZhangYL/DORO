@@ -21,24 +21,24 @@ public class FileManagerCase {
     @Test
     public void detailsOfFiles(){ //查看文件的详细情况
         openAppliction(APPS_ICON_FILEMANAGER_TEXT); //找到文件管理器应用
-        fileManageraction.checkDetails("Internal shared storage/resource/FileManager/Details I'm Yours.mp3");
+        fileManageraction.checkDetails("Internal shared storage/FileManager/Details I'm Yours.mp3");
     }
     @Test
     public void copyFolder(){ //复制文件夹
         openAppliction(APPS_ICON_FILEMANAGER_TEXT); //找到文件管理器应用
-        fileManageraction.checkCopeFolder("Internal shared storage/resource/FileManager/copyfiles.bmp",
-                "Internal shared storage/resource/AcceptFiles");
+        fileManageraction.checkCopeFolder("Internal shared storage/FileManager/copyfiles.bmp",
+                "Internal shared storage/AcceptFiles");
     }
     @Test
     public void cutFolder(){ //移动文件夹
         openAppliction(APPS_ICON_FILEMANAGER_TEXT); //找到文件管理器应用
-        fileManageraction.checkCutFolder("Internal shared storage/resource/FileManager/cut.jpg",
-                "Internal shared storage/resource/AcceptFiles");
+        fileManageraction.checkCutFolder("Internal shared storage/FileManager/cut.jpg",
+                "Internal shared storage/AcceptFiles");
     }
     @Test
     public void deleteFolder(){ //删除文件夹，文件
         openAppliction(APPS_ICON_FILEMANAGER_TEXT); //找到文件管理器应用
-        fileManageraction.checkDeleteFolder("Internal shared storage/resource/FileManager/delete.png");
+        fileManageraction.checkDeleteFolder("Internal shared storage/FileManager/deletekkkkk.png");
     }
 
 }

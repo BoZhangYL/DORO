@@ -27,17 +27,46 @@ public class SettingCase extends VP4 {
         SettingAction.CheckStorageIsSD(false); //检查默认设置是否为Phone
     }
     @Test
-    public void viewConfigureApps(){
+    public void viewConfigureApps(){ //查看Apps的配置信息
         openAppliction("Settings"); //找到设置应用
         SettingAction.apps(); //找到Apps
         SettingAction.configureApps();//进入Apps的配置界面
         SettingAction.CheckConfigureApps();//检查已经进入了配置界面
     }
     @Test
-    public void viewAppInfo(){
+    public void viewAppInfo(){ //查看Apps的App的设置
         openAppliction("Settings"); //找到设置应用
         SettingAction.apps(); //找到Apps
         SettingAction.appsInfo(1);//进入第一个应用
         SettingAction.CheckAppsInfo();
+    }
+    @Test
+    public void flightModeOn(){
+        openAppliction("Settings"); //找到设置应用
+        SettingAction.settingChild("More");
+        SettingAction.switchFlightMode(true);//打开飞行模式
+        SettingAction.CheckFlightModeOnInfo(true);//检查有飞行模式信息
+    }
+    @Test
+    public void flightModeOff(){
+        openAppliction("Settings"); //找到设置应用
+        SettingAction.settingChild("More");
+        SettingAction.switchFlightMode(false);//关闭飞行模式
+        SettingAction.CheckFlightModeOnInfo(false);//检查无飞行模式信息
+    }
+    @Test
+    public void checkWBDOffStatus(){
+        openAppliction("Settings"); //找到设置应用
+        SettingAction.settingChild("More");
+        SettingAction.switchFlightMode(true);//打开飞行模式
+        SettingAction.CheckStatus(false);//检查wifi，蓝牙数据流量是否关闭
+        flightModeOff();
+    }
+    @Test
+    public void checkWBDOnStatus(){
+        openAppliction("Settings"); //找到设置应用
+        SettingAction.settingChild("More");
+        SettingAction.switchFlightMode(false);//关闭飞行模式
+        SettingAction.CheckStatus(true);//检查wifi，蓝牙数据流量是可以操作
     }
 }

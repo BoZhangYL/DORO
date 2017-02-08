@@ -7,6 +7,7 @@ import ckt.base.VP4;
 import static doro.page.SetPage.SET_ALARM_VALUE_ID;
 import static doro.page.SetPage.SET_AN_AUDIO_OPTION_TEXT;
 import static doro.page.SetPage.SET_AUTOTIME_CHECKVIEW_ID;
+import static doro.page.SetPage.SET_CHANGE_GALLERY_TEXT;
 import static doro.page.SetPage.SET_CONFIRM_TEXT;
 import static doro.page.SetPage.SET_DATE_AND_TIME_TEXT;
 import static doro.page.SetPage.SET_DATE_FILED_ID;
@@ -29,18 +30,29 @@ import static doro.page.SetPage.SET_MINUTE_EDIT_ID;
 import static doro.page.SetPage.SET_MINUTE_INCREASE_ID;
 import static doro.page.SetPage.SET_MONTH_DECREASE_ID;
 import static doro.page.SetPage.SET_MONTH_INCREASE_ID;
+import static doro.page.SetPage.SET_MYHOMESCREEN_TEXT;
 import static doro.page.SetPage.SET_MY_AUDIO_SETUP_TEXT;
+import static doro.page.SetPage.SET_MY_WALLPAPER_TEXT;
 import static doro.page.SetPage.SET_PLUS_ALARM_ID;
 import static doro.page.SetPage.SET_PLUS_MEDIA_ID;
 import static doro.page.SetPage.SET_PLUS_RINGTONE_ID;
 import static doro.page.SetPage.SET_RINGTONE_VALUE_ID;
+import static doro.page.SetPage.SET_SCREEN_BRIGHTNESS_TEXT;
 import static doro.page.SetPage.SET_SCREEN_TIMEOUT_TEXT;
+import static doro.page.SetPage.SET_SCREEN_TIMEOUT_TWO_TEXT;
+import static doro.page.SetPage.SET_SELECT_TEXT_SIZE_TEXT;
 import static doro.page.SetPage.SET_SUPPORT_RECYCLERVIEW_CLASS;
+import static doro.page.SetPage.SET_TEXTSIZE_EXTRALARGE_TEXT;
+import static doro.page.SetPage.SET_TEXTSIZE_LARGE_TEXT;
+import static doro.page.SetPage.SET_TEXTSIZE_NORMAL_TEXT;
 import static doro.page.SetPage.SET_TEXT_SIZE_TEXT;
 import static doro.page.SetPage.SET_THE_VOLUME_SETUP_TEXT;
 import static doro.page.SetPage.SET_TIMEFORMAT_FIELD_ID;
 import static doro.page.SetPage.SET_TIME_FILED_ID;
 import static doro.page.SetPage.SET_TONE_SETUP_BTN_ID;
+import static doro.page.SetPage.SET_WALLPAPER_CHANGE_TEXT;
+import static doro.page.SetPage.SET_WALLPAPER_RESET_TEXT;
+import static doro.page.SetPage.SET_WGRIDVIEW_CLASS;
 import static doro.page.SetPage.SET_WIDGET_FRAMELAYOUT_CLASS;
 import static doro.page.SetPage.SET_YEAR_DECREASE_ID;
 import static doro.page.SetPage.SET_YEAR_INCREASE_ID;
@@ -64,6 +76,24 @@ public class SetAction extends VP4{
             }
             getObjectByText(Submenu1).clickAndWaitForNewWindow();
         }catch(Exception e){e.printStackTrace();}
+    }
+    public void wallpaperChange(int x){ //设置背景壁纸
+        try{
+            int y=x*2-1;
+            getObjectByText(SET_WALLPAPER_CHANGE_TEXT).clickAndWaitForNewWindow();
+            getObjectByText(SET_CHANGE_GALLERY_TEXT).clickAndWaitForNewWindow();
+            getLinearLayout(y,SET_WGRIDVIEW_CLASS,SET_WIDGET_FRAMELAYOUT_CLASS).clickAndWaitForNewWindow();
+            getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
+            Thread.sleep(3);
+            getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void wallpaperReset(){ //将壁纸重置成默认设置
+        try{
+            getObjectByText(SET_WALLPAPER_RESET_TEXT).clickAndWaitForNewWindow();
+            getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
+        }catch(Exception e){e.printStackTrace();}
+
     }
     public void minusAndPlus(String value,int x,String minus,String plus ){ //调节Set菜单下音频设置的音量
         try{
@@ -90,13 +120,38 @@ public class SetAction extends VP4{
     }
     public void textSize(String textSize){ //设置 字体大小
         findListSubmenu(SET_DISPLAY_OPTION_TEXT);
+        findListSubmenu(SET_TEXT_SIZE_TEXT);
         try{
-            findListSubmenu(SET_TEXT_SIZE_TEXT);
             getObjectById(SET_TONE_SETUP_BTN_ID).clickAndWaitForNewWindow();
             getObjectByText(textSize).clickAndWaitForNewWindow();
             getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
-            getObjectByText(SET_ICON_SET_TEXT).click();
+            getObjectByText(SET_TEXT_SIZE_TEXT).clickAndWaitForNewWindow();
         }catch(Exception e){e.printStackTrace();}
+    }
+    private int textSizeLog(String name){ //得到name的中心X坐标
+        int x =0;
+        try{
+            x =getObjectByText(name).getBounds().centerX();
+        }catch(Exception e){e.printStackTrace();}
+        return x;
+    }
+    public void CheckTextSizeLog(){ //检查字体大小是否改变
+        try{
+            textSize(SET_TEXTSIZE_EXTRALARGE_TEXT);
+            int x1 =textSizeLog(SET_SELECT_TEXT_SIZE_TEXT);
+            getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
+            getObjectByText(SET_ICON_SET_TEXT).click();
+            textSize(SET_TEXTSIZE_LARGE_TEXT);
+            int x2 =textSizeLog(SET_SELECT_TEXT_SIZE_TEXT);
+            getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
+            getObjectByText(SET_ICON_SET_TEXT).click();
+            textSize(SET_TEXTSIZE_NORMAL_TEXT);
+            int x3 =textSizeLog(SET_SELECT_TEXT_SIZE_TEXT);
+            getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
+            getObjectByText(SET_ICON_SET_TEXT).click();
+            Assert.assertTrue("The tetx size can't change",x3<x2&&x2<x1);
+        }catch(Exception e){e.printStackTrace();}
+
     }
     public void screenTimeout(String time){ //设置屏幕待机时间
         findListSubmenu(SET_GENERAL_OPTION_TEXT);
@@ -138,27 +193,43 @@ public class SetAction extends VP4{
             int clickY =Integer.valueOf(dates[0]) - Integer.valueOf(phoneDates[2]);
             int clickM =Integer.valueOf(dates[1]) - Integer.valueOf(phoneDates[1]);
             int clickD =Integer.valueOf(dates[2]) - Integer.valueOf(phoneDates[0]);
-            while(clickY!=0){
-                if(clickY<0){
+            getObjectById(SET_DATE_FILED_ID).clickAndWaitForNewWindow();
+            if(clickY<0){
+                for(int x=0;x<-clickY;x++){
                     getObjectById(SET_YEAR_DECREASE_ID).click();
-                }else{
+                }
+            }else{
+                for(int y=0;y<clickY;y++){
                     getObjectById(SET_YEAR_INCREASE_ID).click();
                 }
             }
-            while(clickM!=0){
-                if(clickM<0){
+            if(clickM<0){
+                for(int x=0;x<-clickM;x++) {
                     getObjectById(SET_MONTH_DECREASE_ID).click();
-                }else{
+                }
+            }else{
+                for(int y=0;y<clickM;y++) {
                     getObjectById(SET_MONTH_INCREASE_ID).click();
                 }
             }
-            while(clickD!=0){
-                if(clickD<0){
+            if(clickD<0){
+                for(int x=0;x<-clickD;x++) {
                     getObjectById(SET_DAY_DECREASE_ID).click();
-                }else{
+                }
+            }else{
+                for(int y=0;y<clickD;y++) {
                     getObjectById(SET_DAY_INCREASE_ID).click();
                 }
             }
+            getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void setNextDay(){ //设置当前日期的下一天
+        findTimeAndate();
+        autoTime(false);
+        try{
+            getObjectById(SET_DATE_FILED_ID).clickAndWaitForNewWindow();
+            getObjectById(SET_DAY_INCREASE_ID).click();
             getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
         }catch(Exception e){e.printStackTrace();}
     }
@@ -217,6 +288,47 @@ public class SetAction extends VP4{
     /*
     * Doro设置下的一些基本操作
     * */
+    public void findWallpaper(){ //找到Wallpaper
+        try{
+            getObjectByText(SET_ICON_SET_TEXT).click();
+            findListSubmenu(SET_MYHOMESCREEN_TEXT);
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void CheckWallpaper(){ //检查Wallpaper
+        Assert.assertTrue("Don't find the Wallpaper",getObjectByText(SET_MY_WALLPAPER_TEXT).exists());
+    }
+    public void findBrightness(){ //找到Brightnessh和text size
+        try{
+            getObjectByText(SET_ICON_SET_TEXT).click();
+            findListSubmenu(SET_DISPLAY_OPTION_TEXT);
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void CheckBrightness(){ //检查Brightness
+        Assert.assertTrue("Don't find the Brightness",getObjectByText(SET_SCREEN_BRIGHTNESS_TEXT).exists());
+    }
+    public void CheckTextSize(){ //检查text size
+        Assert.assertTrue("Don't find the text size",getObjectByText(SET_TEXT_SIZE_TEXT).exists());
+    }
+    public void findScreenTimeout(){ //找到ScreenTimeout
+        try{
+            getObjectByText(SET_ICON_SET_TEXT).click();
+        }catch(Exception e){e.printStackTrace();}
+        findListSubmenu(SET_GENERAL_OPTION_TEXT);
+        findListSubmenu(SET_SCREEN_TIMEOUT_TEXT);
+    }
+    public void CheckScreenTimeout(){ //检查ScreenTimeout
+        Assert.assertTrue("Don't find the Screen Timeout",getObjectByText(SET_SCREEN_TIMEOUT_TWO_TEXT).exists());
+    }
+    public void setWallpaper(int x){ //设置第x张图片为壁纸
+        findListSubmenu(SET_MYHOMESCREEN_TEXT);
+        findListSubmenu(SET_MY_WALLPAPER_TEXT);
+        wallpaperChange(x);
+    }
+    public void resetWallpaper(){ //重置壁纸
+        findListSubmenu(SET_MYHOMESCREEN_TEXT);
+        findListSubmenu(SET_MY_WALLPAPER_TEXT);
+        wallpaperReset();
+    }
     public void checkAudioSetup(String audioSetupMode){ //检查音频设置是否为指定的模式
         findListSubmenu(SET_AN_AUDIO_OPTION_TEXT);
         findListSubmenu(SET_MY_AUDIO_SETUP_TEXT);
@@ -266,6 +378,42 @@ public class SetAction extends VP4{
             unLock();
             phoneWaitTime(min);
             Assert.assertFalse("屏幕没有关闭",mDevice.isScreenOn());
+            mDevice.wakeUp();
+            unLock();
+        }catch(Exception e){e.printStackTrace();}
+    }
+    private void findTimeAndate(){
+        findSet();//找到设置
+        findListSubmenu(SET_GENERAL_OPTION_TEXT);
+        findListSubmenu(SET_DATE_AND_TIME_TEXT);//找到The date and time
+    }
+    public void setATime(String time){ //去设置一个指定时间
+        findTimeAndate();
+        setTime(time);
+        try{
+            getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void setADate(String date){//去指定一个日期
+        findTimeAndate();
+        setDate(date);
+        try{
+            getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void setNextDayTime(String time){ //设置下一天的时间
+        setNextDay();
+        setTime(time);
+        try{
+            getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
+        }catch(Exception e){e.printStackTrace();}
+    }
+    public void setADateAndTime(String date,String time){//去指定一个日期与时间
+        findTimeAndate();
+        setDate(date);
+        setTime(time);
+        try{
+            getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
         }catch(Exception e){e.printStackTrace();}
     }
     public void checkTimeFormat(int timeformat){ //检查手机设置的时间格式

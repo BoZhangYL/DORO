@@ -10,17 +10,33 @@ public class SetPage {
     public static final String SET_SUPPORT_RECYCLERVIEW_CLASS="android.support.v7.widget.RecyclerView";
     //快捷键的class
     public static final String SET_WIDGET_FRAMELAYOUT_CLASS="android.widget.FrameLayout";
+    //Set中设置壁纸下的Class
+    public static final String SET_WGRIDVIEW_CLASS ="android.widget.GridView";
 
     //"Set"的Text
     public static final String SET_ICON_SET_TEXT ="Set";
+    //set一级菜单下的"My home screen"的Text
+    public static final String SET_MYHOMESCREEN_TEXT ="My home screen";
+    //set二级菜单下的"My wallpaper"的Text
+    public static final String SET_MY_WALLPAPER_TEXT ="My wallpaper";
+    //set二级菜单下的"Wallpaper"下的“change”Text
+    public static final String SET_WALLPAPER_CHANGE_TEXT ="Change";
+    //set二级菜单下的"Wallpaper"下的“Reset”Text
+    public static final String SET_WALLPAPER_RESET_TEXT ="Reset";
+    //set三级菜单下的"Wallpaper"下的“change”下的“Wallpaper”的Text
+    public static final String SET_CHANGE_GALLERY_TEXT ="Gallery";
     //set一级菜单下的"A display option"的Text
     public static final String SET_DISPLAY_OPTION_TEXT ="A display option";
     //set二级菜单下的"The text size"的Text
     public static final String SET_TEXT_SIZE_TEXT ="The text size";
+    //set三级菜单下的"Select text size"的Text
+    public static final String SET_SELECT_TEXT_SIZE_TEXT ="Select text size";
     //Text size 的三种模式
     public static final String SET_TEXTSIZE_NORMAL_TEXT ="Normal";
     public static final String SET_TEXTSIZE_LARGE_TEXT ="Large";
     public static final String SET_TEXTSIZE_EXTRALARGE_TEXT ="Extra large";
+    //set二级菜单下的"The screen brightness"的Text
+    public static final String SET_SCREEN_BRIGHTNESS_TEXT ="The screen brightness";
     //set一级菜单下的"an audio option"的Text
     public static final String SET_AN_AUDIO_OPTION_TEXT ="An audio option";
     //set二级菜单下的"My audio setup for voice calls"的Text
@@ -37,6 +53,7 @@ public class SetPage {
     public static final String SET_GENERAL_OPTION_TEXT ="A general option";
     //set二级菜单下的"The screen timeout"的Text
     public static final String SET_SCREEN_TIMEOUT_TEXT ="The screen timeout";
+    public static final String SET_SCREEN_TIMEOUT_TWO_TEXT ="Screen timeout";
     //set二级菜单下的"The date and time"的Text
     public static final String SET_DATE_AND_TIME_TEXT ="The date and time";
     //set二级菜单下的"set time format"的时间格式Text

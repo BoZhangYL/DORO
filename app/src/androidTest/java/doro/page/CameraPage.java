@@ -64,7 +64,7 @@ public class CameraPage {
     //图库包名
 
 
-    public static final int DEFAULT_RECORD_TIMES =10;
+    public static final int DEFAULT_RECORD_TIMES = 10;
     //默认录制视频时间
 
     public static final String GALLERY_VIDEO_PLAY_VIEW =
@@ -74,41 +74,40 @@ public class CameraPage {
     public static final String RESTORE_DEFAULTS = "Restore defaults";
     //恢复默认设置
 
-    public static final String CAMERA_SETTINGS_TABLE ="android:id/tabs";
+    public static final String CAMERA_SETTINGS_TABLE = "android:id/tabs";
     public static final String CAMERASETTINGS_STORELOCATION = "Store location (GPS)";
-    public static final String CAMERASETTINGS_STATE_LOCATION ="Store location (GPS) switch";
+    public static final String CAMERASETTINGS_STATE_LOCATION = "Store location (GPS) switch";
     public static final String CAMERASETTINGS_EXPOSURE = "Exposure";
     public static final String CAMERASETTINGS_SCENE_MODE = "Scene mode";
-    public static final String CAMERASETTINGS_WHITE_BALANCE ="White balance";
-    public static final String CAMERASETTINGS_IMAGE_PROPERTIES ="Image properties";
+    public static final String CAMERASETTINGS_WHITE_BALANCE = "White balance";
+    public static final String CAMERASETTINGS_IMAGE_PROPERTIES = "Image properties";
     public static final String CAMERASETTINGS_ANTI_FLICKER = "Anti-flicker";
-    public static final String CAMERASETTINGS_INSTANT_CAPTURE ="Instant capture";
+    public static final String CAMERASETTINGS_INSTANT_CAPTURE = "Instant capture";
     public static final String CAMERASETTINGS_FACE_DETECTION = "Face detection";
     public static final String CAMERASETTINGS_ANTI_RED_EYE = "Anti red eye";
-    public static final String CAMERASETTINGS_AUTO_SCENE_DETECTION =  "Auto scene detection";
+    public static final String CAMERASETTINGS_AUTO_SCENE_DETECTION = "Auto scene detection";
     public static final String CAMERASETTINGS_SELT_TIMER = "Self timer";
-    public static final String CAMERASETTINGS_PICTURE_SIZE ="Picture size";
-    public static final String CAMERASETTINGS_PREVIEW_SIZE ="Preview size";
+    public static final String CAMERASETTINGS_PICTURE_SIZE = "Picture size";
+    public static final String CAMERASETTINGS_PREVIEW_SIZE = "Preview size";
     public static final String CAMERASETTINGS_EIS = "EIS";
     public static final String CAMERASETTINGS_VIDEO_SIZE = "Video size";
     public static final String CAMERASETTINGS_VIDEO_QUALITY = "Video quality";
-    public static final String CAMERASETTINGS_PICTURE_QUALITY ="Picture quality";
-    public static final String CAMERASETTINGS_ISO ="ISO";
+    public static final String CAMERASETTINGS_PICTURE_QUALITY = "Picture quality";
+    public static final String CAMERASETTINGS_ISO = "ISO";
     //相机设置选项
 
-    public static final String CAMERA ="Camera";
+    public static final String CAMERA = "Camera";
     //相机应用名字
 
     public static final String RECORDTIME = "com.mediatek.camera:id/recording_time";
 
     public static final String SNAP_BUTTON = "Snap";
     //Snap安妮,txt
-    public static final String A_PHOTO_BITTON ="A photo";
+    public static final String A_PHOTO_BITTON = "A photo";
 
     public static final String A_VIDEO_BUTTON = "A video";
 
     public static final String A_SELFIE_BUTTTON = "A selfie";
-
 
 
 }

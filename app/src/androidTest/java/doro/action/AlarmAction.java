@@ -168,7 +168,7 @@ public class AlarmAction extends VP4 {
             getUiObjectByText(ALARM_COMING_STOP_TEXT).click();
         }catch(Exception e){e.printStackTrace();}
     }
-    public void checkAlarmComing(){ //判断闹钟是否到来，到来了之后，并关闭闹钟
+    public void checkAlarmComing(){ //判断闹钟是否到来
         try{
             gDevice.openQuickSettings();
             Thread.sleep(2000);

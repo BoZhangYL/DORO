@@ -13,13 +13,16 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Set;
 
 import ckt.base.VP4;
 import doro.action.APPMenuAction;
+import doro.action.EmailAction;
 import doro.action.MainAction;
 import doro.page.APPMenuPage;
+import doro.page.ConstantPage;
 
 /**
  * Created by Caibing.Yin  on 2017/1/12.
@@ -28,8 +31,9 @@ import doro.page.APPMenuPage;
 public class APPMenuCase extends VP4{
     Hashtable<String,String> apps;
     @BeforeClass
-    public static void initGalleryCase(){
+    public static void initGalleryCase() throws IOException, UiObjectNotFoundException {
         unLock();
+        EmailAction.LogInEmail("woshihouzi2016@gmail.com","woshidoubi","");
     }
 
     @Test
@@ -69,10 +73,10 @@ public class APPMenuCase extends VP4{
         Asst.assertFalse("Can't_Launch_"+APPMenuPage.AppNameList[3],!Actual1&&Actual2);
     }
     @Test
-    public void testClickChrome() throws UiObjectNotFoundException {
+    public void testClickChrome() throws UiObjectNotFoundException, IOException {
         MainAction.clearAllApp();
-        MainAction.startApp(APPMenuPage.AppNameList[4]);
-         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(4));
+        EmailAction.RegisterChromeAccount("woshihouzi2016@gmail.com","woshidoubi");
+        boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(4));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
         Asst.assertFalse("Can't_Launch_"+APPMenuPage.AppNameList[4],!Actual1&&Actual2);
@@ -213,9 +217,9 @@ public class APPMenuCase extends VP4{
         Asst.assertFalse("Can't_Launch_"+APPMenuPage.AppNameList[19],!Actual1&&Actual2);
     }
     @Test
-    public void testClickGoogle() throws UiObjectNotFoundException {
+    public void testClickGoogle() throws UiObjectNotFoundException, IOException {
         MainAction.clearAllApp();
-        MainAction.startApp(APPMenuPage.AppNameList[20]);
+        EmailAction.RegisterGoogleAccount("woshihouzi2016@gmail.com", "woshidoubi");
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(20));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");

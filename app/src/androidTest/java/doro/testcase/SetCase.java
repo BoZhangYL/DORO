@@ -13,7 +13,6 @@ import static doro.page.SetPage.SET_DATE_AND_TIME_TEXT;
 import static doro.page.SetPage.SET_GENERAL_OPTION_TEXT;
 import static doro.page.SetPage.SET_MEDIA_VALUE_ID;
 import static doro.page.SetPage.SET_RINGTONE_VALUE_ID;
-import static doro.page.SetPage.SET_TEXTSIZE_EXTRALARGE_TEXT;
 import static doro.page.SetPage.SET_TIME_FORMAT_12_TEXT;
 import static doro.page.SetPage.SET_TIME_FORMAT_24_TEXT;
 
@@ -52,15 +51,16 @@ public class SetCase {
         setAction.checkVolume(8,SET_RINGTONE_VALUE_ID);
     }
     @Test
-    public void setTextSize(){ //设置文字大小,暂时没有判断是否设置成功
+    public void setTextSize(){ //设置文字大小
         setAction.findSet();
-        setAction.textSize(SET_TEXTSIZE_EXTRALARGE_TEXT);
+        setAction.CheckTextSizeLog();
     }
     @Test
-    public void setScreenTimeout(){
+    public void setScreenTimeout(){//设置灭屏时间为15秒
         setAction.findSet();
         setAction.screenTimeout("15 seconds");
         setAction.checkScreenTimeout(0.25);
+        setAction.screenTimeout("10 minutes");//设置灭屏时间为10分钟
     }
     @Test
     public void setAutoTime(){ // 自动时间
@@ -82,7 +82,25 @@ public class SetCase {
         setAction.checkTimeFormat(24);
     }
     @Test
-    public void setWallpaper(){
-        GalleryAction.launchGalleryFromAppList();
+    public void setWallpaper(){  //在设置中设置图片为壁纸
+        setAction.findSet();//找到设置
+        setAction.setWallpaper(1);//设置第一张图片为壁纸
+    }
+    @Test
+    public void resetWallpaper(){ //重置壁纸,“没有添加验证”
+        GalleryAction.setPictureAsWallpaper();
+        setAction.findSet();//找到设置
+        setAction.resetWallpaper();
+    }
+    @Test
+    public void checkSetView(){
+        setAction.findSet();//找到设置
+        setAction.findWallpaper();//找到Wallpaper
+        setAction.CheckWallpaper();
+        setAction.findBrightness();//找到Brightness和TextSize
+        setAction.CheckBrightness();
+        setAction.CheckTextSize();
+        setAction.findScreenTimeout();//ScreenTimeout
+        setAction.CheckScreenTimeout();
     }
 }

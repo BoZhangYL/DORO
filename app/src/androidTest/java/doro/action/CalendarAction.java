@@ -41,9 +41,9 @@ public class CalendarAction extends VP4 {
     }
 
     public static void setCalendar(String CalednarTitle, String CalednarLocation,
-                          String CalendarStartDate, String CalendarEndDate, String CalendarAllDayEvent,
-                          String CalendarStartTime, String CalendarEndTime, String CalendarRecurrence,
-                          String CalendarReminder, String CalendarBefore) {
+                                   String CalendarStartDate, String CalendarEndDate, String CalendarAllDayEvent,
+                                   String CalendarStartTime, String CalendarEndTime, String CalendarRecurrence,
+                                   String CalendarReminder, String CalendarBefore) {
         setCalednarTitle(CalednarTitle);
         setCalednarLocation(CalednarLocation);
         setCalendarRecurrence(CalendarRecurrence);
@@ -60,7 +60,7 @@ public class CalendarAction extends VP4 {
         UiObject Calendar = getObjectByIdText(CALENDAR_ADD_BUTTIN_ID,
                 CALENDAR_ADD_BUTTON_TEXT);
         try {
-            while(!Calendar.exists()){
+            while (!Calendar.exists()) {
                 scrollToEnd(STEP_NORMAL);
             }
             Calendar.clickAndWaitForNewWindow();
@@ -387,14 +387,14 @@ public class CalendarAction extends VP4 {
             int pixelX1 = daybox.getBounds().right;
             int PixelY1 = daybox.getBounds().bottom;
             int PixelGreenPointX = daybox.getBounds().centerX();
-            int PixelGreenPointY = PixelY0 + ((PixelY1-PixelY0) / 5);
-            for (int i = PixelGreenPointX -10; i < PixelGreenPointX +10; i++) {
-                for (int j = PixelGreenPointY-10; j < PixelGreenPointY+10; j++) {
+            int PixelGreenPointY = PixelY0 + ((PixelY1 - PixelY0) / 5);
+            for (int i = PixelGreenPointX - 10; i < PixelGreenPointX + 10; i++) {
+                for (int j = PixelGreenPointY - 10; j < PixelGreenPointY + 10; j++) {
                     int x = i, y = j;
                     if ((Math.abs(x - PixelGreenPointX) < 8) && (Math.abs(y - PixelGreenPointY) < 8)) {
                         //Green Constant Value: -16711936 (0xff00ff00)
                         int k = mBitmap.getPixel(x, y);
-                        if (k< (Color.GREEN*0.98) && k >(Color.GREEN*1.12)) {
+                        if (k < (Color.GREEN * 0.98) && k > (Color.GREEN * 1.12)) {
                             return false;
                         }
                     }
@@ -407,42 +407,48 @@ public class CalendarAction extends VP4 {
     }
 
     @TargetApi(Build.VERSION_CODES.N)
-    public static int  getCurrentDay(){//得到当前日期的日
+    public static int getCurrentDay() {//得到当前日期的日
         Calendar c = Calendar.getInstance();
         int day = c.get(Calendar.DAY_OF_MONTH);
         return day;
     }
+
     @TargetApi(Build.VERSION_CODES.N)
-    public static int getCurrentYear(){//得到当前日期的年
+    public static int getCurrentYear() {//得到当前日期的年
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         return year;
     }
+
     @TargetApi(Build.VERSION_CODES.N)
-    public static int getCurrentMonth(){//得到当前日期的月
+    public static int getCurrentMonth() {//得到当前日期的月
         Calendar c = Calendar.getInstance();
-        int  month = c.get(Calendar.MONTH);
-        return month+1;
+        int month = c.get(Calendar.MONTH);
+        return month + 1;
     }
-    public static void checkOpenCalendarResult(){//检查打开calendar结果
+
+    public static void checkOpenCalendarResult() {//检查打开calendar结果
         assertEquals("openCalendarFromAppList",
-                CALENDAR_PACKAGE,gDevice.getCurrentPackageName());
+                CALENDAR_PACKAGE, gDevice.getCurrentPackageName());
     }
+
     public static void checkCreateBeforCalendar() throws UiObjectNotFoundException {
+        waitTime(5);
         scrollToEnd(STEP_NORMAL);
         UiObject beforbox = getObjectById("com.doro.apps.calendar:id/event_alarm");
-        Assert.assertEquals("CreateBeforeFiveMinEvent",CALENDAR_BEFORE_VALUE_5_MINUTES,
+        Assert.assertEquals("CreateBeforeFiveMinEvent", CALENDAR_BEFORE_VALUE_5_MINUTES,
                 beforbox.getText());
     }
-    public static void checkCalendarGreenPoint()  {//检查绿点
+
+    public static void checkCalendarGreenPoint() {//检查绿点
         try {
-            UiObject DayBox =getObjectByIdText(CALENDAR_DAY_LABEL, String.valueOf(getCurrentDay()));
-            while(!DayBox.exists()) {
+            UiObject DayBox = getObjectByIdText(CALENDAR_DAY_LABEL, String.valueOf(getCurrentDay()));
+            while (!DayBox.exists()) {
                 pressKey("Back");
             }
-            DayBox =getObjectByIdText(CALENDAR_DAY_LABEL, String.valueOf(getCurrentDay()));
+            DayBox = getObjectByIdText(CALENDAR_DAY_LABEL, String.valueOf(getCurrentDay()));
             String newpath = takeScreen("calendar");
-            Assert.assertTrue("checkCalendarGreenPointsCase3",isCalendarGreenPoint(DayBox,
+            Assert.assertTrue("checkCalendarGreenPointsCase3", isCalendarGreenPoint(DayBox,
                     newpath));
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();

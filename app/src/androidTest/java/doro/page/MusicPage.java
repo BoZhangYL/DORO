@@ -51,7 +51,7 @@ public class MusicPage {
     //无Music提示的Text
     public static final String Music_SoryBy_Text="Sort by…";
     //Sory by的Text
-    public static final String Music_SoryBy_Button_ID="com.doro.apps.musicplayer:id/button";
+    public static final String Music_SoryBy_CLASS="android.widget.TextView";
     //Sory by的类型按键的ResourceID
     public static final String Music_SongList_CLASS="android.widget.ListView";
     //歌曲列表的Class
