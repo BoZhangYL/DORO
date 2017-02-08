@@ -19,6 +19,7 @@ import static doro.page.NotificationBarPage.*;
 
 public class NotificationBarAction extends VP4 {
     public void pullDownNotificationBar(){
+        //下拉通知栏
         try {
             if (!getObjectByClass(NOTIFICATIONBAR_BRIGHTNESS_CLASS).exists()) {
                 Rect Z = getObjectByClass(NOTIFICATIONBAR_SCREEN_CLASS).getBounds();
@@ -32,9 +33,10 @@ public class NotificationBarAction extends VP4 {
     }
 
     public void checkTimeAndDate(){
+        //获取当前系统时间后与状态栏显示时间比较
         try {
             Date day = new Date();
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm/EEE, DD MMM", Locale.ENGLISH);
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm/EEE, d MMM", Locale.ENGLISH);
             String timedate = sdf.format(day);
             String[] TimeDate = timedate.split("/");
             String Time = getObjectById(NOTIFICATIONBAR_TIME_ID).getText();
@@ -46,9 +48,10 @@ public class NotificationBarAction extends VP4 {
     }
 
     public void checkMultiUserButton(){
+        //点击User按钮后检查是否进入User菜单
         try {
-            getObjectById("com.android.systemui:id/multi_user_switch").clickAndWaitForNewWindow();
-
+            getObjectById(NOTIFICATIONBAR_USERSWITCH_ID).clickAndWaitForNewWindow();
+            Assert.assertTrue("User_Button没有显示",getObjectById(NOTIFICATIONBAR_TITLE_ID).getText().equals(NOTIFICATIONBAR_USEPAGE_TEXT));
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -56,7 +59,13 @@ public class NotificationBarAction extends VP4 {
     }
 
     public void checkSettingButton(){
-
+        //点击Settings按钮后检查是否进入Settings菜单
+        try {
+            getObjectById(NOTIFICATIONBAR_SETTINGSBUTTON_ID).clickAndWaitForNewWindow();
+            Assert.assertTrue("Settings_Button没有显示！",text_exists(NOTIFICATIONBAR_SETTINGSPAGE_TEXT));
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
 
     }
 
