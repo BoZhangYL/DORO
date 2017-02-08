@@ -279,7 +279,7 @@ public class ContactsAction extends VP4 {
         activeValue = activeValue.replaceAll("-", "");
         logger.info("checkKeyValue - ActiveValue -" + activeValue);
         logger.info("checkKeyValue - ExpectValue -" + value);
-        Assert.assertEquals(String.format("%s|%s", key, value), value, activeValue);
+        Assert.assertEquals("checkKeyValue", value, activeValue);
         logger.info("To check- stop");
     }
 

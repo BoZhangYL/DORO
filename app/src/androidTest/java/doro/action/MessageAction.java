@@ -135,9 +135,26 @@ public class MessageAction extends VP4{
             //Confirm button
             clickById(ContactsPage.CROP_PICTURE);
             //等待图片设置成功
-            waitUntilFind(ContactsPage.COMMAND_TEXT_VIEW_BTN_ID, 60000);
+            waitUntilFind(MessagePage.WRITE_MESSAGE_VIEW_ID, 30000);
         } else {
 
         }
+    }
+    public static void addSubject(){
+        MessageAction.clickIWantToBtn();
+        waitTime(2);
+        ScrollViewByText("Add subject");
+        clickByText("Add subject");
+        waitTime(1);
+    }
+    public static void delMsg(){
+        MessageAction.clickIWantToBtn();
+        waitTime(2);
+        ScrollViewByText("Delete");
+        clickByText("Delete");
+        clickById(MessagePage.MSG_DEL_SELECT_ALL_ID);
+        clickById(MessagePage.MSG_DEL_CONFIRM_ID);
+        clickByText("OK");
+        waitUntilFind(MessagePage.WRITE_MESSAGE_VIEW_ID,10000);
     }
 }
