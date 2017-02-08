@@ -26,5 +26,4 @@ public class NotificationBarPage {
     public static final String NOTIFICATIONBAR_BRIGHTNESS_ID="com.android.systemui:id/slider";
     //亮度条的ID RESOURCE
 
-
 }

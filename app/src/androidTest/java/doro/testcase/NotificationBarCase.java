@@ -67,4 +67,5 @@ public class NotificationBarCase extends NotificationBarAction {
         Assert.assertTrue("Torch_Button没有显示！",getObjectByText("Torch").exists());
         Assert.assertTrue("Airplane mode_Button没有显示！",getObjectByText("Airplane mode").exists());
     }
+
 }

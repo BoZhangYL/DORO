@@ -67,7 +67,6 @@ public class NotificationBarAction extends VP4 {
             e.printStackTrace();
         }
 
-
     }
 
 
