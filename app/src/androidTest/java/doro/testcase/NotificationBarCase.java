@@ -67,5 +67,10 @@ public class NotificationBarCase extends NotificationBarAction {
         Assert.assertTrue("Torch_Button没有显示！",getObjectByText("Torch").exists());
         Assert.assertTrue("Airplane mode_Button没有显示！",getObjectByText("Airplane mode").exists());
     }
-
+/**
+ * 如下case doro不适用
+ 3.通知栏显示
+ 4.点击任意一个通知
+ 5.放大状态栏后运营商的显示
+ */
 }
