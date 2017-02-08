@@ -44,7 +44,12 @@ public class MessagePage {
     //after send，msg list
     public static final String MSG_TEXT_ID="com.doro.apps.messages:id/message_text";
     public static final String MSG_STATUS_ID="com.doro.apps.messages:id/message_status";
-
+    public static final String MSG_SUBJECT_ID="com.doro.apps.messages:id/compose_subject_text";
+    public static final String WANT_CLOSE_ID="com.doro.apps.messages:id/action_overflow_menu";
+    public static final String SEND_MMS_BUTTON_ID="com.doro.apps.messages:id/command_text_view";
+    public static final String MSG_CONTENT_ID="com.doro.apps.messages:id/swipeableContent";
+    public static final String MSG_DEL_SELECT_ALL_ID="com.doro.apps.messages:id/selectallcheckbox";
+    public static final String MSG_DEL_CONFIRM_ID="com.doro.apps.messages:id/command_left_for_delete";
 
 
 }

@@ -1,14 +1,19 @@
 package doro.action;
 
+import android.support.test.uiautomator.By;
+import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 
 import com.squareup.spoon.Spoon;
 
 import org.hamcrest.Asst;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import ckt.base.VP4;
+import doro.page.ContactsPage;
+import doro.page.GalleryPage;
 import doro.page.MessagePage;
 
 /**
@@ -18,6 +23,7 @@ public class MessageAction extends VP4{
     private static Logger logger=Logger.getLogger(MessagePage.class.getName());
     /*Launch message*/
     public static void launchMessage() throws Exception {
+        unLock();
         MainAction.stopMessage();
         MainAction.startMessage();
     }
@@ -41,6 +47,7 @@ public class MessageAction extends VP4{
     /*click-i want to button*/
     public static void clickIWantToBtn(){
         clickById(MessagePage.I_WANT_TO_ID);
+        waitTime(2);
     }
     //To whom - a number
     public static void clickANumber(){
@@ -81,14 +88,56 @@ public class MessageAction extends VP4{
     }
     //send msg button
     public static void sendMsg() throws UiObjectNotFoundException {
-        clickById(MessagePage.SEND_MSG_BUTTON_ID);
+        if (id_exists(MessagePage.SEND_MMS_BUTTON_ID)){
+            clickById(MessagePage.SEND_MMS_BUTTON_ID);
+        }
+        if (id_exists(MessagePage.SEND_MSG_BUTTON_ID)){
+            clickById(MessagePage.SEND_MSG_BUTTON_ID);
+        }
     }
     //check  msg-text
     public static void checkMsg(String text) throws UiObjectNotFoundException {
         waitUntilFind(MessagePage.MSG_TEXT_ID,10000);
         String expectMsg=text;
-        String activeMsg=getTex(MessagePage.MSG_TEXT_ID);
-        String msgStatus=getTex(MessagePage.MSG_STATUS_ID);
-        Asst.assertEquals("send success",expectMsg,activeMsg);
+        ScrollViewByText(text);
+        boolean textExist=text_exists(text);
+        Asst.assertEquals("send success",true,textExist);
+    }
+    /*1-call recipient
+      2-add a recipient
+      3-attach
+      4-add subject
+      5-send my location
+     */
+    public static void IWantTo(int index,boolean want) {
+        waitTime(2);
+        if (want){
+            MessageAction.clickIWantToBtn();
+            waitTime(4);
+        }
+        int menuHeight = getObject2ById(MessagePage.WANT_CLOSE_ID).getVisibleBounds().height();
+        int x = getObject2ById(MessagePage.WANT_CLOSE_ID).getVisibleBounds().centerX();
+        int displayHeight = gDevice.getDisplayHeight();
+        int itemHeight = (displayHeight - menuHeight) / 5;
+        int y = index * itemHeight;
+        gDevice.click(x, y);
+    }
+    //click i want to
+    public static void clickIWantToButton() {
+        clickById(ContactsPage.I_WANT_TO_BTN_ID);
+    }
+    //选择一张图片
+    public static void choosePictureFromGallery() {
+        waitUntilFind(GalleryPage.GALLERY_GRAID_VIEW, 20000);
+        List<UiObject2> imageViews = gDevice.findObject(By.res(GalleryPage.GALLERY_GRAID_VIEW)).findObjects(By.clazz(android.widget.ImageView.class));
+        if (imageViews.size() >= 1) {
+            imageViews.get(0).click();
+            //Confirm button
+            clickById(ContactsPage.CROP_PICTURE);
+            //等待图片设置成功
+            waitUntilFind(ContactsPage.COMMAND_TEXT_VIEW_BTN_ID, 60000);
+        } else {
+
+        }
     }
 }

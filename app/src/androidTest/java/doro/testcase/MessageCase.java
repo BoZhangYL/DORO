@@ -52,5 +52,55 @@ public class MessageCase extends VP4{
         MessageAction.clickWriteMessageBtn();
         MessageAction.clickARecentContact();
     }
+    @Test
+    public void testMMS_Subject() throws UiObjectNotFoundException {
+        MessageAction.clickWriteMessageBtn();
+        MessageAction.clickANumber();
+        MessageAction.toWhomEnterNumber("10086");
+        MessageAction.clickPickNumber();
+        //input msg text
+        String expectMsg=getRandomString(10);
+        MessageAction.insertText(expectMsg);
+        //MessageAction.IWantTo(3);
+        //MessageAction.choosePictureFromGallery();
+        waitTime(3);
+        MessageAction.IWantTo(4,true);
+        waitTime(3);
+        setText(MessagePage.MSG_SUBJECT_ID,getRandomString(6));
+        MessageAction.sendMsg();
+        MessageAction.checkMsg(expectMsg);
+    }
+    @Test
+    public void testMMS_Attach() throws UiObjectNotFoundException {
+        MessageAction.clickWriteMessageBtn();
+        MessageAction.clickANumber();
+        MessageAction.toWhomEnterNumber("10086");
+        MessageAction.clickPickNumber();
+        //input msg text
+        String expectMsg=getRandomString(10);
+        MessageAction.insertText(expectMsg);
+        MessageAction.IWantTo(3,true);
+        MessageAction.IWantTo(1,false);
+        MessageAction.choosePictureFromGallery();
+        MessageAction.sendMsg();
+        MessageAction.checkMsg(expectMsg);
+    }
+    @Test
+    public void testDeleteMsg() throws UiObjectNotFoundException {
+        int expect_size=findObjects(MessagePage.MSG_CONTENT_ID).size();
+        if (id_exists(MessagePage.MSG_CONTENT_ID)){
+            clickById(MessagePage.MSG_CONTENT_ID);
+            MessageAction.clickIWantToBtn();
+            ScrollViewByText("Delete");
+            clickByText("Delete");
+            clickById(MessagePage.MSG_DEL_SELECT_ALL_ID);
+            clickById(MessagePage.MSG_DEL_CONFIRM_ID);
+            clickByText("OK");
+            waitUntilFind(MessagePage.WRITE_MESSAGE_VIEW_ID,10000);
+            int active_size=findObjects(MessagePage.MSG_CONTENT_ID).size();
+            Assert.assertEquals("delete-success",expect_size-1,active_size);
+        }
+
+    }
 
 }
