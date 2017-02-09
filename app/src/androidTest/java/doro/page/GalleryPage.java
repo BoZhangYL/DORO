@@ -85,7 +85,7 @@ public class GalleryPage {
     public static final int MAX_PICTURES_NUMBERS = 200;
     //最大图库保存的照片数
 
-    public static final String GALLERY_FAVORITE_ICON = "favorite_icon";
+    public static final String GALLERY_FAVORITE_ICON = "com.doro.apps.gallery:id/favorite_icon";
     //favourite图标
 
     public static final String CONFIRM_BUTTON = "Confirm";
@@ -136,6 +136,8 @@ public class GalleryPage {
             "Remove from favourites";
 
     public static final String Wallpaper = "Wallpaper";
+
+    public static final String Icon_Tabel = "com.doro.apps.gallery:id/icon_and_label";
 
 
 }

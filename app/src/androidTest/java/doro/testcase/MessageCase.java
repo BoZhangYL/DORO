@@ -52,5 +52,53 @@ public class MessageCase extends VP4{
         MessageAction.clickWriteMessageBtn();
         MessageAction.clickARecentContact();
     }
+    @Test
+    public void testMMS_Subject() throws UiObjectNotFoundException {
+        MessageAction.clickWriteMessageBtn();
+        MessageAction.clickANumber();
+        MessageAction.toWhomEnterNumber("10086");
+        MessageAction.clickPickNumber();
+        //input msg text
+        String expectMsg=getRandomString(10);
+        MessageAction.insertText(expectMsg);
+        MessageAction.addSubject();
+        //enter subject
+        setText(MessagePage.MSG_SUBJECT_ID,getRandomString(6));
+        MessageAction.sendMsg();
+        MessageAction.checkMsg(expectMsg);
+    }
+    @Test
+    public void testMMS_Attach() throws UiObjectNotFoundException {
+        MessageAction.clickWriteMessageBtn();
+        MessageAction.clickANumber();
+        MessageAction.toWhomEnterNumber("10086");
+        MessageAction.clickPickNumber();
+        //input msg text
+        String expectMsg=getRandomString(10);
+        MessageAction.insertText(expectMsg);
+        MessageAction.clickIWantToBtn();
+        //enter attach
+        ScrollViewByText("Attach…");
+        clickByText("Attach…");
+        //from a picture
+        ScrollViewByText("A picture");
+        clickByText("A picture");
+        //choose a picture
+        MessageAction.choosePictureFromGallery();
+        //send msg
+        MessageAction.sendMsg();
+        //check
+        MessageAction.checkMsg(expectMsg);
+    }
+    @Test
+    public void testDeleteMsg() throws UiObjectNotFoundException {
+        int expect_size=findObjects(MessagePage.MSG_CONTENT_ID).size();
+        if (id_exists(MessagePage.MSG_CONTENT_ID)){
+            clickById(MessagePage.MSG_CONTENT_ID);
+            MessageAction.delMsg();
+            int active_size=findObjects(MessagePage.MSG_CONTENT_ID).size();
+            Assert.assertEquals("delete-success",expect_size-1,active_size);
+        }
+    }
 
 }

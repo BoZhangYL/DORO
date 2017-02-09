@@ -142,8 +142,7 @@ public class GalleryCase extends VP4 {
 //        D8040-1060:删除单张图片 [delete picture]
         GalleryAction.launchGalleryFromAppList();
         GalleryAction.changeToAllPicturesDisplay();
-        GalleryAction.clickSinglePictureOption();
-        GalleryAction.deleteSinglePicture();
+        GalleryAction.deleteSinglePicture(GalleryAction.clickSinglePictureOption());
     }
 
     @Test
