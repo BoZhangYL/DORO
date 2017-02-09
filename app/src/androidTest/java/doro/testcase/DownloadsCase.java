@@ -5,6 +5,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -31,13 +32,14 @@ public class DownloadsCase extends DownloadsAction {
     @BeforeClass
     public static void initDownloads(){
         unLock();
+        connectWifi("CKT","ck88888!");//连接wifi
+        downloadFiles();//下载文件
     }
 
     @Test
     public void testEnterDownloads()throws UiObjectNotFoundException{
         openAppliction(DOWNLOADS);
         Assert.assertEquals("没有进入Downloads",DOWNLOADS,getObjectByClass(DOWNLOADS_CLASS).getText());
-        Assert.assertTrue("请下载一些文件！",!getObjectByText("Doro 8042").exists());//检查是否已下载有程序
     }
 
     @Test
@@ -48,7 +50,7 @@ public class DownloadsCase extends DownloadsAction {
         Assert.assertTrue("没有退出Downloads",getObjectByText(MYAPPLICATIONS).exists());
         openAppliction(DOWNLOADS);
         mDevice.pressHome();//按Home键退出下载程序
-        Assert.assertTrue("没有退出Downloads",getObjectByText(MYAPPLICATIONS).exists());
+        Assert.assertTrue("没有退出Downloads",getObjectById(MENU).exists());
     }
 
     @Test
