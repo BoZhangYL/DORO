@@ -33,6 +33,7 @@ public class FileManagerAction extends VP4 {
                 getUiObjectByText("ALLOW").clickAndWaitForNewWindow();
             }
         } catch (UiObjectNotFoundException e) {e.printStackTrace();}
+
     }
     public void chooseFile(String Filepath){ //根据文件路径选中一个文件
         try{
