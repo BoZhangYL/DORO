@@ -1,5 +1,6 @@
 package doro.testcase;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import doro.action.FileManagerAction;
@@ -13,6 +14,10 @@ import static doro.page.FileManagerPage.APPS_ICON_FILEMANAGER_TEXT;
 
 public class FileManagerCase {
     FileManagerAction fileManageraction = new FileManagerAction();
+    @Before
+    public void AccessFileManager(){
+        fileManageraction.FileManagerAccess();
+    }
     @Test
     public void checkSDCard(){ //检查是否有SD卡
         openAppliction(APPS_ICON_FILEMANAGER_TEXT); //找到文件管理器应用

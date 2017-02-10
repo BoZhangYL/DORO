@@ -6,6 +6,7 @@ import junit.framework.Assert;
 
 import ckt.base.VP4;
 
+import static doro.page.FileManagerPage.APPS_ICON_FILEMANAGER_TEXT;
 import static doro.page.FileManagerPage.FILEMANAGER_COPY_DESC;
 import static doro.page.FileManagerPage.FILEMANAGER_CUT_DESC;
 import static doro.page.FileManagerPage.FILEMANAGER_DELETE_DESC;
@@ -25,6 +26,14 @@ import static doro.page.FileManagerPage.FILEMANAGER_WIDGET_LISTVIEW_CLASS;
  */
 
 public class FileManagerAction extends VP4 {
+    public void FileManagerAccess(){
+        openAppliction(APPS_ICON_FILEMANAGER_TEXT); //找到文件管理器应用
+        try {
+            if(getUiObjectByText("ALLOW").exists()){
+                getUiObjectByText("ALLOW").clickAndWaitForNewWindow();
+            }
+        } catch (UiObjectNotFoundException e) {e.printStackTrace();}
+    }
     public void chooseFile(String Filepath){ //根据文件路径选中一个文件
         try{
             String[] pathName =Filepath.split("/");
