@@ -26,27 +26,27 @@ public class FileManagerCase {
     @Test
     public void detailsOfFiles(){ //查看文件的详细情况
         openAppliction(APPS_ICON_FILEMANAGER_TEXT); //找到文件管理器应用
-        fileManageraction.findDetails("Internal shared storage/FileManager/Details I'm Yours.mp3");
+        fileManageraction.findDetails("Internal shared storage/resource/FileManager/Details I'm Yours.mp3");
         fileManageraction.checkDetails();
     }
     @Test
     public void copyFolder(){ //复制文件夹
         openAppliction(APPS_ICON_FILEMANAGER_TEXT); //找到文件管理器应用
-        fileManageraction.copyFolder("Internal shared storage/FileManager/copyfiles.bmp",
-                "Internal shared storage/AcceptFiles");
+        fileManageraction.copyFolder("Internal shared storage/resource/FileManager/copyfiles.bmp",
+                "Internal shared storage/resource/AcceptFiles");
         fileManageraction.checkCopyFolder("copyfiles.bmp");
     }
     @Test
     public void cutFolder(){ //移动文件夹
         openAppliction(APPS_ICON_FILEMANAGER_TEXT); //找到文件管理器应用
-        fileManageraction.cutFolder("Internal shared storage/FileManager/cut.jpg",
-                "Internal shared storage/AcceptFiles");
+        fileManageraction.cutFolder("Internal shared storage/resource/FileManager/cut.jpg",
+                "Internal shared storage/resource/AcceptFiles");
         fileManageraction.checkCutFolder("cut.jpg");
     }
     @Test
     public void deleteFolder(){ //删除文件夹，文件
         openAppliction(APPS_ICON_FILEMANAGER_TEXT); //找到文件管理器应用
-        fileManageraction.deleteFolder("Internal shared storage/FileManager/deletekkkkk.png");
+        fileManageraction.deleteFolder("Internal shared storage/resource/FileManager/deletekkkkk.png");
         fileManageraction.checkDeleteFolder("deletekkkkk.png");
     }
 
