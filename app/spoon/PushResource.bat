@@ -1,2 +1,2 @@
-adb push ../../app/spoon/resource /sdcard/
+adb push ../../app/spoon/resource/ /sdcard/
 adb reboot
