@@ -1,27 +1,51 @@
 package doro.action;
 
-import android.os.Environment;
+
+import android.graphics.Rect;
 import android.support.test.uiautomator.UiCollection;
 import android.support.test.uiautomator.UiObject;
+import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
-
-import org.hamcrest.Asst;
 import org.junit.Assert;
-
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Random;
-
 import ckt.base.VP4;
-
 import static doro.page.DownloadsPage.*;
+import static doro.page.WifiPage.*;
 
 /**
  * Created by admin on 2017/1/16.
  */
 
 public class DownloadsAction extends VP4 {
+    public static void connectWifi(String name,String password){
+        //连接wifi
+        WifiAction WifiAction=new WifiAction();
+        openAppliction(SETTINGS);
+        clickByText(WIFI);
+        WifiAction.turnOnWifi(true);
+        WifiAction.connectWifi(name,password);
+    }
+
+    public static void downloadFiles(){
+        //从wiki上下载文件
+        try {
+            openAppliction(INTERNET);
+            UiObject address=getObjectById(INTERNET_SEARCH);
+            address.clickAndWaitForNewWindow();
+            address.setText(INTERNET_ADDRESS);
+            getObjectById(INTERNET_SEARCHBUTTON).clickAndWaitForNewWindow();
+            for (int i=0;i<=2;i++) {
+                Rect Z = getObjectByDesc(INTERNET_FILE).getBounds();
+                int centerX = Z.centerX();
+                int centerY = Z.centerY();
+                gDevice.swipe(centerX, centerY, centerX + 2, centerY + 2, 300);
+                clickByText(INTERNET_SAVE);
+            }
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public void sortBy(String Method) {//选择SortBy
         try {
             clickById(DOWNLOADS_SORTMENU_ID);

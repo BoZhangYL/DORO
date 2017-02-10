@@ -13,8 +13,8 @@ public class DownloadsPage {
     //DOWNLOADS的CLASS
     public static final String MYAPPLICATIONS="My applications";
     //MY APPLICATIONS的Text
-    public static final String MYAPPLICATIONS_ID="com.doro.apps.launcher3:id/header_title";
-    //MY APPLICATIONS的resource id
+    public static final String MENU="com.doro.apps.launcher3:id/more_actions";
+    //MENU菜单的上拉按钮
     public static final String DOWNLOADS_SORTMENU_ID="com.android.documentsui:id/menu_sort";
     //SORT MENU的resource id
     public static final String DOWNLOADS_SORTBY_NAME="By name";
@@ -51,6 +51,20 @@ public class DownloadsPage {
     //GridView的resource id
     public static final String DOWNLOADS_GRIDVIEW_CLASS="android.widget.RelativeLayout";
     //GridView的class
+
+    //Download Files
+    public static final String INTERNET="Inter\u200Bnet";
+    //Internet的应用名
+    public static final String INTERNET_SEARCH="com.doro.apps.browser:id/search_edit_text";
+    //Internet的搜索栏
+    public static final String INTERNET_ADDRESS="http://10.120.10.90";
+    //下载文件的网络地址
+    public static final String INTERNET_SEARCHBUTTON="com.doro.apps.browser:id/neo_command_button";
+    //搜索按钮
+    public static final String INTERNET_FILE="Visit the main page";
+    //下载文件的content-desc
+    public static final String INTERNET_SAVE="Save";
+    //保存下载文件Save选项
 
 
 
