@@ -34,7 +34,6 @@ public class PlayStoreAction extends VP4 {
             clickByText(name);
             UiObject PasswordBox = getObjectById(INPUT_PASSWORDBOX);
             PasswordBox.click();
-            waitTime(1);
             PasswordBox.setText(password);//输入密码
             clickByText(CONNECT_WIFI);//连接
             waitTime(10);
