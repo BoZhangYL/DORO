@@ -92,6 +92,7 @@ public class CameraAction extends VP4 {
     /*改变相机的GPS位置设置
     * */
     public static void changeCameraSettings() {
+        waitTime(5);
         try {
             SettingsButton.click();
             if (LocationState.getText().equals("OFF")) {
@@ -105,6 +106,7 @@ public class CameraAction extends VP4 {
     /*检查恢复出厂设置是否成功
     * */
     public static void checkRestoredefaults() {
+        waitTime(5);
         try {
             SettingsButton.click();
             Assert.assertEquals("After restore defaults,the GPS state", "OFF",
