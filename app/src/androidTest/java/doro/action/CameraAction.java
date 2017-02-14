@@ -211,7 +211,7 @@ public class CameraAction extends VP4 {
         PhotosNumber = getAllPhotoNumbers();
         try {
             CaptureButton.click();
-            waitTime(5);
+            waitTime(10);
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -268,7 +268,7 @@ public class CameraAction extends VP4 {
             RecordButton.click();
             waitTime(RecordTime);
             RecordButton.click();
-            waitTime(5);
+            waitTime(10);
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
