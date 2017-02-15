@@ -301,5 +301,6 @@ public class AlarmAction extends VP4 {
             Assert.assertFalse("Don't delete all Alarms",getObjectByTextContains(ALARM_CLICK_IWANTTO_TEXT).exists());
         }catch(Exception e){e.printStackTrace();}
     }
+
 }
 
