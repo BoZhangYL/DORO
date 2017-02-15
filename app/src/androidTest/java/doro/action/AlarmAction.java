@@ -172,14 +172,14 @@ public class AlarmAction extends VP4 {
         try{
             gDevice.openQuickSettings();
             Thread.sleep(2000);
-            Assert.assertTrue("闹钟没有到来",getObjectByClassPackage(ALARM_IMAGEVIEW_ICON_CLASS,AlARM_APPS_ALARM_PACKAGE).exists());
+            Assert.assertTrue("The alarm don't come",getObjectByClassPackage(ALARM_IMAGEVIEW_ICON_CLASS,AlARM_APPS_ALARM_PACKAGE).exists());
         }catch(Exception e){e.printStackTrace();}
     }
     public void checkAlarmNotComing(){ //判断闹钟没有到来
         try{
             gDevice.openQuickSettings();
             Thread.sleep(2000);
-            Assert.assertFalse("闹钟不应该到来",getObjectByClassPackage(ALARM_IMAGEVIEW_ICON_CLASS,AlARM_APPS_ALARM_PACKAGE).exists());
+            Assert.assertFalse("The alarm shouldn't coming",getObjectByClassPackage(ALARM_IMAGEVIEW_ICON_CLASS,AlARM_APPS_ALARM_PACKAGE).exists());
         }catch(Exception e){e.printStackTrace();}
     }
     /*
@@ -189,9 +189,9 @@ public class AlarmAction extends VP4 {
         try{
             for(int i=0;i<counts;i++){
                 pressKey("back");
-                Assert.assertFalse("没有退出闹钟界面",getObjectById(ALARM_HEADER_ICON_ID).exists());
+                Assert.assertFalse("Don't exit the alarm view",getObjectById(ALARM_HEADER_ICON_ID).exists());
                 getObjectByTextContains("Alarm").clickAndWaitForNewWindow();
-                Assert.assertTrue("没有进入闹钟界面",getObjectById(ALARM_HEADER_ICON_ID).exists());
+                Assert.assertTrue("Don't into the alarm view",getObjectById(ALARM_HEADER_ICON_ID).exists());
             }
         }catch(Exception e){e.printStackTrace();}
     }
@@ -199,7 +199,7 @@ public class AlarmAction extends VP4 {
         enterAndExitAlarm(1);
         try {
             mDevice.pressHome();
-            Assert.assertFalse("没有退出闹钟界面",getObjectById(ALARM_HEADER_ICON_ID).exists());
+            Assert.assertFalse("Don't exit the alarm view",getObjectById(ALARM_HEADER_ICON_ID).exists());
         } catch (Exception e) {e.printStackTrace();}
     }
     public void addTimeAlarm12(String time ){//建立一个指定时间的12小时制的闹钟
@@ -275,6 +275,7 @@ public class AlarmAction extends VP4 {
         }catch(Exception e){e.printStackTrace();}
     }
     public void deleteOneAlarm(){ //删除第一闹钟操作
+        deleteAllAlarm();
         try{
             if(!getObjectByTextContains(ALARM_CLICK_IWANTTO_TEXT).exists()){
                 addTimeAlarm24("20:18");
@@ -291,13 +292,13 @@ public class AlarmAction extends VP4 {
                 checkHasAlarm();
             }else{
                 int count2 = getObjectByClass(ALARM_WIDGET_LISTVIEW).getChildCount();
-                Assert.assertEquals("没有删除一个闹钟",1,count1-count2);
+                Assert.assertEquals("Don't delete one Alarm successfully",1,count1-count2);
             }
         }catch(Exception e){e.printStackTrace();}
     }
     public void checkHasAlarm(){ //判断闹钟已经到来
         try{
-            Assert.assertFalse("没有删除所有的闹钟",getObjectByTextContains(ALARM_CLICK_IWANTTO_TEXT).exists());
+            Assert.assertFalse("Don't delete all Alarms",getObjectByTextContains(ALARM_CLICK_IWANTTO_TEXT).exists());
         }catch(Exception e){e.printStackTrace();}
     }
 }

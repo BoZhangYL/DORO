@@ -43,6 +43,7 @@ public class FileManagerAction extends VP4 {
                     scrollByVerticalForward(35);
                 }
                 getObjectByTextContains(pathName[i]).clickAndWaitForNewWindow();
+
             }
             getUiObjectByDes(FILEMANAGER_MORE_OPTIONS_DESC).clickAndWaitForNewWindow();
             getObjectByTextContains(FILEMANAGER_SELECT_FILE_TEXT).clickAndWaitForNewWindow();
