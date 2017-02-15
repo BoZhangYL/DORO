@@ -66,6 +66,7 @@ public class LockScreenCase extends LockScreenAction {
         clearAllApplications();//清理后台运行程序
         lockScreen();//锁屏
         Assert.assertTrue("解锁键没有显示！",id_exists(LOCKSCREEN_UNLOCKBUTTON_ID));
+
     }
 /**
  * 如下case doro不适用
