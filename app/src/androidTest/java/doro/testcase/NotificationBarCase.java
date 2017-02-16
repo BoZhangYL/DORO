@@ -60,6 +60,7 @@ public class NotificationBarCase extends NotificationBarAction {
     @Test
     public void testButtons()throws UiObjectNotFoundException{
         //检查五个切换按钮显示
+
         pullDownNotificationBar();
         Assert.assertTrue("Wifi_Button没有显示！",
                 getObjectByDesc("Wifi Off,Open Wifi settings.").exists()||
