@@ -19,6 +19,7 @@ public class InternetCase extends VP4{
     @BeforeClass
     public static void initInternet(){
         VP4.unLock();
+        InternetAction.watchexception();
         InternetAction.dismissStartup();
     }
     @Test

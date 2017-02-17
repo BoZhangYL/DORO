@@ -57,11 +57,11 @@ public class APPMenuPage {
             "com.google.android.apps.photos",
             "com.google.android.videos",
             "com.google.android.music",
-            "com.android.vending",
+            "com.google.android.gms",
             "com.teamviewer.quicksupport.market",
             "com.doro.apps.soundrec",
             "com.android.settings",
-            "com.android.stk - toolkit",
+            "com.android.stk",
             "com.doro.apps.timer",
             "com.doro.apps.torch",
             "com.google.android.googlequicksearchbox",
@@ -69,4 +69,7 @@ public class APPMenuPage {
             "com.google.android.youtube",
     };
     public static final String More = "com.doro.apps.launcher3:id/more_actions";
+    public static final String REGISTER_GAIL_PROMPT = "To add a Gmail address, you need" +
+            " to register your Google account on your device. You will now be guided " +
+            "through that process.";
 }

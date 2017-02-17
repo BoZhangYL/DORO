@@ -1,32 +1,534 @@
 package doro.action;
 
-import android.support.test.uiautomator.By;
-import android.support.test.uiautomator.BySelector;
+import android.graphics.Rect;
+import android.support.test.uiautomator.UiCollection;
 import android.support.test.uiautomator.UiObject;
-import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
 
 import org.hamcrest.Asst;
-import org.junit.Assert;
-
-import java.io.IOException;
-import java.util.Random;
 
 import ckt.base.VP4;
-import doro.page.APPMenuPage;
 import doro.page.EmailPage;
-
-import static doro.page.EmailPage.EMAIL_INPUT_OK_BUTTON;
-import static doro.page.EmailPage.EMAIL_WRITE_EMAIL;
+import doro.page.WifiPage;
 
 /**
  * Created by Caibing.Yin on 2017/1/14.
  */
 
 public class EmailAction extends VP4 {
-    //产生一个随机邮箱账号
-    public static String reduceRandomEmail(int length) {
+    private static UiCollection EmailList =
+            new UiCollection(new UiSelector().resourceId(EmailPage.EMAIL_LIST));
+    private static UiSelector Emails = new UiSelector().className(EmailPage.EMAIL_VIEW);
+
+    /*
+    * openSentEmail
+    * */
+    public static void openSentEmail(){
+        try {
+            getObjectById(EmailPage.EMAIL_LIST,2).clickAndWaitForNewWindow();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    * open OutBox email
+    * */
+    public static void openOutEmail() {
+        if (getWifiState()) {
+            clickWifiButton();
+        }
+        if (getMobileDataState()) {
+            clickMobileDataButton();
+        }
+        if (!getObjectById(EmailPage.EMAIL_LIST, 1).exists()) {
+            NewEmailByAddress();
+            sendEmail();
+        }
+        try {
+            getObjectById(EmailPage.EMAIL_LIST, 1).clickAndWaitForNewWindow();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    * 退出OutBox
+    * */
+    public static void exitOutBox() {
+        if (!getWifiState()) {
+            clickWifiButton();
+        }
+        if (!getMobileDataState()) {
+            clickMobileDataButton();
+        }
+    }
+
+    /*
+    * 得到Wifi状态
+    * */
+    private static boolean getWifiState() {
+        boolean WifiState = true;
+/*        gDevice.swipe(gDevice.getDisplayWidth() / 2, 0, gDevice.getDisplayWidth() / 2,
+                gDevice.getDisplayHeight(), 20);*/
+        gDevice.openQuickSettings();
+//        gDevice.click(gDevice.getDisplayWidth() / 2, 0);
+//        gDevice.click(gDevice.getDisplayWidth() / 2, 0);
+
+        try {
+            UiObject WifiTiles = gDevice.findObject(new UiSelector().resourceId(EmailPage.NOTIFCATION_LIST).index(0));
+            String WifiDes = WifiTiles.getContentDescription();
+            String[] wifiCurrentD = WifiDes.split(",");
+            if (wifiCurrentD[0].equals("Wifi On")) {
+                WifiState = true;
+            } else
+                WifiState = false;
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        gDevice.swipe(gDevice.getDisplayWidth() / 2, gDevice.getDisplayHeight(),
+                gDevice.getDisplayWidth()/2, 0, 20);
+        return WifiState;
+    }
+
+    /*
+    * 点击wifi快捷按钮
+    * */
+    public static void clickWifiButton() {
+//        gDevice.swipe(gDevice.getDisplayWidth() / 2, 0, gDevice.getDisplayWidth() / 2,
+//                gDevice.getDisplayHeight(), 5);
+        gDevice.openQuickSettings();
+        waitTime(2);
+//        gDevice.click(gDevice.getDisplayWidth() / 2, 0);
+//        gDevice.click(gDevice.getDisplayWidth() / 2, 0);
+        UiObject WifiTiles = gDevice.findObject(new UiSelector().textContains(EmailPage.QUICK_SET).index(0));
+        try {
+            WifiTiles.clickAndWaitForNewWindow();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        gDevice.swipe(gDevice.getDisplayWidth() / 2, gDevice.getDisplayHeight(),
+                gDevice.getDisplayWidth() / 2, 0, 5);
+    }
+
+    /*
+    * 得到数据连接状态
+    * */
+    private static boolean getMobileDataState() {
+        boolean MobileDataState = true;
+//        gDevice.swipe(gDevice.getDisplayWidth() / 2, 0, gDevice.getDisplayWidth() / 2,
+//                gDevice.getDisplayHeight(), 5);
+        gDevice.openQuickSettings();
+        waitTime(2);
+//        gDevice.click(gDevice.getDisplayWidth() / 2, 0);
+//        gDevice.click(gDevice.getDisplayWidth() / 2, 0);
+        try {
+            UiObject MobileDataTiles = gDevice.findObject(new UiSelector().textContains(EmailPage.QUICK_SET).index(1));
+            String[] WifiDes = MobileDataTiles.getContentDescription().split("\\.");
+            if (WifiDes[0].equals("Mobile Mobile Data On")) {
+                MobileDataState = true;
+            } else
+                MobileDataState = false;
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        gDevice.swipe(gDevice.getDisplayWidth() / 2, gDevice.getDisplayHeight(),
+                gDevice.getDisplayWidth() / 2, 0, 5);
+        return MobileDataState;
+    }
+
+    /*
+    * 点击数据连接快捷按钮
+    * */
+    public static void clickMobileDataButton() {
+//        gDevice.swipe(gDevice.getDisplayWidth() / 2, 0, gDevice.getDisplayWidth() / 2,
+//                gDevice.getDisplayHeight(), 10);
+        gDevice.openQuickSettings();
+        waitTime(2);
+//        gDevice.click(gDevice.getDisplayWidth() / 2, 0);
+//        gDevice.click(gDevice.getDisplayWidth() / 2, 0);
+        UiObject MobileDataTiles  = gDevice.findObject(new UiSelector().textContains(EmailPage.QUICK_SET).index(1));
+        try {
+            MobileDataTiles.clickAndWaitForNewWindow();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        gDevice.swipe(gDevice.getDisplayWidth() / 2, gDevice.getDisplayHeight(),
+                gDevice.getDisplayWidth() / 2, 0, 10);
+    }
+
+    /*
+    * Zoom in Email
+    * */
+    public static void zoomInEmail() {
+        Asst.assertTrue("Not in Email edit view ", getObjectByText("Edit").exists());
+        try {
+            Rect BeforeZoom = getObjectById(EmailPage.EMAIL_VIEW).getBounds();
+            getObjectByText(EmailPage.I_WANT_TO_BUTTON).clickAndWaitForNewWindow();
+            getObjectByText(EmailPage.ZOOM_IN).clickAndWaitForNewWindow();
+            Rect CurrentZoom = getObjectById(EmailPage.EMAIL_VIEW).getBounds();
+            Asst.assertTrue("Zoom in fail !", (CurrentZoom.bottom - CurrentZoom.top) >
+                    (BeforeZoom.bottom - BeforeZoom.top));
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    * delete Email
+    * */
+    public static void deleteEmail() {
+        Asst.assertTrue("Not in Email edit view ", getObjectByText("Edit").exists());
+        try {
+            getObjectByText(EmailPage.I_WANT_TO_BUTTON).clickAndWaitForNewWindow();
+            getObjectByText("Delete this email").clickAndWaitForNewWindow();
+            Asst.assertTrue("there is no delete prompt",
+                    getObjectByText(EmailPage.DELETE_CONVERSATION_PROMPT).exists());
+            getObjectByText("Yes").click();
+            waitTime(10);
+            if (!getObjectById(EmailPage.EMPTY_EMAIL_ICON).exists()
+                    && !getObjectById(EmailPage.EMPTY_EMAIL_TXT).exists()) {
+                Asst.assertTrue("delete fail ", getObjectByText(EmailPage.WRITE_EMAIL_BUTTON).exists());
+            }
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /*
+    * outbox
+    * */
+    public static void switchToOutBox() {
+        try {
+            getObjectByText(EmailPage.I_WANT_TO_BUTTON).clickAndWaitForNewWindow();
+            getObjectByText(EmailPage.DISPLAY).clickAndWaitForNewWindow();
+            if(!getObjectByText(EmailPage.OUTBOX).exists())
+                scrollToEnd(10);
+            getObjectByText(EmailPage.OUTBOX).clickAndWaitForNewWindow();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    * sentBox
+    * */
+    public static void switchToSentBox() {
+        try {
+            getObjectByText(EmailPage.I_WANT_TO_BUTTON).clickAndWaitForNewWindow();
+            getObjectByText(EmailPage.DISPLAY).clickAndWaitForNewWindow();
+            if(!getObjectByText(EmailPage.SENTBOX).exists())
+                scrollToEnd(10);
+            getObjectByText(EmailPage.SENTBOX).clickAndWaitForNewWindow();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /*
+    * 进入Email 菜单
+    * */
+    public static void switchToEmailMenu() {
+        try {
+            getObjectByText(EmailPage.I_WANT_TO_BUTTON).clickAndWaitForNewWindow();
+            Asst.assertTrue("Display option not exists",
+                    getObjectByText(EmailPage.DISPLAY).exists());
+            Asst.assertTrue("Manage accounts not exists",
+                    getObjectByText(EmailPage.MANAGE_ACCOUNTS).exists());
+            Asst.assertTrue("Open settings not exists",
+                    getObjectByText(EmailPage.OPEN_SETTINGS_OPTION).exists());
+            Asst.assertTrue("Delete option not exxists",
+                    getObjectByText(EmailPage.DELETE).exists());
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    * 等待接受新邮件
+    * */
+    public static void waitReceiveEmail() {
+        waitTime(360);
+        VP4.unLock();
+        gDevice.click(gDevice.getDisplayWidth() / 2, 0);
+        gDevice.click(gDevice.getDisplayWidth() / 2, 0);
+        Asst.assertTrue("whitout new Email!", getObjectByText("Email").exists());
+        try {
+            getObjectByText("Email").clickAndWaitForNewWindow();
+            Asst.assertEquals("Can not open Email by notfication", EmailPage.EMAIL_PACKAGE,
+                    gDevice.getCurrentPackageName());
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /*
+    * 允许Email的访问权限
+    * */
+    public static void accessEmail() {
+        if (getObjectById(EmailPage.ACCESS_RIGHT).exists()) {
+            try {
+                while (getObjectByText("ALLOW").exists())
+                    getObjectByText("ALLOW").clickAndWaitForNewWindow();
+            } catch (UiObjectNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /*
+    * 改变自动同步时间5分钟
+    * */
+    public static void changeSyncTimeToFiveMinutes() {
+        try {
+            getObjectByText(EmailPage.I_WANT_TO_BUTTON).clickAndWaitForNewWindow();
+            getObjectByText(EmailPage.MANAGE_ACCOUNTS).clickAndWaitForNewWindow();
+            getObjectByText(EmailPage.EMAIL_ACCOUNT_1).clickAndWaitForNewWindow();
+            getObjectByText(EmailPage.DATA_USAGE).clickAndWaitForNewWindow();
+            if (getObjectByText(EmailPage.EVERY_5_MINUTES).exists()) {
+                getObjectByText(EmailPage.EVERY_15_MINUTES).clickAndWaitForNewWindow();
+                getObjectByText(EmailPage.EVERY_5_MINUTES).clickAndWaitForNewWindow();
+                getObjectByText(EmailPage.EMAIL_INPUT_OK_TEXT).clickAndWaitForNewWindow();
+            }
+            waitTime(5);
+            pressKey("Back/Back");
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    /*
+    * 检查接受到的邮件
+    * */
+    public static void checkReceive() {
+        UiObject newReceiveEmail = getObjectById(EmailPage.EMAIL_LIST, 1);
+        try {
+            String EmailTitle = newReceiveEmail.getContentDescription();
+            String[] Title = EmailTitle.split(",");
+            Asst.assertEquals("Without new Email", "conversation unread", Title[2]);
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    * 刷新出一封新的email邮件
+    * */
+    public static void refreshNewEmail() {
+        try {
+            int i = EmailList.getChildCount();
+            int j = 0;
+            while (i <= EmailList.getChildCount() && j < 5) {
+                refreshPage();
+                j++;
+            }
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /*
+    * 关闭确认发送功能
+    * */
+    public static void disabledConfirmSending() {
+        try {
+            getObjectByText(EmailPage.I_WANT_TO_BUTTON).clickAndWaitForNewWindow();
+            getObjectByText(EmailPage.OPEN_SETTINGS_OPTION).clickAndWaitForNewWindow();
+            getObjectByText(EmailPage.CONFIRM_SENDING_OPTION).clickAndWaitForNewWindow();
+            if (getObjectById(EmailPage.ENABLED_SWITCH).isChecked()) {
+                getObjectById(EmailPage.ENABLED_SWITCH).click();
+            }
+            getObjectByText(EmailPage.CONFIRM_BUTTON).clickAndWaitForNewWindow();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    * 检查确认发送功能
+    * */
+    public static void checkConfirmSending() {
+        Asst.assertTrue("Send this message? not exist", getObjectByText(EmailPage.
+                CONFIRM_SENDING_TXT).exists());
+        try {
+            getObjectByText(EmailPage.CANCEL_BUTTON).clickAndWaitForNewWindow();
+            Asst.assertTrue("Cancel send email fail",
+                    getObjectById(EmailPage.EDIT_EMAIL_VIEW).exists());
+            getObjectByText(EmailPage.SEND_BUTTON).clickAndWaitForNewWindow();
+            Asst.assertTrue("tap Send button again,Send this message? not exist",
+                    getObjectByText(EmailPage.CONFIRM_SENDING_TXT).exists());
+            getObjectByText(EmailPage.EMAIL_INPUT_OK_TEXT).clickAndWaitForNewWindow();
+            waitTime(10);
+            Asst.assertTrue("tap ok button ,send email fail", EmailList.exists());
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    * 打开发送确认
+    * */
+    public static void enabkedConfirmSending() {
+        try {
+            getObjectByText(EmailPage.I_WANT_TO_BUTTON).clickAndWaitForNewWindow();
+            getObjectByText(EmailPage.OPEN_SETTINGS_OPTION).clickAndWaitForNewWindow();
+            getObjectByText(EmailPage.CONFIRM_SENDING_OPTION).clickAndWaitForNewWindow();
+            if (!getObjectById(EmailPage.ENABLED_SWITCH).isChecked()) {
+                getObjectById(EmailPage.ENABLED_SWITCH).click();
+            }
+            getObjectByText(EmailPage.CONFIRM_BUTTON).clickAndWaitForNewWindow();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    * 打开邮箱应用
+    * */
+    public static void openEmailApp() {
+        openAppliction(EmailPage.EMAIL);
+        Asst.assertEquals("Open Email fail", EmailPage.EMAIL_PACKAGE,
+                gDevice.getCurrentPackageName());
+    }
+
+    /*
+    * 退出邮箱应用
+    * */
+    public static void exitEmailApp() {
+        try {
+            pressKey("Home");
+            Asst.assertTrue("exit Email Fail", !EmailPage.EMAIL_PACKAGE.equals(
+                    gDevice.getCurrentPackageName()));
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    * 登陆163邮箱
+    * */
+    public static void loginEmail() {
+        WifiAction WifiAction = new WifiAction();
+        openAppliction(WifiPage.SETTINGS);
+        clickByText(WifiPage.WIFI);
+        WifiAction.turnOnWifi(true);
+        WifiAction.connectWifi("CKT", "ck88888!");
+        openAppliction(EmailPage.EMAIL);
+        if (!getObjectByText(EmailPage.WRITE_EMAIL_BUTTON).exists()) {
+            UiObject Address = getObjectById(EmailPage.EMAIL_ACCOUNT_INPUT);
+            UiObject Password = getObjectById(EmailPage.EMAIL_PASSWORD_INPUT);
+            UiObject OKButton = getObjectByText(EmailPage.EMAIL_INPUT_OK_TEXT);
+            try {
+                Address.click();
+                Address.setText(EmailPage.EMAIL_ACCOUNT_1);
+                OKButton.clickAndWaitForNewWindow();
+                Password.click();
+                Password.setText(EmailPage.EMAIL_PASSWORD_1);
+                OKButton.clickAndWaitForNewWindow();
+                OKButton.clickAndWaitForNewWindow();
+                OKButton.clickAndWaitForNewWindow();
+            } catch (UiObjectNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /*
+    * 刷新页面
+    * */
+    public static void refreshPage() {
+        gDevice.swipe(gDevice.getDisplayWidth() / 2, gDevice.getDisplayHeight() / 3,
+                gDevice.getDisplayWidth() / 2, gDevice.getDisplayHeight() * 2 / 3, 10);
+        int i = 0;
+        try {
+            int j = EmailList.getChild(Emails).getChildCount();
+            while (j < EmailList.getChild(Emails).getChildCount() && i < 30) {
+                waitTime(10);
+                i++;
+            }
+            Asst.assertTrue("刷新时间超过5分钟！", i < 30);
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /*
+    * 等待邮箱加载
+    * */
+    public static void waitLoad() {
+        try {
+            Asst.assertTrue("Load Email Fail", EmailList.getChildCount() > 1);
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /*
+    * 创建一份通过邮箱地址发送的邮件
+    * */
+    public static void NewEmailByAddress() {
+        try {
+            getObjectByText(EmailPage.WRITE_EMAIL_BUTTON).clickAndWaitForNewWindow();
+            getObjectByText(EmailPage.SEND_BY_ADDRESS).clickAndWaitForNewWindow();
+            getObjectById(EmailPage.INPUT_SEND_ADDRESS).setText(EmailPage.EMAIL_ACCOUNT_1);
+            getObjectByText(EmailPage.CONFIRM_BUTTON).clickAndWaitForNewWindow();
+            setSubject("test");
+            setEmailBody("test Email success");
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    * 设置标题
+    * */
+    private static void setSubject(String subject) {
+        try {
+            getObjectById(EmailPage.INPUT_EMAIL_SUBJECT).click();
+            getObjectById(EmailPage.INPUT_EMAIL_SUBJECT).setText(subject);
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    * 设置邮件正文
+    * */
+    private static void setEmailBody(String text) {
+        try {
+            getObjectById(EmailPage.INPUT_EMAIL_BODY).click();
+            getObjectById(EmailPage.INPUT_EMAIL_BODY).setText(text);
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    * 发送邮件
+    * */
+    public static void sendEmail() {
+        try {
+            getObjectByText(EmailPage.SEND_BUTTON).clickAndWaitForNewWindow();
+            waitTime(10);
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //尹才兵
+  /*
+      //产生一个随机邮箱账号
+        public static String reduceRandomEmail(int length) {
         int count=(int)(3+Math.random()*(length-3));
         int count1=(int)(1+Math.random()*(count-3));
         String randomEmail="";
@@ -79,10 +581,13 @@ public class EmailAction extends VP4 {
                 //输入账号
                 getObject2ById(EmailPage.EMAIL_ACCOUNT_INPUT).setText(account);
                 waitTime(2);
+                if(getObjectByText(APPMenuPage.REGISTER_GAIL_PROMPT).exists())
+                clickByText("Cancel");//gmail需要
 
                 //gmail邮箱比其他邮箱多个确认步骤，判断是否是gmail邮箱
                 if(account.endsWith("@gmail.com")) {
                     waitTime(3);
+                    if(getObjectByText("Cancel").exists())
                     clickByText("Cancel");//gmail需要
                     waitUntilFind(EmailPage.EMAIL_INPUT_OK_TEXT, 2000);
                     clickById(EmailPage.EMAIL_INPUT_OK_TEXT);
@@ -120,14 +625,18 @@ public class EmailAction extends VP4 {
                 //输入账号
                 getObject2ById(EmailPage.EMAIL_ACCOUNT_INPUT).setText(account);
                 waitTime(2);
-
+                if(getObjectByText(APPMenuPage.REGISTER_GAIL_PROMPT).exists())
+                    clickByText("Cancel");//gmail需要
                 //gmail邮箱比其他邮箱多个确认步骤，判断是否是gmail邮箱
                 if(account.endsWith("@gmail.com")) {
                     waitTime(3);
+                    if(getObjectByText(APPMenuPage.REGISTER_GAIL_PROMPT).exists())
                     clickByText("Cancel");//gmail需要
                     waitUntilFind(EmailPage.EMAIL_INPUT_OK_TEXT, 2000);
                     clickById(EmailPage.EMAIL_INPUT_OK_TEXT);
                     waitUntilFind(EmailPage.EMAIL_PASSWORD_INPUT, 20000);
+                    if(getObjectByText(APPMenuPage.REGISTER_GAIL_PROMPT).exists())
+                        clickByText("Cancel");//gmail需要
                     //输入密码
                     getObject2ById(EmailPage.EMAIL_PASSWORD_INPUT).setText(password);
                     clickById(EmailPage.EMAIL_INPUT_OK_BUTTON);
@@ -184,9 +693,9 @@ public class EmailAction extends VP4 {
         }
         gDevice.pressHome();
     }
-    /**
+    *//**
      * 发送一封主题为Email_Subject，内容为Email_Body的新邮件给收件人TargetAddress
-     * */
+     * *//*
     public static void CreateNewEmail(String Email_Subject,String Email_Body,String TargetAddress) throws IOException, UiObjectNotFoundException {
         EmailAction.LogInEmail("chengduxike@hotmail.com","falcon@ckt2015","");
         gDevice.pressBack();
@@ -206,11 +715,11 @@ public class EmailAction extends VP4 {
         clickById(EmailPage.EMAIL_SEND);
         waitTime(3);
     }
-    /**
+    *//**
      * 根据发件人账号SendEmailAccount，密码SendEmailPassword，
      * 发送一封主题为Email_Subject，
      * 内容Email_Body的新邮件给收件人TargetAddress
-     * */
+     * *//*
     public static void CreateNewEmailToAddress(String SendEmailAccount, String SendEmailPassword, String Email_Subject,String Email_Body, String TargetAddress) throws IOException, UiObjectNotFoundException {
         //发件人账号登录
         EmailAction.LogInEmail(SendEmailAccount,SendEmailPassword,"");
@@ -231,10 +740,10 @@ public class EmailAction extends VP4 {
         clickById(EmailPage.EMAIL_SEND);
         waitTime(3);
     }
-    /**
+    *//**
      *备注：登陆后需要在手机上注册Google账号才能使用Play Store
      * 手机注册Chrome账号
-     * */
+     * *//*
     public static void RegisterChromeAccount(String EmailAccount,String PassWord) throws UiObjectNotFoundException, IOException {
         MainAction.startApp(APPMenuPage.AppNameList[4]);
         if(text_exists("Sign in to Chrome")){
@@ -266,10 +775,10 @@ public class EmailAction extends VP4 {
                 RegisterGoogleAccount(EmailAccount,PassWord);
             }
         }
-    /**
+    *//**
      *备注：登陆后需要在手机上注册Google账号才能使用Play Store
      * 手机注册Chrome账号
-     * */
+     * *//*
     public static void RegisterGoogleAccount(String EmailAccount,String PassWord) throws UiObjectNotFoundException, IOException {
         MainAction.startApp(APPMenuPage.AppNameList[20]);
         if(text_exists("Let Google help you throughout the day")&&text_exists("SIGN IN")){
@@ -301,5 +810,5 @@ public class EmailAction extends VP4 {
             MainAction.killAppByPackage(APPMenuPage.AppNameList[20]);
             RegisterGoogleAccount(EmailAccount,PassWord);
         }
-    }
+    }*/
 }

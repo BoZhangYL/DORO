@@ -33,13 +33,14 @@ public class APPMenuCase extends VP4{
     @BeforeClass
     public static void initGalleryCase() throws IOException, UiObjectNotFoundException {
         unLock();
-        EmailAction.LogInEmail("woshihouzi2016@gmail.com","woshidoubi","");
+     //   EmailAction.LogInEmail("woshihouzi2016@gmail.com","woshidoubi","");
     }
 
     @Test
     public void testClickAlarm() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[0]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(0));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -49,6 +50,7 @@ public class APPMenuCase extends VP4{
     public void testClickCal​cu​lator() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[1]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(1));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -58,6 +60,7 @@ public class APPMenuCase extends VP4{
     public void testClickCalen​dar() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[2]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(2));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -67,6 +70,7 @@ public class APPMenuCase extends VP4{
     public void testClickCamera() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[3]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(3));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -75,7 +79,9 @@ public class APPMenuCase extends VP4{
     @Test
     public void testClickChrome() throws UiObjectNotFoundException, IOException {
         MainAction.clearAllApp();
-        EmailAction.RegisterChromeAccount("woshihouzi2016@gmail.com","woshidoubi");
+//        EmailAction.RegisterChromeAccount("woshihouzi2016@gmail.com","woshidoubi");
+        MainAction.startApp(APPMenuPage.AppNameList[4]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(4));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -85,6 +91,7 @@ public class APPMenuCase extends VP4{
     public void testClickCodeSafe() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[5]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(5));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -94,6 +101,7 @@ public class APPMenuCase extends VP4{
     public void testClickCont​acts() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[6]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(6));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -103,6 +111,7 @@ public class APPMenuCase extends VP4{
     public void testClickDockMode() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[7]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(7));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -112,6 +121,7 @@ public class APPMenuCase extends VP4{
     public void testClickDoroConnectCare() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[8]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(8));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -121,6 +131,7 @@ public class APPMenuCase extends VP4{
     public void testClickDoroKeyboard() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[9]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(9));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -130,6 +141,7 @@ public class APPMenuCase extends VP4{
     public void testClickDoroSel​ection() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[10]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(10));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -139,6 +151,7 @@ public class APPMenuCase extends VP4{
     public void testClickDownloads() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[11]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(11));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -148,6 +161,7 @@ public class APPMenuCase extends VP4{
     public void testClickDrive() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[12]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(12));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -157,6 +171,7 @@ public class APPMenuCase extends VP4{
     public void testClickDuo() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[13]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(13));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -166,6 +181,7 @@ public class APPMenuCase extends VP4{
     public void testClickEmail() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[14]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(14));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -175,6 +191,7 @@ public class APPMenuCase extends VP4{
     public void testClickEmail1() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[15]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(15));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -184,6 +201,7 @@ public class APPMenuCase extends VP4{
     public void testClickFileManager() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[16]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(16));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -193,6 +211,7 @@ public class APPMenuCase extends VP4{
     public void testClickFMRadio() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[17]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(17));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -202,6 +221,7 @@ public class APPMenuCase extends VP4{
     public void testClickGall​ery() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[18]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(18));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -211,6 +231,7 @@ public class APPMenuCase extends VP4{
     public void testClickGmail() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[19]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(19));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -219,7 +240,9 @@ public class APPMenuCase extends VP4{
     @Test
     public void testClickGoogle() throws UiObjectNotFoundException, IOException {
         MainAction.clearAllApp();
-        EmailAction.RegisterGoogleAccount("woshihouzi2016@gmail.com", "woshidoubi");
+     //   EmailAction.RegisterGoogleAccount("woshihouzi2016@gmail.com", "woshidoubi");
+        MainAction.startApp(APPMenuPage.AppNameList[20]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(20));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -229,6 +252,7 @@ public class APPMenuCase extends VP4{
     public void testClickInter​net() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[21]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(21));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -238,6 +262,7 @@ public class APPMenuCase extends VP4{
     public void testClickMag​nifier() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[22]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(22));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -247,6 +272,7 @@ public class APPMenuCase extends VP4{
     public void testClickMaps() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[23]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(23));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -256,6 +282,7 @@ public class APPMenuCase extends VP4{
     public void testClickMess​ages() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[24]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(24));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -265,6 +292,7 @@ public class APPMenuCase extends VP4{
     public void testClickMusic() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[25]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(25));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -274,6 +302,7 @@ public class APPMenuCase extends VP4{
     public void testClickMyDoroManager() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[26]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(26));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -283,6 +312,7 @@ public class APPMenuCase extends VP4{
     public void testClickNotes() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[27]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(27));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -292,6 +322,7 @@ public class APPMenuCase extends VP4{
     public void testClickPhone() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[28]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(28));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -301,12 +332,17 @@ public class APPMenuCase extends VP4{
     public void testClickPhotos() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[29]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(29));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
         Asst.assertFalse("Can't_Launch_"+APPMenuPage.AppNameList[29],!Actual1&&Actual2);
     }
-    @Test
+
+    /*
+    * 新版本已经删除PlayMoview&TV
+    * */
+/*    @Test
     public void testClickPlayMoviesTV() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[30]);
@@ -314,11 +350,12 @@ public class APPMenuCase extends VP4{
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
         Asst.assertFalse("Can't_Launch_"+APPMenuPage.AppNameList[30],!Actual1&&Actual2);
-    }
+    }*/
     @Test
     public void testClickPlayMusic() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[31]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(31));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -328,6 +365,7 @@ public class APPMenuCase extends VP4{
     public void testClickPlayStore() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[32]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(32));
         logger.info(gDevice.getCurrentPackageName());
         gDevice.pressHome();
@@ -338,7 +376,9 @@ public class APPMenuCase extends VP4{
     public void testClickQuickSupport() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[33]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(33));
+        waitTime(5);
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
         Asst.assertFalse("Can't_Launch_"+APPMenuPage.AppNameList[33],!Actual1&&Actual2);
@@ -347,6 +387,7 @@ public class APPMenuCase extends VP4{
     public void testClickRec​order() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[34]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(34));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -356,6 +397,7 @@ public class APPMenuCase extends VP4{
     public void testClickSettings() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[35]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(35));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -365,6 +407,7 @@ public class APPMenuCase extends VP4{
     public void testClickSIMToolKit() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[36]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(36));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -374,6 +417,7 @@ public class APPMenuCase extends VP4{
     public void testClickTimer() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[37]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(37));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -383,6 +427,7 @@ public class APPMenuCase extends VP4{
     public void testClickTorch() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[38]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(38));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -392,6 +437,7 @@ public class APPMenuCase extends VP4{
     public void testClickVoiceSearch() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[39]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(39));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -401,6 +447,12 @@ public class APPMenuCase extends VP4{
     public void testClickWeath​er() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[40]);
+        waitTime(5);
+        if(getObjectById("com.google.android.gms:id/message").exists()){
+            clickByText("CANCEL");
+            waitTime(1);
+            clickByText("No");
+        }
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(40));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");
@@ -410,6 +462,7 @@ public class APPMenuCase extends VP4{
     public void testClickYouTube() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[41]);
+        waitTime(5);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(41));
         gDevice.pressHome();
         boolean Actual2 =text_exists("Call");

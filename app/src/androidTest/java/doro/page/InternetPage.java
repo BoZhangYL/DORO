@@ -28,7 +28,7 @@ public class InternetPage {
     public static final String SEARCH_WORD = "baidu";
     //输入搜索的文字
 
-    public static final String SEARCH_WORD_URL = "google.co.uk/search?q=baidu";
+    public static final String SEARCH_WORD_URL = "google.com/search?q=baidu";
     //搜索文字时，地址栏显示的内容
 
     public static final String SEARCH_ADDRESS = "http://10.120.10.90";
@@ -172,7 +172,7 @@ public class InternetPage {
     public static final String MAXPAGE_NUMBER_10 = "10";
     public static final String MAXPAGE_NUMBER_20 = "20";
     //设置页面的数量
-    public static final String TheDefaplayPAge_Google = "https://google.co.uk";
+    public static final String TheDefaplayPAge_Google = "https://google.com";
     //默认页面
 
 }

@@ -14,6 +14,7 @@ import java.io.File;
 
 import ckt.base.VP4;
 import doro.page.CameraPage;
+import doro.page.EmailPage;
 
 import static doro.page.CameraPage.*;
 import static org.junit.Assert.assertEquals;
@@ -56,6 +57,21 @@ public class CameraAction extends VP4 {
 //    private static UiObject VideoQuality = getObjectByText(CAMERASETTINGS_VIDEO_QUALITY);
 //    private static UiObject VideoDetailOption = getObjectByText(VIDEO_DETAIL);
 //    private static UiObject PictureDetailOption = getObjectByText(PICTURE_DETAIL);
+
+
+    /*
+    *
+    * */
+    public static void accessCamera(){
+        if (getObjectById(EmailPage.ACCESS_RIGHT).exists()) {
+            try {
+                while (getObjectByText("ALLOW").exists())
+                    getObjectByText("ALLOW").clickAndWaitForNewWindow();
+            } catch (UiObjectNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     /*得到当前所有的拍摄的照片数
     * 通过判断/Dcim/Camera/文件夹下所有jpg结尾的文件数

@@ -18,7 +18,6 @@ public class GalleryCase extends VP4 {
 
     @BeforeClass
     public static void initGalleryCase() {
-        initDevice();
         VP4.unLock();
         GalleryAction.getAllPicturesCount();
 
