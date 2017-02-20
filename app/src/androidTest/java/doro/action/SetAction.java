@@ -149,7 +149,7 @@ public class SetAction extends VP4{
             int x3 =textSizeLog(SET_SELECT_TEXT_SIZE_TEXT);
             getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
             getObjectByText(SET_ICON_SET_TEXT).click();
-            Assert.assertTrue("The tetx size can't change",x3<x2&&x2<x1);
+            Assert.assertTrue("The text size can't change",x3<x2&&x2<x1);
         }catch(Exception e){e.printStackTrace();}
 
     }
@@ -333,7 +333,7 @@ public class SetAction extends VP4{
         findListSubmenu(SET_AN_AUDIO_OPTION_TEXT);
         findListSubmenu(SET_MY_AUDIO_SETUP_TEXT);
         try{
-            Assert.assertTrue("设置"+audioSetupMode+"模式没有成功",getObjectByText(audioSetupMode).exists());
+            Assert.assertTrue("Setting"+audioSetupMode+"mode can't success",getObjectByText(audioSetupMode).exists());
             getObjectByText(SET_CONFIRM_TEXT).clickAndWaitForNewWindow();
             getObjectByText(SET_ICON_SET_TEXT).click();
         }catch(Exception e){e.printStackTrace();}
@@ -367,7 +367,7 @@ public class SetAction extends VP4{
             getObjectByText(SET_THE_VOLUME_SETUP_TEXT).clickAndWaitForNewWindow();
             String y =getObjectById(valueString).getText();
             int z =Integer.valueOf(y);
-            Assert.assertTrue("音量没有调节成功",x==z);
+            Assert.assertTrue("The volume can't change successfully",x==z);
         }catch(Exception e){e.printStackTrace();}
     }
     public void checkScreenTimeout(double min){ //检查屏幕是否灭屏
@@ -377,7 +377,7 @@ public class SetAction extends VP4{
             mDevice.wakeUp();
             unLock();
             phoneWaitTime(min);
-            Assert.assertFalse("屏幕没有关闭",mDevice.isScreenOn());
+            Assert.assertFalse("The screen is still wake ",mDevice.isScreenOn());
             mDevice.wakeUp();
             unLock();
         }catch(Exception e){e.printStackTrace();}
@@ -422,9 +422,9 @@ public class SetAction extends VP4{
             autoTime(false);
             boolean format = getObjectById(SET_TIME_FILED_ID).getText().contains("m");
             if(timeformat ==12){
-                Assert.assertTrue("没有改变成为12小时制",format);
+                Assert.assertTrue("The time format can't change to 12-hour format",format);
             }else{
-                Assert.assertFalse("没有改变成为24小时制",format);
+                Assert.assertFalse("The time format can't change to 24-hour format",format);
             }
         }catch(Exception e){e.printStackTrace();}
     }

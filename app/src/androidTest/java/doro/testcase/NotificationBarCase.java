@@ -60,8 +60,12 @@ public class NotificationBarCase extends NotificationBarAction {
     @Test
     public void testButtons()throws UiObjectNotFoundException{
         //检查五个切换按钮显示
+
         pullDownNotificationBar();
-        Assert.assertTrue("Wifi_Button没有显示！",getObjectByText("Wifi").exists());
+        Assert.assertTrue("Wifi_Button没有显示！",
+                getObjectByDesc("Wifi Off,Open Wifi settings.").exists()||
+                        getUiObjectByDes("Wifi On,Wi-Fi signal full.,CKT,Open Wifi settings.").exists()||
+                        getObjectByDesc("Wifi On,Wi-Fi three bars.,CK-Test-CTS,Open Wifi settings.").exists());
         Assert.assertTrue("Mobile data_Button没有显示！",text_exists("No SIM card")||text_exists("No service")||text_exists("CU")||text_exists("CMCC"));
         Assert.assertTrue("Bluetooth_Button没有显示！",getObjectByText("Bluetooth").exists());
         Assert.assertTrue("Torch_Button没有显示！",getObjectByText("Torch").exists());

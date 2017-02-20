@@ -287,7 +287,7 @@ public class SettingAction extends VP4 {
         }catch(Exception e){e.printStackTrace();}
     }
     public void CheckConfigureApps(){
-        Assert.assertTrue("未进入Configure apps",getObjectByText(SETTINGS_CONFIGURE_APPS_TEXT).exists());
+        Assert.assertTrue("Can't into the Configure apps",getObjectByText(SETTINGS_CONFIGURE_APPS_TEXT).exists());
     }
     public void appsInfo(int x){ //进入Apps下的第X个 配置App info界面
         try{
@@ -298,7 +298,7 @@ public class SettingAction extends VP4 {
         }catch(Exception e){e.printStackTrace();}
     }
     public void CheckAppsInfo(){
-        Assert.assertTrue("未进入App info",getObjectByText(SETTINGS_APP_INFO_TEXT).exists());
+        Assert.assertTrue("Can't into App info",getObjectByText(SETTINGS_APP_INFO_TEXT).exists());
     }
     public void CheckFlightModeOnInfo(boolean flightMode ){ //检查飞行模式下的提示信息是否存在
         try{
