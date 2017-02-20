@@ -403,7 +403,7 @@ public class SettingAction extends VP4 {
     }
 
     public void setEverydayTime(String time ,double waitTime){ //去设置中设置一周的时间
-        for(int i=0;i<7;i++){
+        for(int i=1;i<=7;i++){
             setNextdayTime(time);//设置手机时间
             phoneWaitTime(waitTime);//手机等待分钟
             new AlarmAction().checkAlarmComing();//判断闹钟是否到来
