@@ -791,7 +791,7 @@ public class GalleryAction extends VP4 {
         Asst.assertTrue("取消随机删除一张照片", isSameCharacter(deleteName, DeletedGalleryNames));
         clickConfirmButton();
         clickOKButton();
-        waitTime(10);
+        waitTime(30);
         DeletedGalleryNames = getPictureVideoNmae();
         Asst.assertTrue("确认随机删除一张照片", !isSameCharacter(deleteName, DeletedGalleryNames));
 
@@ -832,7 +832,7 @@ public class GalleryAction extends VP4 {
         Asst.assertTrue("取消随机删除一个视频", isSameCharacter(deleteName, DeletedGalleryNames));
         clickConfirmButton();
         clickOKButton();
-        waitTime(10);
+        waitTime(30);
         DeletedGalleryNames = getPictureVideoNmae();
         Asst.assertTrue("确认随机删除一个视频", !isSameCharacter(deleteName, DeletedGalleryNames));
         /*int pictures[] = getCurrentPicturesVideosNum();
@@ -999,10 +999,7 @@ public class GalleryAction extends VP4 {
     private static int getOneRandomPictureNumber(int number) {
         int numbers = 0;
         numbers = (int) (Math.random() * number);
-        if (numbers == 0) {
-            numbers = 1;
-        }
-        return numbers - 1;
+        return numbers;
     }
 
     /*

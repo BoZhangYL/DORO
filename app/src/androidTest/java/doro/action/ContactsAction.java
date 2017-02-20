@@ -31,6 +31,9 @@ public class ContactsAction extends VP4 {
             MainAction.clearAllApp();
             //启动联系人App
             MainAction.startApp(ContactsPage.CONTACTS);
+            if(getObjectByText("Cancel").exists()){
+                getObjectByText("Cancel").clickAndWaitForNewWindow();
+            }
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }

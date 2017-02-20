@@ -5,6 +5,7 @@ import android.support.test.uiautomator.UiCollection;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
+import android.support.test.uiautomator.UiWatcher;
 
 import org.hamcrest.Asst;
 
@@ -101,6 +102,26 @@ public class InternetAction extends VP4 {
 
     private static UiObject DefultPageGoole = getObjectByText(InternetPage.TheDefaplayPAge_Google);
     private static String MAX_PAGES = InternetPage.MAX_PAGES;
+    /*
+    * 处理异常
+    * */
+    public static void watchexception(){
+        gDevice.registerWatcher("Pops", new UiWatcher() {
+            @Override
+            public boolean checkForCondition() throws UiObjectNotFoundException {
+                if(getObjectByText("Security warning").exists()){
+                    getObjectByText(InternetPage.CANCEL_BUTTON).clickAndWaitForNewWindow();
+                    return true;
+                }
+                if(getObjectByText(InternetPage.BAIDU_LOCATION).exists()){
+                    getObjectByText("No").clickAndWaitForNewWindow();
+                }
+                return false;
+            }
+        });
+    }
+
+
     /*
     * 设置最大打来的页面
     * */
@@ -507,9 +528,6 @@ public class InternetAction extends VP4 {
             WelcomeText.click();
             SearchButton.clickAndWaitForNewWindow();
             Asst.assertTrue("点击搜索按钮后没有进入搜索页面", !HeadTiltle.exists());
-            if(getObjectByText(InternetPage.BAIDU_LOCATION).exists()){
-                getObjectByText("No").click();
-            }
             Asst.assertTrue("搜索网址出错！",getObjectByText(InternetPage.SEARCH_ADDRESS_URL).
                     exists());
         } catch (UiObjectNotFoundException e) {
@@ -606,4 +624,13 @@ public class InternetAction extends VP4 {
             e.printStackTrace();
         }
     }
+
+    /*
+    * 如果浏览的网页有弹出提示，取消该弹出提示
+    * */
+    private static void cancelPopsPrompt(){
+        //先判断是否有权限提示框
+
+    }
+
 }

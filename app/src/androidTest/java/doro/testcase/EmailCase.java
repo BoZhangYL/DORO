@@ -23,11 +23,104 @@ import doro.page.EmailPage;
 @RunWith(AndroidJUnit4.class)
 public class EmailCase extends VP4 {
     @BeforeClass
-    public static void initGalleryCase(){
+    public static void initGalleryCase() {
         unLock();
+        EmailAction.accessEmail();
+        EmailAction.loginEmail();
     }
 
     @Test
+    public void launchEmail() {
+        EmailAction.openEmailApp();
+    }
+
+    @Test
+    public void exitEmail() {
+        EmailAction.openEmailApp();
+        EmailAction.exitEmailApp();
+    }
+
+    @Test
+    public void loadEmail() {
+        EmailAction.openEmailApp();
+        EmailAction.refreshPage();
+        EmailAction.waitLoad();
+    }
+
+    @Test
+    public void createSendEmail() {
+        EmailAction.openEmailApp();
+        EmailAction.NewEmailByAddress();
+        EmailAction.sendEmail();
+    }
+
+    @Test
+    public void checkSendEmailPrompt() {
+        EmailAction.openEmailApp();
+        EmailAction.enabkedConfirmSending();
+        EmailAction.NewEmailByAddress();
+        EmailAction.sendEmail();
+        EmailAction.checkConfirmSending();
+        EmailAction.disabledConfirmSending();
+    }
+
+    @Test
+    public void checkReceiveEmail() {
+        EmailAction.openEmailApp();
+        EmailAction.NewEmailByAddress();
+        EmailAction.sendEmail();
+        EmailAction.refreshNewEmail();
+        EmailAction.checkReceive();
+    }
+
+    @Test
+    public void receiveEmail() {
+        EmailAction.openEmailApp();
+        EmailAction.changeSyncTimeToFiveMinutes();
+        EmailAction.NewEmailByAddress();
+        EmailAction.sendEmail();
+        EmailAction.exitEmailApp();
+        EmailAction.waitReceiveEmail();
+    }
+
+    @Test
+    public void checkEmailMenu() {
+        EmailAction.openEmailApp();
+        EmailAction.switchToEmailMenu();
+    }
+
+    @Test
+    public void operationOutBox() {
+        EmailAction.openEmailApp();
+        EmailAction.switchToOutBox();
+        EmailAction.openOutEmail();
+        EmailAction.zoomInEmail();
+        EmailAction.deleteEmail();
+        EmailAction.exitOutBox();
+    }
+
+    @Test
+    public void operationSentBox() {
+        EmailAction.openEmailApp();
+        EmailAction.switchToSentBox();
+        EmailAction.openSentEmail();
+        EmailAction.zoomInEmail();
+        EmailAction.deleteEmail();
+    }
+
+    @Test
+    public void cehckSentEmail() {
+        EmailAction.openEmailApp();
+        EmailAction.switchToSentBox();
+    }
+
+    @Test
+    public void firestLoginEmail() {
+        EmailAction.loginEmail();
+    }
+
+
+ /*   @Test
     //
     public void testEnterEmail() throws UiObjectNotFoundException {
         MainAction.startApp(APPMenuPage.AppNameList[14]);
@@ -56,9 +149,9 @@ public class EmailCase extends VP4 {
         gDevice.pressBack();
 
     }
-
     @Test
     public void testA() throws UiObjectNotFoundException, IOException {
         EmailAction.LogInEmail("woshihouzi2016@gmail.com", "woshidoubi", "");
-    }
+    }*/
+
 }

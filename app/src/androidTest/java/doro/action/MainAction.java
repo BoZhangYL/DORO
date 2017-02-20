@@ -48,6 +48,7 @@ public class MainAction extends VP4{
             clickByIdText(LAUNCH3_APP,AppName);
             logger.info("current-package is - "+gDevice.getCurrentPackageName());
         }
+        waitTime(5);
     }
     /**
      * 启动FILE MANAGER

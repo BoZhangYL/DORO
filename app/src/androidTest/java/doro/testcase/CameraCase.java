@@ -21,8 +21,8 @@ import static doro.page.CameraPage.*;
 public class CameraCase extends VP4 {
     @BeforeClass
     public static void initCalendar() {
-        VP4.initDevice();
         VP4.unLock();
+        CameraAction.accessCamera();
         // CameraAction.setCameraRestoredefaults();
     }
 
