@@ -100,13 +100,6 @@ public class VP4 extends VP2 {
     public static void switchToHomePage() {//回到主界面
         initRent();
         String homeScreen = "com.doro.apps.launcher3:id/shortcut_list";
-        if(getObjectByText("No recent items").exists()){
-            try {
-                pressKey("Menu");
-            } catch (UiObjectNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
         Asst.assertTrue("Switch to Home Screen fail", waitObjectTenMinuite(getObjectById(homeScreen)));
     }
 
@@ -339,21 +332,30 @@ public class VP4 extends VP2 {
                 scrollLeft(getObjectById("com.android.systemui:id/task_view_thumbnail"),
                         5);
             }*/
-            getObjectByText("Close all").clickAndWaitForNewWindow();
+            if (getObjectByText("No recent items").exists()) {
+                try {
+                    pressKey("Menu");
+                } catch (UiObjectNotFoundException e) {
+                    e.printStackTrace();
+                }
+            } else if (getObjectByText("Close all").exists())
+                getObjectByText("Close all").clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
     }
-    public static boolean waitObjectTenMinuite(UiObject object){
-        int i =1;
-        while(!object.exists() && i<5){
+
+    public static boolean waitObjectTenMinuite(UiObject object) {
+        int i = 1;
+        while (!object.exists() && i < 5) {
             waitTime(i++);
         }
-        if(i<5)
+        if (i < 5)
             return true;
         else
             return false;
     }
+
     public void phoneWaitTime(double mins) {
         try {
             Thread.sleep((long) (mins * 60 * 1000));
