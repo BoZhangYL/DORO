@@ -244,7 +244,9 @@ public class GalleryAction extends VP4 {
             getObjectByText(GalleryPage.GALLERYSETTINGS_FAVOURITE).click();
             String selectpicture = selectDeletePictures();
             clickConfirmButton();
-            waitTime(10);
+            changeToFavouritesDisplay();
+            Asst.assertTrue("添加一个favourite失败", getObjectByDesc(selectpicture).exists());
+           /* waitTime(10);
             VP4.scrollToBegin(20);
             String[][] names = getPictureVideoNmae();
             String FavouritePictures[] = names[2];
@@ -254,7 +256,7 @@ public class GalleryAction extends VP4 {
                     isExistedFavourite = true;
                 }
             }
-            Asst.assertTrue("添加一个favourite失败", isExistedFavourite);
+            Asst.assertTrue("添加一个favourite失败", isExistedFavourite);*/
 
             /*if (GridView.getChildCount() > 0) {
                 UiObject OnePicture = GridView.getChildByInstance(images, 0);
@@ -278,11 +280,16 @@ public class GalleryAction extends VP4 {
         changeToFavouritesDisplay();
         try {
             Asst.assertTrue("没有一个Favourite", GridView.getChildByInstance(Favourite, 0).exists());
+           // int mFavourites1 = GridView.getChildCount();
             clickIWantToButton();
             getObjectByText(GalleryPage.GALLERYSETTINGS_FAVOURITE).clickAndWaitForNewWindow();
-            String selectpicture = selectDeletePictures();
+            String selectpicture = unselectDeletePictures();
             clickConfirmButton();
-            VP4.scrollToBegin(20);
+            waitTime(5);
+           // int mFavourites2 = GridView.getChildCount();
+            Asst.assertTrue("删除一个favourite失败",!getObjectByDesc(selectpicture).exists());
+            //Asst.assertTrue("删除一个favourite失败",((mFavourites1 - 1) == mFavourites2));
+            /*VP4.scrollToBegin(20);
             changeToMyGalleryDisplay();
             String[][] names = getPictureVideoNmae();
             String FavouritePictures[] = names[2];
@@ -292,7 +299,7 @@ public class GalleryAction extends VP4 {
                     isNotExistedFavourite = false;
                 }
             }
-            Asst.assertTrue("删除一个favourite失败", isNotExistedFavourite);
+            Asst.assertTrue("删除一个favourite失败", isNotExistedFavourite);*/
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -564,8 +571,19 @@ public class GalleryAction extends VP4 {
     * */
     public static void checkFavouriteDisplay() {
         String[][] allPicturenames = getPictureVideoNmae();
-        Asst.assertEquals("checkFavouriteDisplay,", 0, getAllCurrentNamesCount(allPicturenames[0]));
-        Asst.assertEquals("checkFavouriteDisplay,", 0, getAllCurrentNamesCount(allPicturenames[1]));
+        boolean isDisplayFavouriteView = true;
+        try {
+            for(int i=0; i<GridView.getChildCount();i++){
+                  if(!GridView.getChildByInstance(Favourite,i).exists()){
+                      isDisplayFavouriteView = false;
+                  }
+            }
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        Asst.assertTrue("checkFavouriteDisplay",isDisplayFavouriteView);
+//        Asst.assertEquals("checkFavouriteDisplay,", 0, getAllCurrentNamesCount(allPicturenames[0]));
+//        Asst.assertEquals("checkFavouriteDisplay,", 0, getAllCurrentNamesCount(allPicturenames[1]));
 
   /*      if (GalleryFavouriteNumber == 0) {
             try {
@@ -959,8 +977,28 @@ public class GalleryAction extends VP4 {
         try {
             Asst.assertTrue("DeleteCheckBox not exist",
                     GridView.getChildByInstance(DeleteCheckBox, instance).exists());
-            GridView.getChildByInstance(DeleteCheckBox, instance).click();
             SelectName = GridView.getChildByInstance(images, instance).getContentDescription();
+            if(!GridView.getChildByInstance(DeleteCheckBox, instance).isChecked())
+            GridView.getChildByInstance(DeleteCheckBox, instance).click();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        return SelectName;
+    }
+    private static String unselectDeletePictures() {
+        int instance = 0;
+        try {
+            instance = getOneRandomPictureNumber(GridView.getChildCount());
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        String SelectName = null;
+        try {
+            Asst.assertTrue("DeleteCheckBox not exist",
+                    GridView.getChildByInstance(DeleteCheckBox, instance).exists());
+            SelectName = GridView.getChildByInstance(images, instance).getContentDescription();
+            if(GridView.getChildByInstance(DeleteCheckBox, instance).isChecked())
+                GridView.getChildByInstance(DeleteCheckBox, instance).click();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
