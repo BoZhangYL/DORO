@@ -335,10 +335,11 @@ public class VP4 extends VP2 {
     public static void initRent() {//清除recent
         try {
             pressKey("Home/menu");
-            while (getObjectById("com.android.systemui:id/task_view_thumbnail").exists()) {
+            /*while (getObjectById("com.android.systemui:id/task_view_thumbnail").exists()) {
                 scrollLeft(getObjectById("com.android.systemui:id/task_view_thumbnail"),
                         5);
-            }
+            }*/
+            getObjectByText("Close all").clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
