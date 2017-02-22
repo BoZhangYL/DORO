@@ -839,9 +839,10 @@ public class GalleryAction extends VP4 {
     public static void deleteOneRandomVideo() {
 
         String DeletedGalleryNames[][] = getPictureVideoNmae();
-        if (scr.exists()) {
-            scrollToBegin(20);
-        }
+//        if (scr.exists()) {
+//            scrollToBegin(20);
+//        }
+        Asst.assertTrue("没有视频",DeletedGalleryNames[2].length !=0);
         clickIWantToButton();
         clickDeletePictureButton();
         String deleteName = selectDeletePictures();
