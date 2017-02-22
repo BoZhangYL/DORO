@@ -24,9 +24,18 @@ public class EmailAction extends VP4 {
     /*
     * openSentEmail
     * */
-    public static void openSentEmail(){
+    public static void openSentEmail() {
+
         try {
-            getObjectById(EmailPage.EMAIL_LIST,2).clickAndWaitForNewWindow();
+
+            if (getObjectById("com.doro.apps.email:id/dismiss_icon").exists()) {
+                getObjectById("com.doro.apps.email:id/dismiss_icon").clickAndWaitForNewWindow();
+            }
+            gDevice.findObject(new UiSelector().className("android.view.View").instance(1)).
+                    clickAndWaitForNewWindow();
+            Asst.assertTrue("Not in Email Reply / Forward view ",
+                    getObjectByText("Reply / Forward").exists());
+            //getObjectById(EmailPage.EMAIL_LIST, 2).clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -39,15 +48,25 @@ public class EmailAction extends VP4 {
         if (getWifiState()) {
             clickWifiButton();
         }
-        if (getMobileDataState()) {
-            clickMobileDataButton();
-        }
+//        if (!getMobileDataState()) {
+//            clickMobileDataButton();
+//        }
         if (!getObjectById(EmailPage.EMAIL_LIST, 1).exists()) {
             NewEmailByAddress();
             sendEmail();
         }
         try {
-            getObjectById(EmailPage.EMAIL_LIST, 1).clickAndWaitForNewWindow();
+            if (getObjectById("com.doro.apps.email:id/dismiss_icon").exists()) {
+                getObjectById("com.doro.apps.email:id/dismiss_icon").clickAndWaitForNewWindow();
+            }
+            gDevice.findObject(new UiSelector().className("android.view.View").instance(1)).
+                    clickAndWaitForNewWindow();
+            Asst.assertTrue("Not in Email edit view ", getObjectByText("Edit").exists());
+            /*UiObject Emails =  gDevice.findObject(new UiSelector().resourceId("com.doro.apps." +
+                    "email:id/conversation_list_parent_frame").index(0).index(1).index(0));
+            Emails.clickAndWaitForNewWindow();
+            Asst.assertTrue("Not in Email edit view ", getObjectByText("Edit").exists());*/
+
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -70,14 +89,13 @@ public class EmailAction extends VP4 {
     * */
     private static boolean getWifiState() {
         boolean WifiState = true;
-/*        gDevice.swipe(gDevice.getDisplayWidth() / 2, 0, gDevice.getDisplayWidth() / 2,
-                gDevice.getDisplayHeight(), 20);*/
         gDevice.openQuickSettings();
-//        gDevice.click(gDevice.getDisplayWidth() / 2, 0);
-//        gDevice.click(gDevice.getDisplayWidth() / 2, 0);
-
+        UiCollection QuickSettingList = new UiCollection(new
+                UiSelector().resourceId("com.android.systemui:id/tile_page"));
+        UiSelector QucickSets = new UiSelector().className("android.widget.Button");
         try {
-            UiObject WifiTiles = gDevice.findObject(new UiSelector().resourceId(EmailPage.NOTIFCATION_LIST).index(0));
+            //UiObject WifiTiles = gDevice.findObject(new UiSelector().resourceId(EmailPage.NOTIFCATION_LIST).index(0));
+            UiObject WifiTiles = QuickSettingList.getChildByInstance(QucickSets, 0);
             String WifiDes = WifiTiles.getContentDescription();
             String[] wifiCurrentD = WifiDes.split(",");
             if (wifiCurrentD[0].equals("Wifi On")) {
@@ -88,7 +106,7 @@ public class EmailAction extends VP4 {
             e.printStackTrace();
         }
         gDevice.swipe(gDevice.getDisplayWidth() / 2, gDevice.getDisplayHeight(),
-                gDevice.getDisplayWidth()/2, 0, 20);
+                gDevice.getDisplayWidth() / 2, 0, 20);
         return WifiState;
     }
 
@@ -96,14 +114,14 @@ public class EmailAction extends VP4 {
     * 点击wifi快捷按钮
     * */
     public static void clickWifiButton() {
-//        gDevice.swipe(gDevice.getDisplayWidth() / 2, 0, gDevice.getDisplayWidth() / 2,
-//                gDevice.getDisplayHeight(), 5);
         gDevice.openQuickSettings();
         waitTime(2);
-//        gDevice.click(gDevice.getDisplayWidth() / 2, 0);
-//        gDevice.click(gDevice.getDisplayWidth() / 2, 0);
-        UiObject WifiTiles = gDevice.findObject(new UiSelector().textContains(EmailPage.QUICK_SET).index(0));
+        UiCollection QuickSettingList = new UiCollection(new
+                UiSelector().resourceId("com.android.systemui:id/tile_page"));
+        UiSelector QucickSets = new UiSelector().className("android.widget.Button");
+        //UiObject WifiTiles = gDevice.findObject(new UiSelector().textContains(EmailPage.QUICK_SET).index(0));
         try {
+            UiObject WifiTiles = QuickSettingList.getChildByInstance(QucickSets, 0);
             WifiTiles.clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
@@ -118,14 +136,14 @@ public class EmailAction extends VP4 {
     * */
     private static boolean getMobileDataState() {
         boolean MobileDataState = true;
-//        gDevice.swipe(gDevice.getDisplayWidth() / 2, 0, gDevice.getDisplayWidth() / 2,
-//                gDevice.getDisplayHeight(), 5);
         gDevice.openQuickSettings();
         waitTime(2);
-//        gDevice.click(gDevice.getDisplayWidth() / 2, 0);
-//        gDevice.click(gDevice.getDisplayWidth() / 2, 0);
+        UiCollection QuickSettingList = new UiCollection(new
+                UiSelector().resourceId("com.android.systemui:id/tile_page"));
+        UiSelector QucickSets = new UiSelector().className("android.widget.Button");
         try {
-            UiObject MobileDataTiles = gDevice.findObject(new UiSelector().textContains(EmailPage.QUICK_SET).index(1));
+            //UiObject MobileDataTiles = gDevice.findObject(new UiSelector().textContains(EmailPage.QUICK_SET).index(1));
+            UiObject MobileDataTiles = QuickSettingList.getChildByInstance(QucickSets, 1);
             String[] WifiDes = MobileDataTiles.getContentDescription().split("\\.");
             if (WifiDes[0].equals("Mobile Mobile Data On")) {
                 MobileDataState = true;
@@ -143,14 +161,14 @@ public class EmailAction extends VP4 {
     * 点击数据连接快捷按钮
     * */
     public static void clickMobileDataButton() {
-//        gDevice.swipe(gDevice.getDisplayWidth() / 2, 0, gDevice.getDisplayWidth() / 2,
-//                gDevice.getDisplayHeight(), 10);
         gDevice.openQuickSettings();
         waitTime(2);
-//        gDevice.click(gDevice.getDisplayWidth() / 2, 0);
-//        gDevice.click(gDevice.getDisplayWidth() / 2, 0);
-        UiObject MobileDataTiles  = gDevice.findObject(new UiSelector().textContains(EmailPage.QUICK_SET).index(1));
+        UiCollection QuickSettingList = new UiCollection(new
+                UiSelector().resourceId("com.android.systemui:id/tile_page"));
+        UiSelector QucickSets = new UiSelector().className("android.widget.Button");
+        //UiObject MobileDataTiles  = gDevice.findObject(new UiSelector().textContains(EmailPage.QUICK_SET).index(1));
         try {
+            UiObject MobileDataTiles = QuickSettingList.getChildByInstance(QucickSets, 1);
             MobileDataTiles.clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
@@ -163,12 +181,12 @@ public class EmailAction extends VP4 {
     * Zoom in Email
     * */
     public static void zoomInEmail() {
-        Asst.assertTrue("Not in Email edit view ", getObjectByText("Edit").exists());
         try {
-            Rect BeforeZoom = getObjectById(EmailPage.EMAIL_VIEW).getBounds();
+            waitTime(5);
+            Rect BeforeZoom = getUiObjectByDes("test Email success").getBounds();
             getObjectByText(EmailPage.I_WANT_TO_BUTTON).clickAndWaitForNewWindow();
             getObjectByText(EmailPage.ZOOM_IN).clickAndWaitForNewWindow();
-            Rect CurrentZoom = getObjectById(EmailPage.EMAIL_VIEW).getBounds();
+            Rect CurrentZoom = getUiObjectByDes("test Email success").getBounds();
             Asst.assertTrue("Zoom in fail !", (CurrentZoom.bottom - CurrentZoom.top) >
                     (BeforeZoom.bottom - BeforeZoom.top));
         } catch (UiObjectNotFoundException e) {
@@ -180,7 +198,6 @@ public class EmailAction extends VP4 {
     * delete Email
     * */
     public static void deleteEmail() {
-        Asst.assertTrue("Not in Email edit view ", getObjectByText("Edit").exists());
         try {
             getObjectByText(EmailPage.I_WANT_TO_BUTTON).clickAndWaitForNewWindow();
             getObjectByText("Delete this email").clickAndWaitForNewWindow();
@@ -205,7 +222,7 @@ public class EmailAction extends VP4 {
         try {
             getObjectByText(EmailPage.I_WANT_TO_BUTTON).clickAndWaitForNewWindow();
             getObjectByText(EmailPage.DISPLAY).clickAndWaitForNewWindow();
-            if(!getObjectByText(EmailPage.OUTBOX).exists())
+            if (!getObjectByText(EmailPage.OUTBOX).exists())
                 scrollToEnd(10);
             getObjectByText(EmailPage.OUTBOX).clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e) {
@@ -220,7 +237,7 @@ public class EmailAction extends VP4 {
         try {
             getObjectByText(EmailPage.I_WANT_TO_BUTTON).clickAndWaitForNewWindow();
             getObjectByText(EmailPage.DISPLAY).clickAndWaitForNewWindow();
-            if(!getObjectByText(EmailPage.SENTBOX).exists())
+            if (!getObjectByText(EmailPage.SENTBOX).exists())
                 scrollToEnd(10);
             getObjectByText(EmailPage.SENTBOX).clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e) {
