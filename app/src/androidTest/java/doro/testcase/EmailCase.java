@@ -69,8 +69,9 @@ public class EmailCase extends VP4 {
         EmailAction.openEmailApp();
         EmailAction.NewEmailByAddress();
         EmailAction.sendEmail();
-        EmailAction.refreshNewEmail();
-        EmailAction.checkReceive();
+        EmailAction.exitEmailApp();
+        EmailAction.waitReceiveEmail();
+        EmailAction.checkEmailFromNotifcation();
     }
 
     @Test

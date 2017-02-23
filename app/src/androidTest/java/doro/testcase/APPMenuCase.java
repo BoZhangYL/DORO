@@ -33,6 +33,7 @@ public class APPMenuCase extends VP4{
     @BeforeClass
     public static void initGalleryCase() throws IOException, UiObjectNotFoundException {
         unLock();
+        APPMenuAction.initAppPermissions();
      //   EmailAction.LogInEmail("woshihouzi2016@gmail.com","woshidoubi","");
     }
 

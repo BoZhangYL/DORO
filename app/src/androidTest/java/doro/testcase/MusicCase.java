@@ -1,8 +1,8 @@
 package doro.testcase;
 
 import android.support.test.runner.AndroidJUnit4;
-import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
+
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -12,7 +12,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import doro.action.MusicAction;
 
-import static doro.page.MusicPage.*;
+
+
 
 /**
  * Created by admin on 2016/12/21.
@@ -23,6 +24,7 @@ import static doro.page.MusicPage.*;
 public class MusicCase extends MusicAction{
     @BeforeClass
     public static void initMusic(){
+
         unLock();
     }
 
@@ -38,7 +40,7 @@ public class MusicCase extends MusicAction{
        openMusic();//进入Music
        playMusic();//播放歌曲
        checkPlayMusicResults();//在锁屏界面判断是否播放音乐
-       //由于不能获取播放栏的控件，在锁屏界面判断是否播放音乐
+       //由于不能获取播放栏的控件，在下拉状态栏中判断是否播放音乐
    }
 
     @Test
@@ -63,7 +65,7 @@ public class MusicCase extends MusicAction{
         deleteMusic();
         clickOK();//删除一首歌曲
         int j=getSongsCount();//删除一首歌曲后还剩多少歌曲
-        Assert.assertTrue("删除一首歌曲失败！",i-j==1);
+        Assert.assertTrue("Fail to delete a music!",i-j==1);
     }
 
     @Test

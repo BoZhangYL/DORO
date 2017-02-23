@@ -19,7 +19,7 @@ public class NotificationBarPage {
     //User界面的TEXT
     public static final String NOTIFICATIONBAR_SETTINGSBUTTON_ID="com.android.systemui:id/settings_button";
     //Settings界面的ID RESOURCE
-    public static final String NOTIFICATIONBAR_SETTINGSPAGE_TEXT="Settings";
+    public static final String NOTIFICATIONBAR_SETTINGSPAGE_TEXT="Set";
     //Setiings界面的TEXT
     public static final String NOTIFICATIONBAR_TITLE_ID="android:id/title";
     //各个界面Title的ID RESOURCE
