@@ -28,7 +28,7 @@ public class MusicAction extends VP4 {
 
     public void checkLanuchMusicResult() {//检查进入Music的结果
         try {
-            Assert.assertEquals("没有进入音乐播放器！", Music_Iwantto_Text, getObjectById(Music_Iwantto_ID).getText());
+            Assert.assertEquals("Phone do not enter Music!", Music_Iwantto_Text, getObjectById(Music_Iwantto_ID).getText());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -119,7 +119,7 @@ public class MusicAction extends VP4 {
 
     public void checkDeleteAllMusicResult() {//检查删除所有歌曲
         try {
-            Assert.assertEquals("删除所有歌曲失败！", Music_Noresults_Text, getObjectById(Music_Noresults_ID).getText());
+            Assert.assertEquals("Fail to delete all music!", Music_Noresults_Text, getObjectById(Music_Noresults_ID).getText());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -127,17 +127,16 @@ public class MusicAction extends VP4 {
 
     public void checkNoResults() {//检查手机中是否有歌曲
         UiObject NoResults = getObjectByText(Music_Noresults_Text);
-        Assert.assertTrue("请在手机中拷入一些歌曲！", !NoResults.exists());
+        Assert.assertTrue("Please copy some music to phone!", !NoResults.exists());
     }
 
     public void checkPlayMusicResults() {//检查歌曲是否播放
         try {
-            waitTime(1);
-            mDevice.sleep();
-            waitTime(1);
-            mDevice.wakeUp();
+            mDevice.pressBack();
+            NotificationBarAction notificationBarAction=new NotificationBarAction();
+            notificationBarAction.pullDownNotificationBar();
             UiObject MusicplayerIcon = getObjectById(Music_Icon_ID);
-            Assert.assertTrue("没有播放音乐！", MusicplayerIcon.exists());
+            Assert.assertTrue("Music is not played!", MusicplayerIcon.exists());
         } catch (Exception e) {
             e.printStackTrace();
         }
