@@ -24,7 +24,7 @@ public class NotificationBarCase extends NotificationBarAction {
     public void testPullDownNotificationBar(){
         //检查状态栏是否全屏显示
         pullDownNotificationBar();
-        Assert.assertTrue("状态栏没有全屏显示",getObjectByClass(NOTIFICATIONBAR_BRIGHTNESS_CLASS).exists());
+        Assert.assertTrue("NotificationBar is displayed incorrectly!",getObjectByClass(NOTIFICATIONBAR_BRIGHTNESS_CLASS).exists());
     }
 
     @Test
