@@ -269,11 +269,14 @@ public class EmailAction extends VP4 {
     * 等待接受新邮件
     * */
     public static void waitReceiveEmail() {
-        waitTime(360);
+        waitTime(120);
         VP4.unLock();
-        gDevice.click(gDevice.getDisplayWidth() / 2, 0);
-        gDevice.click(gDevice.getDisplayWidth() / 2, 0);
+        syncEmailByManual();
+        gDevice.openNotification();
         Asst.assertTrue("whitout new Email!", getObjectByText("Email").exists());
+    }
+
+    public static void checkEmailFromNotifcation() {
         try {
             getObjectByText("Email").clickAndWaitForNewWindow();
             Asst.assertEquals("Can not open Email by notfication", EmailPage.EMAIL_PACKAGE,
@@ -281,6 +284,39 @@ public class EmailAction extends VP4 {
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    /*
+    * 手动同步账号
+    * */
+    public static void syncEmailByManual() {
+        openAppliction("Settings");
+        try {
+            while (!getObjectByTextContains("Accounts").exists()) {
+                scrollByVerticalForward(25);
+            }
+            getObjectByTextContains("Accounts").clickAndWaitForNewWindow();
+            if (getObjectByText("Personal (IMAP)").exists()) {
+                getObjectByText("Personal (IMAP)").clickAndWaitForNewWindow();
+            }
+            for (int i = 0; i < 3; i++) {
+                getUiObjectByDes("More options").clickAndWaitForNewWindow();
+                getObjectByText("Sync now").clickAndWaitForNewWindow();
+                while (getObjectByText("Syncing now...").exists()) {
+                    waitTime(1);
+                }
+                waitTime(10);
+                gDevice.openNotification();
+                if (getObjectByText("Email").exists()) {
+                    break;
+                }
+                gDevice.swipe(gDevice.getDisplayWidth() / 2, gDevice.
+                        getDisplayHeight(), gDevice.getDisplayWidth() / 2, 0, 5);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 
