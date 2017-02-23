@@ -24,7 +24,7 @@ public class NotificationBarCase extends NotificationBarAction {
     public void testPullDownNotificationBar(){
         //检查状态栏是否全屏显示
         pullDownNotificationBar();
-        Assert.assertTrue("状态栏没有全屏显示",getObjectByClass(NOTIFICATIONBAR_BRIGHTNESS_CLASS).exists());
+        Assert.assertTrue("NotificationBar is displayed incorrectly!",getObjectByClass(NOTIFICATIONBAR_BRIGHTNESS_CLASS).exists());
     }
 
     @Test
@@ -54,7 +54,7 @@ public class NotificationBarCase extends NotificationBarAction {
     public void testDisplayBrightness(){
         //检查亮度条显示
         pullDownNotificationBar();
-        Assert.assertTrue("亮度条没有显示！",getObjectById(NOTIFICATIONBAR_BRIGHTNESS_ID).exists());
+        Assert.assertTrue("Brightness is displayed incorrectly!",getObjectById(NOTIFICATIONBAR_BRIGHTNESS_ID).exists());
     }
 
     @Test
@@ -62,14 +62,14 @@ public class NotificationBarCase extends NotificationBarAction {
         //检查五个切换按钮显示
 
         pullDownNotificationBar();
-        Assert.assertTrue("Wifi_Button没有显示！",
-                getObjectByDesc("Wifi Off,Open Wifi settings.").exists()||
-                        getUiObjectByDes("Wifi On,Wi-Fi signal full.,CKT,Open Wifi settings.").exists()||
-                        getObjectByDesc("Wifi On,Wi-Fi three bars.,CK-Test-CTS,Open Wifi settings.").exists());
-        Assert.assertTrue("Mobile data_Button没有显示！",text_exists("No SIM card")||text_exists("No service")||text_exists("CU")||text_exists("CMCC"));
-        Assert.assertTrue("Bluetooth_Button没有显示！",getObjectByText("Bluetooth").exists());
-        Assert.assertTrue("Torch_Button没有显示！",getObjectByText("Torch").exists());
-        Assert.assertTrue("Airplane mode_Button没有显示！",getObjectByText("Airplane mode").exists());
+        Assert.assertTrue("Wifi Button is displayed incorrectly!",
+                getObjectByText("Wifi").exists()||
+                        getUiObjectByText("CKT").exists()||
+                        getObjectByText("CK-Test-CTS").exists());
+        Assert.assertTrue("Mobile data Button is displayed incorrectly!",text_exists("No SIM card")||text_exists("No service")||text_exists("CU")||text_exists("CMCC"));
+        Assert.assertTrue("Bluetooth Button is displayed incorrectly!",getObjectByText("Bluetooth").exists());
+        Assert.assertTrue("Torch Button is displayed incorrectly!",getObjectByText("Torch").exists());
+        Assert.assertTrue("Airplane mode Button is displayed incorrectly!",getObjectByText("Airplane mode").exists());
     }
 /**
  * 如下case doro不适用
