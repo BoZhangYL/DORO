@@ -41,7 +41,7 @@ public class NotificationBarAction extends VP4 {
             String[] TimeDate = timedate.split("/");
             String Time = getObjectById(NOTIFICATIONBAR_TIME_ID).getText();
             String Date = getObjectById(NOTIFICATIONBAR_DATE_ID).getText();
-            Assert.assertTrue("显示当前时间错误！",Time.equals(TimeDate[0])&&Date.equals(TimeDate[1]));
+            Assert.assertTrue("Tima and date is displayed incorrectly!",Time.equals(TimeDate[0])&&Date.equals(TimeDate[1]));
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -51,7 +51,7 @@ public class NotificationBarAction extends VP4 {
         //点击User按钮后检查是否进入User菜单
         try {
             getObjectById(NOTIFICATIONBAR_USERSWITCH_ID).clickAndWaitForNewWindow();
-            Assert.assertTrue("User_Button没有显示",getObjectById(NOTIFICATIONBAR_TITLE_ID).getText().equals(NOTIFICATIONBAR_USEPAGE_TEXT));
+            Assert.assertTrue("User Button is displayed incorrectly!",getObjectById(NOTIFICATIONBAR_TITLE_ID).getText().equals(NOTIFICATIONBAR_USEPAGE_TEXT));
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -62,7 +62,7 @@ public class NotificationBarAction extends VP4 {
         //点击Settings按钮后检查是否进入Settings菜单
         try {
             getObjectById(NOTIFICATIONBAR_SETTINGSBUTTON_ID).clickAndWaitForNewWindow();
-            Assert.assertTrue("Settings_Button没有显示！",text_exists(NOTIFICATIONBAR_SETTINGSPAGE_TEXT));
+            Assert.assertTrue("Settings Button is displayed incorrectly!",text_exists(NOTIFICATIONBAR_SETTINGSPAGE_TEXT));
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
