@@ -887,7 +887,7 @@ public class GalleryAction extends VP4 {
         Asst.assertTrue("取消随机删除一张照片或者视频", isSameCharacter(deleteName, DeletedGalleryNames));
         clickConfirmButton();
         clickOKButton();
-        waitTime(10);
+        waitTime(30);
         DeletedGalleryNames = getPictureVideoNmae();
         Asst.assertTrue("确认随机删除一张照片或者视频", !isSameCharacter(deleteName, DeletedGalleryNames));
         /*int pictures[] = getCurrentPicturesVideosNum();
