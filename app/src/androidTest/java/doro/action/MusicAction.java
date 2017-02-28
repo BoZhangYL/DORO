@@ -1,16 +1,21 @@
 package doro.action;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.test.uiautomator.UiCollection;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
+import android.support.v4.graphics.BitmapCompat;
 import android.widget.ListView;
 
 import com.squareup.spoon.Spoon;
 
 import org.junit.Assert;
 
+import java.io.File;
+import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.Random;
 
@@ -142,11 +147,40 @@ public class MusicAction extends VP4 {
         }
     }
 
-    public void checkPauseMusicResults() {//检查歌曲播放是否暂停
-        Spoon.screenshot("checkPauseMusicResult1");
-        waitTime(5);
-        Spoon.screenshot("checkPauseMusicResult2");
+    public void checkPauseMusicResults() {
+        //通过对比两张截图是否一致来检查歌曲播放是否暂停
+        String playImage="/mnt/sdcard/PauseMusicResult1.png";
+        String pauseImage="/mnt/sdcard/PauseMusicResult2.png";
+        File F1=new File(playImage);
+        mDevice.takeScreenshot(F1);
+        waitTime(4);
+        File F2=new File(pauseImage);
+        mDevice.takeScreenshot(F2);
+        try {
+            Bitmap m1=BitmapFactory.decodeFile(playImage);
+            Bitmap m2=BitmapFactory.decodeFile(pauseImage);
+            int width=m2.getWidth();
+            int height=m2.getHeight();
+            int numDiffPixels=0;
+            for (int y=0;y<height;y++){
+                for (int x=0;x<width;x++){
+                    if (m2.getPixel(x,y)!=m1.getPixel(x,y)){
+                        numDiffPixels++;
+                    }
+                }
+            }
+            double totalPixels=width*height;
+            double diffPercent=numDiffPixels/totalPixels;
+            System.out.println(numDiffPixels);
+            System.out.println(totalPixels);
+            System.out.println(diffPercent);
+            Assert.assertTrue("Fail to Pause Music!",1-diffPercent<0.994);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
+
 
     public int getSongsCount() throws UiObjectNotFoundException{
         //计算播放列表中有多少歌曲
