@@ -476,30 +476,33 @@ public class APPMenuCase extends VP4 {
         int errorAppCount = 0;
         StringBuffer errorAppString = new StringBuffer();
         for (int i = 0; i < APPMenuPage.AppNameList.length; i++) {
-            if (i != 7) {
-                logger.info("第。。。。。。。。。。" + i + "次循环");
-                String appToBeLaunched = APPMenuPage.AppNameList[i];
-                MainAction.startApp(appToBeLaunched);//启动第一个应用
-                waitTime(8);
-                String Before = ImageLib.TakeScreen("");//第一个应用退出前截图
-                waitTime(2);
+            logger.info("第。。。。。。。。。。" + i + "次循环");
+            String appToBeLaunched = APPMenuPage.AppNameList[i];
+            MainAction.startApp(appToBeLaunched);//启动第一个应用
+            waitTime(8);
+            String Before = ImageLib.TakeScreen("");//第一个应用退出前截图
+            waitTime(2);
+            if (i < APPMenuPage.AppNameList.length - 1)
                 MainAction.startApp(APPMenuPage.AppNameList[i + 1]);//启动下一个应用
-                waitTime(2);
-                gDevice.pressRecentApps();//调出多任务界面
-                waitTime(2);
+            waitTime(2);
+            gDevice.pressRecentApps();//调出多任务界面
+            waitTime(2);
+            if (getObjectByText(APPMenuPage.AppNameList[i]).exists()) {
                 clickByText(APPMenuPage.AppNameList[i]);//再次重新进入第一个应用
-                waitTime(2);
-                String After = ImageLib.TakeScreen("");//第一个应用再次进入后的截图
-                if (!ImageLib.sameAs(Before, After, 0.6)) {
-                    logger.info("前后图片对比不相同，再次进入时不一致-" + appToBeLaunched);
-                    errorAppCount = errorAppCount + 1;
-                    Spoon.screenshot("SuchAPPNotTheSameAsBefore");
-                    errorAppString.append(String.format(" Activity of%s  ComparedFailed\n", appToBeLaunched));
-                }
-                if (i > 2) {
-                    MainAction.killAppByPackage(APPMenuPage.AppNameList[i - 3]);//结束上上个应用
-                }
+            } else MainAction.startApp(APPMenuPage.AppNameList[i]);
+            waitTime(2);
+            String After = ImageLib.TakeScreen("");//第一个应用再次进入后的截图
+            Asst.assertEquals("Launch"+APPMenuPage.AppNameList[i]+" again fail",
+                    APPMenuPage.PkgNameList[i],gDevice.getCurrentPackageName());
+            /*if (!ImageLib.sameAs(Before, After, 0.6)) {
+                logger.info("前后图片对比不相同，再次进入时不一致-" + appToBeLaunched);
+                errorAppCount = errorAppCount + 1;
+                Spoon.screenshot("SuchAPPNotTheSameAsBefore");
+                errorAppString.append(String.format(" Activity of%s  ComparedFailed\n", appToBeLaunched));
             }
+            if (i > 2) {
+                MainAction.killAppByPackage(APPMenuPage.AppNameList[i - 3]);//结束上上个应用
+            }*/
         }
         if (errorAppCount >= 1) {
             Assert.fail(errorAppString.toString());
