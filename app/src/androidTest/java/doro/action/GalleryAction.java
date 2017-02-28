@@ -120,6 +120,7 @@ public class GalleryAction extends VP4 {
             changeToMyGalleryDisplay();
             waitTime(5);
             String names[][] = getPictureVideoNmae();
+            changeToMyGalleryDisplay();
             Asst.assertTrue("从单张图片设置界面删除图片失败", !isSameCharacter(SelectedPicture, names));
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
@@ -811,6 +812,7 @@ public class GalleryAction extends VP4 {
         clickOKButton();
         waitTime(30);
         DeletedGalleryNames = getPictureVideoNmae();
+        changeToAllPicturesDisplay();
         Asst.assertTrue("确认随机删除一张照片", !isSameCharacter(deleteName, DeletedGalleryNames));
 
       /*  int pictures[] = getCurrentPicturesVideosNum();
@@ -853,6 +855,7 @@ public class GalleryAction extends VP4 {
         clickOKButton();
         waitTime(30);
         DeletedGalleryNames = getPictureVideoNmae();
+        changeToAllVideosDisplay();
         Asst.assertTrue("确认随机删除一个视频", !isSameCharacter(deleteName, DeletedGalleryNames));
         /*int pictures[] = getCurrentPicturesVideosNum();
         if (scr.exists()) {
