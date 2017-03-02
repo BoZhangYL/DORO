@@ -338,8 +338,8 @@ public class VP4 extends VP2 {
                 } catch (UiObjectNotFoundException e) {
                     e.printStackTrace();
                 }
-            } else if (getObjectByText("Close all").exists())
-                getObjectByText("Close all").clickAndWaitForNewWindow();
+            } else if (getObjectByText("Clear all").exists())
+                getObjectByText("Clear all").clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
