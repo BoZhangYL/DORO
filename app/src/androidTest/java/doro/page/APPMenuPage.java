@@ -7,14 +7,15 @@ package doro.page;
 public class APPMenuPage {
     public static String AppNameList[] = {
             "Alarm",
-            "Cal\u200Bcu\u200Blator", "Calen\u200Bdar", "Camera", "Chrome", "Code safe", "Cont\u200Bacts",
+            "Cal\u200Bcu\u200Blator", "Calen\u200Bdar","Camera", "Chrome", "Code safe", "Cont\u200Bacts",
             "Dock mode", "Doro Connect & Care", "Doro Keyboard ", "Doro Sel\u200Bection", "Downloads", "Drive", "Duo",
-            "Email", "File Manager", "FM Radio",
+            "Email", "Email",
+            "File Manager", "FM Radio",
             "Gall\u200Bery", "Gmail", "Google",
             "Inter\u200Bnet",
             "Mag\u200Bnifier", "Maps", "Mess\u200Bages", "Music", "My Doro Manager",
             "Notes",
-            "Phone", "Photos", "Play Music", "Play Store",
+            "Phone", "Photos", "Play Movies & TV", "Play Music", "Play Store",
             "QuickSupport",
             "Rec\u200Border",
             "Settings", "SIM Tool Kit",
@@ -23,7 +24,7 @@ public class APPMenuPage {
             "Weath\u200Ber",
             "YouTube",
     };
-    public static String PkgNameList[] = {
+    public static String PkgNameList[]={
             "com.doro.apps.alarm",
             "com.doro.apps.calculator",
             "com.doro.apps.calendar",
@@ -39,6 +40,7 @@ public class APPMenuPage {
             "com.google.android.apps.docs",
             "com.google.android.apps.tachyon",
             "com.doro.apps.email",
+            "com.doro.apps.email",
             "com.mediatek.filemanager",
             "com.android.fmradio",
             "com.doro.apps.gallery",
@@ -53,6 +55,7 @@ public class APPMenuPage {
             "com.doro.apps.notes",
             "com.doro.apps.phone",
             "com.google.android.apps.photos",
+            "com.google.android.videos",
             "com.google.android.music",
             "com.google.android.gms",
             "com.teamviewer.quicksupport.market",
