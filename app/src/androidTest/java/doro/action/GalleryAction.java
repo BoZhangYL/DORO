@@ -117,10 +117,9 @@ public class GalleryAction extends VP4 {
             while (!getObjectById(GalleryPage.GALLERY_HEADER).exists()) {
                 pressKey("back");
             }
-            changeToMyGalleryDisplay();
-            waitTime(5);
+            waitTime(10);
+            changeToAllPicturesDisplay();
             String names[][] = getPictureVideoNmae();
-            changeToMyGalleryDisplay();
             Asst.assertTrue("从单张图片设置界面删除图片失败", !isSameCharacter(SelectedPicture, names));
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
