@@ -475,31 +475,32 @@ public class APPMenuCase extends VP4 {
         //挨个启动APPMenuPage中的程序
         int errorAppCount = 0;
         String BeforePackage = null;
-        String AfterPackage =null;
+        String AfterPackage = null;
         StringBuffer errorAppString = new StringBuffer();
         for (int i = 0; i < APPMenuPage.AppNameList.length; i++) {
-            logger.info("第。。。。。。。。。。" + i + "次循环");
-            //String appToBeLaunched = APPMenuPage.AppNameList[i];
-            MainAction.startApp(APPMenuPage.AppNameList[i]);//启动第一个应用
-            waitTime(2);
-            //String Before = ImageLib.TakeScreen("");//第一个应用退出前截图
-            BeforePackage = gDevice.getCurrentPackageName();
-            waitTime(2);
-            if (i < APPMenuPage.AppNameList.length - 1)
-                MainAction.startApp(APPMenuPage.AppNameList[i + 1]);//启动下一个应用
-            waitTime(2);
-           // gDevice.pressRecentApps();//调出多任务界面
-            gDevice.pressHome();
-            waitTime(2);
-            MainAction.startApp(APPMenuPage.AppNameList[i]);
+            if (i != 30) {//play video& TV have been deleted.
+                logger.info("第。。。。。。。。。。" + i + "次循环");
+                //String appToBeLaunched = APPMenuPage.AppNameList[i];
+                MainAction.startApp(APPMenuPage.AppNameList[i]);//启动第一个应用
+                waitTime(2);
+                //String Before = ImageLib.TakeScreen("");//第一个应用退出前截图
+                BeforePackage = gDevice.getCurrentPackageName();
+                waitTime(2);
+                if (i < APPMenuPage.AppNameList.length - 1)
+                    MainAction.startApp(APPMenuPage.AppNameList[i + 1]);//启动下一个应用
+                waitTime(2);
+                // gDevice.pressRecentApps();//调出多任务界面
+                gDevice.pressHome();
+                waitTime(2);
+                MainAction.startApp(APPMenuPage.AppNameList[i]);
             /*if (getObjectByText(APPMenuPage.AppNameList[i]).exists()) {
                 clickByText(APPMenuPage.AppNameList[i]);//再次重新进入第一个应用
             } else MainAction.startApp(APPMenuPage.AppNameList[i]);*/
-            waitTime(2);
-            AfterPackage = gDevice.getCurrentPackageName();
-           // String After = ImageLib.TakeScreen("");//第一个应用再次进入后的截图
-            Asst.assertEquals("Launch"+APPMenuPage.AppNameList[i]+" fail",
-                    BeforePackage,AfterPackage);
+                waitTime(2);
+                AfterPackage = gDevice.getCurrentPackageName();
+                // String After = ImageLib.TakeScreen("");//第一个应用再次进入后的截图
+                Asst.assertEquals("Launch" + APPMenuPage.AppNameList[i] + " fail",
+                        BeforePackage, AfterPackage);
             /*if (!ImageLib.sameAs(Before, After, 0.6)) {
                 logger.info("前后图片对比不相同，再次进入时不一致-" + appToBeLaunched);
                 errorAppCount = errorAppCount + 1;
@@ -509,6 +510,7 @@ public class APPMenuCase extends VP4 {
             if (i > 2) {
                 MainAction.killAppByPackage(APPMenuPage.AppNameList[i - 3]);//结束上上个应用
             }*/
+            }
         }
         if (errorAppCount >= 1) {
             Assert.fail(errorAppString.toString());
