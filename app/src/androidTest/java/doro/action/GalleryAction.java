@@ -703,9 +703,9 @@ public class GalleryAction extends VP4 {
     * */
     private static String[][] getPictureVideoNmae() {
         boolean isBottom = false;//是否滑动到底部了，默认没有到底部
-        String[] PictureNames = new String[500];//定义图片名字数组，
-        String[] VideoNames = new String[500];//定义视频名字数组
-        String[] FavouriteNames = new String[500];//定义favourite数组
+        String[] PictureNames = new String[2000];//定义图片名字数组，
+        String[] VideoNames = new String[2000];//定义视频名字数组
+        String[] FavouriteNames = new String[2000];//定义favourite数组
         String GalleryNames[][] = {PictureNames, VideoNames, FavouriteNames};//定义所有名字二维数组
         int PictureNumber = 0;//图片数量
         int VideoNumber = 0;//视频数量
