@@ -885,12 +885,11 @@ public class GalleryAction extends VP4 {
         String deleteName = selectDeletePictures();
         clickConfirmButton();
         clickCancelButton();
-        Asst.assertTrue("取消随机删除一张照片或者视频", isSameCharacter(deleteName, DeletedGalleryNames));
+        Asst.assertTrue("取消随机删除一张照片或者视频", getObjectByDesc(deleteName).exists());
         clickConfirmButton();
         clickOKButton();
-        waitTime(30);
-        DeletedGalleryNames = getPictureVideoNmae();
-        Asst.assertTrue("确认随机删除一张照片或者视频", !isSameCharacter(deleteName, DeletedGalleryNames));
+        waitTime(15);
+        Asst.assertTrue("确认随机删除一张照片或者视频", !getObjectByDesc(deleteName).exists());
         /*int pictures[] = getCurrentPicturesVideosNum();
         if (scr.exists()) {
             scrollToBegin(20);
