@@ -67,6 +67,9 @@ public class GalleryAction extends VP4 {
             GridView.getChildByInstance(images, 0).clickAndWaitForNewWindow();
             gDevice.click(gDevice.getDisplayWidth() / 2, gDevice.getDisplayHeight() / 2);
             gDevice.click(gDevice.getDisplayWidth() / 2, gDevice.getDisplayHeight() / 2);
+            waitTime(10);
+            Asst.assertTrue("Play Video fail",
+                    gDevice.getCurrentPackageName().equals(GalleryPage.GALLERY_PACKAGE));
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -280,14 +283,14 @@ public class GalleryAction extends VP4 {
         changeToFavouritesDisplay();
         try {
             Asst.assertTrue("没有一个Favourite", GridView.getChildByInstance(Favourite, 0).exists());
-           // int mFavourites1 = GridView.getChildCount();
+            // int mFavourites1 = GridView.getChildCount();
             clickIWantToButton();
             getObjectByText(GalleryPage.GALLERYSETTINGS_FAVOURITE).clickAndWaitForNewWindow();
             String selectpicture = unselectDeletePictures();
             clickConfirmButton();
             waitTime(5);
-           // int mFavourites2 = GridView.getChildCount();
-            Asst.assertTrue("删除一个favourite失败",!getObjectByDesc(selectpicture).exists());
+            // int mFavourites2 = GridView.getChildCount();
+            Asst.assertTrue("删除一个favourite失败", !getObjectByDesc(selectpicture).exists());
             //Asst.assertTrue("删除一个favourite失败",((mFavourites1 - 1) == mFavourites2));
             /*VP4.scrollToBegin(20);
             changeToMyGalleryDisplay();
@@ -573,15 +576,15 @@ public class GalleryAction extends VP4 {
         String[][] allPicturenames = getPictureVideoNmae();
         boolean isDisplayFavouriteView = true;
         try {
-            for(int i=0; i<GridView.getChildCount();i++){
-                  if(!GridView.getChildByInstance(Favourite,i).exists()){
-                      isDisplayFavouriteView = false;
-                  }
+            for (int i = 0; i < GridView.getChildCount(); i++) {
+                if (!GridView.getChildByInstance(Favourite, i).exists()) {
+                    isDisplayFavouriteView = false;
+                }
             }
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
-        Asst.assertTrue("checkFavouriteDisplay",isDisplayFavouriteView);
+        Asst.assertTrue("checkFavouriteDisplay", isDisplayFavouriteView);
 //        Asst.assertEquals("checkFavouriteDisplay,", 0, getAllCurrentNamesCount(allPicturenames[0]));
 //        Asst.assertEquals("checkFavouriteDisplay,", 0, getAllCurrentNamesCount(allPicturenames[1]));
 
@@ -806,13 +809,11 @@ public class GalleryAction extends VP4 {
         String deleteName = selectDeletePictures();
         clickConfirmButton();
         clickCancelButton();
-        Asst.assertTrue("取消随机删除一张照片", isSameCharacter(deleteName, DeletedGalleryNames));
+        Asst.assertTrue("Cancel delete photo fail", getObjectByDesc(deleteName).exists());
         clickConfirmButton();
         clickOKButton();
-        waitTime(30);
-        DeletedGalleryNames = getPictureVideoNmae();
-        changeToAllPicturesDisplay();
-        Asst.assertTrue("确认随机删除一张照片", !isSameCharacter(deleteName, DeletedGalleryNames));
+        waitTime(15);
+        Asst.assertTrue("the Delted photo is exist!", !getObjectByDesc(deleteName).exists());
 
       /*  int pictures[] = getCurrentPicturesVideosNum();
         if (scr.exists()) {
@@ -843,19 +844,17 @@ public class GalleryAction extends VP4 {
 //        if (scr.exists()) {
 //            scrollToBegin(20);
 //        }
-        Asst.assertTrue("没有视频",DeletedGalleryNames[2].length !=0);
+        Asst.assertTrue("没有视频", DeletedGalleryNames[2].length != 0);
         clickIWantToButton();
         clickDeletePictureButton();
         String deleteName = selectDeletePictures();
         clickConfirmButton();
         clickCancelButton();
-        Asst.assertTrue("取消随机删除一个视频", isSameCharacter(deleteName, DeletedGalleryNames));
+        Asst.assertTrue("Cancel delete video fail", getObjectByDesc(deleteName).exists());
         clickConfirmButton();
         clickOKButton();
-        waitTime(30);
-        DeletedGalleryNames = getPictureVideoNmae();
-        changeToAllVideosDisplay();
-        Asst.assertTrue("确认随机删除一个视频", !isSameCharacter(deleteName, DeletedGalleryNames));
+        waitTime(15);
+        Asst.assertTrue("confirm delete video fail", !getObjectByDesc(deleteName).exists());
         /*int pictures[] = getCurrentPicturesVideosNum();
         if (scr.exists()) {
             scrollToBegin(20);
@@ -981,13 +980,14 @@ public class GalleryAction extends VP4 {
             Asst.assertTrue("DeleteCheckBox not exist",
                     GridView.getChildByInstance(DeleteCheckBox, instance).exists());
             SelectName = GridView.getChildByInstance(images, instance).getContentDescription();
-            if(!GridView.getChildByInstance(DeleteCheckBox, instance).isChecked())
-            GridView.getChildByInstance(DeleteCheckBox, instance).click();
+            if (!GridView.getChildByInstance(DeleteCheckBox, instance).isChecked())
+                GridView.getChildByInstance(DeleteCheckBox, instance).click();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
         return SelectName;
     }
+
     private static String unselectDeletePictures() {
         int instance = 0;
         try {
@@ -1000,7 +1000,7 @@ public class GalleryAction extends VP4 {
             Asst.assertTrue("DeleteCheckBox not exist",
                     GridView.getChildByInstance(DeleteCheckBox, instance).exists());
             SelectName = GridView.getChildByInstance(images, instance).getContentDescription();
-            if(GridView.getChildByInstance(DeleteCheckBox, instance).isChecked())
+            if (GridView.getChildByInstance(DeleteCheckBox, instance).isChecked())
                 GridView.getChildByInstance(DeleteCheckBox, instance).click();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
