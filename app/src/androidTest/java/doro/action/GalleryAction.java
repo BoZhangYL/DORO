@@ -83,9 +83,6 @@ public class GalleryAction extends VP4 {
         try {
             Asst.assertTrue("图库没有一个视频", !(GridView.getChildCount() == 0));
             GridView.getChildByInstance(images, 0).clickAndWaitForNewWindow();
-            if (!getObjectByText(GalleryPage.IWANTTO_BUTTON).exists()) {
-                gDevice.click(gDevice.getDisplayWidth() / 10, gDevice.getDisplayHeight());
-            }
             clickIWantToButton();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
@@ -114,16 +111,27 @@ public class GalleryAction extends VP4 {
     public static void deleteSinglePicture(String SelectedPicture) {
         // VP4.scrollToEnd(20);
         try {
-            getObjectByText(GalleryPage.GALLERY_SINGLE_PICTURE_OPTION_DELETE_PICTURE).
-                    clickAndWaitForNewWindow();
-            clickOKButton();
-            while (!getObjectById(GalleryPage.GALLERY_HEADER).exists()) {
-                pressKey("back");
+            clickByText("Picture details");
+            UiObject PictureNameObject = getObjectById("com.doro.apps.gallery:id/name");
+            String PictureName = PictureNameObject.getText();
+            clickByText(GalleryPage.OK_BUTTON);
+            waitTime(5);
+            clickIWantToButton();
+            UiObject DeleteButton =
+                    getObjectByText(GalleryPage.GALLERY_SINGLE_PICTURE_OPTION_DELETE_PICTURE);
+            if (!DeleteButton.exists()) {
+                VP4.scrollToEnd(10);
             }
+            DeleteButton.clickAndWaitForNewWindow();
+            clickOKButton();
             waitTime(10);
-            changeToAllPicturesDisplay();
-            String names[][] = getPictureVideoNmae();
-            Asst.assertTrue("从单张图片设置界面删除图片失败", !isSameCharacter(SelectedPicture, names));
+            clickIWantToButton();
+            clickByText("Picture details");
+            UiObject CurrentPictureNameObject = getObjectById("com.doro.apps.gallery:id/name");
+            CurrentPictureNameObject.clickAndWaitForNewWindow();
+            String CurrentPictureName = CurrentPictureNameObject.getText();
+            Asst.assertTrue("delete From Single Picture Option fail",
+                    !PictureName.equals(CurrentPictureName));
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -139,9 +147,6 @@ public class GalleryAction extends VP4 {
             Asst.assertTrue("图库没有一张图片", !(GridView.getChildCount() == 0));
             SelectedPicture = GridView.getChildByInstance(images, 0).getContentDescription();
             GridView.getChildByInstance(images, 0).clickAndWaitForNewWindow();
-            if (!getObjectByText(GalleryPage.IWANTTO_BUTTON).exists()) {
-                gDevice.click(gDevice.getDisplayWidth() / 10, gDevice.getDisplayHeight());
-            }
             clickIWantToButton();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
@@ -456,6 +461,12 @@ public class GalleryAction extends VP4 {
     * 点击I want to按钮
     * */
     private static void clickIWantToButton() {
+        int i = 1;
+        while (!getObjectById(GalleryPage.IWANTTO_BUTTON).exists() && i < 10) {
+            gDevice.click(gDevice.getDisplayWidth() / 2, gDevice.getDisplayHeight() / 2);
+            waitTime(2);
+            i++;
+        }
         clickAndWaitForNewWindowByID(GalleryPage.IWANTTO_BUTTON);
     }
 
@@ -878,7 +889,7 @@ public class GalleryAction extends VP4 {
     public static void deleteOnePictureOrVideo() {
         String DeletedGalleryNames[][] = getPictureVideoNmae();
         if (scr.exists()) {
-            scrollToBegin(20);
+            scrollToBegin(10);
         }
         clickIWantToButton();
         clickDeletePictureButton();
