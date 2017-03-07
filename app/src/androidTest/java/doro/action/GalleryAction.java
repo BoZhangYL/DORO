@@ -823,7 +823,7 @@ public class GalleryAction extends VP4 {
         Asst.assertTrue("Cancel delete photo fail", getObjectByDesc(deleteName).exists());
         clickConfirmButton();
         clickOKButton();
-        waitTime(15);
+        waitTime(30);
         Asst.assertTrue("the Delted photo is exist!", !getObjectByDesc(deleteName).exists());
 
       /*  int pictures[] = getCurrentPicturesVideosNum();
@@ -864,7 +864,7 @@ public class GalleryAction extends VP4 {
         Asst.assertTrue("Cancel delete video fail", getObjectByDesc(deleteName).exists());
         clickConfirmButton();
         clickOKButton();
-        waitTime(15);
+        waitTime(30);
         Asst.assertTrue("confirm delete video fail", !getObjectByDesc(deleteName).exists());
         /*int pictures[] = getCurrentPicturesVideosNum();
         if (scr.exists()) {
@@ -899,7 +899,7 @@ public class GalleryAction extends VP4 {
         Asst.assertTrue("取消随机删除一张照片或者视频", getObjectByDesc(deleteName).exists());
         clickConfirmButton();
         clickOKButton();
-        waitTime(15);
+        waitTime(30);
         Asst.assertTrue("确认随机删除一张照片或者视频", !getObjectByDesc(deleteName).exists());
         /*int pictures[] = getCurrentPicturesVideosNum();
         if (scr.exists()) {
