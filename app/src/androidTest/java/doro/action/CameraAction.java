@@ -62,7 +62,7 @@ public class CameraAction extends VP4 {
     /*
     *
     * */
-    public static void accessCamera(){
+    public static void accessCamera() {
         if (getObjectById(EmailPage.ACCESS_RIGHT).exists()) {
             try {
                 while (getObjectByText("ALLOW").exists())
@@ -79,18 +79,21 @@ public class CameraAction extends VP4 {
     private static int getAllPhotoNumbers() {
         int photonumber = 0;
         File Dcim = new File(Environment.getExternalStorageDirectory() + "/Dcim/Camera/");
+        if (!new File("/mnt/m_external_sd/Dcim/Camera").exists()) {
+            new File("/mnt/m_external_sd/Dcim/Camera").mkdirs();
+        }
         File Dcim_SD = new File("/mnt/m_external_sd/Dcim/Camera");
         String[] names = Dcim.list();
-        String[] names1 =Dcim_SD.list();
+        String[] names1 = Dcim_SD.list();
         for (int i = 0; i < names.length; i++) {
             String[] photos = names[i].split("\\.");
             if (photos[1].equals("jpg")) {
                 photonumber++;
             }
         }
-        for(int j=0;j<names1.length;j++){
-            String[] photos1 =names1[j].split("\\.");
-            if(photos1[1].equals("jpg")){
+        for (int j = 0; j < names1.length; j++) {
+            String[] photos1 = names1[j].split("\\.");
+            if (photos1[1].equals("jpg")) {
                 photonumber++;
             }
         }
@@ -103,18 +106,21 @@ public class CameraAction extends VP4 {
     private static int getAllVideoNumbers() {
         int videoonumber = 0;
         File Dcim = new File(Environment.getExternalStorageDirectory() + "/Dcim/Camera/");
+        if (!new File("/mnt/m_external_sd/Dcim/Camera").exists()) {
+            new File("/mnt/m_external_sd/Dcim/Camera").mkdirs();
+        }
         File Dcim_SD = new File("/mnt/m_external_sd/Dcim/Camera");
         String[] names = Dcim.list();
-        String[] names1 =Dcim_SD.list();
+        String[] names1 = Dcim_SD.list();
         for (int i = 0; i < names.length; i++) {
             String[] photos = names[i].split("\\.");
             if (photos[1].equals("3gp")) {
                 videoonumber++;
             }
         }
-        for(int j=0;j<names1.length;j++){
-            String[] photos1 =names1[j].split("\\.");
-            if(photos1[1].equals("3gp")){
+        for (int j = 0; j < names1.length; j++) {
+            String[] photos1 = names1[j].split("\\.");
+            if (photos1[1].equals("3gp")) {
                 videoonumber++;
             }
         }
