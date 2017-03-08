@@ -187,6 +187,7 @@ public class EmailAction extends VP4 {
             getObjectByText(EmailPage.I_WANT_TO_BUTTON).clickAndWaitForNewWindow();
             Asst.assertTrue("I Want To Menu disappearautomatically!",
                     getObjectByText(EmailPage.ZOOM_IN).exists());
+            waitTime(10);
             getObjectByText(EmailPage.ZOOM_IN).clickAndWaitForNewWindow();
             Rect CurrentZoom = getUiObjectByDes("test Email success").getBounds();
             Asst.assertTrue("Zoom in fail !", (CurrentZoom.bottom - CurrentZoom.top) >

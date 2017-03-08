@@ -69,7 +69,7 @@ public class NotificationBarCase extends NotificationBarAction {
         Assert.assertTrue("Mobile data Button is displayed incorrectly!",text_exists("No SIM card")||text_exists("No service")||text_exists("CU")||text_exists("CMCC"));
         Assert.assertTrue("Bluetooth Button is displayed incorrectly!",getObjectByText("Bluetooth").exists());
         Assert.assertTrue("Torch Button is displayed incorrectly!",getObjectByText("Torch").exists());
-        Assert.assertTrue("Airplane mode Button is displayed incorrectly!",getObjectByText("Airplane mode").exists());
+        Assert.assertTrue("Airplane mode Button is displayed incorrectly!",getObjectByText("Aeroplane mode").exists());
     }
 /**
  * 如下case doro不适用
