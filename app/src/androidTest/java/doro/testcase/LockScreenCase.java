@@ -18,7 +18,7 @@ import static doro.page.LockScreenPage.*;
 @RunWith(AndroidJUnit4.class)
 public class LockScreenCase extends LockScreenAction {
     @Test
-    public void testLockScreen(){
+    public void Case1_testLockScreen(){
         //进入锁屏界面
         clearAllApplications();//清理后台运行程序
         lockScreen();//锁屏
@@ -26,7 +26,7 @@ public class LockScreenCase extends LockScreenAction {
     }
 
     @Test
-    public void testTopStatusBar()throws UiObjectNotFoundException{
+    public void Case2_testTopStatusBar()throws UiObjectNotFoundException{
         //检查顶部状态栏显示
         clearAllApplications();//清理后台运行程序
         lockScreen();//锁屏
@@ -37,7 +37,7 @@ public class LockScreenCase extends LockScreenAction {
     }
 
     @Test
-    public void testTime()throws UiObjectNotFoundException{
+    public void Case3_testTime()throws UiObjectNotFoundException{
         //检查当前时间显示
         clearAllApplications();//清理后台运行程序
         lockScreen();//锁屏
@@ -45,7 +45,7 @@ public class LockScreenCase extends LockScreenAction {
     }
 
     @Test
-    public void testDate()throws UiObjectNotFoundException{
+    public void Case4_testDate()throws UiObjectNotFoundException{
         //检查当前日期显示
         clearAllApplications();//清理后台运行程序
         lockScreen();//锁屏
@@ -53,7 +53,7 @@ public class LockScreenCase extends LockScreenAction {
     }
 
     @Test
-    public void testNotification()throws UiObjectNotFoundException{
+    public void Case5_testNotification()throws UiObjectNotFoundException{
         //检查通知栏显示
         clearAllApplications();//清理后台运行程序
         lockScreen();//锁屏
@@ -61,7 +61,7 @@ public class LockScreenCase extends LockScreenAction {
     }
 
     @Test
-    public void testKeyguardBottomArea() throws UiObjectNotFoundException{
+    public void Case6_testKeyguardBottomArea() throws UiObjectNotFoundException{
         //检查Left键/解锁键/Camera键显示
         clearAllApplications();//清理后台运行程序
         lockScreen();//锁屏

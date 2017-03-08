@@ -37,13 +37,13 @@ public class DownloadsCase extends DownloadsAction {
     }
 
     @Test
-    public void testEnterDownloads()throws UiObjectNotFoundException{
+    public void Case1_testEnterDownloads()throws UiObjectNotFoundException{
         openAppliction(DOWNLOADS);
         Assert.assertEquals("没有进入Downloads",DOWNLOADS,getObjectByClass(DOWNLOADS_CLASS).getText());
     }
 
     @Test
-    public void testQuitDownloads(){
+    public void Case2_testQuitDownloads(){
         openAppliction(DOWNLOADS);
         mDevice.pressBack();
         mDevice.pressBack();//按返回键退出下载程序
@@ -54,21 +54,21 @@ public class DownloadsCase extends DownloadsAction {
     }
 
     @Test
-    public void testSortByName(){
+    public void Case3_testSortByName(){
         openAppliction(DOWNLOADS);
         sortBy(DOWNLOADS_SORTBY_NAME);//点击姓名排序
         checkSortBy(DOWNLOADS_SORTBY_NAME);//检查下载文件按姓名排序
     }
 
     @Test
-    public void testSortByDateModified(){
+    public void Case4_testSortByDateModified(){
         openAppliction(DOWNLOADS);
         sortBy(DOWNLOADS_SORTBY_DATEMODIFIED);//点击修改时间排序
         checkSortBy(DOWNLOADS_SORTBY_DATEMODIFIED);//检查下载文件修改时间排序
     }
 
     @Test
-    public void testSortBySize(){
+    public void Case5_testSortBySize(){
         openAppliction(DOWNLOADS);
         showFileSize();//打开显示下载文件大小
         sortBy(DOWNLOADS_SORTBY_SIZE);//点击按大小排序
@@ -76,14 +76,14 @@ public class DownloadsCase extends DownloadsAction {
     }
 
    @Test
-    public void testGridView(){
+    public void Case6_testGridView(){
        openAppliction(DOWNLOADS);
        viewBy(DOWNLOADS_GRIDVIEW);//点击网格查看
        checkViewBy(DOWNLOADS_GRIDVIEW);//检查网格显示
    }
 
     @Test
-    public void testListView(){
+    public void Case7_testListView(){
         openAppliction(DOWNLOADS);
         viewBy(DOWNLOADS_LISTVIEW);//点击列表查看
         checkViewBy(DOWNLOADS_LISTVIEW);//检查列表显示

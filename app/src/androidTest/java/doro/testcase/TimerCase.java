@@ -22,14 +22,14 @@ public class  TimerCase extends TimerAction{
     }
 
     @Test
-    public void Case1_launchTimer(){//打开Timer应用
+    public void Case1_testLaunchTimer(){//打开Timer应用
         openTimer();
         checkLaunchTimerResult();
         waitTime(3);
     }
 
     @Test
-    public void Case2_setTimerto30s(){//设置30s的Timer
+    public void Case2_testSetTimerto30s(){//设置30s的Timer
         openTimer();
         startTimer(30);
         check30sTimerResult();

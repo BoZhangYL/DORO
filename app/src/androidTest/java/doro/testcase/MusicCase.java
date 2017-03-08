@@ -29,14 +29,14 @@ public class MusicCase extends MusicAction{
     }
 
    @Test
-    public void Case1_launchMusic(){//进入MusicPlayer界面
+    public void Case1_testLaunchMusic(){//进入MusicPlayer界面
         openMusic();//进入Music
         checkLanuchMusicResult();//检查进入结果
         checkNoResults();//检查是否有歌曲
     }
 
    @Test
-    public void Case2_playMusic(){//播放Music
+    public void Case2_testPlayMusic(){//播放Music
        openMusic();//进入Music
        playMusic();//播放歌曲
        checkPlayMusicResults();//在锁屏界面判断是否播放音乐
@@ -44,7 +44,7 @@ public class MusicCase extends MusicAction{
    }
 
     @Test
-        public void Case3_pauseMusic(){//暂停Music
+        public void Case3_testPauseMusic(){//暂停Music
         unLock();//解锁
         openMusic();//进入Music
         playMusic();//播放歌曲
@@ -55,7 +55,7 @@ public class MusicCase extends MusicAction{
     }
 
     @Test
-    public void Case4_deleteMusic()throws UiObjectNotFoundException{
+    public void Case4_testDeleteMusic()throws UiObjectNotFoundException{
         //删除一首歌曲
         openMusic();
         soryByTitle();
@@ -69,7 +69,7 @@ public class MusicCase extends MusicAction{
     }
 
     @Test
-    public void Case5_deleteAllMusic(){
+    public void Case5_testDeleteAllMusic(){
         //删除所有歌曲
         openMusic();
         checkNoResults();

@@ -25,14 +25,14 @@ public class PlayStoreCase extends PlayStoreAction{
     }
 
     @Test
-    public void testA_SignInGmailAccount(){
+    public void Case1_testSignInGmailAccount(){
         openAppliction(PLAYSTORE_NAME);
         signInGmailAccount("buteo753753@gmail.com","19920610");
         Assert.assertTrue("Gmail账号登陆失败！",getObjectById(PLAYSTORE_SEARCHBOX_ID).exists());
     }
 
     @Test
-    public void testB_DownloadAndInstallApplication(){
+    public void Case2_testDownloadAndInstallApplication(){
         openAppliction(PLAYSTORE_NAME);
         downloadAndInstallApp("IMDb");
         checkInstallApp();

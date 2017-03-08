@@ -21,21 +21,21 @@ public class NotificationBarCase extends NotificationBarAction {
     }
 
     @Test
-    public void testPullDownNotificationBar(){
+    public void Case1_testPullDownNotificationBar(){
         //检查状态栏是否全屏显示
         pullDownNotificationBar();
         Assert.assertTrue("NotificationBar is displayed incorrectly!",getObjectByClass(NOTIFICATIONBAR_BRIGHTNESS_CLASS).exists());
     }
 
     @Test
-    public void testTimeAndDate(){
+    public void Case2_testTimeAndDate(){
         //检查当前时间与日期
         pullDownNotificationBar();
         checkTimeAndDate();
     }
 
     @Test
-    public void testMultiUserButton(){
+    public void Case3_testMultiUserButton(){
         //检查User按钮显示
         pullDownNotificationBar();
         checkMultiUserButton();
@@ -43,7 +43,7 @@ public class NotificationBarCase extends NotificationBarAction {
     }
 
     @Test
-    public void testSettingsButton(){
+    public void Case4_testSettingsButton(){
         //检查Settings按钮显示
         pullDownNotificationBar();
         checkSettingButton();
@@ -51,14 +51,14 @@ public class NotificationBarCase extends NotificationBarAction {
     }
 
     @Test
-    public void testDisplayBrightness(){
+    public void Case5_testDisplayBrightness(){
         //检查亮度条显示
         pullDownNotificationBar();
         Assert.assertTrue("Brightness is displayed incorrectly!",getObjectById(NOTIFICATIONBAR_BRIGHTNESS_ID).exists());
     }
 
     @Test
-    public void testButtons()throws UiObjectNotFoundException{
+    public void Case6_testButtons()throws UiObjectNotFoundException{
         //检查五个切换按钮显示
 
         pullDownNotificationBar();
