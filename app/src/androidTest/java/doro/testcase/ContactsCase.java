@@ -359,9 +359,10 @@ public class ContactsCase extends VP4 {
     public void testExportToSdcard() throws Exception {
         //delete  all vcf file
         ContactsAction.deleteSdcardContactsVCF();
+        File[] files0 = ContactsAction.getFileList();
         ContactsAction.exportToSdcard(true);
         File[] files = ContactsAction.getFileList();
-        Assert.assertEquals("export vcf file", 1, files.length);
+        Assert.assertEquals("export vcf file", files0.length+1, files.length);
     }
 
     @Test
