@@ -85,4 +85,6 @@ public class SettingPage {
     //时间设置中的“hour”与“mins”的Class
     public static final String SETTING_HOUR_TOUCHHELPER_CLASS ="android.widget.RadialTimePickerView$RadialPickerTouchHelper";
 
+    //设置下的Desc
+    public static final String SETTING_NAVIGATE_UP_DESC ="Navigate up";
 }
