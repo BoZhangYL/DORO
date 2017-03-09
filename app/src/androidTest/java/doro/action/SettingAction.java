@@ -35,12 +35,12 @@ import static doro.page.SettingPage.SETTINGS_TIME_HOURS_ID;
 import static doro.page.SettingPage.SETTINGS_TIME_MINUTES_ID;
 import static doro.page.SettingPage.SETTINGS_TITLE_ID;
 import static doro.page.SettingPage.SETTINGS_USE_24HOUR_FORMAT_TEXT;
-import static doro.page.SettingPage.SETTINGS_WIDGET_IMAGEBUTTON_CLASS;
 import static doro.page.SettingPage.SETTINGS_WIDGET_LINEARLAYOUT_CLASS;
 import static doro.page.SettingPage.SETTINGS_WIDGET_LISTVIEW_CLASS;
 import static doro.page.SettingPage.SETTINGS_WIDGET_SWITCH_CLASS;
 import static doro.page.SettingPage.SETTING_DATE_DAY_VIEW_CLASS;
 import static doro.page.SettingPage.SETTING_HOUR_TOUCHHELPER_CLASS;
+import static doro.page.SettingPage.SETTING_NAVIGATE_UP_DESC;
 import static java.lang.Integer.parseInt;
 
 /**
@@ -350,15 +350,15 @@ public class SettingAction extends VP4 {
     }
     public void CheckStatus(boolean status){ //检查飞行模式下wifi，蓝牙，流量的状态
         try{
-            getObjectByClass(SETTINGS_WIDGET_IMAGEBUTTON_CLASS).click();
+            getUiObjectByDes(SETTING_NAVIGATE_UP_DESC).click();
             getObjectByText(SETTINGS_HOME_TEXT).clickAndWaitForNewWindow();
             settingChild("Wi‑Fi");
             wifiStatus(status);
-            getObjectByClass(SETTINGS_WIDGET_IMAGEBUTTON_CLASS).click();
+            getUiObjectByDes(SETTING_NAVIGATE_UP_DESC).click();
             getObjectByText(SETTINGS_HOME_TEXT).clickAndWaitForNewWindow();
             settingChild("Bluetooth");
             bluetoothStatus(status);
-            getObjectByClass(SETTINGS_WIDGET_IMAGEBUTTON_CLASS).click();
+            getUiObjectByDes(SETTING_NAVIGATE_UP_DESC).click();
             getObjectByText(SETTINGS_HOME_TEXT).clickAndWaitForNewWindow();
             settingChild("Data usage");
             mobileDataStatus(status);
