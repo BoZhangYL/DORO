@@ -25,7 +25,6 @@ public class EmailCase extends VP4 {
     @BeforeClass
     public static void initGalleryCase() {
         unLock();
-        EmailAction.accessEmail();
         EmailAction.loginEmail();
     }
 
