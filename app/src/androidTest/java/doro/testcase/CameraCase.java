@@ -22,8 +22,6 @@ public class CameraCase extends VP4 {
     @BeforeClass
     public static void initCalendar() {
         VP4.unLock();
-        //CameraAction.accessCamera();
-        // CameraAction.setCameraRestoredefaults();
     }
 
     @Test
@@ -59,7 +57,6 @@ public class CameraCase extends VP4 {
         CameraAction.switchToFrontCamera();//切换到前摄像头
         CameraAction.manualFocus();//对焦
         CameraAction.takePictures();//拍照
-        CameraAction.checkTakePicturesResult();//检查拍照结果
     }
 
     @Test
@@ -69,7 +66,6 @@ public class CameraCase extends VP4 {
         CameraAction.switchToBackCamera();//切换到后摄像头
         CameraAction.manualFocus();//对焦
         CameraAction.takePictures();//拍照
-        CameraAction.checkTakePicturesResult();//检查拍照结果
     }
 
     @Test
@@ -86,7 +82,6 @@ public class CameraCase extends VP4 {
         VP4.openAppliction(CAMERA);//打开相机
         CameraAction.takePictures();//拍照
         CameraAction.deletePicture();//删除照片
-        CameraAction.checkDeletePicture();//检查删除是否成功
     }
 
     @Test
@@ -95,7 +90,6 @@ public class CameraCase extends VP4 {
         VP4.openAppliction(CAMERA);//打开相机
         CameraAction.switchToFrontCamera();//切换到前摄像头
         CameraAction.recordVideo(DEFAULT_RECORD_TIMES);//录像
-        CameraAction.checkRecordVideoResult();//检查录像结果
     }
 
     @Test
@@ -104,7 +98,6 @@ public class CameraCase extends VP4 {
         VP4.openAppliction(CAMERA);//打开相机
         CameraAction.switchToBackCamera();//切换到后摄像头
         CameraAction.recordVideo(DEFAULT_RECORD_TIMES);//录像
-        CameraAction.checkRecordVideoResult();
     }
 
     @Test
@@ -113,7 +106,6 @@ public class CameraCase extends VP4 {
         VP4.openAppliction(CAMERA);//打开相机
         CameraAction.switchToBackCamera();//切换到后摄像头
         CameraAction.checkStopRecoed();
-        CameraAction.recordVideo(DEFAULT_RECORD_TIMES);//录像
     }
 
     @Test
@@ -123,7 +115,6 @@ public class CameraCase extends VP4 {
         CameraAction.switchToBackCamera();//切换到后摄像头
         CameraAction.recordVideo(DEFAULT_RECORD_TIMES);//录像
         CameraAction.deleteVideo();
-        CameraAction.checkDeleteVideo();//检查删除是否成功
     }
 
     @Test

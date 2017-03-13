@@ -44,34 +44,6 @@ public class CameraAction extends VP4 {
     private static UiObject APhotoButton = getUiObjectByText(CameraPage.A_PHOTO_BITTON);
     private static UiObject AVideoButton = getObjectByText(CameraPage.A_VIDEO_BUTTON);
     private static UiObject ASelfieButton = getObjectByText(CameraPage.A_SELFIE_BUTTTON);
-    private static int PhotosNumber = 0;
-    private static int VideosNumber = 0;
-//    private static UiObject PictureNameOption =getObjectById(PICTURE_NAME);
-//    private static String CapturedPictureName;
-//    private static UiObject PlayVideoView =getObjectByText(GALLERY_VIDEO_PLAY_VIEW);
-//    private static UiObject GeneralSetting = getObjectById(CAMERA_SETTINGS_TABLE,0);
-//    private static UiObject CameraSetting = getObjectById(CAMERA_SETTINGS_TABLE,1);
-//    private static UiObject VideoSetting = getObjectById(CAMERA_SETTINGS_TABLE,2);
-//    private static UiObject WhiteBlance = getObjectByText(CAMERASETTINGS_WHITE_BALANCE);
-//    private static UiObject SelfTimer =getObjectByText(CAMERASETTINGS_SELT_TIMER);
-//    private static UiObject VideoQuality = getObjectByText(CAMERASETTINGS_VIDEO_QUALITY);
-//    private static UiObject VideoDetailOption = getObjectByText(VIDEO_DETAIL);
-//    private static UiObject PictureDetailOption = getObjectByText(PICTURE_DETAIL);
-
-
-    /*
-    *
-    * */
-    public static void accessCamera() {
-        if (getObjectById(EmailPage.ACCESS_RIGHT).exists()) {
-            try {
-                while (getObjectByText("ALLOW").exists())
-                    getObjectByText("ALLOW").clickAndWaitForNewWindow();
-            } catch (UiObjectNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     /*得到当前所有的拍摄的照片数
     * 通过判断/Dcim/Camera/文件夹下所有jpg结尾的文件数
@@ -79,22 +51,23 @@ public class CameraAction extends VP4 {
     private static int getAllPhotoNumbers() {
         int photonumber = 0;
         File Dcim = new File(Environment.getExternalStorageDirectory() + "/Dcim/Camera/");
-        if (!new File("/mnt/m_external_sd/Dcim/Camera/").exists()) {
-            new File("/mnt/m_external_sd/Dcim/Camera/").mkdirs();
-        }
         File Dcim_SD = new File("/mnt/m_external_sd/Dcim/Camera/");
         String[] names = Dcim.list();
         String[] names1 = Dcim_SD.list();
-        for (int i = 0; i < names.length; i++) {
-            String[] photos = names[i].split("\\.");
-            if (photos[1].equals("jpg")) {
-                photonumber++;
+        if (Dcim.exists()) {
+            for (int i = 0; i < names.length; i++) {
+                String[] photos = names[i].split("\\.");
+                if (photos[1].equals("jpg")) {
+                    photonumber++;
+                }
             }
         }
-        for (int j = 0; j < names1.length; j++) {
-            String[] photos1 = names1[j].split("\\.");
-            if (photos1[1].equals("jpg")) {
-                photonumber++;
+        if (Dcim_SD.exists()) {
+            for (int j = 0; j < names1.length; j++) {
+                String[] photos1 = names1[j].split("\\.");
+                if (photos1[1].equals("jpg")) {
+                    photonumber++;
+                }
             }
         }
         return photonumber;
@@ -106,22 +79,23 @@ public class CameraAction extends VP4 {
     private static int getAllVideoNumbers() {
         int videoonumber = 0;
         File Dcim = new File(Environment.getExternalStorageDirectory() + "/Dcim/Camera/");
-        if (!new File("/mnt/m_external_sd/Dcim/Camera/").exists()) {
-            new File("/mnt/m_external_sd/Dcim/Camera/").mkdirs();
-        }
         File Dcim_SD = new File("/mnt/m_external_sd/Dcim/Camera/");
         String[] names = Dcim.list();
         String[] names1 = Dcim_SD.list();
-        for (int i = 0; i < names.length; i++) {
-            String[] photos = names[i].split("\\.");
-            if (photos[1].equals("3gp")) {
-                videoonumber++;
+        if (Dcim.exists()) {
+            for (int i = 0; i < names.length; i++) {
+                String[] photos = names[i].split("\\.");
+                if (photos[1].equals("3gp")) {
+                    videoonumber++;
+                }
             }
         }
-        for (int j = 0; j < names1.length; j++) {
-            String[] photos1 = names1[j].split("\\.");
-            if (photos1[1].equals("3gp")) {
-                videoonumber++;
+        if (Dcim_SD.exists()) {
+            for (int j = 0; j < names1.length; j++) {
+                String[] photos1 = names1[j].split("\\.");
+                if (photos1[1].equals("3gp")) {
+                    videoonumber++;
+                }
             }
         }
         return videoonumber;
@@ -246,13 +220,14 @@ public class CameraAction extends VP4 {
     /*拍照
     * */
     public static void takePictures() {
-        PhotosNumber = getAllPhotoNumbers();
+        int beforePictureNum = getAllPhotoNumbers();
         try {
             CaptureButton.click();
             waitTime(10);
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
+        Asst.assertEquals("take pictures fail", beforePictureNum + 1, getAllPhotoNumbers());
     }
 
     /*判断“Iwantto button”是否显示
@@ -269,39 +244,38 @@ public class CameraAction extends VP4 {
     * */
     public static void deletePicture() {
         waitTime(5);
-        PhotosNumber = getAllPhotoNumbers();
+        int currentPhotosNumber = getAllPhotoNumbers();
         try {
             switchtoGallery();
             clickIWantToButton();
             DeletePictureOption.clickAndWaitForNewWindow();
             OKButton.clickAndWaitForNewWindow();
-            //pressKey("back");
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
+        Asst.assertEquals("Delete pictures fail", currentPhotosNumber - 1, getAllPhotoNumbers());
     }
 
 
     /*删除视频
     * */
     public static void deleteVideo() {
+        int beforeVideosNumber = getAllVideoNumbers();
         try {
-            waitTime(5);
-            VideosNumber = getAllVideoNumbers();
             switchtoGallery();
             clickIWantToButton();
             DeleteVideoOption.clickAndWaitForNewWindow();
             OKButton.clickAndWaitForNewWindow();
-            //pressKey("back");
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
+        Asst.assertEquals("Delete Video fail", beforeVideosNumber - 1, getAllVideoNumbers());
     }
 
     /*录制视频
     * */
     public static void recordVideo(int RecordTime) {
-        VideosNumber = getAllVideoNumbers();
+        int beforeVideosNumber = getAllVideoNumbers();
         try {
             RecordButton.click();
             waitTime(RecordTime);
@@ -310,15 +284,9 @@ public class CameraAction extends VP4 {
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
+        Asst.assertEquals("record Video fail", beforeVideosNumber + 1, getAllVideoNumbers());
     }
 
-    /*检查录制视频结果
-    * */
-    public static void checkRecordVideoResult() {
-        int BeforeVideoNumber = VideosNumber;
-        int CurrentVideoNumber = getAllVideoNumbers();
-        Assert.assertEquals("checkTakePicturesResult", BeforeVideoNumber + 1, CurrentVideoNumber);
-    }
 
     /*点击屏幕
     * */
@@ -347,14 +315,6 @@ public class CameraAction extends VP4 {
                 CAMERA_PACKAGE_NAME, gDevice.getCurrentPackageName());
     }
 
-    /*检查拍照结果
-    * */
-    public static void checkTakePicturesResult() {
-        Spoon.screenshot("checkTakePicturesResult");
-        int BeforePhotoNumber = PhotosNumber;
-        int CurrentPhotoNumber = getAllPhotoNumbers();
-        Assert.assertEquals("checkTakePicturesResult", BeforePhotoNumber + 1, CurrentPhotoNumber);
-    }
 
     /*检查从相机进入图库的结果
     * */
@@ -363,44 +323,16 @@ public class CameraAction extends VP4 {
         Assert.assertEquals("switchToGalleryFromCamer", GALLERY, gDevice.getCurrentPackageName());
     }
 
-    /*检查删除结果
-    * */
-    public static void checkdeleteResult() {
-        int BeforePhotoNumber = PhotosNumber;
-        int CurrentPhotoNumber = getAllPhotoNumbers();
-        int BeforeVideoNumber = VideosNumber;
-        int CurrentVideoNumber = getAllVideoNumbers();
-        boolean checkphotonumbers = (CurrentPhotoNumber == BeforePhotoNumber - 1);
-        boolean checkvideonumbers = (CurrentVideoNumber == BeforeVideoNumber - 1);
-        Assert.assertTrue("Delete function", (checkphotonumbers || checkvideonumbers));
-    }
-
-    /*
-    * 检查删除一张照片结果
-    * */
-    public static void checkDeletePicture() {
-        waitTime(10);
-        Asst.assertEquals("删除图片失败", PhotosNumber - 1, getAllPhotoNumbers());
-    }
-
-    /*
-    * 检查删除一个视频的结果
-    * */
-    public static void checkDeleteVideo() {
-        waitTime(10);
-        Asst.assertEquals("删除视频失败", VideosNumber - 1, getAllVideoNumbers());
-    }
 
     /*检查停止录像
     * */
     public static void checkStopRecoed() {
-        VideosNumber = getAllVideoNumbers();
+        int beforeVideosNumber = getAllVideoNumbers();
         boolean RecordState = false;
         try {
             RecordButton.click();
             waitTime(5);
             RecordButton.click();
-            Spoon.screenshot("checkStopRecoed");
             if (!RecordTimeIcon.exists()) {
                 RecordState = true;
             }
@@ -408,6 +340,7 @@ public class CameraAction extends VP4 {
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
+        Asst.assertEquals("Check record video fail ", beforeVideosNumber + 1, getAllVideoNumbers());
     }
 
     /*
