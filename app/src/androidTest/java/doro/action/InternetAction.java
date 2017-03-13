@@ -18,7 +18,7 @@ import doro.page.WifiPage;
  * Created by bo.zhang on 2017/01/17   .
  */
 public class InternetAction extends VP4 {
-    private static UiObject SearchAddressBox =getObjectById(InternetPage.INTERNET_ADDRESS_BOX);
+    private static UiObject SearchAddressBox = getObjectById(InternetPage.INTERNET_ADDRESS_BOX);
     //搜索栏
     private static UiObject WelcomeText = getObjectByText(InternetPage.INTERNET_WECOME_TXT);
     //欢迎文字
@@ -59,7 +59,7 @@ public class InternetAction extends VP4 {
     private static UiSelector BookmarksLabel = new UiSelector().
             resourceId(InternetPage.BOOKMARKS_LABEL);
     //书签名字
-    private static UiObject NOButton =getUiObjectByText(InternetPage.NO_BUTTON);
+    private static UiObject NOButton = getUiObjectByText(InternetPage.NO_BUTTON);
     //no按钮
     private static UiObject AddBookmarksButton = getObjectByText(InternetPage.
             ADD_TO_BOOKMARKS_BUTTON);
@@ -77,7 +77,7 @@ public class InternetAction extends VP4 {
     //页面列表
     private static UiSelector Page = new UiSelector().className(InternetPage.PAGE_INDICATOR);
     //页面
-    private static UiObject SearchPAgeButton =getObjectByText(InternetPage.SEARCH_PAGE_BUTTON);
+    private static UiObject SearchPAgeButton = getObjectByText(InternetPage.SEARCH_PAGE_BUTTON);
     private static UiObject GoToHomePageButton = getObjectByText(InternetPage.GO_TO_HOME_PAGE);
     private static UiObject ClosePageButton = getObjectByText(InternetPage.CLOSE_PAGE_BUTTON);
     private static UiCollection ViewPages = new UiCollection(new UiSelector().
@@ -102,18 +102,19 @@ public class InternetAction extends VP4 {
 
     private static UiObject DefultPageGoole = getObjectByText(InternetPage.TheDefaplayPAge_Google);
     private static String MAX_PAGES = InternetPage.MAX_PAGES;
+
     /*
     * 处理异常
     * */
-    public static void watchexception(){
+    public static void watchexception() {
         gDevice.registerWatcher("Pops", new UiWatcher() {
             @Override
             public boolean checkForCondition() throws UiObjectNotFoundException {
-                if(getObjectByText("Security warning").exists()){
+                if (getObjectByText("Security warning").exists()) {
                     getObjectByText(InternetPage.CANCEL_BUTTON).clickAndWaitForNewWindow();
                     return true;
                 }
-                if(getObjectByText(InternetPage.BAIDU_LOCATION).exists()){
+                if (getObjectByText(InternetPage.BAIDU_LOCATION).exists()) {
                     getObjectByText("No").clickAndWaitForNewWindow();
                 }
                 return false;
@@ -125,7 +126,7 @@ public class InternetAction extends VP4 {
     /*
     * 设置最大打来的页面
     * */
-    public static void setMaxOpendPages(String PageNumber){
+    public static void setMaxOpendPages(String PageNumber) {
         try {
             SetMaxPage.clickAndWaitForNewWindow();
             SetMaxPageBox.clickAndWaitForNewWindow();
@@ -138,7 +139,7 @@ public class InternetAction extends VP4 {
             Asst.assertTrue("设置最大页面的选项20不正确",
                     getObjectByText(InternetPage.MAXPAGE_NUMBER_20).exists());
             getObjectByText(PageNumber).clickAndWaitForNewWindow();
-            MAX_PAGES= PageNumber;
+            MAX_PAGES = PageNumber;
             ConfirmButton.clickAndWaitForNewWindow();
 
         } catch (UiObjectNotFoundException e) {
@@ -149,10 +150,15 @@ public class InternetAction extends VP4 {
     /*
     * 检查默认页面
     * */
-    public static void checkDefaultPages(){
+    public static void checkDefaultPages() {
         try {
             TheDefaultPage.clickAndWaitForNewWindow();
-            Asst.assertTrue("默认页面不正确",DefultPageGoole.exists());
+            if (isExsitedSimCard()) {
+                Asst.assertTrue("默认页面不正确", DefultPageGoole.exists());
+            } else
+                Asst.assertTrue("默认页面不正确no Sim",
+                        getObjectByText(InternetPage.DEFAULT_PAGE_NO_SIM).exists());
+
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -161,12 +167,12 @@ public class InternetAction extends VP4 {
     /*
     * 检查Set选项
     * */
-    public static void checkSetOption(){
+    public static void checkSetOption() {
         try {
             IWantToButton.clickAndWaitForNewWindow();
             Set.clickAndWaitForNewWindow();
-            Asst.assertTrue("设置最大页面不存在",SetMaxPage.exists());
-            Asst.assertTrue("默认页面",TheDefaultPage.exists());
+            Asst.assertTrue("设置最大页面不存在", SetMaxPage.exists());
+            Asst.assertTrue("默认页面", TheDefaultPage.exists());
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -175,7 +181,7 @@ public class InternetAction extends VP4 {
     /*
     * 分享导航按钮
     * */
-    public static void sendThisPage(){
+    public static void sendThisPage() {
         try {
             SendThisPageButton.clickAndWaitForNewWindow();
             checkSharePage();
@@ -188,35 +194,35 @@ public class InternetAction extends VP4 {
     /*
     * 检查分享页面
     * */
-    public static void checkSharePage(){
-        Asst.assertTrue("分享message按钮不存在",ShareByMessage.exists());
-        Asst.assertTrue("分享Email按钮不存在",ShareByEmail.exists());
-        Asst.assertTrue("分享BT按钮不存在",ShareByBT.exists());
-        Asst.assertTrue("分享Android Beam按钮不存在",ShareByBeam.exists());
-        Asst.assertTrue("分享Copy to clipboard按钮不存在",ShareByCopy.exists());
-        Asst.assertTrue("分享Gail按钮不存在",ShareByGmail.exists());
-        Asst.assertTrue("分享Drive按钮不存在",ShareByDrive.exists());
+    public static void checkSharePage() {
+        Asst.assertTrue("分享message按钮不存在", ShareByMessage.exists());
+        Asst.assertTrue("分享Email按钮不存在", ShareByEmail.exists());
+        Asst.assertTrue("分享BT按钮不存在", ShareByBT.exists());
+        Asst.assertTrue("分享Android Beam按钮不存在", ShareByBeam.exists());
+        Asst.assertTrue("分享Copy to clipboard按钮不存在", ShareByCopy.exists());
+        Asst.assertTrue("分享Gail按钮不存在", ShareByGmail.exists());
+        Asst.assertTrue("分享Drive按钮不存在", ShareByDrive.exists());
     }
 
 
     /*
     * 检查导航页面
     * */
-    public static void checkNavigationPages(){
+    public static void checkNavigationPages() {
         try {
             IWantToButton.clickAndWaitForNewWindow();
-            Asst.assertTrue("RefreshThePage按钮不存在",RefreshThePage.exists());
-            Asst.assertTrue("SwitchPAge",SwitchPage.exists());
-            Asst.assertTrue("Go to Home PAge按钮不存在",GoToHomePageButton.exists());
-            Asst.assertTrue("Add/Remove bookmarks按钮不存在",AddBookmarksButton.exists() ||
+            Asst.assertTrue("RefreshThePage按钮不存在", RefreshThePage.exists());
+            Asst.assertTrue("SwitchPAge", SwitchPage.exists());
+            Asst.assertTrue("Go to Home PAge按钮不存在", GoToHomePageButton.exists());
+            Asst.assertTrue("Add/Remove bookmarks按钮不存在", AddBookmarksButton.exists() ||
                     DeleteBookmarks.exists());
-            Asst.assertTrue("ViewMyBookmarks按钮不存在",ViewMyBookmarks.exists());
-            gDevice.swipe(gDevice.getDisplayWidth()/2,gDevice.getDisplayHeight()/2,
-                    gDevice.getDisplayWidth()/2,0,20);
+            Asst.assertTrue("ViewMyBookmarks按钮不存在", ViewMyBookmarks.exists());
+            gDevice.swipe(gDevice.getDisplayWidth() / 2, gDevice.getDisplayHeight() / 2,
+                    gDevice.getDisplayWidth() / 2, 0, 20);
             //VP4.scrollToEnd(20);滑动不了
-            Asst.assertTrue("SendThisPageButton按钮不存在",SendThisPageButton.exists());
-            Asst.assertTrue("ClearDataAndHisTory按钮不存在",ClearDataAndHistory.exists());
-            Asst.assertTrue("Set按钮不存在",Set.exists());
+            Asst.assertTrue("SendThisPageButton按钮不存在", SendThisPageButton.exists());
+            Asst.assertTrue("ClearDataAndHisTory按钮不存在", ClearDataAndHistory.exists());
+            Asst.assertTrue("Set按钮不存在", Set.exists());
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -225,11 +231,11 @@ public class InternetAction extends VP4 {
     /*
     * 删除页面
     * */
-    public static void deleteOnePage(){
+    public static void deleteOnePage() {
         try {
             IWantToButton.clickAndWaitForNewWindow();
             ClosePageButton.clickAndWaitForNewWindow();
-            ViewPages.getChildByInstance(PageDeleteCheckbox,0).clickAndWaitForNewWindow();
+            ViewPages.getChildByInstance(PageDeleteCheckbox, 0).clickAndWaitForNewWindow();
             ConfirmButton.clickAndWaitForNewWindow();
             getObjectByText(InternetPage.OK_BUTTON).clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e) {
@@ -240,14 +246,14 @@ public class InternetAction extends VP4 {
     /*
    * 删除所有页面
    * */
-    public static void DelteAllPage(){
+    public static void DelteAllPage() {
         try {
             IWantToButton.clickAndWaitForNewWindow();
             ClosePageButton.clickAndWaitForNewWindow();
             DleteAllPageButton.clickAndWaitForNewWindow();
             ConfirmButton.clickAndWaitForNewWindow();
             getObjectByText(InternetPage.OK_BUTTON).clickAndWaitForNewWindow();
-            Asst.assertTrue("删除所有page失败",(!PageList.exists()) &&
+            Asst.assertTrue("删除所有page失败", (!PageList.exists()) &&
                     (getObjectByText(InternetPage.HEADPAGE_MY_PAGES).exists()));
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
@@ -257,15 +263,15 @@ public class InternetAction extends VP4 {
     /*
     *检查删除一个页面
     * */
-    public static void checkDeleteOnePage(){
+    public static void checkDeleteOnePage() {
         try {
-            while(PageList.getChildCount()>4){
-                PageList.getChildByInstance(Page,PageList.getChildCount()-1).clickAndWaitForNewWindow();
+            while (PageList.getChildCount() > 4) {
+                PageList.getChildByInstance(Page, PageList.getChildCount() - 1).clickAndWaitForNewWindow();
             }
-            int number= Integer.valueOf(PageList.getChildByInstance(Page, PageList.getChildCount()-1).
+            int number = Integer.valueOf(PageList.getChildByInstance(Page, PageList.getChildCount() - 1).
                     getText());
-            Asst.assertEquals("最大页面数不是" + MAX_PAGES+ "个",
-                    Integer.valueOf(MAX_PAGES) -1, number);
+            Asst.assertEquals("最大页面数不是" + MAX_PAGES + "个",
+                    Integer.valueOf(MAX_PAGES) - 1, number);
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -274,18 +280,18 @@ public class InternetAction extends VP4 {
     /*
     * 检查空的页面
     * */
-    public static void ckeckEmptyPages(){
-        Asst.assertTrue("空页面的提示语不正确！",getObjectByText(InternetPage.EMPTY_PAGE_PROMPT)
+    public static void ckeckEmptyPages() {
+        Asst.assertTrue("空页面的提示语不正确！", getObjectByText(InternetPage.EMPTY_PAGE_PROMPT)
                 .exists());
-        Asst.assertTrue("搜索页面按钮不存在",SearchPAgeButton.exists());
+        Asst.assertTrue("搜索页面按钮不存在", SearchPAgeButton.exists());
     }
 
     /*
     *访问百度网页15次
      *  */
-    public static void AddPage(){
+    public static void AddPage() {
         openInternetApp();
-        for(int i = 0; i<20;i++) {
+        for (int i = 0; i < 20; i++) {
             try {
                 SearchAddressBox.setText(InternetPage.SEARCH_ADDRESS);
                 SearchButton.clickAndWaitForNewWindow();
@@ -299,38 +305,39 @@ public class InternetAction extends VP4 {
                 e.printStackTrace();
             }
         }
-        }
+    }
 
 
     /*
     * 检查最大的页面数
     * */
-    public static void checkMaxPages(){
+    public static void checkMaxPages() {
         try {
             AddPage();
             openInternetApp();
             goToSwitchPage();
-            while(PageList.getChildCount()>4){
-                PageList.getChildByInstance(Page,PageList.getChildCount()-1).clickAndWaitForNewWindow();
+            while (PageList.getChildCount() > 4) {
+                PageList.getChildByInstance(Page, PageList.getChildCount() - 1).clickAndWaitForNewWindow();
             }
-        int number= Integer.valueOf(PageList.getChildByInstance(Page, PageList.getChildCount()-1).
+            int number = Integer.valueOf(PageList.getChildByInstance(Page, PageList.getChildCount() - 1).
                     getText());
-         Asst.assertEquals("最大页面数不是" + MAX_PAGES+ "个",
-                 MAX_PAGES, String.valueOf(number));
+            Asst.assertEquals("最大页面数不是" + MAX_PAGES + "个",
+                    MAX_PAGES, String.valueOf(number));
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
 
     }
-    public static void checkMaxPages(String PAgeNumber){
+
+    public static void checkMaxPages(String PAgeNumber) {
         try {
             AddPage();
             openInternetApp();
             goToSwitchPage();
-            while(PageList.getChildCount()>4){
-                PageList.getChildByInstance(Page,PageList.getChildCount()-1).clickAndWaitForNewWindow();
+            while (PageList.getChildCount() > 4) {
+                PageList.getChildByInstance(Page, PageList.getChildCount() - 1).clickAndWaitForNewWindow();
             }
-            int number= Integer.valueOf(PageList.getChildByInstance(Page, PageList.getChildCount()-1).
+            int number = Integer.valueOf(PageList.getChildByInstance(Page, PageList.getChildCount() - 1).
                     getText());
             Asst.assertEquals("最大页面数不是" + PAgeNumber + "个",
                     MAX_PAGES, String.valueOf(number));
@@ -348,7 +355,7 @@ public class InternetAction extends VP4 {
     /*
     * 进入switchPAge 页面
     * */
-    public static void goToSwitchPage(){
+    public static void goToSwitchPage() {
         try {
             IWantToButton.clickAndWaitForNewWindow();
             SwitchPage.clickAndWaitForNewWindow();
@@ -360,9 +367,9 @@ public class InternetAction extends VP4 {
     /*
     * 检查Switch Page
     * */
-    public static void checkSwitchPage(){
+    public static void checkSwitchPage() {
         try {
-            Asst.assertEquals("进入My Page页面失败",InternetPage.HEADPAGE_MY_PAGES,
+            Asst.assertEquals("进入My Page页面失败", InternetPage.HEADPAGE_MY_PAGES,
                     HeadTiltle.getText());
 
         } catch (UiObjectNotFoundException e) {
@@ -373,11 +380,11 @@ public class InternetAction extends VP4 {
     /*
     * 删除一个书签
     * */
-    public static void deleteBookmarks(String BooksName){
+    public static void deleteBookmarks(String BooksName) {
         try {
             IWantToButton.clickAndWaitForNewWindow();
             ViewMyBookmarks.clickAndWaitForNewWindow();
-            Asst.assertTrue("书签不存在",getObjectByText(BooksName).exists());
+            Asst.assertTrue("书签不存在", getObjectByText(BooksName).exists());
             IWantToButton.clickAndWaitForNewWindow();
             DeleteBookmarks.clickAndWaitForNewWindow();
             getObjectByText(BooksName).click();
@@ -391,29 +398,29 @@ public class InternetAction extends VP4 {
     /*
     * 检查书签删除是否成功
     * */
-    public static void ckeckDleeteBookmarks(String BooksName){
-        Asst.assertTrue("删除书签不成功",!getObjectByText(BooksName).exists());
+    public static void ckeckDleeteBookmarks(String BooksName) {
+        Asst.assertTrue("删除书签不成功", !getObjectByText(BooksName).exists());
     }
 
     /*
     * 检查添加书签是否成功
     * */
-    public static void checkAddBookmarks(String BooksName){
+    public static void checkAddBookmarks(String BooksName) {
         openInternetApp();
         clickViewMyBookmarksButton();
-        Asst.assertTrue("添加的名称为个"+BooksName+"的书签的图标不存在，添加书签失败！",
+        Asst.assertTrue("添加的名称为个" + BooksName + "的书签的图标不存在，添加书签失败！",
                 getObjectByText(BooksName).exists());
     }
 
     /*
     * 添加一个书签
     * */
-    public static  void addOneBookmarks(String BookmarksName){
+    public static void addOneBookmarks(String BookmarksName) {
         dismissAccessReq();
         try {
             IWantToButton.clickAndWaitForNewWindow();
-           // Asst.assertTrue("书签已经添加",!AddBookmarksButton.exists());
-            if(!DeleteBookmarks.exists()) {
+            // Asst.assertTrue("书签已经添加",!AddBookmarksButton.exists());
+            if (!DeleteBookmarks.exists()) {
                 AddBookmarksButton.clickAndWaitForNewWindow();
                 EditBookmarksName.setText(BookmarksName);
                 AddButton.clickAndWaitForNewWindow();
@@ -426,8 +433,8 @@ public class InternetAction extends VP4 {
     /*
     * 取消页面的权限请求
     * */
-    private static void dismissAccessReq(){
-        if(NOButton.exists()){
+    private static void dismissAccessReq() {
+        if (NOButton.exists()) {
             try {
                 NOButton.clickAndWaitForNewWindow();
             } catch (UiObjectNotFoundException e) {
@@ -440,16 +447,16 @@ public class InternetAction extends VP4 {
     /*
     * 检查所有书签
     * */
-    public static void ckeckAllMyBookmarksPage(){
-        if(!BookMarksList.exists()){
+    public static void ckeckAllMyBookmarksPage() {
+        if (!BookMarksList.exists()) {
             Asst.assertTrue("空浏览器的书签的提示不对", EmptyBookmarks.exists());
-        }else{
+        } else {
             try {
-                for(int i=0;i<BookMarksList.getChild(BookmarksIcon).getChildCount();i++){
-                    Asst.assertTrue("第"+i+"个书签的图标不存在",
-                            BookMarksList.getChildByInstance(BookmarksIcon,i).exists());
-                    Asst.assertTrue("第"+i+"个书签的label不存在",
-                            BookMarksList.getChildByInstance(BookmarksLabel,i).exists());
+                for (int i = 0; i < BookMarksList.getChild(BookmarksIcon).getChildCount(); i++) {
+                    Asst.assertTrue("第" + i + "个书签的图标不存在",
+                            BookMarksList.getChildByInstance(BookmarksIcon, i).exists());
+                    Asst.assertTrue("第" + i + "个书签的label不存在",
+                            BookMarksList.getChildByInstance(BookmarksLabel, i).exists());
                 }
             } catch (UiObjectNotFoundException e) {
                 e.printStackTrace();
@@ -460,11 +467,11 @@ public class InternetAction extends VP4 {
     /*
     * 点击书签按钮
     * */
-    public static void clickViewMyBookmarksButton(){
+    public static void clickViewMyBookmarksButton() {
         try {
             IWantToButton.clickAndWaitForNewWindow();
             ViewMyBookmarks.clickAndWaitForNewWindow();
-            Asst.assertEquals("进入书签页面成功!",HeadTiltle.getText(),
+            Asst.assertEquals("进入书签页面成功!", HeadTiltle.getText(),
                     InternetPage.HRADPAGE_MY_BOOKMARKS);
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
@@ -474,7 +481,7 @@ public class InternetAction extends VP4 {
     /*
     * 点击清除按钮，清除数据和历史
     * */
-    public static void clickClearDataAndHistoryButton(){
+    public static void clickClearDataAndHistoryButton() {
         try {
             IWantToButton.clickAndWaitForNewWindow();
             ClearDataAndHistory.clickAndWaitForNewWindow();
@@ -491,13 +498,18 @@ public class InternetAction extends VP4 {
     /*
     * 搜索文字
     * */
-    public static void searchWord(){
+    public static void searchWord() {
         try {
             SearchAddressBox.setText(InternetPage.SEARCH_WORD);
             WelcomeText.click();
             SearchButton.clickAndWaitForNewWindow();
             Asst.assertTrue("点击搜索按钮后没有进入搜索页面", !HeadTiltle.exists());
-            Asst.assertEquals("搜索文字出错！",InternetPage.SEARCH_WORD_URL,Web_url.getText());
+            if (isExsitedSimCard()) {
+                Asst.assertEquals("搜索文字出错！", InternetPage.SEARCH_WORD_URL,
+                        Web_url.getText());
+            } else
+                Asst.assertEquals("搜索文字出错！", InternetPage.SEARCH_WORD_NO_SIM,
+                        Web_url.getText());
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -506,29 +518,30 @@ public class InternetAction extends VP4 {
     /*
     * 通过传入参数搜索网页
     * */
-    public static void searchAddress(String Address){
+    public static void searchAddress(String Address) {
         try {
             SearchAddressBox.setText(Address);
             WelcomeText.click();
             SearchButton.clickAndWaitForNewWindow();
             Asst.assertTrue("点击搜索按钮后没有进入搜索页面", !HeadTiltle.exists());
-            if(getObjectByText(InternetPage.BAIDU_LOCATION).exists()){
+            if (getObjectByText(InternetPage.BAIDU_LOCATION).exists()) {
                 getObjectByText("No").click();
             }
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
     }
+
     /*
     * 搜索网页
     * */
-    public static void searchAddress(){
+    public static void searchAddress() {
         try {
             SearchAddressBox.setText(InternetPage.SEARCH_ADDRESS);
             WelcomeText.click();
             SearchButton.clickAndWaitForNewWindow();
             Asst.assertTrue("点击搜索按钮后没有进入搜索页面", !HeadTiltle.exists());
-            Asst.assertTrue("搜索网址出错！",getObjectByText(InternetPage.SEARCH_ADDRESS_URL).
+            Asst.assertTrue("搜索网址出错！", getObjectByText(InternetPage.SEARCH_ADDRESS_URL).
                     exists());
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
@@ -538,13 +551,13 @@ public class InternetAction extends VP4 {
     /*
     * 切换到横屏模式
     * */
-    public static void changeToLandscapeMode(){
+    public static void changeToLandscapeMode() {
         try {
-            if(gDevice.isNaturalOrientation()) {
-                int width =gDevice.getDisplayWidth();
+            if (gDevice.isNaturalOrientation()) {
+                int width = gDevice.getDisplayWidth();
                 gDevice.setOrientationLeft();
                 waitTime(5);
-                Asst.assertEquals("切换到横屏显示失败",width ,gDevice.getDisplayHeight());
+                Asst.assertEquals("切换到横屏显示失败", width, gDevice.getDisplayHeight());
             }
 
         } catch (RemoteException e) {
@@ -555,13 +568,13 @@ public class InternetAction extends VP4 {
     /*
     * 切换到竖屏
     * */
-    public static void changeToPortraitMode(){
+    public static void changeToPortraitMode() {
         try {
-            if(!gDevice.isNaturalOrientation()) {
-                int width =gDevice.getDisplayWidth();
+            if (!gDevice.isNaturalOrientation()) {
+                int width = gDevice.getDisplayWidth();
                 gDevice.setOrientationNatural();
                 waitTime(5);
-                Asst.assertEquals("切换到竖屏显示失败",width ,gDevice.getDisplayHeight());
+                Asst.assertEquals("切换到竖屏显示失败", width, gDevice.getDisplayHeight());
             }
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -572,24 +585,24 @@ public class InternetAction extends VP4 {
     /*
     *取消开始向导
     * */
-    public static void dismissStartup(){
-        WifiAction WifiAction=new WifiAction();
+    public static void dismissStartup() {
+        WifiAction WifiAction = new WifiAction();
         openAppliction(WifiPage.SETTINGS);
         clickByText(WifiPage.WIFI);
         WifiAction.turnOnWifi(true);
-        WifiAction.connectWifi("CKT","ck88888!");
+        WifiAction.connectWifi("CKT", "ck88888!");
     }
 
     /*
     * 检查概览页面
     * */
-    public static void checkOverView(){
+    public static void checkOverView() {
         try {
             Asst.assertTrue("顶端的文本内容不是显示为‘Welcome to internet！’",
                     WelcomeText.exists());
-            Asst.assertTrue("焦点默认没有在搜索框",SearchAddressBox.isFocused());
+            Asst.assertTrue("焦点默认没有在搜索框", SearchAddressBox.isFocused());
             Asst.assertEquals("搜索框内容不是显示为：'Search word/address'",
-                    InternetPage.INTERNET_CONTENT_SEARCH_BOX,SearchAddressBox.getText());
+                    InternetPage.INTERNET_CONTENT_SEARCH_BOX, SearchAddressBox.getText());
 
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
@@ -600,25 +613,25 @@ public class InternetAction extends VP4 {
     /*
     * 打开浏览器
     * */
-    public static void openInternetApp(){
+    public static void openInternetApp() {
         VP4.openAppliction(InternetPage.INTERNET_APP_NAME);
-        Asst.assertEquals("打开浏览器失败",InternetPage.INTERNET_PACKAGE_NAME,
+        Asst.assertEquals("打开浏览器失败", InternetPage.INTERNET_PACKAGE_NAME,
                 gDevice.getCurrentPackageName());
     }
 
     /*
     * 退出浏览器
     * */
-    public static void exitInternetApp(){
+    public static void exitInternetApp() {
 
         try {
             openInternetApp();
             pressKey("Back");
-            Asst.assertTrue("退出浏览器失败",!InternetPage.INTERNET_PACKAGE_NAME.equals(
+            Asst.assertTrue("退出浏览器失败", !InternetPage.INTERNET_PACKAGE_NAME.equals(
                     gDevice.getCurrentPackageName()));
             openInternetApp();
             pressKey("Home");
-            Asst.assertTrue("退出浏览器失败",!InternetPage.INTERNET_PACKAGE_NAME.equals(
+            Asst.assertTrue("退出浏览器失败", !InternetPage.INTERNET_PACKAGE_NAME.equals(
                     gDevice.getCurrentPackageName()));
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
@@ -628,9 +641,23 @@ public class InternetAction extends VP4 {
     /*
     * 如果浏览的网页有弹出提示，取消该弹出提示
     * */
-    private static void cancelPopsPrompt(){
+    private static void cancelPopsPrompt() {
         //先判断是否有权限提示框
 
+    }
+
+    /*
+    * 判断是否插入Sim卡
+    * */
+    private static boolean isExsitedSimCard() {
+        boolean isSimCard = true;
+        gDevice.openQuickSettings();
+        if (getObjectByText(InternetPage.PROMPT_NO_SIM_CARD).exists()) {
+            isSimCard = false;
+        } else isSimCard = true;
+        gDevice.swipe(gDevice.getDisplayWidth() / 2, gDevice.getDisplayHeight(),
+                gDevice.getDisplayWidth() / 2, 0, 5);
+        return isSimCard;
     }
 
 }

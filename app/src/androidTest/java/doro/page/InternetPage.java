@@ -175,4 +175,12 @@ public class InternetPage {
     public static final String TheDefaplayPAge_Google = "https://google.com";
     //默认页面
 
+    public static final String PROMPT_NO_SIM_CARD = "No SIM card";
+    //没有sim卡提示文字
+
+    public static final String DEFAULT_PAGE_NO_SIM = "https://google.co.uk";
+    //没有sim卡默认页面
+
+    public static final String SEARCH_WORD_NO_SIM = "google.co.uk/search?q=baidu";
+    //没有sim卡的搜索文字界面
 }
