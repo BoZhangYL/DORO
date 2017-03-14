@@ -10,6 +10,7 @@ import org.hamcrest.Asst;
 
 import ckt.base.VP4;
 import doro.page.EmailPage;
+import doro.page.SettingPage;
 import doro.page.WifiPage;
 
 /**
@@ -22,12 +23,27 @@ public class EmailAction extends VP4 {
     private static UiSelector Emails = new UiSelector().className(EmailPage.EMAIL_VIEW);
 
     /*
+    * 关闭wifi，data
+    * */
+    public static void closeDataUsage(){
+        openAppliction("Settings");
+        try {
+            getObjectByText("Data usage").clickAndWaitForNewWindow();
+            UiObject DataUsageSwitch = getObjectById("android:id/switch_widget");
+            if((DataUsageSwitch.getText()).equals("ON")){
+                DataUsageSwitch.clickAndWaitForNewWindow();
+            }
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /*
     * openSentEmail
     * */
     public static void openSentEmail() {
-
         try {
-
             if (getObjectById("com.doro.apps.email:id/dismiss_icon").exists()) {
                 getObjectById("com.doro.apps.email:id/dismiss_icon").clickAndWaitForNewWindow();
             }
@@ -187,7 +203,6 @@ public class EmailAction extends VP4 {
             getObjectByText(EmailPage.I_WANT_TO_BUTTON).clickAndWaitForNewWindow();
             Asst.assertTrue("I Want To Menu disappearautomatically!",
                     getObjectByText(EmailPage.ZOOM_IN).exists());
-            waitTime(10);
             getObjectByText(EmailPage.ZOOM_IN).clickAndWaitForNewWindow();
             Rect CurrentZoom = getUiObjectByDes("test Email success").getBounds();
             Asst.assertTrue("Zoom in fail !", (CurrentZoom.bottom - CurrentZoom.top) >

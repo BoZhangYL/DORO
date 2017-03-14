@@ -91,6 +91,7 @@ public class EmailCase extends VP4 {
 
     @Test
     public void operationOutBox() {
+        EmailAction.closeDataUsage();
         EmailAction.openEmailApp();
         EmailAction.switchToOutBox();
         EmailAction.openOutEmail();
