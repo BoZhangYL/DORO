@@ -25,12 +25,12 @@ public class EmailAction extends VP4 {
     /*
     * 关闭wifi，data
     * */
-    public static void closeDataUsage(){
+    public static void closeDataUsage() {
         openAppliction("Settings");
         try {
             getObjectByText("Data usage").clickAndWaitForNewWindow();
             UiObject DataUsageSwitch = getObjectById("android:id/switch_widget");
-            if((DataUsageSwitch.getText()).equals("ON")){
+            if ((DataUsageSwitch.getText()).equals("ON")) {
                 DataUsageSwitch.clickAndWaitForNewWindow();
             }
         } catch (UiObjectNotFoundException e) {
@@ -51,10 +51,10 @@ public class EmailAction extends VP4 {
                     clickAndWaitForNewWindow();
             Asst.assertTrue("Not in Email Reply / Forward view ",
                     getObjectByText("Reply / Forward").exists());
-            //getObjectById(EmailPage.EMAIL_LIST, 2).clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
+        waitTime(10);
     }
 
     /*
@@ -487,27 +487,30 @@ public class EmailAction extends VP4 {
     * 登陆163邮箱
     * */
     public static void loginEmail() {
-        WifiAction WifiAction = new WifiAction();
-        openAppliction(WifiPage.SETTINGS);
-        clickByText(WifiPage.WIFI);
-        WifiAction.turnOnWifi(true);
-        WifiAction.connectWifi("CKT", "ck88888!");
         openAppliction(EmailPage.EMAIL);
         if (!getObjectByText(EmailPage.WRITE_EMAIL_BUTTON).exists()) {
-            UiObject Address = getObjectById(EmailPage.EMAIL_ACCOUNT_INPUT);
-            UiObject Password = getObjectById(EmailPage.EMAIL_PASSWORD_INPUT);
-            UiObject OKButton = getObjectByText(EmailPage.EMAIL_INPUT_OK_TEXT);
-            try {
-                Address.click();
-                Address.setText(EmailPage.EMAIL_ACCOUNT_1);
-                OKButton.clickAndWaitForNewWindow();
-                Password.click();
-                Password.setText(EmailPage.EMAIL_PASSWORD_1);
-                OKButton.clickAndWaitForNewWindow();
-                OKButton.clickAndWaitForNewWindow();
-                OKButton.clickAndWaitForNewWindow();
-            } catch (UiObjectNotFoundException e) {
-                e.printStackTrace();
+            WifiAction WifiAction = new WifiAction();
+            openAppliction(WifiPage.SETTINGS);
+            clickByText(WifiPage.WIFI);
+            WifiAction.turnOnWifi(true);
+            WifiAction.connectWifi("CKT", "ck88888!");
+            openAppliction(EmailPage.EMAIL);
+            if (!getObjectByText(EmailPage.WRITE_EMAIL_BUTTON).exists()) {
+                UiObject Address = getObjectById(EmailPage.EMAIL_ACCOUNT_INPUT);
+                UiObject Password = getObjectById(EmailPage.EMAIL_PASSWORD_INPUT);
+                UiObject OKButton = getObjectByText(EmailPage.EMAIL_INPUT_OK_TEXT);
+                try {
+                    Address.click();
+                    Address.setText(EmailPage.EMAIL_ACCOUNT_1);
+                    OKButton.clickAndWaitForNewWindow();
+                    Password.click();
+                    Password.setText(EmailPage.EMAIL_PASSWORD_1);
+                    OKButton.clickAndWaitForNewWindow();
+                    OKButton.clickAndWaitForNewWindow();
+                    OKButton.clickAndWaitForNewWindow();
+                } catch (UiObjectNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

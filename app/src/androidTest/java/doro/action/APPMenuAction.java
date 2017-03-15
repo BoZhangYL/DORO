@@ -4,6 +4,7 @@ import android.support.test.uiautomator.UiCollection;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
+import android.support.test.uiautomator.UiWatcher;
 
 import org.hamcrest.Asst;
 
@@ -71,5 +72,18 @@ public class APPMenuAction extends VP4 {
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
+        gDevice.registerWatcher("ALLOW", new UiWatcher() {
+            @Override
+            public boolean checkForCondition() throws UiObjectNotFoundException {
+                if(getObjectByText("ALLOW").exists()){
+                    getObjectByText("ALLOW").clickAndWaitForNewWindow();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
+
+
+
 }
