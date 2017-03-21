@@ -99,8 +99,6 @@ public class VP4 extends VP2 {
     //Home page, menu page, applist page
     public static void switchToHomePage() {//回到主界面
         initRent();
-        String homeScreen = "com.doro.apps.launcher3:id/shortcut_list";
-        Asst.assertTrue("Switch to Home Screen fail", waitObjectTenMinuite(getObjectById(homeScreen)));
     }
 
     public static void switchToMenuPage() {//回到快捷应用图标界面
@@ -327,19 +325,25 @@ public class VP4 extends VP2 {
 
     public static void initRent() {//清除recent
         try {
+            String homeScreen = "com.doro.apps.launcher3:id/shortcut_list";
             pressKey("Home/menu");
             /*while (getObjectById("com.android.systemui:id/task_view_thumbnail").exists()) {
                 scrollLeft(getObjectById("com.android.systemui:id/task_view_thumbnail"),
                         5);
             }*/
-            if (getObjectByText("No recent items").exists()) {
-                try {
-                    pressKey("Menu");
-                } catch (UiObjectNotFoundException e) {
-                    e.printStackTrace();
-                }
-            } else if (getObjectByText("Clear all").exists())
-                getObjectByText("Clear all").clickAndWaitForNewWindow();
+            int i = 0;
+            while (!getObjectById(homeScreen).exists() && i < 2) {
+                if (getObjectByText("No recent items").exists()) {
+                    try {
+                        pressKey("Menu");
+                    } catch (UiObjectNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                } else if (getObjectByText("Clear all").exists())
+                    getObjectByText("Clear all").clickAndWaitForNewWindow();
+                i++;
+            }
+
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
