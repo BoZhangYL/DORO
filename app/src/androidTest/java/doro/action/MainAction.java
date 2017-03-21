@@ -15,16 +15,20 @@ import doro.page.ViewPage;
 public class MainAction extends VP4 {
     /*clear all apps*/
     public static void clearAllApp() throws UiObjectNotFoundException {
-        initDevice();
-        unLock();
-        gDevice.pressMenu();
-        if (text_exists(ViewPage.NO_RECENT_ITEMS)) {
-            gDevice.pressHome();
-        } else {
-            waitUntilFind(ViewPage.CLEAR_APP_ID, 5000);
-            while (id_exists(ViewPage.CLEAR_APP_ID)) {
-                clickById(ViewPage.CLEAR_APP_ID);
-                waitTime(1);
+        String homeScreen = "com.doro.apps.launcher3:id/shortcut_list";
+        while(!getObjectById(homeScreen).exists()) {
+            try {
+                pressKey("Home/menu");
+                if (getObjectByText("No recent items").exists()) {
+                    try {
+                        pressKey("Menu");
+                    } catch (UiObjectNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                } else if (getObjectByText("Clear all").exists())
+                    getObjectByText("Clear all").clickAndWaitForNewWindow();
+            } catch (UiObjectNotFoundException e) {
+                e.printStackTrace();
             }
         }
     }

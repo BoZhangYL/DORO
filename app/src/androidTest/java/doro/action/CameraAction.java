@@ -110,6 +110,11 @@ public class CameraAction extends VP4 {
             if (LocationState.getText().equals("OFF")) {
                 StoreLocation.click();
             }
+            waitTime(2);
+            while (getObjectByText("ALLOW").exists()) {
+                getObjectByText("ALLOW").clickAndWaitForNewWindow();
+            }
+            waitTime(2);
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }

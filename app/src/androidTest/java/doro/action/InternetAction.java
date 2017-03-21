@@ -116,6 +116,7 @@ public class InternetAction extends VP4 {
                 }
                 if (getObjectByText(InternetPage.BAIDU_LOCATION).exists()) {
                     getObjectByText("No").clickAndWaitForNewWindow();
+                    return true;
                 }
                 return false;
             }

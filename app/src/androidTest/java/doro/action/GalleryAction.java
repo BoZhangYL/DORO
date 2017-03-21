@@ -624,8 +624,8 @@ public class GalleryAction extends VP4 {
     * */
     public static void clickAndWaitForNewWindowByText(String text) {
         try {
-            getObjectByText(text).
-                    clickAndWaitForNewWindow();
+            if(getObjectByText(text).exists())
+            getObjectByText(text).clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
