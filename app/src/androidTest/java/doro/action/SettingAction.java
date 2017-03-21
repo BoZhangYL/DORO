@@ -341,10 +341,16 @@ public class SettingAction extends VP4 {
         try{
             boolean enabled =getLinearLayout(5,SETTINGS_STORAGE_RECYCLERVIEWER_CLASS,
                     SETTINGS_STORAGE_LINEARLAYOUT_CLASS).isEnabled();
-            if(status){
-                Assert.assertTrue("Mobiledata can't use",enabled);
+            boolean simCard =getLinearLayout(7,SETTINGS_STORAGE_RECYCLERVIEWER_CLASS,
+                    SETTINGS_STORAGE_LINEARLAYOUT_CLASS).exists();
+            if(simCard){
+                if(status){
+                    Assert.assertTrue("Mobiledata can't use",enabled);
+                }else{
+                    Assert.assertTrue("Mobiledata can use",!enabled);
+                }
             }else{
-                Assert.assertTrue("Mobiledata can use",!enabled);
+                Assert.assertTrue("Maybe the phone doesn't have SIM card",simCard);
             }
         }catch(Exception e){e.printStackTrace();}
     }
