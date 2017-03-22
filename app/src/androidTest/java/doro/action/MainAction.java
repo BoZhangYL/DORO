@@ -50,6 +50,7 @@ public class MainAction extends VP4 {
             waitTime(3);
             //gDevice.pressBack();
             waitUntilFind(LAUNCH3_APP, 30000);
+            while(getObjectByIdText(LAUNCH3_APP,AppName).exists())
             clickByIdText(LAUNCH3_APP, AppName);
             logger.info("current-package is - " + gDevice.getCurrentPackageName());
         }

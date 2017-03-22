@@ -8,7 +8,10 @@ import android.support.test.uiautomator.UiSelector;
 
 import org.hamcrest.Asst;
 
+import java.util.Date;
+
 import ckt.base.VP4;
+import doro.bean.Email;
 import doro.page.EmailPage;
 import doro.page.SettingPage;
 import doro.page.WifiPage;
@@ -21,6 +24,41 @@ public class EmailAction extends VP4 {
     private static UiCollection EmailList =
             new UiCollection(new UiSelector().resourceId(EmailPage.EMAIL_LIST));
     private static UiSelector Emails = new UiSelector().className(EmailPage.EMAIL_VIEW);
+
+    public static void openWiFiDataUsage() {
+
+        try {
+            openAppliction("Settings");
+            getObjectByText("Data usage").clickAndWaitForNewWindow();
+            UiObject DataUsageSwitch = getObjectById("android:id/switch_widget");
+            if ((DataUsageSwitch.getText()).equals("OFF")) {
+                DataUsageSwitch.clickAndWaitForNewWindow();
+            }
+            openAppliction("Settings");
+            getObjectByText("Wi‑Fi").clickAndWaitForNewWindow();
+            UiObject WifiSwitch = getObjectById("com.android.settings:id/switch_widget");
+            if ((WifiSwitch.getText()).equals("OFF")) {
+                WifiSwitch.clickAndWaitForNewWindow();
+            }
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void checkSendEmail(Email email) {
+        try {
+            gDevice.openNotification();
+            int i = 0;
+            while (!getObjectByText("Reply / Forward").exists() && i++ < 3)
+                getObjectByPackage("com.doro.apps.email").clickAndWaitForNewWindow();
+            UiObject EmailSubject = getObjectById("com.doro.apps.email:id/subject");
+            Asst.assertEquals("receive Email Subject error", email.getSubject(),
+                    EmailSubject.getText());
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     /*
     * 关闭wifi，data
@@ -42,33 +80,43 @@ public class EmailAction extends VP4 {
     /*
     * openSentEmail
     * */
-    public static void openSentEmail() {
+    public static Email openSentEmail() {
+        Email email = null;
         try {
             if (getObjectById("com.doro.apps.email:id/dismiss_icon").exists()) {
                 getObjectById("com.doro.apps.email:id/dismiss_icon").clickAndWaitForNewWindow();
             }
-            gDevice.findObject(new UiSelector().className("android.view.View").instance(1)).
-                    clickAndWaitForNewWindow();
+            gDevice.findObject(new UiSelector().className("android.view.View")
+                    .instance(1))
+                    .clickAndWaitForNewWindow();
+            waitTime(5);
             Asst.assertTrue("Not in Email Reply / Forward view ",
                     getObjectByText("Reply / Forward").exists());
+            String subject = getObjectById("com.doro.apps.email:id/subject")
+                    .getText();
+            String Messages = gDevice.findObject(new UiSelector()
+                    .className("android.view.View")
+                    .index(0))
+                    .getContentDescription();
+            email = new Email(null, null, null, subject, Messages);
+
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
-        waitTime(10);
+        waitTime(5);
+        return email;
     }
 
     /*
     * open OutBox email
     * */
-    public static void openOutEmail() {
+    public static Email openOutEmail() {
+        Email email = new Email();
         if (getWifiState()) {
             clickWifiButton();
         }
-//        if (!getMobileDataState()) {
-//            clickMobileDataButton();
-//        }
         if (!getObjectById(EmailPage.EMAIL_LIST, 1).exists()) {
-            NewEmailByAddress();
+            email = NewEmailByAddress();
             sendEmail();
         }
         try {
@@ -78,14 +126,10 @@ public class EmailAction extends VP4 {
             gDevice.findObject(new UiSelector().className("android.view.View").instance(1)).
                     clickAndWaitForNewWindow();
             Asst.assertTrue("Not in Email edit view ", getObjectByText("Edit").exists());
-            /*UiObject Emails =  gDevice.findObject(new UiSelector().resourceId("com.doro.apps." +
-                    "email:id/conversation_list_parent_frame").index(0).index(1).index(0));
-            Emails.clickAndWaitForNewWindow();
-            Asst.assertTrue("Not in Email edit view ", getObjectByText("Edit").exists());*/
-
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
+        return email;
     }
 
     /*
@@ -196,15 +240,23 @@ public class EmailAction extends VP4 {
     /*
     * Zoom in Email
     * */
-    public static void zoomInEmail() {
+    public static void zoomInEmail(Email email) {
         try {
             waitTime(5);
-            Rect BeforeZoom = getUiObjectByDes("test Email success").getBounds();
+            String[] date = email.getMessage().split(":");
+            String Des = "";
+            if (date.length > 1)
+                for (int i = 1; i < date.length; i++) {
+                    Des = Des + ":" + date[i];
+                }
+            else
+                Des = email.getMessage();
+            Rect BeforeZoom = getUiObjectByDes(Des).getBounds();
             getObjectByText(EmailPage.I_WANT_TO_BUTTON).clickAndWaitForNewWindow();
-            Asst.assertTrue("I Want To Menu disappearautomatically!",
+            Asst.assertTrue("bug: BEER-1032",
                     getObjectByText(EmailPage.ZOOM_IN).exists());
             getObjectByText(EmailPage.ZOOM_IN).clickAndWaitForNewWindow();
-            Rect CurrentZoom = getUiObjectByDes("test Email success").getBounds();
+            Rect CurrentZoom = getUiObjectByDes(Des).getBounds();
             Asst.assertTrue("Zoom in fail !", (CurrentZoom.bottom - CurrentZoom.top) >
                     (BeforeZoom.bottom - BeforeZoom.top));
         } catch (UiObjectNotFoundException e) {
@@ -215,7 +267,7 @@ public class EmailAction extends VP4 {
     /*
     * delete Email
     * */
-    public static void deleteEmail() {
+    public static void deleteEmail(Email email) {
         try {
             getObjectByText(EmailPage.I_WANT_TO_BUTTON).clickAndWaitForNewWindow();
             getObjectByText("Delete this email").clickAndWaitForNewWindow();
@@ -225,7 +277,7 @@ public class EmailAction extends VP4 {
             waitTime(10);
             if (!getObjectById(EmailPage.EMPTY_EMAIL_ICON).exists()
                     && !getObjectById(EmailPage.EMPTY_EMAIL_TXT).exists()) {
-                Asst.assertTrue("delete fail ", getObjectByText(EmailPage.WRITE_EMAIL_BUTTON).exists());
+                Asst.assertTrue("Bug:BEER-1120", getObjectByText(EmailPage.WRITE_EMAIL_BUTTON).exists());
             }
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
@@ -287,21 +339,25 @@ public class EmailAction extends VP4 {
     * 等待接受新邮件
     * */
     public static void waitReceiveEmail() {
-        waitTime(120);
-        VP4.unLock();
-        syncEmailByManual();
-        gDevice.openNotification();
-        Asst.assertTrue("whitout new Email!", getObjectByText("Email").exists());
+        for (int i = 0; i < 5; i++) {
+            waitTime(120);
+            VP4.unLock();
+            syncEmailByManual();
+            gDevice.openNotification();
+            if (getObjectByText("cktcdtest1@163.com").exists()) {
+                break;
+            }
+        }
+        Asst.assertTrue("whitout new Email!", getObjectByText("cktcdtest1@163.com").exists());
     }
 
-    public static void checkEmailFromNotifcation() {
-        try {
-            getObjectByText("Email").clickAndWaitForNewWindow();
+    public static void checkEmailFromNotifcation(Email email) {
+        gDevice.openNotification();
+        String emailtext = email.getSubject() + "\n" + email.getMessage();
+        Asst.assertTrue("There is no new emil", getObjectByText(emailtext).exists());
+            /*getObjectByText("Email").clickAndWaitForNewWindow();
             Asst.assertEquals("Can not open Email by notfication", EmailPage.EMAIL_PACKAGE,
-                    gDevice.getCurrentPackageName());
-        } catch (UiObjectNotFoundException e) {
-            e.printStackTrace();
-        }
+                    gDevice.getCurrentPackageName());*/
     }
 
     /*
@@ -310,8 +366,9 @@ public class EmailAction extends VP4 {
     public static void syncEmailByManual() {
         openAppliction("Settings");
         try {
-            while (!getObjectByTextContains("Accounts").exists()) {
-                scrollByVerticalForward(25);
+            int j = 0;
+            while (!getObjectByTextContains("Accounts").exists() && j++ < 20) {
+                scrollByVerticalForward(50);
             }
             getObjectByTextContains("Accounts").clickAndWaitForNewWindow();
             if (getObjectByText("Personal (IMAP)").exists()) {
@@ -325,7 +382,7 @@ public class EmailAction extends VP4 {
                 }
                 waitTime(10);
                 gDevice.openNotification();
-                if (getObjectByText("Email").exists()) {
+                if (getObjectByText("cktcdtest1@163.com").exists()) {
                     break;
                 }
                 gDevice.swipe(gDevice.getDisplayWidth() / 2, gDevice.
@@ -550,17 +607,19 @@ public class EmailAction extends VP4 {
     /*
     * 创建一份通过邮箱地址发送的邮件
     * */
-    public static void NewEmailByAddress() {
+    public static Email NewEmailByAddress() {
+        Email email = new Email();
         try {
             getObjectByText(EmailPage.WRITE_EMAIL_BUTTON).clickAndWaitForNewWindow();
             getObjectByText(EmailPage.SEND_BY_ADDRESS).clickAndWaitForNewWindow();
             getObjectById(EmailPage.INPUT_SEND_ADDRESS).setText(EmailPage.EMAIL_ACCOUNT_1);
             getObjectByText(EmailPage.CONFIRM_BUTTON).clickAndWaitForNewWindow();
-            setSubject("test");
-            setEmailBody("test Email success");
+            setSubject(email.getSubject());
+            setEmailBody(email.getMessage());
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
+        return email;
     }
 
     /*

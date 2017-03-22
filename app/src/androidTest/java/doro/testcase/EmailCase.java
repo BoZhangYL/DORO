@@ -5,6 +5,7 @@ import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 
 import org.hamcrest.Asst;
+import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import ckt.base.VP4;
 import doro.action.EmailAction;
 import doro.action.MainAction;
+import doro.bean.Email;
 import doro.page.APPMenuPage;
 import doro.page.EmailPage;
 
@@ -26,6 +28,11 @@ public class EmailCase extends VP4 {
     public static void initGalleryCase() {
         unLock();
         EmailAction.loginEmail();
+    }
+
+    @After
+    public void checkConnect() {
+        EmailAction.openWiFiDataUsage();
     }
 
     @Test
@@ -65,22 +72,26 @@ public class EmailCase extends VP4 {
 
     @Test
     public void checkReceiveEmail() {
+        Email email =new Email();
         EmailAction.openEmailApp();
-        EmailAction.NewEmailByAddress();
+        email =EmailAction.NewEmailByAddress();
         EmailAction.sendEmail();
         EmailAction.exitEmailApp();
         EmailAction.waitReceiveEmail();
-        EmailAction.checkEmailFromNotifcation();
+        EmailAction.checkEmailFromNotifcation(email);
     }
 
     @Test
     public void receiveEmail() {
+        EmailAction.waitReceiveEmail();
+        Email email = new Email();
         EmailAction.openEmailApp();
         EmailAction.changeSyncTimeToFiveMinutes();
-        EmailAction.NewEmailByAddress();
+        email = EmailAction.NewEmailByAddress();
         EmailAction.sendEmail();
         EmailAction.exitEmailApp();
         EmailAction.waitReceiveEmail();
+        EmailAction.checkSendEmail(email);
     }
 
     @Test
@@ -91,12 +102,13 @@ public class EmailCase extends VP4 {
 
     @Test
     public void operationOutBox() {
+        Email email = new Email();
         EmailAction.closeDataUsage();
         EmailAction.openEmailApp();
         EmailAction.switchToOutBox();
-        EmailAction.openOutEmail();
-        EmailAction.zoomInEmail();
-        EmailAction.deleteEmail();
+        email = EmailAction.openOutEmail();
+        EmailAction.zoomInEmail(email);
+        EmailAction.deleteEmail(email);
         EmailAction.exitOutBox();
     }
 
@@ -104,9 +116,9 @@ public class EmailCase extends VP4 {
     public void operationSentBox() {
         EmailAction.openEmailApp();
         EmailAction.switchToSentBox();
-        EmailAction.openSentEmail();
-        EmailAction.zoomInEmail();
-        EmailAction.deleteEmail();
+        Email email = EmailAction.openSentEmail();
+        EmailAction.zoomInEmail(email);
+        EmailAction.deleteEmail(email);
     }
 
     @Test

@@ -59,7 +59,36 @@ public class VP4 extends VP2 {
         }
     }
 
+    public static void clearNoTifcation() {
+        gDevice.openNotification();
+        if(getObjectByText("Clear all").exists())
+            try {
+                getObjectByText("Clear all").clickAndWaitForNewWindow();
+            } catch (UiObjectNotFoundException e) {
+                e.printStackTrace();
+            }
+        getObjectByText("Clear all");
+        /*  UiCollection Notification = new UiCollection(new UiSelector().
+                  resourceId("com.android.systemui:id/notification_stack_scroller"));
+
+
+              int number = Notification.getChildCount(new UiSelector()
+                      .resourceId("com.android.systemui:id/fake_shadow"));
+              for (int i = 0; i < number - 1; i++) {
+                  Notification.getChildByInstance(new UiSelector()
+                          .resourceId("com.android.systemui:id/fake_shadow"),i).swipeLeft(5);
+               *//*   gDevice.findObject(new UiSelector()
+                          .resourceId("com.android.systemui:id/notification_stack_scroller")
+                          .index(i))
+                          .swipeLeft(10);*//*
+              }*/
+        gDevice.swipe(gDevice.getDisplayWidth() / 2, gDevice.
+                getDisplayHeight(), gDevice.getDisplayWidth() / 2, 0, 10);
+
+    }
+
     public static void openAppliction(String AppName) {//打开应用
+        clearNoTifcation();
         String FinallyAppName = "YouTube";
         UiObject SearchBox = getObjectById("com.doro.apps.launcher3:id/search_box_input");
         UiCollection APPList = new UiCollection(new UiSelector().
