@@ -61,13 +61,12 @@ public class VP4 extends VP2 {
 
     public static void clearNoTifcation() {
         gDevice.openNotification();
-        if(getObjectByText("Clear all").exists())
+        if(getObjectByText("CLEAR ALL").exists())
             try {
-                getObjectByText("Clear all").clickAndWaitForNewWindow();
+                getObjectByText("CLEAR ALL").clickAndWaitForNewWindow();
             } catch (UiObjectNotFoundException e) {
                 e.printStackTrace();
             }
-        getObjectByText("Clear all");
         /*  UiCollection Notification = new UiCollection(new UiSelector().
                   resourceId("com.android.systemui:id/notification_stack_scroller"));
 
