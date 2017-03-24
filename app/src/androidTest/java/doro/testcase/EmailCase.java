@@ -30,10 +30,12 @@ public class EmailCase extends VP4 {
         EmailAction.loginEmail();
     }
 
+/*
     @After
     public void checkConnect() {
         EmailAction.openWiFiDataUsage();
     }
+*/
 
     @Test
     public void launchEmail() {
@@ -72,9 +74,8 @@ public class EmailCase extends VP4 {
 
     @Test
     public void checkReceiveEmail() {
-        Email email =new Email();
         EmailAction.openEmailApp();
-        email =EmailAction.NewEmailByAddress();
+        Email email =EmailAction.NewEmailByAddress();
         EmailAction.sendEmail();
         EmailAction.exitEmailApp();
         EmailAction.waitReceiveEmail();
@@ -83,11 +84,8 @@ public class EmailCase extends VP4 {
 
     @Test
     public void receiveEmail() {
-        EmailAction.waitReceiveEmail();
-        Email email = new Email();
         EmailAction.openEmailApp();
-        EmailAction.changeSyncTimeToFiveMinutes();
-        email = EmailAction.NewEmailByAddress();
+        Email email = EmailAction.NewEmailByAddress();
         EmailAction.sendEmail();
         EmailAction.exitEmailApp();
         EmailAction.waitReceiveEmail();
@@ -102,14 +100,13 @@ public class EmailCase extends VP4 {
 
     @Test
     public void operationOutBox() {
-        Email email = new Email();
         EmailAction.closeDataUsage();
         EmailAction.openEmailApp();
         EmailAction.switchToOutBox();
-        email = EmailAction.openOutEmail();
+        Email email = EmailAction.openOutEmail();
         EmailAction.zoomInEmail(email);
         EmailAction.deleteEmail(email);
-        EmailAction.exitOutBox();
+        EmailAction.openWiFiDataUsage();
     }
 
     @Test

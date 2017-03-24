@@ -43,7 +43,7 @@ public class InternetCase extends VP4{
     }
 
     @Test
-    public void searchWord(){//
+    public void   searchWord(){//
         InternetAction.openInternetApp();
         InternetAction.searchWord();
     }

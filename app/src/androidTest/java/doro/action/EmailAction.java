@@ -10,6 +10,7 @@ import org.hamcrest.Asst;
 
 import java.util.Date;
 
+import ckt.base.VP;
 import ckt.base.VP4;
 import doro.bean.Email;
 import doro.page.EmailPage;
@@ -52,6 +53,7 @@ public class EmailAction extends VP4 {
             int i = 0;
             while (!getObjectByText("Reply / Forward").exists() && i++ < 3)
                 getObjectByPackage("com.doro.apps.email").clickAndWaitForNewWindow();
+            waitTime(5);
             UiObject EmailSubject = getObjectById("com.doro.apps.email:id/subject");
             Asst.assertEquals("receive Email Subject error", email.getSubject(),
                     EmailSubject.getText());
@@ -243,14 +245,7 @@ public class EmailAction extends VP4 {
     public static void zoomInEmail(Email email) {
         try {
             waitTime(5);
-            String[] date = email.getMessage().split(":");
-            String Des = "";
-            if (date.length > 1)
-                for (int i = 1; i < date.length; i++) {
-                    Des = Des + ":" + date[i];
-                }
-            else
-                Des = email.getMessage();
+            String Des = email.getMessage();
             Rect BeforeZoom = getUiObjectByDes(Des).getBounds();
             getObjectByText(EmailPage.I_WANT_TO_BUTTON).clickAndWaitForNewWindow();
             Asst.assertTrue("bug: BEER-1032",
@@ -339,8 +334,8 @@ public class EmailAction extends VP4 {
     * 等待接受新邮件
     * */
     public static void waitReceiveEmail() {
-        for (int i = 0; i < 5; i++) {
-            waitTime(120);
+        for (int i = 0; i < 3; i++) {
+            waitTime(60);
             VP4.unLock();
             syncEmailByManual();
             gDevice.openNotification();
@@ -541,9 +536,34 @@ public class EmailAction extends VP4 {
     }
 
     /*
+    *打开自动时间设置
+    * */
+    public static void setAutomaticDate() {
+        VP4.openAppliction("Settings");
+        while (!getObjectByText("Date & time").exists()) {
+            scrollByVerticalForward(25);
+        }
+        try {
+            getObjectByText("Date & time").clickAndWaitForNewWindow();
+            for (int i = 0; i < 3; i++) {
+                if ((gDevice.findObject(new UiSelector().resourceId("android:id/switch_widget")
+                        .instance(i)).getText()).equals("OFF")) {
+                    gDevice.findObject(new UiSelector().resourceId("android:id/switch_widget")
+                            .instance(i)).clickAndWaitForNewWindow();
+                }
+            }
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /*
     * 登陆163邮箱
     * */
     public static void loginEmail() {
+        setAutomaticDate();
+        VP4.clearNoTifcation();
         openAppliction(EmailPage.EMAIL);
         if (!getObjectByText(EmailPage.WRITE_EMAIL_BUTTON).exists()) {
             WifiAction WifiAction = new WifiAction();

@@ -61,7 +61,13 @@ public class VP4 extends VP2 {
 
     public static void clearNoTifcation() {
         gDevice.openNotification();
-        if(getObjectByText("CLEAR ALL").exists())
+        UiObject NotifcationList =
+                getObjectById("com.android.systemui:id/notification_stack_scroller");
+        for (int i = 0; i < 5; i++) {
+            gDevice.swipe(gDevice.getDisplayWidth() / 4, gDevice.getDisplayHeight() / 2,
+                    gDevice.getDisplayWidth() / 4, gDevice.getDisplayHeight() / 4, 10);
+        }
+        if (getObjectByText("CLEAR ALL").exists())
             try {
                 getObjectByText("CLEAR ALL").clickAndWaitForNewWindow();
             } catch (UiObjectNotFoundException e) {
@@ -87,7 +93,7 @@ public class VP4 extends VP2 {
     }
 
     public static void openAppliction(String AppName) {//打开应用
-        clearNoTifcation();
+        // clearNoTifcation();
         String FinallyAppName = "YouTube";
         UiObject SearchBox = getObjectById("com.doro.apps.launcher3:id/search_box_input");
         UiCollection APPList = new UiCollection(new UiSelector().
