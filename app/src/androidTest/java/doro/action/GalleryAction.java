@@ -344,9 +344,8 @@ public class GalleryAction extends VP4 {
                 GALLERYSETTINGS_FAVOURITE).exists());
         Asst.assertTrue("Delete pictures(s选项不存在", getObjectByText(GalleryPage.
                 GALLERYSETTINGS_DELETE_PICTURES).exists());
-        Asst.assertTrue("set...选项不存在", getObjectByText(GalleryPage.GALLERYSETTINGS_SET).
-                exists());
-    }
+        Asst.assertTrue("set...选项不存在", getObjectByText(GalleryPage.GALLERYSETTINGS_SET).exists());}
+
 
     public static void getAllPicturesCount() {
         launchGalleryFromAppList();

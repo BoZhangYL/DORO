@@ -29,5 +29,6 @@ public class DiscoverCase extends VP4{
         clickByText("Discover");
         mDevice.pressBack();
         Assert.assertFalse("成功退出Discover", getObjectByText("What?").exists());
+
     }
 }

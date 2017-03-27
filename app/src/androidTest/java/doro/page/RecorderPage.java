@@ -6,7 +6,6 @@ package doro.page;
 
 public class RecorderPage {//数字键的类名
     public static final String CALCULATOR_BUTTON_CLASS="android.widget.Button";
-
     //播放列表的ResourceID
     public static final String RECORDLIST_ID="com.doro.apps.soundrec:id/button";
     //播放列表界面的menu的ResourceID
