@@ -562,9 +562,9 @@ public class EmailAction extends VP4 {
     * 登陆163邮箱
     * */
     public static void loginEmail() {
+        unLock();
         setAutomaticDate();
         VP4.clearNoTifcation();
-        openAppliction(EmailPage.EMAIL);
         if (!getObjectByText(EmailPage.WRITE_EMAIL_BUTTON).exists()) {
             WifiAction WifiAction = new WifiAction();
             openAppliction(WifiPage.SETTINGS);
@@ -580,6 +580,7 @@ public class EmailAction extends VP4 {
                     Address.click();
                     Address.setText(EmailPage.EMAIL_ACCOUNT_1);
                     OKButton.clickAndWaitForNewWindow();
+                    getObjectByText("Personal (POP3)").clickAndWaitForNewWindow();
                     Password.click();
                     Password.setText(EmailPage.EMAIL_PASSWORD_1);
                     OKButton.clickAndWaitForNewWindow();

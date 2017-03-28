@@ -4,8 +4,10 @@ import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 import doro.action.PlayStoreAction;
 
@@ -17,15 +19,18 @@ import static doro.page.PlayStorePage.*;
  */
 
 @RunWith(AndroidJUnit4.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PlayStoreCase extends PlayStoreAction{
-    @BeforeClass
+   /* @BeforeClass
     public static void initPlayStore() {
         unLock();
         connectWifi("CK-Test-CTS","test7878");
-    }
+    }*/
 
     @Test
     public void Case1_testSignInGmailAccount(){
+        unLock();
+        connectWifi("CK-Test-CTS","test7878");
         openAppliction(PLAYSTORE_NAME);
         signInGmailAccount("buteo753753@gmail.com","19920610");
         Assert.assertTrue("Gmail账号登陆失败！",getObjectById(PLAYSTORE_SEARCHBOX_ID).exists());

@@ -811,10 +811,10 @@ public class GalleryAction extends VP4 {
     * 删除一张随机图片
     * */
     public static void deleteOneRandomPicture() {
-        String DeletedGalleryNames[][] = getPictureVideoNmae();
-        if (scr.exists()) {
+        //String DeletedGalleryNames[][] = getPictureVideoNmae();
+    /*    if (scr.exists()) {
             scrollToBegin(20);
-        }
+        }*/
         clickIWantToButton();
         clickDeletePictureButton();
         String deleteName = selectDeletePictures();
@@ -823,7 +823,7 @@ public class GalleryAction extends VP4 {
         Asst.assertTrue("Cancel delete photo fail", getObjectByDesc(deleteName).exists());
         clickConfirmButton();
         clickOKButton();
-        waitTime(30);
+        waitTime(40);
         Asst.assertTrue("the Delted photo is exist!", !getObjectByDesc(deleteName).exists());
 
       /*  int pictures[] = getCurrentPicturesVideosNum();

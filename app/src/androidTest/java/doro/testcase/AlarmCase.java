@@ -3,8 +3,10 @@ package doro.testcase;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 import ckt.base.VP4;
 import doro.action.AlarmAction;
@@ -17,11 +19,12 @@ import static doro.page.AlarmPage.APPS_ICON_ALARM_TEXT;
  * Created by user on 2016/12/06   .
  */
 @RunWith(AndroidJUnit4.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AlarmCase extends VP4{
     AlarmAction AlarmAction = new AlarmAction();
     SettingAction SettingAction = new SettingAction();
     SetAction SetAction = new SetAction();
-    @Before
+   @Before
     public void unlock(){
         unLock();
     }
@@ -40,7 +43,7 @@ public class AlarmCase extends VP4{
         openAppliction(APPS_ICON_ALARM_TEXT); //找到设置应用
         AlarmAction.addTimeAlarm24("00:00");//建立一个时间为00:00的闹钟
         SetAction.setATime("23:59");
-        phoneWaitTime(1.2);
+        phoneWaitTime(1);
         AlarmAction.checkAlarmComing();//判断闹钟是否到来
         AlarmAction.alarmComingStop();//闹钟到来后选择关闭闹钟
     }
@@ -49,15 +52,16 @@ public class AlarmCase extends VP4{
         openAppliction(APPS_ICON_ALARM_TEXT); //找到闹钟应用
         AlarmAction.addTimeAlarm24("00:01");//建立一个时间为00:01的闹钟
         SetAction.setADateAndTime("2013-12-31","23:59");
-        phoneWaitTime(2.2);
+        phoneWaitTime(2);
         AlarmAction.checkAlarmComing();//判断闹钟是否到来
         AlarmAction.alarmComingStop();//闹钟到来后选择关闭闹钟
     }
     @Test
     public void caeatOneAlarm(){ //创建一个2分钟后的闹钟
+        AlarmAction.closeAutoTime();
         openAppliction(APPS_ICON_ALARM_TEXT); //找到闹钟应用
         AlarmAction.addOneAlarm();//建立一个2分钟后的闹钟
-        phoneWaitTime(2.2);//等待2分钟
+        phoneWaitTime(2);//等待2分钟
         AlarmAction.checkAlarmComing();//判断闹钟是否到来
         AlarmAction.alarmComingStop();//闹钟到来后选择关闭闹钟
     }
@@ -92,10 +96,10 @@ public class AlarmCase extends VP4{
     public void snoozeOneAlarm(){ //snooze 一个闹钟
         openAppliction(APPS_ICON_ALARM_TEXT); //找到闹钟设置应用
         AlarmAction.addOneAlarm();//建立一个2分钟后的闹钟
-        phoneWaitTime(2.2);//等待2分钟
+        phoneWaitTime(2);//等待2分钟
         AlarmAction.checkAlarmComing();//判断闹钟是否到来
         AlarmAction.alarmComingSnooze();//闹钟到来后选择Snooze闹钟
-        phoneWaitTime(5.2);//等待5.2分钟
+        phoneWaitTime(5);//等待5.2分钟
         AlarmAction.checkAlarmComing();//判断闹钟是否到来
         AlarmAction.alarmComingStop();//闹钟到来后选择关闭闹钟
     }
@@ -103,10 +107,10 @@ public class AlarmCase extends VP4{
     public void stopOneAlarm(){ //stop 一个闹钟
         openAppliction(APPS_ICON_ALARM_TEXT); //找到闹钟设置应用
         AlarmAction.addOneAlarm();//建立一个2分钟后的闹钟
-        phoneWaitTime(2.2);//等待2分钟
+        phoneWaitTime(2);//等待2分钟
         AlarmAction.checkAlarmComing();//判断闹钟是否到来
         AlarmAction.alarmComingStop();//闹钟到来后选择Snooze闹钟
-        phoneWaitTime(5.5);//等待5.5分钟
+        phoneWaitTime(5);//等待5.5分钟
         AlarmAction.checkAlarmNotComing();//判断闹钟是否到来
     }
 }
