@@ -164,6 +164,7 @@ public class SetAction extends VP4{
         }catch(Exception e){e.printStackTrace();}
     }
     public void autoTime(boolean yesOrNo){ //是否采用 自动时间
+        waitTime(10);
         try{
             if(yesOrNo){
                 if(!getObjectById(SET_AUTOTIME_CHECKVIEW_ID).isChecked()){

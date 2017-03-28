@@ -1,5 +1,6 @@
 package doro.action;
 
+import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
 
 import junit.framework.Assert;
@@ -41,6 +42,32 @@ import static doro.page.AlarmPage.AlARM_APPS_ALARM_PACKAGE;
  */
 
 public class AlarmAction extends VP4 {
+
+
+    public  void closeAutoTime(){
+        VP4.switchToMenuPage();
+        try {
+            getObjectByText("Set").clickAndWaitForNewWindow();
+            for(int j=0;j<5;j++){
+                if(getObjectByText("A general option").exists())
+                    break;
+                else
+                    VP4.scrollByVerticalForward(30);
+            }
+            getObjectByText("A general option").clickAndWaitForNewWindow();
+            for(int i=0;i<5;i++){
+                if(getObjectByText("The date and time").exists()){
+                    break;
+                }else
+                    VP4.scrollByVerticalForward(30);
+            }
+            getObjectByText("The date and time").clickAndWaitForNewWindow();
+            getObjectById("com.doro.settings:id/checkview").clickAndWaitForNewWindow();
+
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
     private void specialTime(String time){//得到指定的时间
         String[] hourMinTime = time.split(":");
         try{

@@ -28,16 +28,13 @@ import static doro.page.DownloadsPage.*;
  */
 
 @RunWith(AndroidJUnit4.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DownloadsCase extends DownloadsAction {
-    @BeforeClass
-    public static void initDownloads(){
+    @Test
+    public void Case1_testEnterDownloads()throws UiObjectNotFoundException{
         unLock();
         connectWifi("CKT","ck88888!");//连接wifi
         downloadFiles();//下载文件
-    }
-
-    @Test
-    public void Case1_testEnterDownloads()throws UiObjectNotFoundException{
         openAppliction(DOWNLOADS);
         Assert.assertEquals("没有进入Downloads",DOWNLOADS,getObjectByClass(DOWNLOADS_CLASS).getText());
     }
@@ -45,6 +42,7 @@ public class DownloadsCase extends DownloadsAction {
     @Test
     public void Case2_testQuitDownloads(){
         openAppliction(DOWNLOADS);
+        mDevice.pressBack();
         mDevice.pressBack();
         mDevice.pressBack();//按返回键退出下载程序
         Assert.assertTrue("没有退出Downloads",getObjectByText(MYAPPLICATIONS).exists());

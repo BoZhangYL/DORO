@@ -7,8 +7,10 @@ import android.support.test.uiautomator.UiObjectNotFoundException;
 import org.hamcrest.Asst;
 import org.junit.After;
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 import java.io.IOException;
 
@@ -23,20 +25,12 @@ import doro.page.EmailPage;
  * Created by Caibing.Yin on 2017/1/14.
  */
 @RunWith(AndroidJUnit4.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class EmailCase extends VP4 {
-    @BeforeClass
-    public static void initGalleryCase() {
-        unLock();
+    /*@BeforeClass
+    public static void initEmail() {
         EmailAction.loginEmail();
-    }
-
-/*
-    @After
-    public void checkConnect() {
-        EmailAction.openWiFiDataUsage();
-    }
-*/
-
+    }*/
     @Test
     public void launchEmail() {
         EmailAction.openEmailApp();
@@ -75,7 +69,7 @@ public class EmailCase extends VP4 {
     @Test
     public void checkReceiveEmail() {
         EmailAction.openEmailApp();
-        Email email =EmailAction.NewEmailByAddress();
+        Email email = EmailAction.NewEmailByAddress();
         EmailAction.sendEmail();
         EmailAction.exitEmailApp();
         EmailAction.waitReceiveEmail();
@@ -94,6 +88,7 @@ public class EmailCase extends VP4 {
 
     @Test
     public void checkEmailMenu() {
+        EmailAction.loginEmail();
         EmailAction.openEmailApp();
         EmailAction.switchToEmailMenu();
     }
@@ -119,7 +114,7 @@ public class EmailCase extends VP4 {
     }
 
     @Test
-    public void cehckSentEmail() {
+    public void checkSentEmail() {
         EmailAction.openEmailApp();
         EmailAction.switchToSentBox();
     }

@@ -145,18 +145,20 @@ public class InternetCase extends VP4 {
         InternetAction.openInternetApp();
         InternetAction.checkSetOption();
     }
-        @Test
-        public void setMaxOpendPage() {
-            InternetAction.openInternetApp();
-            InternetAction.checkSetOption();
-            InternetAction.setMaxOpendPages(InternetPage.MAXPAGE_NUMBER_2);
-            InternetAction.checkMaxPages(InternetPage.MAXPAGE_NUMBER_2);
-        }
-        @Test
-        public void checkDefaultPage() {
-            InternetAction.openInternetApp();
-            InternetAction.checkSetOption();
-            InternetAction.checkDefaultPages();
-        }
 
+    @Test
+    public void setMaxOpendPage() {
+        InternetAction.openInternetApp();
+        InternetAction.checkSetOption();
+        InternetAction.setMaxOpendPages(InternetPage.MAXPAGE_NUMBER_2);
+        InternetAction.checkMaxPages(InternetPage.MAXPAGE_NUMBER_2);
     }
+
+    @Test
+    public void checkDefaultPage() {
+        InternetAction.openInternetApp();
+        InternetAction.checkSetOption();
+        InternetAction.checkDefaultPages();
+    }
+
+}

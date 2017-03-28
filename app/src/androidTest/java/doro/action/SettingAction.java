@@ -113,7 +113,7 @@ public class SettingAction extends VP4 {
     public void findSettingChildren(String childName){ //通过名字来找到列表中的选项
         try {
             while (!getObjectByTextContains(childName).exists()) {
-                scrollByVerticalForward(25);
+                scrollByVerticalForward(40);
             }
             getObjectByTextContains(childName).clickAndWaitForNewWindow();
         } catch (Exception e) {e.printStackTrace();}
@@ -121,7 +121,7 @@ public class SettingAction extends VP4 {
     public void findSettingChildren(String id,String childName){//通过名字以及ID来找到列表中的选项
         try {
             while (!getObjectByIdText(id,childName).exists()) {
-                scrollByVerticalForward(25);
+                scrollByVerticalForward(40);
             }
             getObjectByIdText(id,childName).clickAndWaitForNewWindow();
         } catch (Exception e) {e.printStackTrace();}
