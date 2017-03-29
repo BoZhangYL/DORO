@@ -2,6 +2,7 @@ package doro.testcase;
 
 import android.support.test.runner.AndroidJUnit4;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -20,26 +21,35 @@ import static doro.page.AlarmPage.APPS_ICON_ALARM_TEXT;
  */
 @RunWith(AndroidJUnit4.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class AlarmCase extends VP4{
+public class AlarmCase extends VP4 {
     AlarmAction AlarmAction = new AlarmAction();
     SettingAction SettingAction = new SettingAction();
     SetAction SetAction = new SetAction();
-   @Before
-    public void unlock(){
+
+    @Before
+    public void unlock() {
         unLock();
     }
+
+    @After
+    public void disableAlarm() {
+        AlarmAction.closeAlarm();
+    }
+
     @Test
-    public void enterAndExitAlarm(){ //进入与退出闹钟界面
+    public void enterAndExitAlarm() { //进入与退出闹钟界面
         openAppliction("Alarm"); //找到设置应用
         AlarmAction.enterAndExitAlarm(5);
     }
+
     @Test
-    public void exitAlarm(){ //退出闹钟界面
+    public void exitAlarm() { //退出闹钟界面
         openAppliction(APPS_ICON_ALARM_TEXT); //找到设置应用
         AlarmAction.exitAlarm();
     }
+
     @Test
-    public void creatZoneAlarm(){ //设置一个零点响起的闹钟
+    public void creatZoneAlarm() { //设置一个零点响起的闹钟
         openAppliction(APPS_ICON_ALARM_TEXT); //找到设置应用
         AlarmAction.addTimeAlarm24("00:00");//建立一个时间为00:00的闹钟
         SetAction.setATime("23:59");
@@ -47,17 +57,19 @@ public class AlarmCase extends VP4{
         AlarmAction.checkAlarmComing();//判断闹钟是否到来
         AlarmAction.alarmComingStop();//闹钟到来后选择关闭闹钟
     }
+
     @Test
-    public void creatYearAlarm(){ //建立一个跨日跨年的闹钟
+    public void creatYearAlarm() { //建立一个跨日跨年的闹钟
         openAppliction(APPS_ICON_ALARM_TEXT); //找到闹钟应用
         AlarmAction.addTimeAlarm24("00:01");//建立一个时间为00:01的闹钟
-        SetAction.setADateAndTime("2013-12-31","23:59");
+        SetAction.setADateAndTime("2013-12-31", "23:59");
         phoneWaitTime(2);
         AlarmAction.checkAlarmComing();//判断闹钟是否到来
         AlarmAction.alarmComingStop();//闹钟到来后选择关闭闹钟
     }
+
     @Test
-    public void caeatOneAlarm(){ //创建一个2分钟后的闹钟
+    public void caeatOneAlarm() { //创建一个2分钟后的闹钟
         AlarmAction.closeAutoTime();
         openAppliction(APPS_ICON_ALARM_TEXT); //找到闹钟应用
         AlarmAction.addOneAlarm();//建立一个2分钟后的闹钟
@@ -65,15 +77,17 @@ public class AlarmCase extends VP4{
         AlarmAction.checkAlarmComing();//判断闹钟是否到来
         AlarmAction.alarmComingStop();//闹钟到来后选择关闭闹钟
     }
+
     @Test
-    public void repeatThreeAlarm(){ //创建一个重复三天的闹钟
+    public void repeatThreeAlarm() { //创建一个重复三天的闹钟
         openAppliction(APPS_ICON_ALARM_TEXT); //找到闹钟设置应用
-        AlarmAction.addTimeWeekAlarm("18:21",null,"Tuesday",null,"Thursday",
-                null,"Saturday",null);
-        SettingAction.setSpecialWeeks("18:20","Tuesday",1.2);
-        SettingAction.setSpecialWeeks("18:20","Thursday",1.2);
-        SettingAction.setSpecialWeeks("18:20","Saturday",1.2);
+        AlarmAction.addTimeWeekAlarm("18:21", null, "Tuesday", null, "Thursday",
+                null, "Saturday", null);
+        SettingAction.setSpecialWeeks("18:20", "Tuesday", 1.2);
+        SettingAction.setSpecialWeeks("18:20", "Thursday", 1.2);
+        SettingAction.setSpecialWeeks("18:20", "Saturday", 1.2);
     }
+
     /*@Test
     public void repeatEveryAlarm(){ //创建一个每天重复的闹钟
         openAppliction(APPS_ICON_ALARM_TEXT); //找到闹钟设置应用
@@ -82,18 +96,20 @@ public class AlarmCase extends VP4{
         SettingAction.setEverydayTime("18:21",1.2);
     }*/
     @Test
-    public void deleteAllAlarm(){ //删除所有的闹钟
+    public void deleteAllAlarm() { //删除所有的闹钟
         openAppliction(APPS_ICON_ALARM_TEXT); //找到闹钟设置应用
         AlarmAction.deleteAllAlarm();
         AlarmAction.checkHasAlarm();
     }
+
     @Test
-    public void deleteAOneAlarm(){ //删除一个闹钟
+    public void deleteAOneAlarm() { //删除一个闹钟
         openAppliction(APPS_ICON_ALARM_TEXT); //找到闹钟设置应用
         AlarmAction.deleteOneAlarm();
     }
+
     @Test
-    public void snoozeOneAlarm(){ //snooze 一个闹钟
+    public void snoozeOneAlarm() { //snooze 一个闹钟
         openAppliction(APPS_ICON_ALARM_TEXT); //找到闹钟设置应用
         AlarmAction.addOneAlarm();//建立一个2分钟后的闹钟
         phoneWaitTime(2);//等待2分钟
@@ -103,8 +119,9 @@ public class AlarmCase extends VP4{
         AlarmAction.checkAlarmComing();//判断闹钟是否到来
         AlarmAction.alarmComingStop();//闹钟到来后选择关闭闹钟
     }
+
     @Test
-    public void stopOneAlarm(){ //stop 一个闹钟
+    public void stopOneAlarm() { //stop 一个闹钟
         openAppliction(APPS_ICON_ALARM_TEXT); //找到闹钟设置应用
         AlarmAction.addOneAlarm();//建立一个2分钟后的闹钟
         phoneWaitTime(2);//等待2分钟
