@@ -4,8 +4,10 @@ import android.os.RemoteException;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 import ckt.base.VP4;
 import doro.action.GalleryAction;
@@ -14,12 +16,13 @@ import doro.action.GalleryAction;
  * Created by bo.zhang on 2016/12/27   .
  */
 @RunWith(AndroidJUnit4.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class GalleryCase extends VP4 {
 
     @BeforeClass
     public static void initGalleryCase() {
         VP4.unLock();
-        GalleryAction.getAllPicturesCount();
+        // GalleryAction.getAllPicturesCount();
 
     }
 
