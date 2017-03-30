@@ -1,12 +1,16 @@
 package doro.action;
 
 
+import android.hardware.camera2.CameraCharacteristics;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
+import android.view.KeyEvent;
 
 import junit.framework.Assert;
+
+import org.hamcrest.Asst;
 
 import ckt.base.VP4;
 
@@ -25,16 +29,26 @@ public class PlayStoreAction extends VP4 {
         WifiAction WifiAction=new WifiAction();
         WifiAction.turnOnWifi(true);
         try{
-            if(getObjectByText(name).exists()&&getObjectByText(CONNECTED_WIFI).exists()) {//判断所需连接wifi是否存在
+           /* if(getObjectByText(name).exists()&&getObjectByText(CONNECTED_WIFI).exists()) {//判断所需连接wifi是否存在
                 clickByText(name);
                 clickByText(FORGET_WIFI);
-            }
+            }*/
             UiScrollable scroll=new UiScrollable(new UiSelector().className(WIFI_LIST_CLASS));
             scroll.scrollTextIntoView(name);//在wifi列表滚到到对应的wifi
             clickByText(name);
+            waitTime(10);
             UiObject PasswordBox = getObjectById(INPUT_PASSWORDBOX);
             PasswordBox.click();
             PasswordBox.setText(password);//输入密码
+           /* gDevice.pressKeyCode(KeyEvent.KEYCODE_T);
+            gDevice.pressKeyCode(KeyEvent.KEYCODE_E);
+            gDevice.pressKeyCode(KeyEvent.KEYCODE_S);
+            gDevice.pressKeyCode(KeyEvent.KEYCODE_T);
+            gDevice.pressKeyCode(KeyEvent.KEYCODE_7);
+            gDevice.pressKeyCode(KeyEvent.KEYCODE_8);
+            gDevice.pressKeyCode(KeyEvent.KEYCODE_7);
+            gDevice.pressKeyCode(KeyEvent.KEYCODE_8);
+            gDevice.pressEnter();*/
             clickByText(CONNECT_WIFI);//连接
             waitTime(10);
         }catch(Exception e){
@@ -65,7 +79,12 @@ public class PlayStoreAction extends VP4 {
     public void downloadAndInstallApp(String App){
         try {
             searchApp(App);
-            getObjectById(PLAYSTORE_INSTALLBUTTON_ID).clickAndWaitForNewWindow();
+            getObjectByText("INSTALL").clickAndWaitForNewWindow();
+            int i=0;
+            while(!getObjectByText("OPEN").exists()&& i++<100){
+                waitTime(10);
+                VP4.unLock();
+            }
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -76,7 +95,6 @@ public class PlayStoreAction extends VP4 {
             getObjectById(PLAYSTORE_SEARCHBOX_ID).clickAndWaitForNewWindow();
             getObjectById(PLAYSTORE_SEARCHBOX_INPUT_ID).setText(Name);
             getObjectByClassIndex(PLAYSTORE_SEARCHRESULT_CLASS,0).clickAndWaitForNewWindow();
-            getObjectById(PLAYSTORE_APPLIST_ID,0).clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -84,16 +102,12 @@ public class PlayStoreAction extends VP4 {
 
     public void checkInstallApp(){
         try {
-            String name=getObjectById(PLAYSTORE_APP_ID).getText();
-            for (int i=1;getObjectById(PLAYSTORE_INSTALLPROGRESS_ID).exists();){
-                waitTime(i);
-                mDevice.wakeUp();
-            }
-            openAppliction(name);
-            waitTime(3);
-            mDevice.pressMenu();
-            Assert.assertTrue("下载安装应用失败！",getObjectByText(name).exists());
-        } catch (Exception e) {
+            int i=0;
+            while(getObjectByText("OPEN").exists() && i++<5)
+            getObjectByText("OPEN").clickAndWaitForNewWindow();
+            waitTime(10);
+            Asst.assertEquals("Download error","com.imdb.mobile",gDevice.getCurrentPackageName());
+        } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
     }

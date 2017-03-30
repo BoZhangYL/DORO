@@ -356,7 +356,16 @@ public class SettingAction extends VP4 {
     }
     public void CheckStatus(boolean status){ //检查飞行模式下wifi，蓝牙，流量的状态
         try{
-            getUiObjectByDes(SETTING_NAVIGATE_UP_DESC).click();
+            openAppliction("Settings");
+            getObjectByText("Wi‑Fi").clickAndWaitForNewWindow();
+            wifiStatus(status);
+            openAppliction("Settings");
+            getObjectByText("Bluetooth").clickAndWaitForNewWindow();
+            bluetoothStatus(status);
+            openAppliction("Settings");
+            getObjectByText("Data usage").clickAndWaitForNewWindow();
+            mobileDataStatus(status);
+           /* getUiObjectByDes(SETTING_NAVIGATE_UP_DESC).click();
             getObjectByText(SETTINGS_HOME_TEXT).clickAndWaitForNewWindow();
             settingChild("Wi‑Fi");
             wifiStatus(status);
@@ -367,7 +376,7 @@ public class SettingAction extends VP4 {
             getUiObjectByDes(SETTING_NAVIGATE_UP_DESC).click();
             getObjectByText(SETTINGS_HOME_TEXT).clickAndWaitForNewWindow();
             settingChild("Data usage");
-            mobileDataStatus(status);
+            mobileDataStatus(status);*/
         }catch(Exception e){e.printStackTrace();}
 
     }

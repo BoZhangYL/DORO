@@ -47,11 +47,13 @@ public class AlarmAction extends VP4 {
     public void closeAlarm() {
         try {
             VP4.openAppliction(AlarmPage.APPS_ICON_ALARM_TEXT);
-            getObjectByText(ALARM_CLICK_IWANTTO_TEXT).clickAndWaitForNewWindow();
-            getObjectByText(ALARM_CLICK_DELETEALARM_TEXT).clickAndWaitForNewWindow();
-            getObjectByText(ALARM_CLICK_SELECTALL_TEXT).clickAndWaitForNewWindow();
-            getObjectByText(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
-            getObjectByText(ALARM_CLICK_OK_TEXT).clickAndWaitForNewWindow();
+            if(getObjectByText(ALARM_CLICK_IWANTTO_TEXT).exists()) {
+                getObjectByText(ALARM_CLICK_IWANTTO_TEXT).clickAndWaitForNewWindow();
+                getObjectByText(ALARM_CLICK_DELETEALARM_TEXT).clickAndWaitForNewWindow();
+                getObjectByText(ALARM_CLICK_SELECTALL_TEXT).clickAndWaitForNewWindow();
+                getObjectByText(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
+                getObjectByText(ALARM_CLICK_OK_TEXT).clickAndWaitForNewWindow();
+            }
             VP4.openAppliction("Settings");
             VP4.scrollToEnd(20);
             getObjectByText("Date & time").clickAndWaitForNewWindow();
