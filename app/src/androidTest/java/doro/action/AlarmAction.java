@@ -1,5 +1,6 @@
 package doro.action;
 
+import android.os.RemoteException;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
 
@@ -44,10 +45,10 @@ import static doro.page.AlarmPage.AlARM_APPS_ALARM_PACKAGE;
 
 public class AlarmAction extends VP4 {
 
-    public void closeAlarm() {
+    public static void closeAlarm() {
         try {
             VP4.openAppliction(AlarmPage.APPS_ICON_ALARM_TEXT);
-            if(getObjectByText(ALARM_CLICK_IWANTTO_TEXT).exists()) {
+            if (getObjectByText(ALARM_CLICK_IWANTTO_TEXT).exists()) {
                 getObjectByText(ALARM_CLICK_IWANTTO_TEXT).clickAndWaitForNewWindow();
                 getObjectByText(ALARM_CLICK_DELETEALARM_TEXT).clickAndWaitForNewWindow();
                 getObjectByText(ALARM_CLICK_SELECTALL_TEXT).clickAndWaitForNewWindow();
@@ -247,7 +248,7 @@ public class AlarmAction extends VP4 {
 
     public void checkAlarmComing() { //判断闹钟是否到来
         try {
-            gDevice.openQuickSettings();
+            gDevice.openNotification();
             Thread.sleep(2000);
             Assert.assertTrue("The alarm don't come", getObjectByClassPackage(ALARM_IMAGEVIEW_ICON_CLASS, AlARM_APPS_ALARM_PACKAGE).exists());
         } catch (Exception e) {
@@ -255,9 +256,22 @@ public class AlarmAction extends VP4 {
         }
     }
 
+    public void waitFiveMinuteforAlarmComing() {
+        try {
+            waitTime(240);
+            int i = 0;
+            while (!gDevice.isScreenOn() && i++ < 20) {
+                waitTime(10);
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void checkAlarmNotComing() { //判断闹钟没有到来
         try {
-            gDevice.openQuickSettings();
+            VP4.unLock();
+            gDevice.openNotification();
             Thread.sleep(2000);
             Assert.assertFalse("The alarm shouldn't coming", getObjectByClassPackage(ALARM_IMAGEVIEW_ICON_CLASS, AlARM_APPS_ALARM_PACKAGE).exists());
         } catch (Exception e) {

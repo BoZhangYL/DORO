@@ -3,6 +3,7 @@ package doro.testcase;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -31,9 +32,9 @@ public class AlarmCase extends VP4 {
         unLock();
     }
 
-    @After
-    public void disableAlarm() {
-        AlarmAction.closeAlarm();
+    @AfterClass
+    public static void disableAlarm() {
+        doro.action.AlarmAction.closeAlarm();
     }
 
     @Test
@@ -115,7 +116,7 @@ public class AlarmCase extends VP4 {
         phoneWaitTime(2);//等待2分钟
         AlarmAction.checkAlarmComing();//判断闹钟是否到来
         AlarmAction.alarmComingSnooze();//闹钟到来后选择Snooze闹钟
-        phoneWaitTime(5);//等待5.2分钟
+        AlarmAction.waitFiveMinuteforAlarmComing();//等待5.2分钟
         AlarmAction.checkAlarmComing();//判断闹钟是否到来
         AlarmAction.alarmComingStop();//闹钟到来后选择关闭闹钟
     }
@@ -127,7 +128,7 @@ public class AlarmCase extends VP4 {
         phoneWaitTime(2);//等待2分钟
         AlarmAction.checkAlarmComing();//判断闹钟是否到来
         AlarmAction.alarmComingStop();//闹钟到来后选择Snooze闹钟
-        phoneWaitTime(5);//等待5.5分钟
+        AlarmAction.waitFiveMinuteforAlarmComing();//等待5.5分钟
         AlarmAction.checkAlarmNotComing();//判断闹钟是否到来
     }
 }
