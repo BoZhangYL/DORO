@@ -34,7 +34,7 @@ public class MainAction extends VP4 {
     }
 
     public static void startApp(String AppName) throws UiObjectNotFoundException {
-        gDevice.pressHome();
+        //gDevice.pressHome();
         waitUntilFind(ViewPage.MORE_ACTIONS_ID, 5000);
         clickById(ViewPage.MORE_ACTIONS_ID);
         //推荐的app list中是否存在
