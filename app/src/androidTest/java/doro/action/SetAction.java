@@ -64,8 +64,10 @@ import static doro.page.SetPage.SET_YEAR_INCREASE_ID;
 public class SetAction extends VP4{
     public void findSet(){
         try{
+            VP4.unLock();
             switchToMenuPage();//找到快捷菜单界面
-            getLinearLayout(8,SET_SUPPORT_RECYCLERVIEW_CLASS,SET_WIDGET_FRAMELAYOUT_CLASS).click();
+            getObjectByText("Set").clickAndWaitForNewWindow();
+            //getLinearLayout(8,SET_SUPPORT_RECYCLERVIEW_CLASS,SET_WIDGET_FRAMELAYOUT_CLASS).click();
             //点击"Set"快捷键
         }catch(Exception e){e.printStackTrace();}
     }

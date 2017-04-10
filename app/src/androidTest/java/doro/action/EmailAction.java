@@ -287,8 +287,9 @@ public class EmailAction extends VP4 {
         try {
             getObjectByText(EmailPage.I_WANT_TO_BUTTON).clickAndWaitForNewWindow();
             getObjectByText(EmailPage.DISPLAY).clickAndWaitForNewWindow();
+            scrollToBegin(10);
             if (!getObjectByText(EmailPage.OUTBOX).exists())
-                scrollToEnd(10);
+                scrollForward(50);
             getObjectByText(EmailPage.OUTBOX).clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
@@ -302,8 +303,9 @@ public class EmailAction extends VP4 {
         try {
             getObjectByText(EmailPage.I_WANT_TO_BUTTON).clickAndWaitForNewWindow();
             getObjectByText(EmailPage.DISPLAY).clickAndWaitForNewWindow();
+            scrollToBegin(10);
             if (!getObjectByText(EmailPage.SENTBOX).exists())
-                scrollToEnd(10);
+                scrollForward(50);
             getObjectByText(EmailPage.SENTBOX).clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
@@ -580,7 +582,7 @@ public class EmailAction extends VP4 {
                     Address.click();
                     Address.setText(EmailPage.EMAIL_ACCOUNT_1);
                     OKButton.clickAndWaitForNewWindow();
-                    getObjectByText("Personal (POP3)").clickAndWaitForNewWindow();
+                   // getObjectByText("Personal (POP3)").clickAndWaitForNewWindow();
                     Password.click();
                     Password.setText(EmailPage.EMAIL_PASSWORD_1);
                     OKButton.clickAndWaitForNewWindow();

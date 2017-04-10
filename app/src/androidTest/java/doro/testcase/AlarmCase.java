@@ -116,7 +116,8 @@ public class AlarmCase extends VP4 {
         phoneWaitTime(2);//等待2分钟
         AlarmAction.checkAlarmComing();//判断闹钟是否到来
         AlarmAction.alarmComingSnooze();//闹钟到来后选择Snooze闹钟
-        AlarmAction.waitFiveMinuteforAlarmComing();//等待5.2分钟
+        phoneWaitTime(5.2);
+       // DoroT AlarmAction.waitFiveMinuteforAlarmComing();//等待5.2分钟
         AlarmAction.checkAlarmComing();//判断闹钟是否到来
         AlarmAction.alarmComingStop();//闹钟到来后选择关闭闹钟
     }
@@ -128,7 +129,7 @@ public class AlarmCase extends VP4 {
         phoneWaitTime(2);//等待2分钟
         AlarmAction.checkAlarmComing();//判断闹钟是否到来
         AlarmAction.alarmComingStop();//闹钟到来后选择Snooze闹钟
-        AlarmAction.waitFiveMinuteforAlarmComing();//等待5.5分钟
+        phoneWaitTime(5.5);//等待5.5分钟
         AlarmAction.checkAlarmNotComing();//判断闹钟是否到来
     }
 }
