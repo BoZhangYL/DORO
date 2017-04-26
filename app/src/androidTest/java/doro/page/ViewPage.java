@@ -7,7 +7,7 @@ public class ViewPage {
     public static final String VIEW_TEXT = "View";
     public static final String MY_MESSAGES_TEXT = "My messages";
     public static final String VIEW_MESSAGE_ID="com.doro.apps.intentions:id/action_title";
-    public static final String MY_CONTACTS_BOOK_TEXT = "My contact book";
+    public static final String MY_CONTACTS_BOOK_TEXT = "My contacts";
     public static final String CLEAR_APP_ID="com.android.systemui:id/dismiss_task";
     public static final String APPLIST_ID="com.doro.apps.launcher3:id/container_view";
     public static final String MORE_ACTIONS_ID="com.doro.apps.launcher3:id/more_actions";
