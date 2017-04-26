@@ -894,9 +894,9 @@ public class GalleryAction extends VP4 {
         clickDeletePictureButton();
         String deleteName = selectDeletePictures();
         clickConfirmButton();
-        clickCancelButton();
+       /* clickCancelButton();
         Asst.assertTrue("取消随机删除一张照片或者视频", getObjectByDesc(deleteName).exists());
-        clickConfirmButton();
+        clickConfirmButton();*/
         clickOKButton();
         waitTime(30);
         Asst.assertTrue("确认随机删除一张照片或者视频", !getObjectByDesc(deleteName).exists());
