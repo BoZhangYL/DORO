@@ -13,6 +13,8 @@ import doro.action.SettingAction;
  */
 @RunWith(AndroidJUnit4.class)
 public class SettingCase extends VP4 {
+    public static final String SETTINGS_MORE_TITLE_ID ="android:id/title";
+
     SettingAction SettingAction = new SettingAction();
     @Test
     public void setSorageSD(){ //设置默认存储为SD卡
@@ -43,21 +45,21 @@ public class SettingCase extends VP4 {
     @Test
     public void flightModeOn(){
         openAppliction("Settings"); //找到设置应用
-        SettingAction.settingChild("More");
+        SettingAction.settingChild(SETTINGS_MORE_TITLE_ID,"More");
         SettingAction.switchFlightMode(true);//打开飞行模式
         SettingAction.CheckFlightModeOnInfo(true);//检查有飞行模式信息
     }
     @Test
     public void flightModeOff(){
         openAppliction("Settings"); //找到设置应用
-        SettingAction.settingChild("More");
+        SettingAction.settingChild(SETTINGS_MORE_TITLE_ID,"More");
         SettingAction.switchFlightMode(false);//关闭飞行模式
         SettingAction.CheckFlightModeOnInfo(false);//检查无飞行模式信息
     }
     @Test
     public void checkWBDOffStatus(){
         openAppliction("Settings"); //找到设置应用
-        SettingAction.settingChild("More");
+        SettingAction.settingChild(SETTINGS_MORE_TITLE_ID,"More");
         SettingAction.switchFlightMode(true);//打开飞行模式
         SettingAction.CheckStatus(false);//检查wifi，蓝牙数据流量是否关闭
         flightModeOff();
@@ -65,7 +67,7 @@ public class SettingCase extends VP4 {
     @Test
     public void checkWBDOnStatus(){
         openAppliction("Settings"); //找到设置应用
-        SettingAction.settingChild("More");
+        SettingAction.settingChild(SETTINGS_MORE_TITLE_ID,"More");
         SettingAction.switchFlightMode(false);//关闭飞行模式
         SettingAction.CheckStatus(true);//检查wifi，蓝牙数据流量是可以操作
     }
