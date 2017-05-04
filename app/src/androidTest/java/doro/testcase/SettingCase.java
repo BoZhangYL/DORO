@@ -13,7 +13,8 @@ import doro.action.SettingAction;
  */
 @RunWith(AndroidJUnit4.class)
 public class SettingCase extends VP4 {
-    public static final String SETTINGS_MORE_TITLE_ID ="android:id/title";
+    private static final String SETTINGS_MORE_TITLE_ID ="android:id/title";
+
     SettingAction SettingAction = new SettingAction();
     @Test
     public void setSorageSD(){ //设置默认存储为SD卡
