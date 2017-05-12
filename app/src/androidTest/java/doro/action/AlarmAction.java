@@ -383,6 +383,7 @@ public class AlarmAction extends VP4 {
             if (!getObjectByTextContains(ALARM_CLICK_IWANTTO_TEXT).exists()) {
                 addTimeAlarm24("20:18");
             }
+            openAppliction("Alarm");
             getObjectByTextContains(ALARM_CLICK_IWANTTO_TEXT).clickAndWaitForNewWindow();
             getObjectByTextContains(ALARM_CLICK_DELETEALARM_TEXT).click();
             getObjectByTextContains(ALARM_CLICK_SELECTALL_TEXT).click();
@@ -401,6 +402,7 @@ public class AlarmAction extends VP4 {
             if (!getObjectByTextContains(ALARM_CLICK_IWANTTO_TEXT).exists()) {
                 addTimeAlarm24("20:18");
             }
+            openAppliction("Alarm");
             int count1 = getObjectByClass(ALARM_WIDGET_LISTVIEW).getChildCount();
             getObjectByTextContains(ALARM_CLICK_IWANTTO_TEXT).clickAndWaitForNewWindow();
             getObjectByTextContains(ALARM_CLICK_DELETEALARM_TEXT).click();

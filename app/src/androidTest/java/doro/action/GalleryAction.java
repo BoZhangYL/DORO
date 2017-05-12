@@ -388,6 +388,11 @@ public class GalleryAction extends VP4 {
         openAppliction("Cont\u200Bacts");
         clickContactsAddContactButton();
         clickContactsEditPictureButton();
+        try {
+            getObjectByText("Gallery").clickAndWaitForNewWindow();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     /*

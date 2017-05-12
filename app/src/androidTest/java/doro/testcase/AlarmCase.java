@@ -16,10 +16,11 @@ import doro.action.SetAction;
 import doro.action.SettingAction;
 
 import static doro.page.AlarmPage.APPS_ICON_ALARM_TEXT;
-
-/**
+/*
+*
  * Created by user on 2016/12/06   .
  */
+
 @RunWith(AndroidJUnit4.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AlarmCase extends VP4 {
@@ -89,13 +90,14 @@ public class AlarmCase extends VP4 {
         SettingAction.setSpecialWeeks("18:20", "Saturday", 1.2);
     }
 
-    /*@Test
+/*@Test
     public void repeatEveryAlarm(){ //创建一个每天重复的闹钟
         openAppliction(APPS_ICON_ALARM_TEXT); //找到闹钟设置应用
         AlarmAction.addTimeWeekAlarm("18:21","Monday","Tuesday","Wednesday","Thursday",
                 "Friday","Saturday","Sunday");
         SettingAction.setEverydayTime("18:21",1.2);
     }*/
+
     @Test
     public void deleteAllAlarm() { //删除所有的闹钟
         openAppliction(APPS_ICON_ALARM_TEXT); //找到闹钟设置应用

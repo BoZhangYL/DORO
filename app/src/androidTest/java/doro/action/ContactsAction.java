@@ -158,6 +158,11 @@ public class ContactsAction extends VP4 {
 
     //选择一张图片
     public static void choosePictureFromGallery() {
+        try {
+            getObjectByText("Gallery").clickAndWaitForNewWindow();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
         waitUntilFind(GalleryPage.GALLERY_GRAID_VIEW, 20000);
         List<UiObject2> imageViews = gDevice.findObject(By.res(GalleryPage.GALLERY_GRAID_VIEW)).findObjects(By.clazz(android.widget.ImageView.class));
         if (imageViews.size() >= 1) {

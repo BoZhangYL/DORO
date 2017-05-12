@@ -545,7 +545,8 @@ public class InternetAction extends VP4 {
             SearchButton.clickAndWaitForNewWindow();
             Asst.assertTrue("点击搜索按钮后没有进入搜索页面", !HeadTiltle.exists());
             Asst.assertTrue("搜索网址出错！", getObjectByText(InternetPage.SEARCH_ADDRESS_URL).
-                    exists());
+                    exists() || getObjectByText("10.120.10.90/").exists() ||
+                    getObjectByText("wiki.cktcd.net/wiki/Main_Page").exists());
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -589,11 +590,11 @@ public class InternetAction extends VP4 {
     *取消开始向导
     * */
     public static void dismissStartup() {
-        WifiAction WifiAction = new WifiAction();
+/*        WifiAction WifiAction = new WifiAction();
         openAppliction(WifiPage.SETTINGS);
         clickByText(WifiPage.WIFI);
         WifiAction.turnOnWifi(true);
-        WifiAction.connectWifi("CKT", "ck88888!");
+        WifiAction.connectWifi("CKT", "ck88888!");*/
     }
 
     /*

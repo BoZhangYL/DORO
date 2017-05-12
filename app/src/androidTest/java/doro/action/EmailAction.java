@@ -88,9 +88,10 @@ public class EmailAction extends VP4 {
             if (getObjectById("com.doro.apps.email:id/dismiss_icon").exists()) {
                 getObjectById("com.doro.apps.email:id/dismiss_icon").clickAndWaitForNewWindow();
             }
-            gDevice.findObject(new UiSelector().className("android.view.View")
+            gDevice.click(gDevice.getDisplayWidth()/2,gDevice.getDisplayHeight()/2);
+           /* gDevice.findObject(new UiSelector().className("android.view.View")
                     .instance(1))
-                    .clickAndWaitForNewWindow();
+                    .clickAndWaitForNewWindow();*/
             waitTime(5);
             Asst.assertTrue("Not in Email Reply / Forward view ",
                     getObjectByText("Reply / Forward").exists());
@@ -568,11 +569,11 @@ public class EmailAction extends VP4 {
         setAutomaticDate();
         VP4.clearNoTifcation();
         if (!getObjectByText(EmailPage.WRITE_EMAIL_BUTTON).exists()) {
-            WifiAction WifiAction = new WifiAction();
+            /*WifiAction WifiAction = new WifiAction();
             openAppliction(WifiPage.SETTINGS);
             clickByText(WifiPage.WIFI);
             WifiAction.turnOnWifi(true);
-            WifiAction.connectWifi("CKT", "ck88888!");
+            WifiAction.connectWifi("CKT", "ck88888!");*/
             openAppliction(EmailPage.EMAIL);
             if (!getObjectByText(EmailPage.WRITE_EMAIL_BUTTON).exists()) {
                 UiObject Address = getObjectById(EmailPage.EMAIL_ACCOUNT_INPUT);
