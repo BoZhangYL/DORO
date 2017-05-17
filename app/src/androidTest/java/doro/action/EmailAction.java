@@ -26,6 +26,43 @@ public class EmailAction extends VP4 {
             new UiCollection(new UiSelector().resourceId(EmailPage.EMAIL_LIST));
     private static UiSelector Emails = new UiSelector().className(EmailPage.EMAIL_VIEW);
 
+    public static void beforeOperationSentBox(){
+        try {
+            openAppliction("Settings");
+            getObjectByText("Data usage").clickAndWaitForNewWindow();
+            UiObject DataUsageSwitch = getObjectById("android:id/switch_widget");
+            if ((DataUsageSwitch.getText()).equals("ON")) {
+                DataUsageSwitch.clickAndWaitForNewWindow();
+            }
+            openAppliction("Settings");
+            getObjectByText("Wi‑Fi").clickAndWaitForNewWindow();
+            UiObject WifiSwitch = getObjectById("com.android.settings:id/switch_widget");
+            if ((WifiSwitch.getText()).equals("ON")) {
+                WifiSwitch.clickAndWaitForNewWindow();
+            }
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void afterOperationSentBox(){
+        try {
+            openAppliction("Settings");
+            getObjectByText("Data usage").clickAndWaitForNewWindow();
+            UiObject DataUsageSwitch = getObjectById("android:id/switch_widget");
+            if ((DataUsageSwitch.getText()).equals("OFF")) {
+                DataUsageSwitch.clickAndWaitForNewWindow();
+            }
+            openAppliction("Settings");
+            getObjectByText("Wi‑Fi").clickAndWaitForNewWindow();
+            UiObject WifiSwitch = getObjectById("com.android.settings:id/switch_widget");
+            if ((WifiSwitch.getText()).equals("OFF")) {
+                WifiSwitch.clickAndWaitForNewWindow();
+            }
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
     public static void openWiFiDataUsage() {
 
         try {
@@ -44,7 +81,6 @@ public class EmailAction extends VP4 {
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 
     public static void checkSendEmail(Email email) {
@@ -569,7 +605,7 @@ public class EmailAction extends VP4 {
         setAutomaticDate();
         VP4.clearNoTifcation();
         if (!getObjectByText(EmailPage.WRITE_EMAIL_BUTTON).exists()) {
-            /*WifiAction WifiAction = new WifiAction();
+/*            WifiAction WifiAction = new WifiAction();
             openAppliction(WifiPage.SETTINGS);
             clickByText(WifiPage.WIFI);
             WifiAction.turnOnWifi(true);
@@ -583,12 +619,11 @@ public class EmailAction extends VP4 {
                     Address.click();
                     Address.setText(EmailPage.EMAIL_ACCOUNT_1);
                     OKButton.clickAndWaitForNewWindow();
-                   // getObjectByText("Personal (POP3)").clickAndWaitForNewWindow();
-                    Password.click();
+                    gDevice.findObject(new UiSelector().resourceId(EmailPage.EMAIL_PASSWORD_INPUT)).click();
                     Password.setText(EmailPage.EMAIL_PASSWORD_1);
                     OKButton.clickAndWaitForNewWindow();
-                    OKButton.clickAndWaitForNewWindow();
-                    OKButton.clickAndWaitForNewWindow();
+                    gDevice.findObject(new UiSelector().text(EmailPage.EMAIL_INPUT_OK_TEXT)).clickAndWaitForNewWindow();
+                    gDevice.findObject(new UiSelector().text(EmailPage.EMAIL_INPUT_OK_TEXT)).clickAndWaitForNewWindow();
                 } catch (UiObjectNotFoundException e) {
                     e.printStackTrace();
                 }

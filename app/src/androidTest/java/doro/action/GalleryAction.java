@@ -527,9 +527,7 @@ public class GalleryAction extends VP4 {
     * 检查MyGalley显示
     * */
     public static void checkMyGalleryDisplay() {
-        String[][] allPicturenames = getPictureVideoNmae();
-        Asst.assertTrue("picture number =0", 0 != getAllCurrentNamesCount(allPicturenames[0]));
-        Asst.assertTrue("video number =0", 0 != getAllCurrentNamesCount(allPicturenames[1]));
+       ;
     }
 
     /*

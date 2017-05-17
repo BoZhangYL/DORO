@@ -106,11 +106,13 @@ public class EmailCase extends VP4 {
 
     @Test
     public void operationSentBox() {
+        EmailAction.beforeOperationSentBox();
         EmailAction.openEmailApp();
         EmailAction.switchToSentBox();
         Email email = EmailAction.openSentEmail();
         EmailAction.zoomInEmail(email);
         EmailAction.deleteEmail(email);
+        EmailAction.afterOperationSentBox();
     }
 
     @Test

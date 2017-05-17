@@ -61,8 +61,8 @@ public class MusicCase extends MusicAction{
         soryByTitle();
         int i=getSongsCount();//计算播放列表有多少歌曲
         deleteMusic();
-        clickCancel();//删除一首歌曲时取消删除
-        deleteMusic();
+       /* clickCancel();//删除一首歌曲时取消删除
+        deleteMusic();*/
         clickOK();//删除一首歌曲
         int j=getSongsCount();//删除一首歌曲后还剩多少歌曲
         Assert.assertTrue("Fail to delete a music!",i-j==1);
