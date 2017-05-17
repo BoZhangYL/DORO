@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import ckt.base.VP4;
+import doro.action.CalendarAction;
 
 import static doro.action.CalendarAction.checkCalendarGreenPoint;
 import static doro.action.CalendarAction.checkCreateBeforCalendar;
@@ -42,6 +43,7 @@ public class CalendarCase extends VP4 {
 
         openAppliction("Calen\u200Bdar");//打开日历应用
         setCalendarBefore(CALENDAR_BEFORE_VALUE_5_MINUTES);//设置提醒提前5分钟开始
+        CalendarAction.setCalednarTitle("Event_before_5");
         createNewCalendar();//添加新的calendar
         checkCreateBeforCalendar();//检查添加是否成功
     }

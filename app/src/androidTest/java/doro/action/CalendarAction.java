@@ -434,6 +434,14 @@ public class CalendarAction extends VP4 {
 
     public static void checkCreateBeforCalendar() throws UiObjectNotFoundException {
         waitTime(5);
+        for(int i=0;i<5;i++){
+            if(getObjectByText("Event_before_5").exists()){
+                getObjectByText("Event_before_5").clickAndWaitForNewWindow();
+                break;
+            }
+            else
+                gDevice.swipe(500,900,500,600,50);
+        }
         scrollToEnd(STEP_NORMAL);
         UiObject beforbox = getObjectById("com.doro.apps.calendar:id/event_alarm");
         Assert.assertEquals("CreateBeforeFiveMinEvent", CALENDAR_BEFORE_VALUE_5_MINUTES,
