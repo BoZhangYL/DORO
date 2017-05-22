@@ -65,7 +65,7 @@ public class VP4 extends VP2 {
                 getObjectById("com.android.systemui:id/notification_stack_scroller");
         for (int i = 0; i < 5; i++) {
             gDevice.swipe(gDevice.getDisplayWidth() / 4, gDevice.getDisplayHeight() / 2,
-                    gDevice.getDisplayWidth() / 4, gDevice.getDisplayHeight() / 4, 10);
+                    gDevice.getDisplayWidth() / 4, gDevice.getDisplayHeight() / 4, 20);
         }
         if (getObjectByText("CLEAR ALL").exists())
             try {
@@ -73,20 +73,6 @@ public class VP4 extends VP2 {
             } catch (UiObjectNotFoundException e) {
                 e.printStackTrace();
             }
-        /*  UiCollection Notification = new UiCollection(new UiSelector().
-                  resourceId("com.android.systemui:id/notification_stack_scroller"));
-
-
-              int number = Notification.getChildCount(new UiSelector()
-                      .resourceId("com.android.systemui:id/fake_shadow"));
-              for (int i = 0; i < number - 1; i++) {
-                  Notification.getChildByInstance(new UiSelector()
-                          .resourceId("com.android.systemui:id/fake_shadow"),i).swipeLeft(5);
-               *//*   gDevice.findObject(new UiSelector()
-                          .resourceId("com.android.systemui:id/notification_stack_scroller")
-                          .index(i))
-                          .swipeLeft(10);*//*
-              }*/
         gDevice.swipe(gDevice.getDisplayWidth() / 2, gDevice.
                 getDisplayHeight(), gDevice.getDisplayWidth() / 2, 0, 10);
 
@@ -119,6 +105,9 @@ public class VP4 extends VP2 {
             gDevice.swipe(x0, y0, x1, y1, 5);
         }
         try {
+            if (!getObjectByIdText(LAUNCH3_APP, AppName).exists()) {
+                SearchBox.setText("AppName");
+            }
             Asst.assertTrue("在应用列表没有找到应用", getObjectByIdText(LAUNCH3_APP, AppName).exists());
             getObjectByIdText(LAUNCH3_APP, AppName).clickAndWaitForNewWindow();
             while (getObjectByText("ALLOW").exists()) {
@@ -361,10 +350,6 @@ public class VP4 extends VP2 {
         try {
             String homeScreen = "com.doro.apps.launcher3:id/shortcut_list";
             pressKey("Home/menu");
-            /*while (getObjectById("com.android.systemui:id/task_view_thumbnail").exists()) {
-                scrollLeft(getObjectById("com.android.systemui:id/task_view_thumbnail"),
-                        5);
-            }*/
             int i = 0;
             while (!getObjectById(homeScreen).exists() && i < 2) {
                 if (getObjectByText("No recent items").exists()) {
