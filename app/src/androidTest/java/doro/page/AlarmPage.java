@@ -55,9 +55,9 @@ public class AlarmPage {
     //“Save”按钮的Text
     public static final String ALARM_CLICK_SAVE_TEXT ="Save";
     //闹钟到来“Snooze”
-    public static final String ALARM_COMING_SNOOZE_TEXT="Snooze";
+    public static final String ALARM_COMING_SNOOZE_TEXT="DISMISS";
     //闹钟到来“Stop”
-    public static final String ALARM_COMING_STOP_TEXT="Stop";
+    public static final String ALARM_COMING_STOP_TEXT="SNOOZE";
 
     //选择一个闹钟的class
     public static final String ALARM_RELATIVELAYOUT_CLASS ="android.widget.RelativeLayout";

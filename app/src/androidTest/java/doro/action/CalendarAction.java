@@ -427,21 +427,36 @@ public class CalendarAction extends VP4 {
         return month + 1;
     }
 
+    /*
+    * 得到当前小时
+    * */
+    public static int getCurrentHour() {
+        java.util.Calendar c = java.util.Calendar.getInstance();//可以对每个时间域单独修改
+        return c.get(java.util.Calendar.HOUR_OF_DAY);
+
+    }
+
+    /*
+    * 获取当前分钟
+    * */
+        /*
+    * 得到当前日期
+    * */
+    public static int getCurentMinute() {
+        java.util.Calendar c = java.util.Calendar.getInstance();//可以对每个时间域单独修改
+        return c.get(java.util.Calendar.MINUTE);
+    }
+
     public static void checkOpenCalendarResult() {//检查打开calendar结果
         assertEquals("openCalendarFromAppList",
                 CALENDAR_PACKAGE, gDevice.getCurrentPackageName());
     }
 
     public static void checkCreateBeforCalendar() throws UiObjectNotFoundException {
-        waitTime(5);
-        for(int i=0;i<5;i++){
-            if(getObjectByText("Event_before_5").exists()){
-                getObjectByText("Event_before_5").clickAndWaitForNewWindow();
-                break;
-            }
-            else
-                gDevice.swipe(500,900,500,600,50);
-        }
+        waitTime(10);
+        gDevice.openNotification();
+        UiObject CalendarNotifcation = getObjectByIdText("android:id/app_name_text","Calendar");
+        CalendarNotifcation.clickAndWaitForNewWindow();
         scrollToEnd(STEP_NORMAL);
         UiObject beforbox = getObjectById("com.doro.apps.calendar:id/event_alarm");
         Assert.assertEquals("CreateBeforeFiveMinEvent", CALENDAR_BEFORE_VALUE_5_MINUTES,

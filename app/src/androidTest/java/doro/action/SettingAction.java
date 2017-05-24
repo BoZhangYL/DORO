@@ -2,6 +2,8 @@ package doro.action;
 
 import junit.framework.Assert;
 
+import java.util.Calendar;
+
 import ckt.base.VP4;
 
 import static doro.page.SettingPage.SETTINGS_APPS_ADVANCED_ID;
@@ -416,17 +418,32 @@ public class SettingAction extends VP4 {
         setWeek(week);//特定星期
         setTime24(time);//设置手机时间
     }
-    public void setSpecialWeeks(String time,String week,double waitTime){ //去设置中特定星期(星期，时间，等待时间)
+    /*
+   * 得到当前日期
+   * */
+    public int getCurrentSecond() {
+        Calendar c = Calendar.getInstance();//可以对每个时间域单独修改
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int date = c.get(Calendar.DATE);
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
+        int second = c.get(Calendar.SECOND);
+        return second + minute * 60 + hour * 60 * 60;
+    }
+    public void setSpecialWeeks(String time,String week,int waitTime){ //去设置中特定星期(星期，时间，等待时间)
         setSpecialWeek(week,time);
-        phoneWaitTime(waitTime);//手机等待分钟
+        waitTime(waitTime - getCurrentSecond());
+        //phoneWaitTime(waitTime);//手机等待分钟
         new AlarmAction().checkAlarmComing();//判断闹钟是否到来
         new AlarmAction().alarmComingStop();//闹钟到来后选择关闭闹钟
     }
 
-    public void setEverydayTime(String time ,double waitTime){ //去设置中设置一周的时间
+    public void setEverydayTime(String time ,int waitTime){ //去设置中设置一周的时间
         for(int i=1;i<=7;i++){
             setNextdayTime(time);//设置手机时间
-            phoneWaitTime(waitTime);//手机等待分钟
+            waitTime(waitTime - getCurrentSecond());
+           // phoneWaitTime(waitTime);//手机等待分钟
             new AlarmAction().checkAlarmComing();//判断闹钟是否到来
             new AlarmAction().alarmComingStop();//闹钟到来后选择关闭闹钟
         }

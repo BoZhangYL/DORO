@@ -6,6 +6,10 @@ import android.support.test.uiautomator.UiSelector;
 
 import junit.framework.Assert;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import ckt.base.VP4;
 import doro.page.AlarmPage;
 
@@ -68,6 +72,42 @@ public class AlarmAction extends VP4 {
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    /*
+    * 等待闹钟到来
+    * */
+    public void waitAlarmComing(int SetAlarmTime){
+        waitTime(SetAlarmTime - getCurrentSecond());
+    }
+
+    /*
+    * 转换一个时间为毫秒
+    * */
+    public long changeTtoM(String yyyyMMddhhmm) {
+        String str = yyyyMMddhhmm;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmm");
+        long millionSeconds = 0;//毫秒
+        try {
+            millionSeconds = sdf.parse(str).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return millionSeconds;
+    }
+
+    /*
+    * 得到当前日期
+    * */
+    public int getCurrentSecond() {
+        Calendar c = Calendar.getInstance();//可以对每个时间域单独修改
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int date = c.get(Calendar.DATE);
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
+        int second = c.get(Calendar.SECOND);
+        return second + minute * 60 + hour * 60 * 60;
     }
 
     public void closeAutoTime() {
@@ -232,6 +272,7 @@ public class AlarmAction extends VP4 {
 
     public void alarmComingSnooze() { //选择将闹钟 睡眠
         try {
+            gDevice.openNotification();
             getUiObjectByText(ALARM_COMING_SNOOZE_TEXT).click();
         } catch (Exception e) {
             e.printStackTrace();
@@ -240,6 +281,7 @@ public class AlarmAction extends VP4 {
 
     public void alarmComingStop() { //选择将闹钟 停止
         try {
+            gDevice.openNotification();
             getUiObjectByText(ALARM_COMING_STOP_TEXT).click();
         } catch (Exception e) {
             e.printStackTrace();
@@ -273,7 +315,8 @@ public class AlarmAction extends VP4 {
             VP4.unLock();
             gDevice.openNotification();
             Thread.sleep(2000);
-            Assert.assertFalse("The alarm shouldn't coming", getObjectByClassPackage(ALARM_IMAGEVIEW_ICON_CLASS, AlARM_APPS_ALARM_PACKAGE).exists());
+            Assert.assertFalse("The alarm shouldn't coming",
+                    getObjectByClassPackage(ALARM_IMAGEVIEW_ICON_CLASS, AlARM_APPS_ALARM_PACKAGE).exists());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -331,13 +374,18 @@ public class AlarmAction extends VP4 {
         }
     }
 
-    public void addOneAlarm() { //建立一个2分钟后的闹钟
+    public int addOneAlarm() { //建立一个2分钟后的闹钟
+        int seconds=0;
         try {
             getObjectByTextContains(ALARM_CLICK_ADD_ALARM_TEXT).clickAndWaitForNewWindow();
             getObjectById(ALARM_TIME_FIELD_ID).clickAndWaitForNewWindow();
             getObjectById(ALARM_MINUTE_INCREASE_ID).click();
             getObjectById(ALARM_MINUTE_INCREASE_ID).click();
+            String hours =getObjectById("com.doro.apps.alarm:id/hour_edit").getText();
+            String Minutes =getObjectById("com.doro.apps.alarm:id/minute_edit").getText();
+            seconds =(Integer.valueOf(hours)*60*60)+(Integer.valueOf(Minutes)*60);
             getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
+
             getObjectByTextContains(ALARM_CLICK_NEXT_TEXT).clickAndWaitForNewWindow();
             getObjectByTextContains(ALARM_CLICK_SAVE_TEXT).clickAndWaitForNewWindow();
             Thread.sleep(6000);
@@ -345,6 +393,7 @@ public class AlarmAction extends VP4 {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return seconds;
     }
 
     public void addRepeatAlarm(String monday, String tuesday, String wednesday,

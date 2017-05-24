@@ -14,6 +14,7 @@ import static doro.action.CalendarAction.checkCalendarGreenPoint;
 import static doro.action.CalendarAction.checkCreateBeforCalendar;
 import static doro.action.CalendarAction.checkOpenCalendarResult;
 import static doro.action.CalendarAction.createNewCalendar;
+import static doro.action.CalendarAction.getCurentMinute;
 import static doro.action.CalendarAction.setCalendar;
 import static doro.action.CalendarAction.setCalendarBefore;
 import static doro.page.CalednarPage.*;
@@ -43,6 +44,8 @@ public class CalendarCase extends VP4 {
 
         openAppliction("Calen\u200Bdar");//打开日历应用
         setCalendarBefore(CALENDAR_BEFORE_VALUE_5_MINUTES);//设置提醒提前5分钟开始
+        CalendarAction.setCalendarStartsTime(String.valueOf(CalendarAction.getCurrentHour()) +
+                ":" + String.valueOf(getCurentMinute()));
         CalendarAction.setCalednarTitle("Event_before_5");
         createNewCalendar();//添加新的calendar
         checkCreateBeforCalendar();//检查添加是否成功

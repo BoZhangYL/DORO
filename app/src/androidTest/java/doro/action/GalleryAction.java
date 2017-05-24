@@ -370,6 +370,7 @@ public class GalleryAction extends VP4 {
     * 从app list打开图库
     * */
     public static void launchGalleryFromAppList() {
+        VP4.unLock();
         openAppliction(GalleryPage.GALLERY);
     }
 

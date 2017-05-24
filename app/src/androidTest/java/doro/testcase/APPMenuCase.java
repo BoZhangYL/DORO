@@ -38,7 +38,10 @@ public class APPMenuCase extends VP4 {
         APPMenuAction.initAppPermissions();
         //   EmailAction.LogInEmail("woshihouzi2016@gmail.com","woshidoubi","");
     }
-
+    @BeforeClass
+    public static void clearNotifcations(){
+        VP4.clearNoTifcation();
+    }
     @Test
     public void testClickAlarm() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
