@@ -13,12 +13,35 @@ import java.util.Random;
 
 import ckt.base.VP4;
 import doro.page.APPMenuPage;
+import doro.page.InternetPage;
 
 /**
  * Created by Caibing.yin on 2017/1/12.
  */
 
 public class APPMenuAction extends VP4 {
+
+
+    /*
+   * 处理异常
+   * */
+    public static void watchexception() {
+        gDevice.registerWatcher("Alarm", new UiWatcher() {
+            @Override
+            public boolean checkForCondition() throws UiObjectNotFoundException {
+                if (getObjectByText("SNOOZE").exists()) {
+                    getObjectByText("SNOOZE").clickAndWaitForNewWindow();
+                    return true;
+                }
+                if (getObjectByText("DISMISS").exists()) {
+                    getObjectByText("DISMISS").clickAndWaitForNewWindow();
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
     //进入菜单界面
     public static void navToMenu() {
         gDevice.pressHome();
