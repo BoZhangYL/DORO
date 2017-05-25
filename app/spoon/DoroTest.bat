@@ -8,4 +8,5 @@ java -jar spoon-runner-1.6.2-jar-with-dependencies.jar ^
 --e listener=ckt.listener.TestFailedListener ^
 --e package=doro.testcase ^
 --grant-all ^
---debug
+--debug ^
+--adb-timeout 1800
