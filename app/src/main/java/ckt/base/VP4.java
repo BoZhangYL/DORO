@@ -106,7 +106,7 @@ public class VP4 extends VP2 {
         }
         try {
             if (!getObjectByIdText(LAUNCH3_APP, AppName).exists()) {
-                SearchBox.setText("AppName");
+                SearchBox.setText(AppName);
             }
             Asst.assertTrue("在应用列表没有找到应用", getObjectByIdText(LAUNCH3_APP, AppName).exists());
             getObjectByIdText(LAUNCH3_APP, AppName).clickAndWaitForNewWindow();
