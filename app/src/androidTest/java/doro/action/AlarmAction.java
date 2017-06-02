@@ -315,6 +315,9 @@ public class AlarmAction extends VP4 {
             VP4.unLock();
             gDevice.openNotification();
             Thread.sleep(2000);
+            if(getObjectByText("Discover the new My Doro Manager").exists()){
+                getObjectByText("Discover the new My Doro Manager").swipeRight(10);
+            }
             Assert.assertFalse("The alarm shouldn't coming",
                     getObjectByClassPackage(ALARM_IMAGEVIEW_ICON_CLASS, AlARM_APPS_ALARM_PACKAGE).exists());
         } catch (Exception e) {
