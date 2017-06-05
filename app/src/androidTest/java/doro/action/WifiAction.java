@@ -1,8 +1,13 @@
 package doro.action;
 
+import android.support.test.uiautomator.UiCollection;
 import android.support.test.uiautomator.UiObject;
+import android.support.test.uiautomator.UiObjectNotFoundException;
+import android.support.test.uiautomator.UiSelector;
 
 import junit.framework.Assert;
+
+import org.hamcrest.Asst;
 
 import ckt.base.VP4;
 
@@ -31,15 +36,36 @@ public class WifiAction extends VP4 {
     }
 
     public void connectWifi(String name, String password) {
+        UiCollection WIFIList = new UiCollection(new UiSelector()
+                .resourceId("com.android.settings:id/list"));
+        String WifiName = null;
+        String ConnectState = null;
+        //String WiFiSignal = null;
+        String nextWifiName = null;
         try {
-            if (!getObjectByText(name).exists() && !getObjectByText(CONNECTED_WIFI).exists()) {//判断所需连接wifi是否存在
-                clickByText(name);
-                WifiAction.getPassword(password);//输入密码
-                clickByText(CONNECT_WIFI);//连接
-                waitTime(10);
-                Assert.assertTrue("未能成功连接wifi", getObjectByText(CONNECTED_WIFI).exists());//判断连接是否成功
+            for (int i = 0; i < WIFIList.getChildCount(); i++) {
+                UiObject CurrentWifi = WIFIList.getChildByInstance(new UiSelector()
+                        .className("android.widget.LinearLayout"), i);
+                String[] wifiDescrption = CurrentWifi.getContentDescription().split(",");
+                WifiName = wifiDescrption[0];
+                ConnectState = wifiDescrption[1];
+                //WiFiSignal = wifiDescrption[2];
+                if (WifiName.equals(name)) {
+                    if (!ConnectState.equals("Connected")) {
+                        clickByText(name);
+                        WifiAction.getPassword(password);//输入密码
+                        clickByText(CONNECT_WIFI);//连接
+                        waitTime(10);
+                        Assert.assertTrue("未能成功连接wifi", getObjectByText(CONNECTED_WIFI).exists());//判断连接是否成功
+                        break;
+                    }
+                } else if ((i == WIFIList.getChildCount() - 1) && !(WifiName.equals(nextWifiName))) {
+                    scrollForward(20);
+                    connectWifi(name, password);
+                }
+                nextWifiName = WifiName;
             }
-        } catch (Exception e) {
+        } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
     }
