@@ -23,6 +23,8 @@ import static doro.page.WifiPage.WIFI_ONANDOFFID;
  */
 
 public class WifiAction extends VP4 {
+    int scllNumber = 0;
+
     public void turnOnWifi(boolean yesOrNo) {
         if (yesOrNo) {
             if (!getObjectByText(TURN_ON_WIFI).exists()) {//判断是否需要开启wifi
@@ -50,6 +52,7 @@ public class WifiAction extends VP4 {
         String ConnectState = null;
         //String WiFiSignal = null;
         String nextWifiName = null;
+
         try {
             for (int i = 0; i < WIFIList.getChildCount(); i++) {
                 UiObject CurrentWifi = WIFIList.getChild(new UiSelector().index(i));
@@ -67,7 +70,8 @@ public class WifiAction extends VP4 {
                         Assert.assertTrue("未能成功连接wifi", getObjectByText(CONNECTED_WIFI).exists());//判断连接是否成功
                         break;
                     } else break;
-                } else if ((i == WIFIList.getChildCount() - 1) && !(WifiName.equals(nextWifiName))) {
+                } else if ((i == WIFIList.getChildCount() - 1) && !(WifiName.equals(nextWifiName))
+                        && scllNumber++ < 5) {
                     scrollForward(20);
                     connectWifi(name, password);
                 }
@@ -76,6 +80,7 @@ public class WifiAction extends VP4 {
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
+        Asst.assertTrue("未能成功连接wifi", scllNumber == 5);
     }
 
     private static void doroInput(UiObject object, String text) {//输入键盘的操作
