@@ -68,7 +68,7 @@ public class WifiAction extends VP4 {
                         break;
                     } else break;
                 } else if ((i == WIFIList.getChildCount() - 1) && !(WifiName.equals(nextWifiName))) {
-                    scrollForward(20);
+                    scrollBackward(20);
                     connectWifi(name, password);
                 }
                 nextWifiName = WifiName;
