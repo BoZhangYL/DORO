@@ -38,10 +38,12 @@ public class APPMenuCase extends VP4 {
         APPMenuAction.initAppPermissions();
         //   EmailAction.LogInEmail("woshihouzi2016@gmail.com","woshidoubi","");
     }
+
     @BeforeClass
-    public static void clearNotifcations(){
+    public static void clearNotifcations() {
         VP4.clearNoTifcation();
     }
+
     @Test
     public void testClickAlarm() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
@@ -117,10 +119,13 @@ public class APPMenuCase extends VP4 {
     public void testClickDockMode() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[7]);
-        boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(7));
+        Asst.assertTrue("Can't_Launch_" + APPMenuPage.AppNameList[7],
+                gDevice.getCurrentPackageName().equals("com.doro.apps.dock"));
+       /* boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(7));
         gDevice.pressHome();
         boolean Actual2 = text_exists("Call");
         Asst.assertFalse("Can't_Launch_" + APPMenuPage.AppNameList[7], !Actual1 && Actual2);
+    */
     }
 
     @Test
