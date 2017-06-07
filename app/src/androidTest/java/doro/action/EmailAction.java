@@ -605,11 +605,11 @@ public class EmailAction extends VP4 {
         setAutomaticDate();
         VP4.clearNoTifcation();
         if (!getObjectByText(EmailPage.WRITE_EMAIL_BUTTON).exists()) {
-/*            WifiAction WifiAction = new WifiAction();
+            WifiAction WifiAction = new WifiAction();
             openAppliction(WifiPage.SETTINGS);
             clickByText(WifiPage.WIFI);
             WifiAction.turnOnWifi(true);
-            WifiAction.connectWifi("CKT", "ck88888!");*/
+            WifiAction.connectWifi("CKT", "ck88888!");
             openAppliction(EmailPage.EMAIL);
             if (!getObjectByText(EmailPage.WRITE_EMAIL_BUTTON).exists()) {
                 UiObject Address = getObjectById(EmailPage.EMAIL_ACCOUNT_INPUT);

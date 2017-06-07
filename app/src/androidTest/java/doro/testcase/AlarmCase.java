@@ -100,6 +100,8 @@ public class AlarmCase extends VP4 {
                 "Friday", "Saturday", "Sunday");
         int SetAlarmTime = 18 * 60 * 60 + 21 * 60;
         SettingAction.setEverydayTime("18:20",SetAlarmTime );
+        openAppliction(APPS_ICON_ALARM_TEXT); //找到闹钟设置应用
+        AlarmAction.deleteAllAlarm();
     }
 
     @Test
