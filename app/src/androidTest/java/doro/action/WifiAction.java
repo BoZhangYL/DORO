@@ -23,7 +23,7 @@ import static doro.page.WifiPage.WIFI_ONANDOFFID;
  */
 
 public class WifiAction extends VP4 {
-    int scllNumber = 0;
+    private int scllNumber = 0;
 
     public void turnOnWifi(boolean yesOrNo) {
         if (yesOrNo) {
@@ -71,9 +71,10 @@ public class WifiAction extends VP4 {
                         break;
                     } else break;
                 } else if ((i == WIFIList.getChildCount() - 1) && !(WifiName.equals(nextWifiName))
-                        && scllNumber++ < 5) {
+                        && scllNumber < 5) {
                     scrollForward(20);
                     connectWifi(name, password);
+                    scllNumber++;
                 }
                 nextWifiName = WifiName;
             }
