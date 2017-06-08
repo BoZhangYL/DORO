@@ -23,7 +23,6 @@ import static doro.page.WifiPage.WIFI_ONANDOFFID;
  */
 
 public class WifiAction extends VP4 {
-    private int scllNumber = 0;
 
     public void turnOnWifi(boolean yesOrNo) {
         if (yesOrNo) {
@@ -70,18 +69,16 @@ public class WifiAction extends VP4 {
                         Assert.assertTrue("未能成功连接wifi", getObjectByText(CONNECTED_WIFI).exists());//判断连接是否成功
                         break;
                     } else break;
-                } else if ((i == WIFIList.getChildCount() - 1) && !(WifiName.equals(nextWifiName))
-                        && scllNumber < 5) {
+                } else if (!getObjectByText("Add network").exists()) {
                     scrollForward(20);
                     connectWifi(name, password);
-                    scllNumber++;
                 }
-                nextWifiName = WifiName;
+
             }
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
-        Asst.assertTrue("未能成功连接wifi", scllNumber == 5);
+        Assert.assertTrue("未能成功连接wifi", getObjectByText(CONNECTED_WIFI).exists());//判断连接是否成功
     }
 
     private static void doroInput(UiObject object, String text) {//输入键盘的操作
