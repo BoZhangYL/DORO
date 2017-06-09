@@ -69,14 +69,14 @@ public class WifiAction extends VP4 {
                         Assert.assertTrue("未能成功连接wifi", getObjectByText(CONNECTED_WIFI).exists());//判断连接是否成功
                         break;
                     } else break;
+                } else if (!getObjectByText("Add network").exists()) {
+                    scrollForward(20);
+                    connectWifi(name, password);
                 }
+
             }
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
-        }
-        if (!getObjectByText("Add network").exists()) {
-            scrollForward(20);
-            connectWifi(name, password);
         }
         scrollToBegin(10);
         Assert.assertTrue("未能成功连接wifi", getObjectByText(CONNECTED_WIFI).exists());//判断连接是否成功
