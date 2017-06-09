@@ -78,6 +78,7 @@ public class WifiAction extends VP4 {
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
+        scrollToBegin(10);
         Assert.assertTrue("未能成功连接wifi", getObjectByText(CONNECTED_WIFI).exists());//判断连接是否成功
     }
 
