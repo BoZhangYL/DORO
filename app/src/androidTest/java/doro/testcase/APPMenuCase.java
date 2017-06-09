@@ -120,7 +120,7 @@ public class APPMenuCase extends VP4 {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[7]);
         waitTime(5);
-        Asst.assertTrue("Can't_Launch_" + APPMenuPage.AppNameList[7],
+        Asst.assertTrue("Can't_Launch_" + APPMenuPage.PkgNameList[7],
                 gDevice.getCurrentPackageName().equals("com.doro.apps.dock"));
        /* boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(7));
         gDevice.pressHome();
