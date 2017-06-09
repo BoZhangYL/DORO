@@ -91,6 +91,8 @@ public class AlarmCase extends VP4 {
         SettingAction.setSpecialWeeks("18:20", "Tuesday", SetAlarmTime);
         SettingAction.setSpecialWeeks("18:20", "Thursday", SetAlarmTime);
         SettingAction.setSpecialWeeks("18:20", "Saturday", SetAlarmTime);
+        openAppliction(APPS_ICON_ALARM_TEXT); //找到闹钟设置应用
+        AlarmAction.deleteAllAlarm();
     }
 
     @Test
