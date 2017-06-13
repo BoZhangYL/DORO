@@ -214,6 +214,9 @@ public class AlarmAction extends VP4 {
         //选择手机在周几响铃。
         try {
             getObjectById(ALARM_FREQUENCY_FIELD_ID).clickAndWaitForNewWindow();
+            if (sunday != null) {
+                chooseWeek(sunday);
+            }
             if (monday != null) {
                 chooseWeek(monday);
             }
@@ -223,6 +226,7 @@ public class AlarmAction extends VP4 {
             if (wednesday != null) {
                 chooseWeek(wednesday);
             }
+            scrollToEnd(10);
             if (thursday != null) {
                 chooseWeek(thursday);
             }
@@ -232,10 +236,7 @@ public class AlarmAction extends VP4 {
             if (saturday != null) {
                 chooseWeek(saturday);
             }
-            if (sunday != null) {
-                scrollToEnd(10);
-                chooseWeek(sunday);
-            }
+
             getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
         } catch (Exception e) {
             e.printStackTrace();
