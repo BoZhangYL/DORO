@@ -236,6 +236,7 @@ public class AlarmAction extends VP4 {
                 scrollToEnd(10);
                 chooseWeek(sunday);
             }
+
             getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
         } catch (Exception e) {
             e.printStackTrace();
