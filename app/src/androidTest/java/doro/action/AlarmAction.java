@@ -77,7 +77,7 @@ public class AlarmAction extends VP4 {
     /*
     * 等待闹钟到来
     * */
-    public void waitAlarmComing(int SetAlarmTime){
+    public void waitAlarmComing(int SetAlarmTime) {
         waitTime(SetAlarmTime - getCurrentSecond());
     }
 
@@ -292,7 +292,7 @@ public class AlarmAction extends VP4 {
         try {
             gDevice.openNotification();
             Thread.sleep(2000);
-            if(getObjectByText("Discover the new My Doro Manager").exists()){
+            if (getObjectByText("Discover the new My Doro Manager").exists()) {
                 getObjectByText("Discover the new My Doro Manager").swipeRight(10);
             }
             Assert.assertTrue("The alarm don't come", getObjectByClassPackage(ALARM_IMAGEVIEW_ICON_CLASS, AlARM_APPS_ALARM_PACKAGE).exists());
@@ -318,7 +318,7 @@ public class AlarmAction extends VP4 {
             VP4.unLock();
             gDevice.openNotification();
             Thread.sleep(2000);
-            if(getObjectByText("Discover the new My Doro Manager").exists()){
+            if (getObjectByText("Discover the new My Doro Manager").exists()) {
                 getObjectByText("Discover the new My Doro Manager").swipeRight(10);
             }
             Assert.assertFalse("The alarm shouldn't coming",
@@ -381,15 +381,15 @@ public class AlarmAction extends VP4 {
     }
 
     public int addOneAlarm() { //建立一个2分钟后的闹钟
-        int seconds=0;
+        int seconds = 0;
         try {
             getObjectByTextContains(ALARM_CLICK_ADD_ALARM_TEXT).clickAndWaitForNewWindow();
             getObjectById(ALARM_TIME_FIELD_ID).clickAndWaitForNewWindow();
             getObjectById(ALARM_MINUTE_INCREASE_ID).click();
             getObjectById(ALARM_MINUTE_INCREASE_ID).click();
-            String hours =getObjectById("com.doro.apps.alarm:id/hour_edit").getText();
-            String Minutes =getObjectById("com.doro.apps.alarm:id/minute_edit").getText();
-            seconds =(Integer.valueOf(hours)*60*60)+(Integer.valueOf(Minutes)*60);
+            String hours = getObjectById("com.doro.apps.alarm:id/hour_edit").getText();
+            String Minutes = getObjectById("com.doro.apps.alarm:id/minute_edit").getText();
+            seconds = (Integer.valueOf(hours) * 60 * 60) + (Integer.valueOf(Minutes) * 60);
             getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
 
             getObjectByTextContains(ALARM_CLICK_NEXT_TEXT).clickAndWaitForNewWindow();
