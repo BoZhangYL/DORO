@@ -215,6 +215,7 @@ public class AlarmAction extends VP4 {
         try {
             getObjectById(ALARM_FREQUENCY_FIELD_ID).clickAndWaitForNewWindow();
             if (sunday != null) {
+
                 chooseWeek(sunday);
             }
             if (monday != null) {
