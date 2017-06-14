@@ -145,7 +145,7 @@ public class SettingAction extends VP4 {
         try{
             getUiObjectByText(SETTINGS_SET_DATE_TEXT).clickAndWaitForNewWindow();
             String[] month = getObjectById(SETTINGS_DATE_HEADER_DATE_ID).getText().split(" ");
-            int days =Integer.parseInt(month[1])+1;
+            int days =Integer.parseInt(month[2])+1;
             String sDays = String.valueOf(days);
             if(getObjectByText(sDays).exists()){
                 getUiObjectByClassText(SETTING_DATE_DAY_VIEW_CLASS,sDays).click();
