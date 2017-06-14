@@ -202,8 +202,15 @@ public class AlarmAction extends VP4 {
 
     private void chooseWeek(String week) { //选择周几
         try {
-            getObjectByIdText(ALARM_ID_TEXT_ID, week).click();
-            Thread.sleep(500);
+            if (getObjectByIdText(ALARM_ID_TEXT_ID, week).exists()) {
+                getObjectByIdText(ALARM_ID_TEXT_ID, week).click();
+                Thread.sleep(500);
+            } else {
+                scrollToEnd(10);
+                getObjectByIdText(ALARM_ID_TEXT_ID, week).click();
+                Thread.sleep(500);
+                scrollToBegin(10);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -215,7 +222,6 @@ public class AlarmAction extends VP4 {
         try {
             getObjectById(ALARM_FREQUENCY_FIELD_ID).clickAndWaitForNewWindow();
             if (sunday != null) {
-
                 chooseWeek(sunday);
             }
             if (monday != null) {
@@ -227,7 +233,6 @@ public class AlarmAction extends VP4 {
             if (wednesday != null) {
                 chooseWeek(wednesday);
             }
-            scrollToEnd(10);
             if (thursday != null) {
                 chooseWeek(thursday);
             }
@@ -237,7 +242,6 @@ public class AlarmAction extends VP4 {
             if (saturday != null) {
                 chooseWeek(saturday);
             }
-
             getObjectByTextContains(ALARM_CLICK_CONFIRM_TEXT).clickAndWaitForNewWindow();
         } catch (Exception e) {
             e.printStackTrace();
