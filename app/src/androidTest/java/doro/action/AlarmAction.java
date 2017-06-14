@@ -1,6 +1,8 @@
 package doro.action;
 
 import android.os.RemoteException;
+import android.support.test.uiautomator.UiCollection;
+import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
 
@@ -110,7 +112,27 @@ public class AlarmAction extends VP4 {
         return second + minute * 60 + hour * 60 * 60;
     }
 
+    /*
+    * enable 24 hours
+    * */
+    public void set24hours() {
+        SettingAction setttings = new SettingAction();
+        openAppliction("Settings");
+        setttings.findSettingChildren("Date & time");
+        UiCollection Datelists = new UiCollection(new UiSelector()
+                .resourceId("com.android.settings:id/list"));
+        UiSelector switchs = new UiSelector().resourceId("android:id/switch_widget");
+        try {
+            UiObject hourswitch = Datelists.getChildByInstance(switchs, 2);
+            if (!hourswitch.isChecked())
+                hourswitch.clickAndWaitForNewWindow();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void closeAutoTime() {
+        set24hours();
         VP4.switchToMenuPage();
         try {
             getObjectByText("Set").clickAndWaitForNewWindow();
