@@ -26,6 +26,7 @@ public class PlayStoreAction extends VP4 {
     public static void connectWifi(String name,String password){
         openAppliction(SETTINGS);
         clickByText(WIFI);
+        scrollToBegin(10);
         WifiAction WifiAction=new WifiAction();
         WifiAction.turnOnWifi(true);
         try{
