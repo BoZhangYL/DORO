@@ -608,6 +608,7 @@ public class EmailAction extends VP4 {
             WifiAction WifiAction = new WifiAction();
             openAppliction(WifiPage.SETTINGS);
             clickByText(WifiPage.WIFI);
+            scrollToBegin(10);
             WifiAction.turnOnWifi(true);
             WifiAction.connectWifi("CKT", "ck88888!");
             openAppliction(EmailPage.EMAIL);
