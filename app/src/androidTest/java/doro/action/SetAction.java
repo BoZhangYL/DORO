@@ -193,7 +193,7 @@ public class SetAction extends VP4{
         try{
             String phoneDate =getObjectById(SET_DATE_FILED_ID).getText();
             String[] phoneDates =phoneDate.split("/");
-            int clickY =Integer.valueOf(dates[0]) - Integer.valueOf(phoneDates[2]);
+            int clickY =Integer.valueOf(dates[0]) - Integer.valueOf("20"+phoneDates[2]);
             int clickM =Integer.valueOf(dates[1]) - Integer.valueOf(phoneDates[1]);
             int clickD =Integer.valueOf(dates[2]) - Integer.valueOf(phoneDates[0]);
             getObjectById(SET_DATE_FILED_ID).clickAndWaitForNewWindow();
