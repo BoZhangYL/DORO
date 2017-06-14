@@ -27,6 +27,7 @@ public class DownloadsAction extends VP4 {
 
     public static void downloadFiles(){
         //从wiki上下载文件
+        InternetAction.watchexception();
         try {
             openAppliction(INTERNET);
             UiObject address=getObjectById(INTERNET_SEARCH);
