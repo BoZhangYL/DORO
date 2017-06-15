@@ -620,13 +620,15 @@ public class EmailAction extends VP4 {
                 try {
                     Address.click();
                     Address.setText(EmailPage.EMAIL_ACCOUNT_1);
-                    while (getObjectById("com.doro.apps.email:id/popup").exists()) {
-                        waitTime(2);
+                    int waitimes = 0;
+                    while (getObjectById("com.doro.apps.email:id/popup").exists() && waitimes++ < 100) {
+                        waitTime(5);
                     }
+                    Asst.assertTrue("network error, login account fail!", waitimes >= 100);
                     if (getObjectByText("Personal (POP3)").exists() &&
-                            getObjectByText("Personal (IMAP)").exists()){
+                            getObjectByText("Personal (IMAP)").exists()) {
                         getObjectByText("Personal (POP3)").clickAndWaitForNewWindow();
-                    }else
+                    } else
                         OKButton.clickAndWaitForNewWindow();
                     gDevice.findObject(new UiSelector().resourceId(EmailPage.EMAIL_PASSWORD_INPUT)).click();
                     Password.setText(EmailPage.EMAIL_PASSWORD_1);
