@@ -19,7 +19,7 @@ public class APPMenuPage {
             "QuickSupport",
             "Rec\u200Border",
             "Settings", "SIM Tool Kit",
-            "Timer", "Torch",
+            "Timer", "Flash\u200Blight",
             "Voice Search",
             "Weath\u200Ber",
             "YouTube",
