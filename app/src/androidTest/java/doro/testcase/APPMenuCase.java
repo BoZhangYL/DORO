@@ -435,7 +435,7 @@ public class APPMenuCase extends VP4 {
     }
 
     @Test
-    public void testClickFlashlight() throws UiObjectNotFoundException {
+    public void testClickTorch() throws UiObjectNotFoundException {
         MainAction.clearAllApp();
         MainAction.startApp(APPMenuPage.AppNameList[38]);
         boolean Actual1 = gDevice.getCurrentPackageName().equals(APPMenuAction.getPkgName(38));
