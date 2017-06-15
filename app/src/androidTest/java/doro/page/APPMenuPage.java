@@ -8,7 +8,7 @@ public class APPMenuPage {
     public static String AppNameList[] = {
             "Alarm",
             "Cal\u200Bcu\u200Blator", "Calen\u200Bdar","Camera", "Chrome", "Code safe", "Cont\u200Bacts",
-            "Dock mode", "Doro Connect & Care", "Doro Keyboard ", "Doro Sel\u200Bection", "Downloads", "Drive", "Duo",
+            "Dock mode", "Doro Connect & Care", "Doro Keyboard", "Doro Sel\u200Bection", "Downloads", "Drive", "Duo",
             "Email", "Email",
             "File Manager", "FM Radio",
             "Gall\u200Bery", "Gmail", "Google",
