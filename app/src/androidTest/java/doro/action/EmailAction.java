@@ -26,7 +26,7 @@ public class EmailAction extends VP4 {
             new UiCollection(new UiSelector().resourceId(EmailPage.EMAIL_LIST));
     private static UiSelector Emails = new UiSelector().className(EmailPage.EMAIL_VIEW);
 
-    public static void beforeOperationSentBox(){
+    public static void beforeOperationSentBox() {
         try {
             openAppliction("Settings");
             getObjectByText("Data usage").clickAndWaitForNewWindow();
@@ -45,7 +45,7 @@ public class EmailAction extends VP4 {
         }
     }
 
-    public static void afterOperationSentBox(){
+    public static void afterOperationSentBox() {
         try {
             openAppliction("Settings");
             getObjectByText("Data usage").clickAndWaitForNewWindow();
@@ -63,6 +63,7 @@ public class EmailAction extends VP4 {
             e.printStackTrace();
         }
     }
+
     public static void openWiFiDataUsage() {
 
         try {
@@ -124,7 +125,7 @@ public class EmailAction extends VP4 {
             if (getObjectById("com.doro.apps.email:id/dismiss_icon").exists()) {
                 getObjectById("com.doro.apps.email:id/dismiss_icon").clickAndWaitForNewWindow();
             }
-            gDevice.click(gDevice.getDisplayWidth()/2,gDevice.getDisplayHeight()/2);
+            gDevice.click(gDevice.getDisplayWidth() / 2, gDevice.getDisplayHeight() / 2);
            /* gDevice.findObject(new UiSelector().className("android.view.View")
                     .instance(1))
                     .clickAndWaitForNewWindow();*/
@@ -619,7 +620,14 @@ public class EmailAction extends VP4 {
                 try {
                     Address.click();
                     Address.setText(EmailPage.EMAIL_ACCOUNT_1);
-                    OKButton.clickAndWaitForNewWindow();
+                    while (getObjectById("com.doro.apps.email:id/popup").exists()) {
+                        waitTime(2);
+                    }
+                    if (getObjectByText("Personal (POP3)").exists() &&
+                            getObjectByText("Personal (IMAP)").exists()){
+                        getObjectByText("Personal (POP3)").clickAndWaitForNewWindow();
+                    }else
+                        OKButton.clickAndWaitForNewWindow();
                     gDevice.findObject(new UiSelector().resourceId(EmailPage.EMAIL_PASSWORD_INPUT)).click();
                     Password.setText(EmailPage.EMAIL_PASSWORD_1);
                     OKButton.clickAndWaitForNewWindow();
