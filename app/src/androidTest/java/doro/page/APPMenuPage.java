@@ -24,6 +24,7 @@ public class APPMenuPage {
             "Weath\u200Ber",
             "YouTube",
     };
+
     public static String PkgNameList[]={
             "com.doro.apps.alarm",
             "com.doro.apps.calculator",
