@@ -621,18 +621,25 @@ public class EmailAction extends VP4 {
                     Address.click();
                     Address.setText(EmailPage.EMAIL_ACCOUNT_1);
                     int waitimes = 0;
-                    while (getObjectById("com.doro.apps.email:id/popup").exists() && waitimes++ < 100) {
+                    OKButton.clickAndWaitForNewWindow();
+                    while (getObjectById("com.doro.apps.email:id/popup").exists()) {
                         waitTime(5);
+                        waitimes++;
                     }
-                    Asst.assertTrue("network error, login account fail!", waitimes >= 100);
+                    Asst.assertTrue("network error, login account fail!", waitimes < 100);
                     if (getObjectByText("Personal (POP3)").exists() &&
                             getObjectByText("Personal (IMAP)").exists()) {
                         getObjectByText("Personal (POP3)").clickAndWaitForNewWindow();
-                    } else
-                        OKButton.clickAndWaitForNewWindow();
+                    }
                     gDevice.findObject(new UiSelector().resourceId(EmailPage.EMAIL_PASSWORD_INPUT)).click();
                     Password.setText(EmailPage.EMAIL_PASSWORD_1);
                     OKButton.clickAndWaitForNewWindow();
+                    waitimes = 0;
+                    while (getObjectById("com.doro.apps.email:id/popup").exists()) {
+                        waitTime(5);
+                        waitimes++;
+                    }
+                    Asst.assertTrue("network error, login account fail!", waitimes < 100);
                     gDevice.findObject(new UiSelector().text(EmailPage.EMAIL_INPUT_OK_TEXT)).clickAndWaitForNewWindow();
                     gDevice.findObject(new UiSelector().text(EmailPage.EMAIL_INPUT_OK_TEXT)).clickAndWaitForNewWindow();
                 } catch (UiObjectNotFoundException e) {

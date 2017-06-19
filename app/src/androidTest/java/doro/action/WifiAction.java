@@ -48,35 +48,43 @@ public class WifiAction extends VP4 {
             e.printStackTrace();
         }
         String WifiName = null;
-        String ConnectState = null;
+        //String ConnectState = null;
         //String WiFiSignal = null;
         String nextWifiName = null;
-
         try {
-            for (int i = 0; i < WIFIList.getChildCount(); i++) {
-                UiObject CurrentWifi = WIFIList.getChild(new UiSelector().index(i));
-                String[] wifiDescrption = CurrentWifi.getContentDescription().split(",");
-                WifiName = wifiDescrption[0];
-                //ConnectState = wifiDescrption[1];
-                //WiFiSignal = wifiDescrption[2];
-                if (WifiName.equals(name)) {
-                    ConnectState = wifiDescrption[1];
-                    if (!ConnectState.equals("Connected")) {
-                        clickByText(name);
-                        WifiAction.getPassword(password);//输入密码
-                        clickByText(CONNECT_WIFI);//连接
-                        waitTime(10);
-                        Assert.assertTrue("未能成功连接wifi", getObjectByText(CONNECTED_WIFI).exists());//判断连接是否成功
-                        break;
-                    } else break;
+            while (!(WIFIList.getChildByInstance(new UiSelector().resourceId("android:id/title"),
+                    (WIFIList.getChildCount() - 2)).getText().equals("Add network"))) {
+                for (int i = 0; i < WIFIList.getChildCount(); i++) {
+                    UiObject wifiname = WIFIList.getChildByInstance(new UiSelector().resourceId("android:id/title"), i);
+                    UiObject wifidescrption = WIFIList.getChildByInstance(new UiSelector().resourceId("android:id/summary"), i);
+                    // String[] wifiDescrption = wifidescrption.getContentDescription().split(",");
+                    //WifiName = wifiDescrption[0];
+                    //ConnectState = wifiDescrption[1];
+                    //WiFiSignal = wifiDescrption[2];
+                    if (wifiname.getText().equals(name)) {
+                        getObjectByText(name).clickAndWaitForNewWindow();
+                        if (getObjectById("com.android.settings:id/show_password").exists()) {
+                            WifiAction.getPassword(password);//输入密码
+                            clickByText(CONNECT_WIFI);//连接
+                            waitTime(10);
+                            break;
+                        } else {
+                            getObjectByText("FORGET").clickAndWaitForNewWindow();
+                            getObjectByText(name).clickAndWaitForNewWindow();
+                            WifiAction.getPassword(password);//输入密码
+                            clickByText(CONNECT_WIFI);//连接
+                            waitTime(10);
+                            break;
+                        }
+                    }
                 }
+                if (getObjectByText(CONNECTED_WIFI).exists()) {
+                    break;
+                } else
+                    scrollForward(20);
             }
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
-        }
-        if (!getObjectByText("Add network").exists()) {
-            scrollForward(20);
-            connectWifi(name, password);
         }
         scrollToBegin(10);
         Assert.assertTrue("未能成功连接wifi", getObjectByText(CONNECTED_WIFI).exists());//判断连接是否成功
