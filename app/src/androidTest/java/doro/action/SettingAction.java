@@ -143,6 +143,7 @@ public class SettingAction extends VP4 {
     }
     public void setNextDay(){//设置成下一天
         try{
+            if(getUiObjectByText(SETTINGS_SET_DATE_TEXT).exists())
             getUiObjectByText(SETTINGS_SET_DATE_TEXT).clickAndWaitForNewWindow();
             String[] month = getObjectById(SETTINGS_DATE_HEADER_DATE_ID).getText().split(" ");
             int days =Integer.parseInt(month[2])+1;
@@ -159,6 +160,7 @@ public class SettingAction extends VP4 {
     }
     public void setWeek(String specialWeek){ // 设置到指定星期的日期
         try{
+            if(getUiObjectByText(SETTINGS_SET_DATE_TEXT).exists())
             getUiObjectByText(SETTINGS_SET_DATE_TEXT).clickAndWaitForNewWindow();
             String[] weeks =getObjectById(SETTINGS_DATE_HEADER_DATE_ID).getText().split(",");
             String[] days =getObjectById(SETTINGS_DATE_HEADER_DATE_ID).getText().split(" ");
