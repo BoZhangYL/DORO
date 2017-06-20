@@ -76,7 +76,7 @@ public class APPMenuAction extends VP4 {
             }
             getObjectByText("Apps").clickAndWaitForNewWindow();
             int j = 0;
-            while (!getObjectByText("DORO").exists() && j< 25) {
+            while (!getObjectByText("DORO").exists() && j < 25) {
                 gDevice.swipe(gDevice.getDisplayWidth() / 2, gDevice.getDisplayHeight() * 3 / 4,
                         gDevice.getDisplayWidth() / 2, gDevice.getDisplayHeight() / 2, 20);
                 j++;
@@ -98,7 +98,7 @@ public class APPMenuAction extends VP4 {
         gDevice.registerWatcher("ALLOW", new UiWatcher() {
             @Override
             public boolean checkForCondition() throws UiObjectNotFoundException {
-                if(getObjectByText("ALLOW").exists()){
+                if (getObjectByText("ALLOW").exists()) {
                     getObjectByText("ALLOW").clickAndWaitForNewWindow();
                     return true;
                 }
@@ -106,7 +106,6 @@ public class APPMenuAction extends VP4 {
             }
         });
     }
-
 
 
 }
