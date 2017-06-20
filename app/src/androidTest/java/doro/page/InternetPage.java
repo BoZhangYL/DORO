@@ -172,7 +172,7 @@ public class InternetPage {
     public static final String MAXPAGE_NUMBER_10 = "10";
     public static final String MAXPAGE_NUMBER_20 = "20";
     //设置页面的数量
-    public static final String TheDefaplayPAge_Google = "https://google.com";
+    public static final String TheDefaplayPAge_Google = "https://www.orange.fr";
     //默认页面
 
     public static final String PROMPT_NO_SIM_CARD = "No SIM card";
