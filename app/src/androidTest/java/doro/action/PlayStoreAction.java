@@ -95,7 +95,7 @@ public class PlayStoreAction extends VP4 {
         try {
             getObjectById(PLAYSTORE_SEARCHBOX_ID).clickAndWaitForNewWindow();
             getObjectById(PLAYSTORE_SEARCHBOX_INPUT_ID).setText(Name);
-            getObjectByText("IMDb Movies & TV").clickAndWaitForNewWindow();
+            getObjectByText("Fruite ninja").clickAndWaitForNewWindow();
            // getObjectByClassIndex(PLAYSTORE_SEARCHRESULT_CLASS,0).clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
@@ -108,7 +108,7 @@ public class PlayStoreAction extends VP4 {
             while(getObjectByText("OPEN").exists() && i++<5)
             getObjectByText("OPEN").clickAndWaitForNewWindow();
             waitTime(10);
-            Asst.assertEquals("Download error","com.imdb.mobile",gDevice.getCurrentPackageName());
+            Asst.assertEquals("Download error","com.halfbrick.fruitninjafree",gDevice.getCurrentPackageName());
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
         }
