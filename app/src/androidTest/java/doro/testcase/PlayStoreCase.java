@@ -39,7 +39,7 @@ public class PlayStoreCase extends PlayStoreAction{
     @Test
     public void Case2_testDownloadAndInstallApplication(){
         openAppliction(PLAYSTORE_NAME);
-        downloadAndInstallApp("IMDb");
+        downloadAndInstallApp("Fruit");
         checkInstallApp();
     }
 
