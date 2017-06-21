@@ -166,7 +166,7 @@ public class InternetPage {
     //默认页面选项
     public static final String SET_MAX_OPEN_PAGE_BOX =
             "com.doro.apps.browser:id/picker_btn";
-    //设置最大页面框
+    //设置最大页面框+
     public static final String MAXPAGE_NUMBER_2 = "2";
     public static final String MAXPAGE_NUMBER_5 = "5";
     public static final String MAXPAGE_NUMBER_10 = "10";
