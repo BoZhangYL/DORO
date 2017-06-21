@@ -95,7 +95,7 @@ public class PlayStoreAction extends VP4 {
         try {
             getObjectById(PLAYSTORE_SEARCHBOX_ID).clickAndWaitForNewWindow();
             getObjectById(PLAYSTORE_SEARCHBOX_INPUT_ID).setText(Name);
-            getObjectByText("Fruite ninja").clickAndWaitForNewWindow();
+            getObjectByText("fruit ninja").clickAndWaitForNewWindow();
            // getObjectByClassIndex(PLAYSTORE_SEARCHRESULT_CLASS,0).clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
