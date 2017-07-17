@@ -1,5 +1,6 @@
 package doro.testcase;
 
+import android.content.SyncStatusObserver;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 
@@ -66,7 +67,13 @@ public class NotificationBarCase extends NotificationBarAction {
                 getObjectByText("Wifi").exists()||
                         getUiObjectByText("CKT").exists()||
                         getObjectByText("CK-Test-CTS").exists());
-        Assert.assertTrue("Mobile data Button is displayed incorrectly!",text_exists("No SIM card")||text_exists("No service")||text_exists("CU")||text_exists("CMCC")||text_exists("Emergency Calls Only"));
+        System.out.println(text_exists("No SIM card"));
+        System.out.println(text_exists("No service"));
+        System.out.println(text_exists("CU"));
+        System.out.println(text_exists("CMCC"));
+        System.out.println(text_exists("Emergency Calls Only"));
+
+        Assert.assertFalse("Mobile data Button is displayed incorrectly!",text_exists("No SIM card")||text_exists("No service")||text_exists("CU")||text_exists("CMCC")||text_exists("Emergency Calls Only"));
         Assert.assertTrue("Bluetooth Button is displayed incorrectly!",getObjectByText("Bluetooth").exists());
         Assert.assertTrue("Torch Button is displayed incorrectly!",getObjectByText("Torch").exists());
         Assert.assertTrue("Airplane mode Button is displayed incorrectly!",getObjectByText("Aeroplane mode").exists());
