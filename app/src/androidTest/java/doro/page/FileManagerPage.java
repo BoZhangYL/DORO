@@ -10,7 +10,7 @@ public class FileManagerPage {
     //手机内存的Text
     public static final String FILEMANAGER_SHARED_STORAGE_TEXT="Internal shared storage";
     //SD卡内存的Text
-    public static final String FILEMANAGER_SD_CARD_TEXT ="SD card";
+    public static final String FILEMANAGER_SD_CARD_TEXT ="SanDisk SD card";
     //选择文件夹
     public static final String FILEMANAGER_SELECT_FILE_TEXT="Select file or folder";
     //文件详情
