@@ -202,6 +202,7 @@ public class InternetAction extends VP4 {
         Asst.assertTrue("分享Android Beam按钮不存在", ShareByBeam.exists());
         Asst.assertTrue("分享Copy to clipboard按钮不存在", ShareByCopy.exists());
         Asst.assertTrue("分享Gail按钮不存在", ShareByGmail.exists());
+        scrollToEnd(20);
         Asst.assertTrue("分享Drive按钮不存在", ShareByDrive.exists());
     }
 
