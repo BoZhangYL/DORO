@@ -520,7 +520,7 @@ public class GalleryAction extends VP4 {
         clickDisplayOption();
         clickAndWaitForNewWindowByText(GalleryPage.GALLERYSETTINGS_DISPLAY_MYGALLERY);
         if (scr.exists()) {
-            scrollToBegin(20);
+            scrollToBegin(5);
         }
     }
 
@@ -539,9 +539,11 @@ public class GalleryAction extends VP4 {
         clickDisplayOption();
         clickAndWaitForNewWindowByText(GalleryPage.GALLERYSETTINGS_DISPLAY_ALLPICTURES);
         if (scr.exists()) {
-            scrollToBegin(20);
+            scrollToEnd(5);
         }
+
     }
+
 
     /*
     * 检查All Pictures显示
