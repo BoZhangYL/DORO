@@ -520,7 +520,7 @@ public class GalleryAction extends VP4 {
         clickDisplayOption();
         clickAndWaitForNewWindowByText(GalleryPage.GALLERYSETTINGS_DISPLAY_MYGALLERY);
         if (scr.exists()) {
-            scrollToBegin(5);
+            scrollToBegin(20);
         }
     }
 
@@ -539,7 +539,7 @@ public class GalleryAction extends VP4 {
         clickDisplayOption();
         clickAndWaitForNewWindowByText(GalleryPage.GALLERYSETTINGS_DISPLAY_ALLPICTURES);
         if (scr.exists()) {
-            scrollToEnd(5);
+            scrollToBegin(20);
         }
 
     }
