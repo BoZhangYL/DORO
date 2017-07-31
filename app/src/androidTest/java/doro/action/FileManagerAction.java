@@ -84,7 +84,7 @@ public class FileManagerAction extends VP4 {
                 getObjectByIdText(FILEMANAGER_EDIT_ADAPTER_NAME_ID,FILEMANAGER_SD_CARD_TEXT).clickAndWaitForNewWindow();
                 pressKey("back");
             }
-            Assert.assertTrue("SD card  don't exist",sd);
+            Assert.assertTrue("SanDisk SD card  don't exist",sd);
         }catch(Exception e){e.printStackTrace();}
     }
     public void findDetails(String Filepath){ //找到一个文件夹的详细信息

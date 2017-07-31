@@ -744,11 +744,11 @@ public class GalleryAction extends VP4 {
                     }
                     String reverseName = new StringBuffer(name).reverse().toString();
                     String[] splitName = reverseName.split("\\.");
-                    if (splitName[0].equals("gpj") || splitName[0].equals("gnp") ||
-                            splitName[0].equals("fig") || splitName[0].equals("pmb")) {
+                    if (splitName[0].equals("jpg") || splitName[0].equals("png") ||
+                            splitName[0].equals("gif") || splitName[0].equals("bmp")) {
                         PictureNames[PictureNumber++] = name;
                     }
-                    if (splitName[0].equals("4pm") || splitName[0].equals("pg3")) {
+                    if (splitName[0].equals("mp4") || splitName[0].equals("3gp")) {
                         VideoNames[VideoNumber++] = name;
                     }
                     if (GridView.getChildByInstance(IconLabel, i).getChildCount() == 3) {
